@@ -1,7 +1,11 @@
 {
   "format_version":1,
-  "update":{
-    "versionCode":1,
-    "force":true
-  }
+  "Code": 0,
+  "force": false,
+  "VersionCode": 1,
+  "VersionName": "1.0.0",
+  "ModifyContent": "",
+  "DownloadUrl": "",
+  "ApkSize": 0,
+  "ApkMd5": ""
 }
