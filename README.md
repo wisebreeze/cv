@@ -1,2 +1,2 @@
-# CubeNext
-CubeNext 是一个以用户为核心的优秀 Minecraft UI 资源包，新版本的 CubeNext 为用户体验带来了更大的提升。
+# 立方之窗
+这里是 立方之窗 的官网，您可以 [点击这里](cubenext.netlify.app) 访问
