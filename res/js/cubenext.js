@@ -167,7 +167,7 @@ function pathToRegexp(path, matchKeys = [], matchOptions = {}) {
   return new RegExp(regexpStr, flags);
 }
 function BrowserRouter({children:routers,errorComponent}){
-  return routers.find(r=>pathToRegexp(window.location.pathname).exec(r.props.path))||errorComponent
+  return routers.find(r=>pathToRegexp(window.location.pathname).exec(r.props.path))||Cube.c(Cube.router,{component:errorComponent})
 }
 
 const
@@ -182,10 +182,11 @@ useID=p=>p||'id_'+Date.now(),fragment=c=>c,
 sleep=d=>{for(var t=Date.now();Date.now()-t<=d;){}};
 window.addEventListener("hashchange",()=>{forceUpdate()});
 document.addEventListener('click', e => {
-  if (e.target.matches('a')) {
+  if (typeof e.target.href === "string") {
     e.preventDefault();
-    const link=new URL(e.target.href).hostname;
-    link===window.location.hostname?forceUpdate():window.location.href=e.target.href;
+    const url=new URL(e.target.getAttribute("href"),window.location.origin);
+    if(url.hostname===window.location.hostname){history.pushState(null,null,url.pathname+url.search+url.hash);forceUpdate()}
+    else window.location.href=url.href;
   }
 });
 window.Cube={c:createElement,root,useState,useReducer,useEffect,forceUpdate,useID,router,transition,fragment,sleep,useMemo,useCallback,useRef,passRef,createContext,useContext,BrowserRouter}})()

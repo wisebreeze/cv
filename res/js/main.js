@@ -31,8 +31,18 @@ function home(){
     )
   )
 }
+function errorScreen(){
+  return Cube.c(Cube.fragment,null,
+    Cube.c(topBar),
+    Cube.c("div",{id:"content",className:"ns",style:{position:"fixed",top:"50%",left:"50%",transform:"translate(-50%, -50%)",textAlign:"center"}},
+      Cube.c("div",{style:{fontSize:"32px"}},"404"),
+      Cube.c("div",{style:{fontSize:"15px",marginTop:"4px"}},"该页面不存在"),
+      Cube.c("mdui-button",{href:"/",style:{marginTop:"8px"}},"返回首页")
+    )
+  )
+}
 function App(){
-  return Cube.c(Cube.BrowserRouter,null,
+  return Cube.c(Cube.BrowserRouter,{errorComponent:errorScreen},
     Cube.c(Cube.router,{path:"/",component:home}),
   );
 }
