@@ -172,21 +172,24 @@ function BrowserRouter({children:routers,errorComponent}){
 
 const
 passRef=fn=>p=>{const{ref,...P}=p;return fn(P,ref)},
-useRef=initial=>Cube.useMemo(()=>({current:initial}),[]),
+useRef=initial=>({current:initial})/*initial=>Cube.useMemo(()=>({current:initial}),[])*/,
 useCallback=(c,d)=>useMemo(()=>c,d),
 useMemo=(c,d)=>{let f=wipFiber,h=getHook(),isChange=d?(h&&h.input||[]).some((v,i)=>v!==d[i]):true,H={tag:"MEMO",fn:c,input:d},isMounted=h&&h.isMounted;if(d&&d.length===0){isChange=true;H.isMounted=true};f.hooks.push(H);hookIndex++;return(isChange&&!isMounted)?(H.memo=c()):h&&h.memo},
 transition=({children,className,timeout,in:In})=>Cube.c("transition",{style:{transition:`all ${timeout}ms`},transition:className,In,timeout},children),
 router=({path,component,transition,props})=>{let ts=transition&&{style:{transition:`all ${transition.timeout}ms`},timeout:transition.timeout,In:transition.in,timeout:transition.timeout,transition:transition.className};return Cube.c("router",ts,Cube.c(component,props))},
 forceUpdate=()=>{wipRoot={dom:currentRoot.dom,props:currentRoot.props,alternate:currentRoot};nextUnitOfWork=wipRoot;deletions=[]},
 useID=p=>p||'id_'+Date.now(),fragment=c=>c,
-sleep=d=>{for(var t=Date.now();Date.now()-t<=d;){}};
+sleep=d=>{for(var t=Date.now();Date.now()-t<=d;){}},
+skipRouter=path=>{history.pushState(null,null,path);forceUpdate()};
 window.addEventListener("hashchange",()=>{forceUpdate()});
+window.addEventListener('pushstate', function(e){forceUpdate()});
+window.addEventListener('popstate', function(e){forceUpdate()});
 document.addEventListener('click', e => {
   if (typeof e.target.href === "string") {
     e.preventDefault();
     const url=new URL(e.target.getAttribute("href"),window.location.origin);
-    if(url.hostname===window.location.hostname){history.pushState(null,null,url.pathname+url.search+url.hash);forceUpdate()}
+    if(url.hostname===window.location.hostname){skipRouter(url.pathname+url.search+url.hash)}
     else window.location.href=url.href;
   }
 });
-window.Cube={c:createElement,root,useState,useReducer,useEffect,forceUpdate,useID,router,transition,fragment,sleep,useMemo,useCallback,useRef,passRef,createContext,useContext,BrowserRouter}})()
+window.Cube={c:createElement,root,useState,useReducer,useEffect,forceUpdate,useID,router,transition,fragment,sleep,useMemo,useCallback,useRef,passRef,createContext,useContext,BrowserRouter,skipRouter}})()
