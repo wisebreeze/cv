@@ -80,7 +80,7 @@ function topBar({title}){
 }
 
 // index
-function indexScreen(){
+function navScreen(){
   const dialog = useRef();
   const nextBtn = useRef();
   const nameInput = useRef();
@@ -141,7 +141,7 @@ function itemScreen(){
       closeOnEsc:true,closeOnOverlayClick:true,
       actions:[
         {text:"取消"},
-        {text:"退出",onClick:function(){window.removeEventListener('beforeunload',confirmExit);Cube.skipRouter("/index")}}
+        {text:"退出",onClick:function(){window.removeEventListener('beforeunload',confirmExit);Cube.skipRouter("/nav")}}
       ]
     })
   }
@@ -283,7 +283,7 @@ function errorScreen(){
 function App(){
   return Cube.c(Cube.fragment,null,Cube.c(topBar),Cube.c(Cube.BrowserRouter,{errorComponent:errorScreen},
     Cube.c(Cube.router,{path:"/",component:home}),
-    Cube.c(Cube.router,{path:"/index",component:indexScreen}),
+    Cube.c(Cube.router,{path:"/nav",component:navScreen}),
     Cube.c(Cube.router,{path:"/item",component:itemScreen}),
     Cube.c(Cube.router,{path:"/music",component:musicScreen}),
   ));
