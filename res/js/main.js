@@ -122,9 +122,9 @@ function navScreen(){
 }
 
 // itemScreen
-function bottomBtn({leftFn,rightFn,leftText,rightText}){
+function bottomBtn({leftFn,rightFn,leftText,rightText,leftBtn}){
   return Cube.c("div",{style:"position: fixed;bottom: 0;display:flex;width: 100%"},
-    Cube.c("mdui-button",{onClick:leftFn,style:"width:50%;margin-bottom:5px;margin-right:5px;box-sizing:border-box;width:calc(50% - 10px);",variant:"outlined"},leftText),
+    leftBtn?leftBtn:Cube.c("mdui-button",{onClick:leftFn,style:"width:50%;margin-bottom:5px;margin-right:5px;box-sizing:border-box;width:calc(50% - 10px);",variant:"outlined"},leftText),
     Cube.c("mdui-button",{onClick:rightFn,style:"width:50%;margin-bottom:5px;box-sizing:border-box;width:calc(50% - 10px)",variant:"filled"},rightText)
   )
 }
@@ -157,6 +157,7 @@ function itemScreen(){
     })
   }
   function toMusic(){Cube.skipRouter("/music")}
+  //function toBg(){Cube.skipRouter("/bg")}
   function card({icon,title,onClick}){
     const coming_soon = function(){mdui.snackbar({message:"敬请期待",closeable:true,autoCloseDelay:3000,closeOnOutsideClick:true,placement:"top"})}
     return Cube.c("mdui-card",{onClick:onClick||coming_soon,style:"box-sizing:border-box;width:calc(50% - 10px);padding:10px;margin:5px;height:90px",clickable:"clickable"},
@@ -180,6 +181,29 @@ function itemScreen(){
   )
 }
 
+// bgScreen
+function bgScreen(){
+  var uploadFile=useRef(),video=useRef();
+  var videoHandle=function(e){
+    var file=e.target.files[0];
+    if(file.type.match('video/mp4')){
+      video.current.src=URL.createObjectURL(file)
+    }
+  }
+  var save=function(){Cube.skipRouter("/item")}
+  var allowDrop=function(a){a.preventDefault()},handleClickOrDrop=function(a,b){a.preventDefault();var c,d=b.current;if('drop'===a.type)c=a.dataTransfer.files,d.files=c;else if('click'===a.type)return void d.click()};
+  var leftBtn=Cube.c("mdui-button",{onClick:e=>handleClickOrDrop(e,uploadFile),ondrop:e=>handleClickOrDrop(e,uploadFile),ondragover:allowDrop,style:"width:50%;margin-bottom:5px;margin-right:5px;box-sizing:border-box;width:calc(50% - 10px);",variant:"outlined"},"上传");
+  return Cube.c(Cube.fragment,null,
+    Cube.c("div",{id:"content",className:"ns mdui-container"},
+      Cube.c("h1",null,"背景"),
+      Cube.c("p",null,"你可以点击上传按钮上传视频，点击保存按钮后即可制作动态背景"),
+      Cube.c("input",{attr:{type:"file"},onChange:videoHandle,ref:uploadFile,style:"display:none"}),
+      Cube.c("video",{attr:{controls:"controls"},ref:video,style:"margin-top:5px;width:100%"})
+    ),
+    Cube.c(bottomBtn,{leftBtn:leftBtn,rightFn:save,leftText:"上传",rightText:"保存"})
+  )
+}
+
 // musicScreen
 function musicScreen(){
   var musicName=useRef(),musicAuthor=useRef(),addBtn=useRef(),dialog=useRef(),musicFile=useRef(),coverFile=useRef();
@@ -190,7 +214,7 @@ function musicScreen(){
   if(setting.content===null)setting.content=`{"customAlbum@cn80b37451.f":{"$listContent":[]}}`;
   var setJson = JSON.parse(setting.content)
   var soundsDef = findFileByName(fileStructure,"sound_definitions.json");
-  if(soundsDef.content===null)soundsDef.content=`{"cube.music.custom":{"sounds":[]}}`;
+  if(soundsDef.content===null)soundsDef.content=`{"cube.music.custom":{"category":"ui","sounds":[]}}`;
   var soundsDefJson = JSON.parse(soundsDef.content)
 
   var item = setJson["customAlbum@cn80b37451.f"]["$listContent"];
@@ -210,8 +234,8 @@ function musicScreen(){
         }
         reader.readAsArrayBuffer(coverFiles[0])
       }
-      soundsDefJson[oggID]={sounds:[{name:oggPath,load_on_low_memory:true}]}
-      soundsDefJson["cube.music.custom"].sounds.push({name:oggPath,load_on_low_memory:true})
+      soundsDefJson[oggID]={category:"ui",sounds:[{name:oggPath.slice(0,oggPath.lastIndexOf(".")),load_on_low_memory:true,volume:0.5}]}
+      soundsDefJson["cube.music.custom"].sounds.push({name:oggPath.slice(0,oggPath.lastIndexOf(".")),load_on_low_memory:true,volume:0.5})
       soundsDef.content=JSON.stringify(soundsDefJson)
       audio.src=URL.createObjectURL(blob);
       audio.addEventListener('loadedmetadata',function(){
@@ -227,7 +251,7 @@ function musicScreen(){
     fileReader.readAsArrayBuffer(musicFile.current.files[0]);
   };
   var deleteMusic=i=>{
-    var firstKeys=Object.keys(item[i]),musicID=item[i][firstKeys]["$music_id"],coverPath=item[i][firstKeys]["$music_cover"],soundsDef=fileRead("sounds/sound_definitions.json"),soundsDefJson=JSON.parse(soundsDef.content),oggPath=soundsDefJson[musicID]["sounds"][0]["name"];item.splice(i,1),
+    var firstKeys=Object.keys(item[i]),musicID=item[i][firstKeys]["$music_id"],coverPath=item[i][firstKeys]["$music_cover"],soundsDef=fileRead("sounds/sound_definitions.json"),soundsDefJson=JSON.parse(soundsDef.content),oggPath=soundsDefJson[musicID]["sounds"][0]["name"]+".ogg";item.splice(i,1),
     coverPath!==''&&deleteFile("textures",coverPath.slice(coverPath.lastIndexOf('/')+1)),deleteFile("sounds",oggPath.slice(oggPath.lastIndexOf('/')+1)),setting.content=JSON.stringify(setJson),soundsDefJson["cube.music.custom"].sounds.splice(i,1),delete soundsDefJson[musicID],soundsDef.content=JSON.stringify(soundsDefJson),Cube.forceUpdate()
   }
   var save = function(){Cube.skipRouter("/item")}
@@ -286,6 +310,7 @@ function App(){
     Cube.c(Cube.router,{path:"/nav",component:navScreen}),
     Cube.c(Cube.router,{path:"/item",component:itemScreen}),
     Cube.c(Cube.router,{path:"/music",component:musicScreen}),
+    Cube.c(Cube.router,{path:"/bg",component:bgScreen}),
   ));
 }
 document.addEventListener("DOMContentLoaded",function(){
