@@ -313,6 +313,7 @@ function App(){
     Cube.c(Cube.router,{path:"/bg",component:bgScreen}),
   ));
 }
+if(window.location.href.startsWith("https://wisebreeze.github.io")){Cube.setInitialPath("cv/")}
 document.addEventListener("DOMContentLoaded",function(){
   const container = document.getElementById("app")
   Cube.root(App,container)

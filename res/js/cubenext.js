@@ -65,7 +65,7 @@ const
 commitDeletion=(f,p)=>{if(f.dom)p.removeChild(f.dom);else commitDeletionAll(f.child,p)},
 commitDeletionAll=(f,p)=>{while(f){if(f.dom)p.removeChild(f.dom);else commitDeletionAll(f.child,p);f=f.sibling}},
 root=(el,c)=>{wipRoot={dom:c,props:{children:[typeof el=="function"?Cube.c(el,null):el]},alternate:currentRoot};deletions=[];nextUnitOfWork=wipRoot};
-let nextUnitOfWork=null,currentRoot=null,wipRoot=null,deletions=null,wipFiber=null,hookIndex=null,lastIdleTime=0,routerHistory=[];
+let nextUnitOfWork=null,currentRoot=null,wipRoot=null,deletions=null,wipFiber=null,hookIndex=null,lastIdleTime=0,routerHistory=[],initialPath='';
 
 function workLoop(dl){if(lastIdleTime-dl.timeStamp>MAX_TIME){nextUnitOfWork=null;wipRoot=null;return}let yi=false;while(nextUnitOfWork&&!yi){nextUnitOfWork=performUnitOfWork(nextUnitOfWork);lastIdleTime=dl.timeStamp;yi=dl.timeRemaining()<1}if(!nextUnitOfWork&&wipRoot)commitRoot();requestIdleCallback(workLoop)}
 requestIdleCallback(workLoop)
@@ -167,10 +167,11 @@ function pathToRegexp(path, matchKeys = [], matchOptions = {}) {
   return new RegExp(regexpStr, flags);
 }
 function BrowserRouter({children:routers,errorComponent}){
-  return routers.find(r=>pathToRegexp(window.location.pathname).exec(r.props.path))||Cube.c(Cube.router,{component:errorComponent})
+  return routers.find(r=>pathToRegexp(window.location.pathname.slice(initialPath.length)).exec(r.props.path))||Cube.c(Cube.router,{component:errorComponent})
 }
 
 const
+setInitialPath=path=>initialPath=path,
 passRef=fn=>p=>{const{ref,...P}=p;return fn(P,ref)},
 useRef=initial=>({current:initial})/*initial=>Cube.useMemo(()=>({current:initial}),[])*/,
 useCallback=(c,d)=>useMemo(()=>c,d),
@@ -184,12 +185,5 @@ skipRouter=path=>{history.pushState(null,null,path);forceUpdate()};
 window.addEventListener("hashchange",()=>{forceUpdate()});
 window.addEventListener('pushstate', function(e){forceUpdate()});
 window.addEventListener('popstate', function(e){forceUpdate()});
-document.addEventListener('click', e => {
-  if (typeof e.target.href === "string") {
-    e.preventDefault();
-    const url=new URL(e.target.getAttribute("href"),window.location.origin);
-    if(url.hostname===window.location.hostname){skipRouter(url.pathname+url.search+url.hash)}
-    else window.location.href=url.href;
-  }
-});
+document.addEventListener('click',e=>{if(typeof e.target.href === "string"){e.preventDefault();const url=new URL(e.target.getAttribute("href"),window.location.origin);if(url.hostname===window.location.hostname){skipRouter(url.pathname+url.search+url.hash)}else window.location.href=url.href}});
 window.Cube={c:createElement,root,useState,useReducer,useEffect,forceUpdate,useID,router,transition,fragment,sleep,useMemo,useCallback,useRef,passRef,createContext,useContext,BrowserRouter,skipRouter}})()
