@@ -186,4 +186,4 @@ window.addEventListener("hashchange",()=>{forceUpdate()});
 window.addEventListener('pushstate', function(e){forceUpdate()});
 window.addEventListener('popstate', function(e){forceUpdate()});
 document.addEventListener('click',e=>{if(typeof e.target.href === "string"){e.preventDefault();const url=new URL(e.target.getAttribute("href"),window.location.origin);if(url.hostname===window.location.hostname){skipRouter(url.pathname+url.search+url.hash)}else window.location.href=url.href}});
-window.Cube={c:createElement,root,useState,useReducer,useEffect,forceUpdate,useID,router,transition,fragment,sleep,useMemo,useCallback,useRef,passRef,createContext,useContext,BrowserRouter,skipRouter}})()
+window.Cube={c:createElement,root,useState,useReducer,useEffect,forceUpdate,useID,router,transition,fragment,sleep,useMemo,useCallback,useRef,passRef,createContext,useContext,BrowserRouter,skipRouter,setInitialPath}})()
