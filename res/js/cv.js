@@ -181,7 +181,7 @@ router=({path,component,transition,props})=>{let ts=transition&&{style:{transiti
 forceUpdate=()=>{wipRoot={dom:currentRoot.dom,props:currentRoot.props,alternate:currentRoot};nextUnitOfWork=wipRoot;deletions=[]},
 useID=p=>p||'id_'+Date.now(),fragment=c=>c,
 sleep=d=>{for(var t=Date.now();Date.now()-t<=d;){}},
-skipRouter=path=>{history.pushState(null,null,path);forceUpdate()};
+skipRouter=path=>{history.pushState(null,null,initialPath+path);forceUpdate()};
 window.addEventListener("hashchange",()=>{forceUpdate()});
 window.addEventListener('pushstate', function(e){forceUpdate()});
 window.addEventListener('popstate', function(e){forceUpdate()});

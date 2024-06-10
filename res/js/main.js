@@ -313,7 +313,7 @@ function App(){
     cv.c(cv.router,{path:"/bg",component:bgScreen}),
   ));
 }
-if(window.location.href.startsWith("https://wisebreeze.github.io")){cv.setInitialPath("cv/")}
+if(window.location.href.startsWith("https://wisebreeze.github.io")){cv.setInitialPath("/cv")}
 document.addEventListener("DOMContentLoaded",function(){
   const container = document.getElementById("app")
   cv.root(App,container)
