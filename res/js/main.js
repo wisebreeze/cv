@@ -3,7 +3,8 @@ mdui.setColorScheme("#778BFF");
 var data = localStorage.getItem('themeType');
 typeof data == "string"&&mdui.setTheme(data);
 var saveAs=saveAs||"undefined"!=typeof navigator&&navigator.msSaveOrOpenBlob&&navigator.msSaveOrOpenBlob.bind(navigator)||function(a){if("undefined"==typeof navigator||!/MSIE [1-9]\./.test(navigator.userAgent)){var b=a.document,c=function(){return a.URL||a.webkitURL||a},d=a.URL||a.webkitURL||a,e=b.createElementNS("http://www.w3.org/1999/xhtml","a"),f=!a.externalHost&&"download"in e,g=a.webkitRequestFileSystem,h=a.requestFileSystem||g||a.mozRequestFileSystem,i=function(b){(a.setImmediate||a.setTimeout)(function(){throw b},0)},j="application/octet-stream",k=0,l=[],m=function(){for(var a,b=l.length;b--;)a=l[b],"string"==typeof a?d.revokeObjectURL(a):a.remove();l.length=0},n=function(a,b,c){var d,e;for(b=[].concat(b),d=b.length;d--;)if(e=a["on"+b[d]],"function"==typeof e)try{e.call(a,c||a)}catch(f){i(f)}},o=function(d,i){var m,o,p,q,r=this,s=d.type,t=!1,u=function(){var a=c().createObjectURL(d);return l.push(a),a},v=function(){n(r,"writestart progress write writeend".split(" "))},w=function(){(t||!m)&&(m=u(d)),o?o.location.href=m:window.open(m,"_blank"),r.readyState=r.DONE,v()},x=function(a){return function(){return r.readyState!==r.DONE?a.apply(this,arguments):void 0}},y={create:!0,exclusive:!1};return r.readyState=r.INIT,i||(i="download"),f?(m=u(d),b=a.document,e=b.createElementNS("http://www.w3.org/1999/xhtml","a"),e.href=m,e.download=i,q=b.createEvent("MouseEvents"),q.initMouseEvent("click",!0,!1,a,0,0,0,0,0,!1,!1,!1,!1,0,null),e.dispatchEvent(q),r.readyState=r.DONE,v(),void 0):(a.chrome&&s&&s!==j&&(p=d.slice||d.webkitSlice,d=p.call(d,0,d.size,j),t=!0),g&&"download"!==i&&(i+=".download"),(s===j||g)&&(o=a),h?(k+=d.size,h(a.TEMPORARY,k,x(function(a){a.root.getDirectory("saved",y,x(function(a){var b=function(){a.getFile(i,y,x(function(a){a.createWriter(x(function(b){b.onwriteend=function(b){o.location.href=a.toURL(),l.push(a),r.readyState=r.DONE,n(r,"writeend",b)},b.onerror=function(){var a=b.error;a.code!==a.ABORT_ERR&&w()},"writestart progress write abort".split(" ").forEach(function(a){b["on"+a]=r["on"+a]}),b.write(d),r.abort=function(){b.abort(),r.readyState=r.DONE},r.readyState=r.WRITING}),w)}),w)};a.getFile(i,{create:!1},x(function(a){a.remove(),b()}),x(function(a){a.code===a.NOT_FOUND_ERR?b():w()}))}),w)}),w),void 0):(w(),void 0))},p=o.prototype,q=function(a,b){return new o(a,b)};return p.abort=function(){var a=this;a.readyState=a.DONE,n(a,"abort")},p.readyState=p.INIT=0,p.WRITING=1,p.DONE=2,p.error=p.onwritestart=p.onprogress=p.onwrite=p.onabort=p.onerror=p.onwriteend=null,a.addEventListener("unload",m,!1),q.unload=function(){m(),a.removeEventListener("unload",m,!1)},q}}("undefined"!=typeof self&&self||"undefined"!=typeof window&&window||this.content);
-var {useState,useEffect,useRef} = cv;
+var {useState,useEffect,useRef} = cv,
+collapse=useRef()
 
 var fileStructure = [
   {
@@ -29,7 +30,7 @@ var fileStructure = [
       {
         type: 'file',
         name: '_global_variables.json',
-        content: null
+        content: `{"$cube_custom_boolean":true,"$cube_custom_from_website":true}`
       }
     ]
   },
@@ -48,8 +49,59 @@ var fileStructure = [
     name: 'pack_icon.png',
     content: null
   },
-];
+],
+varObj=[
+{title:"HUD 屏幕",content:[
+  {name:"快捷栏选定颜色动画",id:"daf3c18e"},
+  {name:"圆角快捷栏",id:"f51d10b7",def:!0},
+  {name:"侧边记分板分数",id:"838534a8",def:!0},
+  {name:"折叠附魔信息",id:"bac1d62e"},0,
+  {name:"隐藏 HUD",id:"ecf4b741",def:!0},
+  {name:"隐藏 HUD 提示",id:"13564f64",def:!0},
+  {name:"HUD 提示时长",id:"269a8a99",def:3.5,type:"textField"},
+  {name:"始终显示快捷栏",desc:"隐藏Hud时，始终显示快捷栏",id:"f89237ba"},0,
+  {name:"聊天栏消息显示条数",id:"706f8519",def:8,round:!0,type:"textField"},0,
+  {name:"环境渲染",id:"352b190b",def:!0},
+  {name:"触屏圆圈进度",id:"7b5039a2",def:!0},0,
+  {name:"信息显示位置",id:"83f6db8f",def:1,type:"dropdown",items:["顶部","底部"]},
+  {name:"耐久样式",id:"fb27fdf6",def:0,type:"dropdown",items:["百分比","详细"]},
+  {name:"物品数量",id:"c827079b",def:!0},
+  {name:"物品 ID",id:"d0c8872c"},
+  {name:"物品数据值",id:"506d4838",desc:"需启用“物品 ID”"},
+  {name:"耐久",id:"41dd8cd4",def:!0},
+  {name:"辅助物品",id:"b21e18db",def:!0},
+  {name:"追溯指针",id:"ef309951",desc:"需启用“辅助物品”，低于1.19版本不要开启"},0,
+  {name:"辅助准心",id:"089fd192",def:!0},
+  {name:"无条件显示",id:"78743dd4",desc:"需启用“辅助准心”"},0,
+  {name:"地图",id:"af0089db",desc:"仅中国版可用"},
+  {name:"大小",id:"8d09f184",def:[32,32],type:"size"},
+  {name:"实时更新",id:"d6b5a438",def:!0},
+  {name:"实时更新间隔",id:"eb035ece",def:3,round:!0,type:"textField"}
+]},{title:"背包和容器",content:[
+  {name:"始终快速移动",id:"a4709548"},
+  {name:"控制物品数量",id:"bf7db8a5",def:!0},
+  {name:"显示飞行物品",id:"894d44d5",def:!0},
+  {name:"是否双击一键合成",id:"40fac462",def:!0},
+  {name:"过滤物品",id:"32686c12",desc:"⚠️ 开发中",def:!0},
+  {name:"受伤时关闭容器",id:"7c333392",def:!0},
+  {name:"物品 AUX ID",id:"5b8cc68e"},
+  {name:"选择数量",id:"ded3a8c5",def:!0},0,
+  {name:"帮助",id:"dfcffcc5",def:!0},
+  {name:"增强酿造指南",id:"04d7ac52"},0,
+  {name:"连锁移动",id:"70a9fab5"},
+  {name:"默认连锁移动",id:"b6cb0c61",def:!0},
+  {name:"快捷栏连锁移动",id:"c7e25550"},
+  {name:"禁用连锁丢弃",id:"ca15dac8",def:!0},0,
+  {name:"显示盔甲值",id:"099671d2",desc:"⚠️ 开发中",def:!0}
+]},{title:"隐私",content:[
+  {name:"玩家名称",id:"b83676b3",def:!0},
+  {name:"坐标",id:"e4a7ac08",def:!0}
+]}];
+window.varObj=varObj;
+window.fileStructure=fileStructure;
 let projectName="",projectDesc="";
+function arraysEqual(arr1,arr2){if(!Array.isArray(arr1)&&!Array.isArray(arr2))return arr1===arr2;if(arr1.length!==arr2.length)return false;return arr1.every((v,i)=>v===arr2[i])}
+function mergeObjects(){return Array.from(arguments).reduce((target,source)=>(Object.keys(source).forEach(key=>target[key]=source[key]),target),{})}
 function deleteEmpty(e){for(var t=e.length-1;t>=0;t--){var l=e[t];"folder"===l.type?(deleteEmpty(l.children),0===l.children.length&&e.splice(t,1)):"file"!==l.type||l.content&&""!==l.content||e.splice(t,1)}}
 function deleteFile(r,e){var t=r.split("/"),n=fileStructure,i=!0,f=!1,o=void 0;try{for(var l,u=t[Symbol.iterator]();!(i=(l=u.next()).done);i=!0)!function(){var r=l.value,e=n.find(function(e){return"folder"===e.type&&e.name===r});if(!e)throw new Error("the path does not exist");n=e.children}()}catch(r){f=!0,o=r}finally{try{!i&&u.return&&u.return()}finally{if(f)throw o}}var a=n.findIndex(function(r){return"file"===r.type&&r.name===e});if(-1===a)throw new Error("the file does not exist");n.splice(a,1)}
 function fileRead(n){for(var r=n.split("/"),t=fileStructure,e=0;e<r.length;e++)!function(e){var i=r[e];if(!i)return"continue";var o=t.find(function(n){return n.name===i});if(!o)throw new Error("Path "+n+" not found");if(!(t=o.children||o))throw new Error("Path "+n+" not found")}(e);if(null!==t.content||null!==t.children)return t;throw new Error("Invalid path "+n)}
@@ -59,6 +111,8 @@ function addFilesToZip(folder,zip){folder.forEach(item=>{if(item.type==='file'){
 function downloadZip(a){const b=new JSZip;addFilesToZip(a,b),b.generateAsync({type:"blob"}).then(function(a){saveAs(a,projectName||"立方之窗_自定义包")})}
 function fetchImage(url,callback){fetch(url).then(response=>response.blob()).then(blob=>{const icon=fileStructure.find(item=>item.name==='pack_icon.png');if(icon)icon.content=blob;if(typeof callback==='function')callback(blob);}).catch(error=>console.error('Fetching image failed:',error));}
 function get_uuid(){var a=(new Date).getTime();return window.performance&&"function"==typeof window.performance.now&&(a+=performance.now()),"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(b){var c=0|(a+16*Math.random())%16;return a=Math.floor(a/16),("x"==b?c:8|3&c).toString(16)})}
+function debounce(func,delay){let timerId;return function(){const context=this;const args=arguments;clearTimeout(timerId);timerId=setTimeout(function(){func.apply(context,args);},delay)}}
+function throttle(func,interval){let lastTime=0;return function(...args){const now=Date.now();if(now-lastTime>=interval){lastTime=now;func.apply(this,args)}}}
 
 function topBar({title}){
   const [theme,setTheme] = useState(localStorage.getItem('themeType'));
@@ -93,13 +147,17 @@ function navScreen(){
   const descInput = function(e){projectDesc=e.target.inputRef.value.value;}
   const next = function(){
     fetchImage("/res/image/icon.png");
-    let manifest=fileStructure.find(item=>item.name==='manifest.json');
-    let manifestJSON=JSON.parse(manifest.content);
+    let manifest=fileStructure.find(item=>item.name==='manifest.json'),
+    manifestJSON=JSON.parse(manifest.content);
     manifestJSON.header.name=projectName;
     manifestJSON.header.description=projectDesc;
     manifestJSON.header.uuid=get_uuid();
     manifestJSON.modules[0].uuid=get_uuid();
     manifest.content=JSON.stringify(manifestJSON);
+    let globalVariablesFile=fileRead("ui/_global_variables.json"),
+    globalVariablesJSON=JSON.parse(globalVariablesFile.content)
+    globalVariablesJSON["$cube_custom_name"]=projectName;globalVariablesJSON["$cube_custom_desc"]=projectDesc;globalVariablesJSON["$cube_custom_uuid"]=manifestJSON.header.uuid;globalVariablesJSON["$cube_custom_version"]=0;globalVariablesJSON["$cube_custom_target_api"]=4000
+    globalVariablesFile.content=JSON.stringify(globalVariablesJSON)
     cv.skipRouter("/item");
   }
   return cv.c(cv.fragment,null,
@@ -121,7 +179,7 @@ function navScreen(){
   )
 }
 
-// itemScreen
+// item
 function bottomBtn({leftFn,rightFn,leftText,rightText,leftBtn}){
   return cv.c("div",{style:"position: fixed;bottom: 0;display:flex;width: 100%"},
     leftBtn?leftBtn:cv.c("mdui-button",{onClick:leftFn,style:"width:50%;margin-bottom:5px;margin-right:5px;box-sizing:border-box;width:calc(50% - 10px);",variant:"outlined"},leftText),
@@ -157,6 +215,7 @@ function itemScreen(){
     })
   }
   function toMusic(){cv.skipRouter("/music")}
+  function toVariables(){cv.skipRouter("/variables")}
   //function toBg(){cv.skipRouter("/bg")}
   function card({icon,title,onClick}){
     const coming_soon = function(){mdui.snackbar({message:"敬请期待",closeable:true,autoCloseDelay:3000,closeOnOutsideClick:true,placement:"top"})}
@@ -173,11 +232,91 @@ function itemScreen(){
       cv.c("div",{style:"display:flex;flex-wrap: wrap;"},
         cv.c(card,{icon:"musical-notes",title:"音乐",onClick:toMusic}),
         cv.c(card,{icon:"image",title:"背景"}),
-        cv.c(card,{icon:"extension-puzzle",title:"功能"}),
+        cv.c(card,{icon:"cog",title:"设置",onClick:toVariables}),
         cv.c(card,{icon:"brush",title:"主题"})
       )),
     ),
     cv.c(bottomBtn,{leftFn:quitBtn,rightFn:downloadBtn,leftText:"退出",rightText:"下载"})
+  )
+}
+
+// variables
+function variablesScreen(){
+  const [searchText,setSearchText]=useState("")
+  var hasOption=item=>typeof item==="object"&&item!==null&&(item.hasOwnProperty('name')&&item.name.toLowerCase().includes(searchText.toLowerCase()))||(item.hasOwnProperty("desc")&&item.desc.toLowerCase().includes(searchText.toLowerCase())),
+  isEmptyResult=searchText.trim()!==""&&!varObj.some(item=>item.content.some(hasOption))
+  function parseNumber(e,varItem){return Math.max(Number.parseFloat(e.target.value.slice(e.target.value.startsWith("item")?4:0)||varItem.def||0),0)}
+  function partition({data}){
+    function changeEvent(e){
+      const varItem=data.content.find(item=>item.id===e.target.id);
+      if(varItem.type==="size"){
+        let value=parseNumber(e,varItem),xDef=(varItem.current&&varItem.current[0])||varItem.def[0],yDef=(varItem.current&&varItem.current[1])||varItem.def[1]
+        varItem.current=[e.target.axis==="x"?Number.isNaN(value)?xDef:value:xDef,e.target.axis==="y"?Number.isNaN(value)?yDef:value:yDef]
+        return
+      }
+      varItem.current=varItem.type==null||varItem.type==="switch"?e.target.checked:
+      typeof varItem.def==="number"?parseNumber(e,varItem):e.target.value
+      if(varItem.round===!0)varItem.current=Math.round(varItem.current)
+      if(varItem.type==="textField"&&typeof varItem.def==="number"){
+        let textFieldExpression=varItem.round?/^\d+$/:/^\d+(\.\d+)?$/
+        e.target.helper=textFieldExpression.test(e.target.value)?"":varItem.round?`不能是浮点数，使用${Math.round(parseNumber(e,varItem))}代替`:`类型错误，使用${varItem.def}代替`
+      }
+    }
+    var hasResult=searchText.trim()===""||data.content.some(hasOption)
+    return hasResult&&cv.c(searchText.trim()===""?"mdui-collapse-item":"div",null,
+      cv.c("mdui-list-item",{slot:"header",rounded:true},cv.c("b",null,data.title)),
+      cv.c("mdui-list",null,
+        data.content.map(function(e){
+          if(!e)return searchText.trim()===""&&cv.c("mdui-divider");
+          return (searchText.trim()===""||e.name.toLowerCase().includes(searchText.toLowerCase())||e.hasOwnProperty("desc")&&e.desc.toLowerCase().includes(searchText.toLowerCase()))&&cv.c("mdui-list-item",{rounded:true,description:e.desc||""},e.name,
+            e.type==="textField"?cv.c("mdui-text-field",{slot:"end-icon",value:e.current==null?e.def||"":e.current,id:e.id,onChange:changeEvent,style:"width:120px;",inputmode:typeof e.def==="number"?"decimal":"text",placeholder:(e.def||"").toString()}):
+            e.type==="dropdown"?cv.c("mdui-select",{slot:"end-icon",value:e.current==null?'item'+(e.def||0):e.current,id:e.id,onChange:changeEvent,style:"width:120px;line-height:normal;"},
+              e.items.map((item,i)=>{
+                return cv.c("mdui-menu-item",{value:'item'+i},item)
+            })):
+            e.type==="size"?cv.c("div",{slot:"end-icon",style:"display:inline-block;"},cv.c("mdui-text-field",{inputmode:"decimal",label:"X轴 | px",axis:"x",id:e.id,value:(e.current&&e.current[0])||e.def[0],placeholder:e.def[0],style:"width:80px;",onChange:changeEvent}),cv.c("span",null," "),cv.c("mdui-text-field",{inputmode:"decimal",label:"Y轴 | px",axis:"y",id:e.id,value:(e.current&&e.current[1])||e.def[1],placeholder:e.def[1],style:"width:80px;",onChange:changeEvent})):
+            cv.c("mdui-switch",{slot:"end-icon",checked:e.current==null?e.def||false:e.current,id:e.id,onChange:changeEvent},cv.c("div",{slot:"checked-icon"}))
+        )})
+      )
+    )
+  }
+  function deployment(){
+    let globalVariablesFile=fileRead("ui/_global_variables.json"),
+    globalVariablesJSON=JSON.parse(globalVariablesFile.content),
+    tempVar={};
+    globalVariablesJSON=Object.keys(globalVariablesJSON).reduce((acc,key)=>{
+      if(!key.startsWith("$cube_set_"))acc[key]=globalVariablesJSON[key];
+      return acc
+    },{})
+    varObj.forEach(item=>{
+      item.content.forEach(e=>{
+        if(e.current==null||arraysEqual(e.current,e.def))return;
+        if(!e.def&&e.current===false)return;
+        tempVar["$cube_set_"+e.id]=e.current
+      })
+    })
+    globalVariablesJSON=mergeObjects(globalVariablesJSON,tempVar)
+    globalVariablesFile.content=JSON.stringify(globalVariablesJSON)
+  }
+  function search(e){
+    throttle(function(){
+      setSearchText(e.target.value)
+    },5000)()
+  }
+  function save(){deployment();cv.skipRouter("/item")}
+  return cv.c(cv.fragment,null,
+    cv.c("div",{id:"content",className:"ns mdui-container"},
+      cv.c("div",{className:"mdui-container",style:"height:calc(100vh - 11.5rem);overflow-y:auto;border-radius:var(--mdui-shape-corner-medium)"},
+      cv.c("h1",null,"设置"),
+      cv.c("div",{style:"margin:0 0 5px 0;position:sticky;top:0;z-index:10"},cv.c("mdui-text-field",{label:"搜索选项",clearable:!0,onInput:search})),
+      cv.c("div",{style:"background:rgba(var(--mdui-color-primary-dark), 0.2);border-radius:var(--mdui-shape-corner-medium);padding:0 5px;"},cv.c("mdui-list",null,cv.c("mdui-collapse",{ref:collapse,accordion:!0},
+        varObj.map(d=>cv.c(partition,{data:d})),
+        isEmptyResult&&cv.c("b",{style:'display:flex;justify-content:center;width:100%'},"空空如也")
+      )))
+    )),
+    cv.c("div",{style:"position: fixed;bottom: 0;display:flex;width: 100%;z-index:1000"},
+      cv.c("mdui-button",{onClick:save,style:"margin-bottom:5px;box-sizing:border-box;width:calc(100% - 16px)",variant:"filled"},"保存")
+    )
   )
 }
 
@@ -204,7 +343,7 @@ function bgScreen(){
   )
 }
 
-// musicScreen
+// music
 function musicScreen(){
   var musicName=useRef(),musicAuthor=useRef(),addBtn=useRef(),dialog=useRef(),musicFile=useRef(),coverFile=useRef();
   var close=()=>{dialog.current.open=false},coverChange=function(e){coverFile.name=e.target.files[0].name},musicChange=function(a){var b=a.target.files[0];if(b){var c=b.name.split(".").pop();return"ogg"===c?void(""===musicName.current.inputRef.value.value&&musicName.current.setRangeText(b.name.substring(0,b.name.lastIndexOf("."))),addBtn.current.disabled=!1):mdui.snackbar({message:"\u8BE5\u683C\u5F0F\u7684\u6587\u4EF6\u4E0D\u652F\u6301\uFF0C\u8BF7\u4E0A\u4F20 .ogg \u6587\u4EF6",closeable:!0,autoCloseDelay:3e3,closeOnOutsideClick:!0,placement:"top"})}};
@@ -310,6 +449,7 @@ function App(){
     cv.c(cv.router,{path:"/nav",component:navScreen}),
     cv.c(cv.router,{path:"/item",component:itemScreen}),
     cv.c(cv.router,{path:"/music",component:musicScreen}),
+    cv.c(cv.router,{path:"/variables",component:variablesScreen}),
     cv.c(cv.router,{path:"/bg",component:bgScreen}),
   ));
 }
