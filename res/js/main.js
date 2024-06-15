@@ -51,7 +51,7 @@ var fileStructure = [
   },
 ],
 varObj=[
-{title:"HUD 屏幕",content:[
+{title:"HUD",content:[
   {name:"快捷栏选定颜色动画",id:"daf3c18e"},
   {name:"圆角快捷栏",id:"f51d10b7",def:!0},
   {name:"侧边记分板分数",id:"838534a8",def:!0},
@@ -96,9 +96,58 @@ varObj=[
 ]},{title:"隐私",content:[
   {name:"玩家名称",id:"b83676b3",def:!0},
   {name:"坐标",id:"e4a7ac08",def:!0}
+]},{title:"全局",content:[
+  {name:"文本框最大字符长度",id:"0a923b41",def:2147483647,round:!0,type:"textField"},
+  {name:"文本框亵渎过滤器",id:"b0455ac5"},
+  {name:"测试版顶部调试文字",id:"1e2ff19a",def:!0},
+  {name:"百分比",id:"20ccca31",def:!0}
+]},{title:"设置",content:[
+  {name:"查看路径",id:"c4c8702e",def:!0},
+  {name:"旧世界",id:"84b37071",desc:"✨ 需要使用 1.20.73 以及更早版本版本，新版本被 Ore UI 代替",def:!0},
+  {name:"流畅度",id:"e1ed717a",def:!0}
+]},{title:"美化",content:[
+  {name:"屏幕边框",id:"e6786154",def:!0}
+]},{title:"优化",content:[
+  {name:"低频渲染",id:"8a30c7d6"}
+]},{title:"模态",content:[
+  {name:"遮罩",id:"3f9be171"},
+  {name:"空白处关闭类型",id:"c4db2e62",def:2,type:"dropdown",items:["无","点击","双击"]}
+]},{title:"开始",content:[
+  {name:"相片分割",id:"c1919f11"}
+]},{title:"游戏",content:[
+  {name:"最近游戏",id:"e5ccf1eb",def:!0},
+  {name:"世界搜索",id:"cf06aa18"}
+]},{title:"音乐",content:[
+  {name:"音乐",id:"5fc8cf29",def:!0},
+  {name:"当前播放时长",id:"9cdaa0d3",def:!0},
+  {name:"倍速播放",id:"5d9e4f0e"},
+  {name:"音量调节",id:"9c9e051d",def:!0}
+]},{title:"暂停",content:[
+  {name:"保存并退出提示",id:"e4e1334d",def:!0}
+]},{title:"聊天",content:[
+  {name:"显示限制",id:"e8bcd7b9",def:100,round:!0,type:"textField"},
+  {name:"受伤时关闭聊天屏幕",id:"9cbb46ee",def:!0},
+  {name:"增强命令显示",id:"b9a8724e",def:!0},
+  {name:"忽略设置字体",id:"fa7d1a3c"}
+]},{title:"其他",content:[
+  {name:"受伤时关闭药水效果屏幕",id:"9003f259",def:!0},
+  {name:"受伤时关闭书与羽毛屏幕",id:"f2234e31",def:!0},
+  {name:"总是解锁未交易选项",id:"9ed4aeaf",def:!0},
+  {name:"彩蛋",id:"bc8b0fd2",desc:"⚠️ 开发中",def:!0}
+]},{title:"开发者",prefix:"$cube_dev_",content:[
+  {name:"调试工具",id:"tool"},
+  {name:"调试状态",id:"status"},
+  {name:"调试信息",id:"message"},
+  {name:"调试布局",id:"layout"},
+  {name:"指针位置",id:"pointer",desc:"⚠️ 开发中"},0,
+  {name:"环境沙盒",id:"c923cef2"},
+  {name:"屏幕大小",id:"5523405d",def:["default","default"],type:"size"},
+  {name:"开发者",id:"9b52c609",def:!0},
+  {name:"中国版",id:"b53ba732"},
+  {name:"键盘＆鼠标",id:"decdc2ac",def:!0},
+  {name:"触屏",id:"cf295d3c"},
+  {name:"游戏手柄",id:"950d0911"}
 ]}];
-window.varObj=varObj;
-window.fileStructure=fileStructure;
 let projectName="",projectDesc="";
 function arraysEqual(arr1,arr2){if(!Array.isArray(arr1)&&!Array.isArray(arr2))return arr1===arr2;if(arr1.length!==arr2.length)return false;return arr1.every((v,i)=>v===arr2[i])}
 function mergeObjects(){return Array.from(arguments).reduce((target,source)=>(Object.keys(source).forEach(key=>target[key]=source[key]),target),{})}
@@ -250,7 +299,7 @@ function variablesScreen(){
     function changeEvent(e){
       const varItem=data.content.find(item=>item.id===e.target.id);
       if(varItem.type==="size"){
-        let value=parseNumber(e,varItem),xDef=(varItem.current&&varItem.current[0])||varItem.def[0],yDef=(varItem.current&&varItem.current[1])||varItem.def[1]
+        let value=e.target.value==="default"?"default":parseNumber(e,varItem),xDef=varItem.def[0],yDef=varItem.def[1]
         varItem.current=[e.target.axis==="x"?Number.isNaN(value)?xDef:value:xDef,e.target.axis==="y"?Number.isNaN(value)?yDef:value:yDef]
         return
       }
@@ -285,14 +334,14 @@ function variablesScreen(){
     globalVariablesJSON=JSON.parse(globalVariablesFile.content),
     tempVar={};
     globalVariablesJSON=Object.keys(globalVariablesJSON).reduce((acc,key)=>{
-      if(!key.startsWith("$cube_set_"))acc[key]=globalVariablesJSON[key];
+      if(!key.startsWith("$cube_set_")&&!key.startsWith("$cube_dev_"))acc[key]=globalVariablesJSON[key];
       return acc
     },{})
     varObj.forEach(item=>{
       item.content.forEach(e=>{
         if(e.current==null||arraysEqual(e.current,e.def))return;
         if(!e.def&&e.current===false)return;
-        tempVar["$cube_set_"+e.id]=e.current
+        tempVar[(item.prefix||"$cube_set_")+e.id]=e.current
       })
     })
     globalVariablesJSON=mergeObjects(globalVariablesJSON,tempVar)
