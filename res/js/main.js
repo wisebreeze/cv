@@ -115,8 +115,7 @@ varObj=[
 ]},{title:"开始",content:[
   {name:"相片分割",id:"c1919f11"}
 ]},{title:"游戏",content:[
-  {name:"最近游戏",id:"e5ccf1eb",def:!0},
-  {name:"世界搜索",id:"cf06aa18"}
+  {name:"最近游戏",id:"e5ccf1eb",def:!0}
 ]},{title:"音乐",content:[
   {name:"音乐",id:"5fc8cf29",def:!0},
   {name:"当前播放时长",id:"9cdaa0d3",def:!0},
@@ -133,13 +132,15 @@ varObj=[
   {name:"受伤时关闭药水效果屏幕",id:"9003f259",def:!0},
   {name:"受伤时关闭书与羽毛屏幕",id:"f2234e31",def:!0},
   {name:"总是解锁未交易选项",id:"9ed4aeaf",def:!0},
+  {name:"命令实际延迟",id:"539b5cb4",def:!0},
   {name:"彩蛋",id:"bc8b0fd2",desc:"⚠️ 开发中",def:!0}
 ]},{title:"开发者",prefix:"$cube_dev_",content:[
   {name:"调试工具",id:"tool"},
   {name:"调试状态",id:"status"},
   {name:"调试信息",id:"message"},
   {name:"调试布局",id:"layout"},
-  {name:"指针位置",id:"pointer",desc:"⚠️ 开发中"},0,
+  {name:"指针位置",id:"pointer",desc:"⚠️ 开发中"},
+  {name:"聊天",id:"chat"},0,
   {name:"环境沙盒",id:"c923cef2"},
   {name:"屏幕大小",id:"5523405d",def:["default","default"],type:"size"},
   {name:"开发者",id:"9b52c609",def:!0},
