@@ -1,54 +1,44 @@
 (function(){
 mdui.setColorScheme("#778BFF");
-var data = localStorage.getItem('themeType');
+var data=localStorage.getItem('themeType');
 typeof data == "string"&&mdui.setTheme(data);
 var saveAs=saveAs||"undefined"!=typeof navigator&&navigator.msSaveOrOpenBlob&&navigator.msSaveOrOpenBlob.bind(navigator)||function(a){if("undefined"==typeof navigator||!/MSIE [1-9]\./.test(navigator.userAgent)){var b=a.document,c=function(){return a.URL||a.webkitURL||a},d=a.URL||a.webkitURL||a,e=b.createElementNS("http://www.w3.org/1999/xhtml","a"),f=!a.externalHost&&"download"in e,g=a.webkitRequestFileSystem,h=a.requestFileSystem||g||a.mozRequestFileSystem,i=function(b){(a.setImmediate||a.setTimeout)(function(){throw b},0)},j="application/octet-stream",k=0,l=[],m=function(){for(var a,b=l.length;b--;)a=l[b],"string"==typeof a?d.revokeObjectURL(a):a.remove();l.length=0},n=function(a,b,c){var d,e;for(b=[].concat(b),d=b.length;d--;)if(e=a["on"+b[d]],"function"==typeof e)try{e.call(a,c||a)}catch(f){i(f)}},o=function(d,i){var m,o,p,q,r=this,s=d.type,t=!1,u=function(){var a=c().createObjectURL(d);return l.push(a),a},v=function(){n(r,"writestart progress write writeend".split(" "))},w=function(){(t||!m)&&(m=u(d)),o?o.location.href=m:window.open(m,"_blank"),r.readyState=r.DONE,v()},x=function(a){return function(){return r.readyState!==r.DONE?a.apply(this,arguments):void 0}},y={create:!0,exclusive:!1};return r.readyState=r.INIT,i||(i="download"),f?(m=u(d),b=a.document,e=b.createElementNS("http://www.w3.org/1999/xhtml","a"),e.href=m,e.download=i,q=b.createEvent("MouseEvents"),q.initMouseEvent("click",!0,!1,a,0,0,0,0,0,!1,!1,!1,!1,0,null),e.dispatchEvent(q),r.readyState=r.DONE,v(),void 0):(a.chrome&&s&&s!==j&&(p=d.slice||d.webkitSlice,d=p.call(d,0,d.size,j),t=!0),g&&"download"!==i&&(i+=".download"),(s===j||g)&&(o=a),h?(k+=d.size,h(a.TEMPORARY,k,x(function(a){a.root.getDirectory("saved",y,x(function(a){var b=function(){a.getFile(i,y,x(function(a){a.createWriter(x(function(b){b.onwriteend=function(b){o.location.href=a.toURL(),l.push(a),r.readyState=r.DONE,n(r,"writeend",b)},b.onerror=function(){var a=b.error;a.code!==a.ABORT_ERR&&w()},"writestart progress write abort".split(" ").forEach(function(a){b["on"+a]=r["on"+a]}),b.write(d),r.abort=function(){b.abort(),r.readyState=r.DONE},r.readyState=r.WRITING}),w)}),w)};a.getFile(i,{create:!1},x(function(a){a.remove(),b()}),x(function(a){a.code===a.NOT_FOUND_ERR?b():w()}))}),w)}),w),void 0):(w(),void 0))},p=o.prototype,q=function(a,b){return new o(a,b)};return p.abort=function(){var a=this;a.readyState=a.DONE,n(a,"abort")},p.readyState=p.INIT=0,p.WRITING=1,p.DONE=2,p.error=p.onwritestart=p.onprogress=p.onwrite=p.onabort=p.onerror=p.onwriteend=null,a.addEventListener("unload",m,!1),q.unload=function(){m(),a.removeEventListener("unload",m,!1)},q}}("undefined"!=typeof self&&self||"undefined"!=typeof window&&window||this.content);
-var {useState,useEffect,useRef} = cv,
+var {useState,useEffect,useRef}=cv,
 collapse=useRef()
 
-var fileStructure = [
+var fileStructure=[
+  {
+    type: 'folder',
+    name: 'assets',
+    children: [
+      {
+        type: 'folder',
+        name: 'cube',
+        children: [
+          {type:'folder',name:'defFrame',children:[]},
+          {type:'folder',name:'blurFrame',children:[]},
+          {type:'folder',name:'bg',children:[]},
+          {type:'file',name:'frame.ui',content:null}
+        ]
+      }
+    ]
+  },
   {
     type: 'folder',
     name: 'sounds',
-    children: [
-      {
-        type: 'file',
-        name: 'sound_definitions.json',
-        content: null
-      }
-    ]
+    children: [{type:'file',name:'sound_definitions.json',content:null}]
   },
   {
     type: 'folder',
     name: 'ui',
     children: [
-      {
-        type: 'file',
-        name: '_setting.json',
-        content: null
-      },
-      {
-        type: 'file',
-        name: '_global_variables.json',
-        content: `{"$cube_custom_boolean":true,"$cube_custom_from_website":true}`
-      }
+      {type:'file',name:'_setting.json',content:null},
+      {type:'file',name:'_global_variables.json',content:`{"$cube_custom_boolean":true,"$cube_custom_from_website":true}`}
     ]
   },
-  {
-    type: 'folder',
-    name: 'textures',
-    children: []
-  },
-  {
-    type: 'file',
-    name: 'manifest.json',
-    content: '{"format_version":1,"header":{"description":"","name":"","uuid":"","version":[1,0,0]},"modules":[{"type":"resources","uuid":"","version":[1,0,0]}]}'
-  },
-  {
-    type: 'file',
-    name: 'pack_icon.png',
-    content: null
-  },
+  {type:'folder',name:'textures',children:[]},
+  {type:'file',name:'manifest.json',content:'{"format_version":1,"header":{"description":"","name":"","uuid":"","version":[1,0,0]},"modules":[{"type":"resources","uuid":"","version":[1,0,0]}]}'},
+  {type:'file',name:'pack_icon.png',content:null}
 ],
 varObj=[
 {title:"HUD",content:[
@@ -148,7 +138,8 @@ varObj=[
   {name:"键盘＆鼠标",id:"decdc2ac",def:!0},
   {name:"触屏",id:"cf295d3c"},
   {name:"游戏手柄",id:"950d0911"}
-]}];
+]}],bgData={live:false,src:null,img:null,showLive:true};
+window.fileStructure=fileStructure;
 let projectName="",projectDesc="";
 function arraysEqual(arr1,arr2){if(!Array.isArray(arr1)&&!Array.isArray(arr2))return arr1===arr2;if(arr1.length!==arr2.length)return false;return arr1.every((v,i)=>v===arr2[i])}
 function mergeObjects(){return Array.from(arguments).reduce((target,source)=>(Object.keys(source).forEach(key=>target[key]=source[key]),target),{})}
@@ -156,7 +147,7 @@ function deleteEmpty(e){for(var t=e.length-1;t>=0;t--){var l=e[t];"folder"===l.t
 function deleteFile(r,e){var t=r.split("/"),n=fileStructure,i=!0,f=!1,o=void 0;try{for(var l,u=t[Symbol.iterator]();!(i=(l=u.next()).done);i=!0)!function(){var r=l.value,e=n.find(function(e){return"folder"===e.type&&e.name===r});if(!e)throw new Error("the path does not exist");n=e.children}()}catch(r){f=!0,o=r}finally{try{!i&&u.return&&u.return()}finally{if(f)throw o}}var a=n.findIndex(function(r){return"file"===r.type&&r.name===e});if(-1===a)throw new Error("the file does not exist");n.splice(a,1)}
 function fileRead(n){for(var r=n.split("/"),t=fileStructure,e=0;e<r.length;e++)!function(e){var i=r[e];if(!i)return"continue";var o=t.find(function(n){return n.name===i});if(!o)throw new Error("Path "+n+" not found");if(!(t=o.children||o))throw new Error("Path "+n+" not found")}(e);if(null!==t.content||null!==t.children)return t;throw new Error("Invalid path "+n)}
 function findFileByName(a,b){var c=!0,d=!1,e=void 0;try{for(var g,h,f=a[Symbol.iterator]();!(c=(g=f.next()).done);c=!0){if(h=g.value,h.name===b)return h;if('folder'===h.type){var i=findFileByName(h.children,b);if(i)return i}}}catch(h){d=!0,e=h}finally{try{!c&&f.return&&f.return()}finally{if(d)throw e}}return null}
-function addFileToFolder(e,r,n){for(var t=e.split("/"),l=0;l<fileStructure.length;l++){var i=fileStructure[l];if("folder"===i.type&&i.name===t[0]){if(i.children||(i.children=[]),1===t.length){for(var f=r,u=r.substring(0,r.lastIndexOf(".")),d=r.substring(r.lastIndexOf(".")),o=i.children.filter(function(e){return"file"===e.type}).map(function(e){return e.name}),a=1;o.includes(f);)f=u+"_"+a+d,a++;return i.children.push({type:"file",name:f,content:n}),f}var c=addFileToFolder(t.slice(1).join("/"),r,n,i.children);if(c)return c}}return console.error('Unable to find folder at path "'+e+'"'),null}
+function addFileToFolder(a,b,c,d){var f,g,i,j,k,l,m,n,e=a.split("/");for(d||(d=fileStructure),f=0;f<d.length;f++)if(g=d[f],"folder"===g.type&&g.name===e[0]){if(g.children||(g.children=[]),1===e.length){for(i=b.substring(0,b.lastIndexOf(".")),j=b.substring(b.lastIndexOf(".")),k=g.children.filter(function(a){return"file"===a.type}).map(function(a){return a.name}),l=1;k.includes(b);)b=i+"_"+l+j,l++;return g.children.push({type:"file",name:b,content:c}),b}if(m=e.slice(1).join("/"),n=addFileToFolder(m,b,c,g.children))return n}return console.error('Unable to find folder at path "'+a+'"'),null}
 function addFilesToZip(folder,zip){folder.forEach(item=>{if(item.type==='file'){zip.file(item.name,item.content);}else if(item.type==='folder'){const newFolder=zip.folder(item.name);addFilesToZip(item.children,newFolder);}});}
 function downloadZip(a){const b=new JSZip;addFilesToZip(a,b),b.generateAsync({type:"blob"}).then(function(a){saveAs(a,projectName||"立方之窗_自定义包")})}
 function fetchImage(url,callback){fetch(url).then(response=>response.blob()).then(blob=>{const icon=fileStructure.find(item=>item.name==='pack_icon.png');if(icon)icon.content=blob;if(typeof callback==='function')callback(blob);}).catch(error=>console.error('Fetching image failed:',error));}
@@ -165,7 +156,7 @@ function debounce(func,delay){let timerId;return function(){const context=this;c
 function throttle(func,interval){let lastTime=0;return function(...args){const now=Date.now();if(now-lastTime>=interval){lastTime=now;func.apply(this,args)}}}
 
 function topBar({title}){
-  const [theme,setTheme] = useState(localStorage.getItem('themeType'));
+  const [theme,setTheme]=useState(localStorage.getItem('themeType'));
   return cv.c("div",{className:"ns",style:"position: relative;overflow: hidden"},
     cv.c("mdui-top-app-bar",{"scroll-behavior":"elevate","scroll-target":"#content"},
       cv.c("mdui-top-app-bar-title",{style:"margin-left:8px"},cv.c("a",{href:"/",style:"color: inherit; text-decoration: none;"},title||"立方之窗")),
@@ -185,17 +176,17 @@ function topBar({title}){
 
 // index
 function navScreen(){
-  const dialog = useRef();
-  const nextBtn = useRef();
-  const nameInput = useRef();
-  const customBtn = function(){
+  const dialog=useRef();
+  const nextBtn=useRef();
+  const nameInput=useRef();
+  const customBtn=function(){
     dialog.current.open=true;
     setTimeout(()=>{document.body.style.width="auto"},1)
   }
-  const closeBtn = function(){dialog.current.open=false}
-  const checkInput = function(e){projectName=e.target.inputRef.value.value;e.target.inputRef.value.value.trim().length>0?nextBtn.current.removeAttribute("disabled"):nextBtn.current.setAttribute("disabled","disabled")}
-  const descInput = function(e){projectDesc=e.target.inputRef.value.value;}
-  const next = function(){
+  const closeBtn=function(){dialog.current.open=false}
+  const checkInput=function(e){projectName=e.target.inputRef.value.value;e.target.inputRef.value.value.trim().length>0?nextBtn.current.removeAttribute("disabled"):nextBtn.current.setAttribute("disabled","disabled")}
+  const descInput=function(e){projectDesc=e.target.inputRef.value.value;}
+  const next=function(){
     fetchImage("/res/image/icon.png");
     let manifest=fileStructure.find(item=>item.name==='manifest.json'),
     manifestJSON=JSON.parse(manifest.content);
@@ -237,12 +228,12 @@ function bottomBtn({leftFn,rightFn,leftText,rightText,leftBtn}){
   )
 }
 function itemScreen(){
-  const confirmExit = function(e){
-    e.returnValue = "你确定要退出表单提交吗？";
+  const confirmExit=function(e){
+    e.returnValue="你确定要退出表单提交吗？";
     return "你确定要退出表单提交吗？";
   }
   window.addEventListener('beforeunload',confirmExit);
-  const quitBtn = function(){
+  const quitBtn=function(){
     mdui.dialog({
       headline:"你确定要退出吗？",
       description:"刷新网页后，自定义操作的数据将会删除",
@@ -253,7 +244,7 @@ function itemScreen(){
       ]
     })
   }
-  const downloadBtn = function(){
+  const downloadBtn=function(){
     mdui.dialog({
       headline:"下载",
       description:"下载完成后，将下载的压缩包的后缀改为.mcpack，之后使用 Minecraft 打开！",
@@ -266,9 +257,9 @@ function itemScreen(){
   }
   function toMusic(){cv.skipRouter("/music")}
   function toVariables(){cv.skipRouter("/variables")}
-  //function toBg(){cv.skipRouter("/bg")}
+  function toBg(){cv.skipRouter("/bg")}
   function card({icon,title,onClick}){
-    const coming_soon = function(){mdui.snackbar({message:"敬请期待",closeable:true,autoCloseDelay:3000,closeOnOutsideClick:true,placement:"top"})}
+    const coming_soon=function(){mdui.snackbar({message:"敬请期待",closeable:true,autoCloseDelay:3000,closeOnOutsideClick:true,placement:"top"})}
     return cv.c("mdui-card",{onClick:onClick||coming_soon,style:"box-sizing:border-box;width:calc(50% - 10px);padding:10px;margin:5px;height:90px",clickable:"clickable"},
       cv.c("ion-icon",{style:"font-size:32px;",attr:{name:icon}}),
       cv.c("span",{style:"position:absolute;bottom:10px;left:10px;"},title)
@@ -281,7 +272,7 @@ function itemScreen(){
       cv.c("p",null,"选择你需要自定义的项目，定制完成后，点击下方的下载按钮下载压缩包"),
       cv.c("div",{style:"display:flex;flex-wrap: wrap;"},
         cv.c(card,{icon:"musical-notes",title:"音乐",onClick:toMusic}),
-        cv.c(card,{icon:"image",title:"背景"}),
+        cv.c(card,{icon:"image",title:"背景",onClick:toBg}),
         cv.c(card,{icon:"cog",title:"设置",onClick:toVariables}),
         cv.c(card,{icon:"brush",title:"主题"})
       )),
@@ -335,7 +326,7 @@ function variablesScreen(){
     globalVariablesJSON=JSON.parse(globalVariablesFile.content),
     tempVar={};
     globalVariablesJSON=Object.keys(globalVariablesJSON).reduce((acc,key)=>{
-      if(!key.startsWith("$cube_set_")&&!key.startsWith("$cube_dev_"))acc[key]=globalVariablesJSON[key];
+      if(key==="$cube_set_0a57c067"||(!key.startsWith("$cube_set_")&&!key.startsWith("$cube_dev_")))acc[key]=globalVariablesJSON[key];
       return acc
     },{})
     varObj.forEach(item=>{
@@ -370,24 +361,185 @@ function variablesScreen(){
   )
 }
 
-// bgScreen
+// bg
+function gaussBlur(t){var r=arguments.length>1&&void 0!==arguments[1]?arguments[1]:1;r*=3;var a,o,e,n,f,u,h,s,i,d,p,c=new Uint8ClampedArray(t.data),l=t.width,v=t.height,M=[];r=Math.floor(r);var g=r/3;for(h=1/(Math.sqrt(2*Math.PI)*g),u=-1/(2*g*g),s=-r;s<=r;s++)M.push(h*Math.exp(u*s*s));for(e=0;e<v;e++)for(o=0;o<l;o++){for(n=f=u=h=a=0,i=-r;i<=r;i++)(d=o+i)>=0&&d<l&&(s=4*(e*l+d),p=M[i+r],n+=c[s]*p,f+=c[s+1]*p,u+=c[s+2]*p,h+=c[s+3]*p,a+=p);s=4*(e*l+o),t.data.set([n,f,u,h].map(function(t){return t/a}),s)}for(c.set(t.data),o=0;o<l;o++)for(e=0;e<v;e++){for(n=f=u=h=a=0,i=-r;i<=r;i++)(d=e+i)>=0&&d<v&&(s=4*(d*l+o),p=M[i+r],n+=c[s]*p,f+=c[s+1]*p,u+=c[s+2]*p,h+=c[s+3]*p,a+=p);s=4*(e*l+o),t.data.set([n,f,u,h].map(function(t){return t/a}),s)}return t}
+function gaussBlur2(r,t,o){var a,f,h,e,s,u,i,n,M,d,g=r.data,l=r.width,c=r.height,p=[],q=0;for(t=Math.floor(t)||3,o=o||t/3,u=1/(Math.sqrt(2*Math.PI)*o),s=-1/(2*o*o),i=0,a=-t;a<=t;a++,i++)e=u*Math.exp(s*a*a),p[i]=e,q+=e;for(i=0,d=p.length;i<d;i++)p[i]/=q;for(f=0;f<c;f++)for(a=0;a<l;a++){for(h=e=s=u=0,q=0,n=-t;n<=t;n++)(M=a+n)>=0&&M<l&&(i=4*(f*l+M),h+=g[i]*p[n+t],e+=g[i+1]*p[n+t],s+=g[i+2]*p[n+t],q+=p[n+t]);i=4*(f*l+a),g[i]=h/q,g[i+1]=e/q,g[i+2]=s/q}for(a=0;a<l;a++)for(f=0;f<c;f++){for(h=e=s=u=0,q=0,n=-t;n<=t;n++)(M=f+n)>=0&&M<c&&(i=4*(M*l+a),h+=g[i]*p[n+t],e+=g[i+1]*p[n+t],s+=g[i+2]*p[n+t],q+=p[n+t]);i=4*(f*l+a),g[i]=h/q,g[i+1]=e/q,g[i+2]=s/q}return r.data=g,r}
 function bgScreen(){
-  var uploadFile=useRef(),video=useRef();
-  var videoHandle=function(e){
-    var file=e.target.files[0];
-    if(file.type.match('video/mp4')){
-      video.current.src=URL.createObjectURL(file)
+  var uploadFile=useRef(),frameArr=[],video=useRef(),previewVideo=useRef(),img=useRef(),progress=useRef(),progressDialog=useRef(),infoDialog=useRef(),delayInput=useRef(),durationInput=useRef(),engineInput=useRef();
+  var liveSwitch=useRef();
+  var timer=null,delay=100,duration=0.1,frameIndex=0,engine="engine1";
+  var cancelBtn=function(){delayInput.current.disabled=false;durationInput.current.disabled=false;progressDialog.current.open=false;infoDialog.current.open=false;var cloneUpload=document.createElement("input");cloneUpload.type="file";cloneUpload.accept="image/*, video/*";cloneUpload.style="display:none";cloneUpload.addEventListener("change",fileHandle);uploadFile.current.parentNode.replaceChild(cloneUpload,uploadFile.current);uploadFile.current=cloneUpload}
+  var continueBtn=function(){
+    delay=Math.max(20,Math.min(Number.parseInt(delayInput.current.value),60000))
+    duration=Math.max(0,Math.min(Number.parseFloat(durationInput.current.value),10))
+    engine=engineInput.current.value||"engine1"
+    infoDialog.current.open=false
+    progressDialog.current.open=true
+    if(bgData.showLive==0){
+      progressDialog.current.description="正在加载图片中"
+      liveSwitch.current.checked=false;
+      liveSwitchFn();
+      var reader=new FileReader();
+      reader.onload=function(event){
+        var image=new Image();
+        image.onload=async function(){
+          var canvas=document.createElement('canvas'),
+          ctx=canvas.getContext('2d');
+          canvas.width=image.width;
+          canvas.height=image.height;
+          ctx.drawImage(image, 0, 0);
+          img.current.src=canvas.toDataURL('image/jpeg')
+          bgData.img=img.current.src
+          await new Promise(resolve=>canvas.toBlob(blob=>{addFileToFolder("assets/cube/bg","bg.jpg",blob);resolve()}))
+          progressDialog.current.description="正在处理模糊中"
+          if(engine=="engine1")ctx.putImageData(gaussBlur2(ctx.getImageData(0,0,canvas.width,canvas.height),10),0,0)
+          else if(engine=="entity2")ctx.filter="blur(10px)"
+          else ctx.putImageData(gaussBlur(ctx.getImageData(0,0,canvas.width,canvas.height),10),0,0)
+          await new Promise(resolve=>canvas.toBlob(blob=>{addFileToFolder("assets/cube/bg","blur.jpg",blob);resolve()}))
+          cancelBtn()
+        }
+        image.src=event.target.result
+      }
+      reader.readAsDataURL(uploadFile.current.files[0]);
+      return
     }
+    frameArr=[];
+    progressDialog.current.description="提取每帧图片中"
+    bgData.src=URL.createObjectURL(uploadFile.current.files[0])
+    previewVideo.current.setAttribute("src",URL.createObjectURL(uploadFile.current.files[0]))
+    video.current.setAttribute("src",URL.createObjectURL(uploadFile.current.files[0]))
+    video.current.muted=true
+    video.current.play()
   }
+  var fileHandle=function(e){
+    var file=e.target.files[0];
+    if(!file)return;
+    if(file.type.indexOf("video/")===0){
+      bgData.showLive=true;
+      var video=document.createElement('video');
+      video.addEventListener("loadedmetadata",function(){
+        var duration=video.duration;
+        if(duration<=45)infoDialog.current.open=true;
+        else{cancelBtn();mdui.snackbar({message:"视频时长大于45秒，无法制作动态壁纸",placement:"top",autoCloseDelay:3000,closeable:true})}
+      })
+      video.src=URL.createObjectURL(file);
+    }else if(file.type.indexOf("image/")===0){
+      delayInput.current.disabled=true
+      durationInput.current.disabled=true
+      bgData.showLive=false;
+      infoDialog.current.open=true
+    }else{cancelBtn();mdui.snackbar({message:"请上传有效的图片或视频",placement:"top",autoCloseDelay:3000,closeable:true})}
+  }
+  var videoCanPlay=()=>{
+    var width=video.current.videoWidth/2,height=video.current.videoHeight/2;
+    liveSwitch.current.checked=true
+    liveSwitchFn()
+    fileRead("assets/cube")[0].children=[]
+    fileRead("assets/cube")[1].children=[]
+    timer=setInterval(()=>{
+      var canvas=document.createElement("canvas"),ctx=canvas.getContext('2d');
+      canvas.width=width;
+      canvas.height=height;
+      canvas.getContext('2d').drawImage(video.current,0,0,canvas.width,canvas.height)
+      frameArr.push({index:frameIndex,time:video.current.currentTime,frame:canvas,blur:null})
+      frameIndex++
+      progress.current.value=video.current.currentTime/video.current.duration
+    },delay)
+  }
+  var getBlobFromCanvas=canvas=>new Promise(resolve=>canvas.toBlob(blob=>resolve(blob),"image/jpeg",0.8))
+  var videoEnded=()=>{
+    clearInterval(timer)
+    progressDialog.current.description="正在处理普通背景"
+    async function processDefFrames(){
+      var len=frameArr.length;
+      for(var e of frameArr){
+        var blob=await getBlobFromCanvas(e.frame)
+        progress.current.value=e.index/len
+        addFileToFolder("assets/cube/defFrame",e.index===0?"frame.jpg":`frame_${e.index}.jpg`,blob)
+      }
+      handleBlur()
+    }
+    processDefFrames()
+  }
+  var handleBlur=function(){
+    progress.current.value=1
+    progressDialog.current.description="正在处理模糊中"
+    async function processBlurFrames(){
+      var len=frameArr.length;
+      for (var e of frameArr){
+        var ctx=e.frame.getContext("2d");
+        await new Promise(resolve=>{
+          progress.current.value=e.index/len
+          if(engine=="engine1")ctx.putImageData(gaussBlur2(ctx.getImageData(0,0,e.frame.width,e.frame.height),30),0,0)
+          else if(engine=="entity2")ctx.filter="blur(10px)"
+          else ctx.putImageData(gaussBlur(ctx.getImageData(0,0,e.frame.width,e.frame.height),10),0,0)
+          e.frame.toBlob(blob=>{addFileToFolder("assets/cube/blurFrame",e.index===0?"frame.jpg":`frame_${e.index}.jpg`,blob);resolve()},"image/jpeg",0.8)
+        })
+      }
+      editFrameFile()
+    }
+    processBlurFrames()
+  }
+  var editFrameFile=()=>{
+    var frameJSON={"namespace":"cncded832c","a":{"type":"image","size":["100%","100%"],"fill":true},"b":{"anim_type":"offset","duration":duration},"c":{"type":"panel","controls":[{"a@cncded832c.e":{"size":["100%","100%"],"anchor_from":"center","anchor_to":"center"}},{"b":{"type":"image","texture":"assets/cube/defFrame/frame","layer":-2,"size":["100%","100%"],"fill":true}}]},"d":{"type":"panel","controls":[{"a@cncded832c.f":{"size":["100%","100%"],"anchor_from":"center","anchor_to":"center"}},{"b":{"type":"image","texture":"assets/cube/blurFrame/frame","layer":-2,"size":["100%","100%"],"fill":true}}]},"e@ct.vp":{"offset":"@cncded832c.1","controls":[]},"f@ct.vp":{"offset":"@cncded832c.1","controls":[]}}
+    var frameJSONFile=fileRead("assets/cube/frame.ui")
+    frameJSON=JSON.parse(JSON.stringify(frameJSON))
+    progressDialog.current.description="写入文件中"
+    progress.current.value=0
+    var len=frameArr.length
+    frameArr.forEach((e,i)=>{
+      progress.current.value=i/len
+      frameJSON["e@ct.vp"]["controls"].push({
+        [i+"@cncded832c.a"]:{texture:"assets/cube/defFrame/frame"+(i===0?"":"_"+i)}
+      })
+      frameJSON["f@ct.vp"]["controls"].push({
+        [i+"@cncded832c.a"]:{texture:"assets/cube/blurFrame/frame"+(i===0?"":"_"+i)}
+      })
+      frameJSON[(i+1)+"@cncded832c.b"]={
+        from:[0,`${i*-100}%`],
+        to:[0,`${i*-100}%`],
+        next:`@cncded832c.${i===len-1?"1":i+2}`
+      }
+    })
+    frameJSONFile.content=JSON.stringify(frameJSON)
+    cancelBtn()
+  }
+  var liveSwitchFn=function(){
+    var globalVariablesFile=fileRead("ui/_global_variables.json"),globalVariablesJSON=JSON.parse(globalVariablesFile.content)
+    liveState=liveSwitch.current.checked;
+    if(liveState)globalVariablesJSON["$cube_set_0a57c067"]=true;
+    else globalVariablesJSON=Object.entries(globalVariablesJSON).reduce((acc,[key,value])=>{if(key!=='$cube_set_0a57c067')acc[key]=value;return acc},{});
+    bgData.live=liveState
+    previewVideo.current.style.display=liveState?"block":"none";
+    img.current.style.display=liveState?"none":"block";
+    globalVariablesFile.content=JSON.stringify(globalVariablesJSON)
+  }
+  var resetStatic=function(){mdui.dialog({headline:"重置",description:"您确定重置静态背景相关数据吗？",closeOnOverlayClick:true,closeOnEsc:true,actions:[{text:"取消"},{text:"重置",onClick:function(){liveSwitch.current.checked=false;fileRead("assets/cube")[3].children=[];bgData.img=null;liveSwitchFn()}}]})}
+  var resetLive=function(){mdui.dialog({headline:"重置",description:"您确定重置动态背景相关数据吗？",closeOnOverlayClick:true,closeOnEsc:true,actions:[{text:"取消"},{text:"重置",onClick:function(){liveSwitch.current.checked=false;fileRead("assets/cube")[0].children=[];fileRead("assets/cube")[1].children=[];bgData.src=null;frameArr=[];liveSwitchFn()}}]})}
   var save=function(){cv.skipRouter("/item")}
   var allowDrop=function(a){a.preventDefault()},handleClickOrDrop=function(a,b){a.preventDefault();var c,d=b.current;if('drop'===a.type)c=a.dataTransfer.files,d.files=c;else if('click'===a.type)return void d.click()};
   var leftBtn=cv.c("mdui-button",{onClick:e=>handleClickOrDrop(e,uploadFile),ondrop:e=>handleClickOrDrop(e,uploadFile),ondragover:allowDrop,style:"width:50%;margin-bottom:5px;margin-right:5px;box-sizing:border-box;width:calc(50% - 10px);",variant:"outlined"},"上传");
   return cv.c(cv.fragment,null,
     cv.c("div",{id:"content",className:"ns mdui-container"},
+      cv.c("mdui-dialog",{headline:"制作中",description:"提取每帧图片中",ref:progressDialog},cv.c("mdui-linear-progress",{ref:progress})),
+      cv.c("mdui-dialog",{headline:"基本信息",ref:infoDialog},
+        cv.c("mdui-text-field",{label:"每隔多少毫秒截图 (单位: 毫秒) [整数]",ref:delayInput,min:20,max:60000,type:"number",value:100,style:"margin-bottom:5px"}),
+        cv.c("mdui-text-field",{label:"每张壁纸停留时长 (单位: 秒) [浮点数]",ref:durationInput,min:0,max:10,type:"number",value:0.1,style:"margin-bottom:5px"}),
+        cv.c("mdui-select",{label:"模糊引擎",ref:engineInput,value:"engine1",style:"line-height:normal;"},cv.c("mdui-menu-item",{value:"engine1"},"速度较快, 效果一般"),cv.c("mdui-menu-item",{value:"engine2"},"速度慢 (不兼容 Safari)"),cv.c("mdui-menu-item",{value:"engine3"},"速度慢")),
+        cv.c("mdui-button",{slot:"action",variant:"text",onClick:cancelBtn},"取消"),
+        cv.c("mdui-button",{slot:"action",variant:"filled",onClick:continueBtn},"继续")
+      ),
       cv.c("h1",null,"背景"),
-      cv.c("p",null,"你可以点击上传按钮上传视频，点击保存按钮后即可制作动态背景"),
-      cv.c("input",{attr:{type:"file"},onChange:videoHandle,ref:uploadFile,style:"display:none"}),
-      cv.c("video",{attr:{controls:"controls"},ref:video,style:"margin-top:5px;width:100%"})
+      cv.c("input",{attr:{type:"file",accept:"image/*, video/*"},onChange:fileHandle,ref:uploadFile,style:"display:none"}),
+      cv.c("video",{attr:{controls:"controls"},onCanplay:videoCanPlay,onEnded:videoEnded,ref:video,style:"width:0;height:0;visibility:hidden;"}),
+      cv.c("video",{attr:{controls:"controls"},ref:previewVideo,src:bgData.src,style:`display:${bgData.showLive?"block":"none"};width:100%;border-radius:var(--mdui-shape-corner-medium);`}),
+      cv.c("img",{ref:img,src:bgData.img,style:`display:${bgData.showLive?"none":"block"};width:100%;height:180px;border-radius:var(--mdui-shape-corner-medium);`}),
+      cv.c("div",{style:"background:rgba(var(--mdui-color-primary-dark), 0.2);border-radius:var(--mdui-shape-corner-medium);padding:0 5px;margin-top:5px;"},cv.c("mdui-list",null,
+        cv.c("mdui-list-item",{rounded:true},"动态背景",cv.c("mdui-switch",{slot:"end-icon",checked:bgData.live,ref:liveSwitch,onChange:liveSwitchFn},cv.c("div",{slot:"checked-icon"}))),
+        cv.c("mdui-list-item",{rounded:true},"重置静态背景",cv.c("mdui-button",{slot:"end-icon",variant:"outlined",onClick:resetStatic},"重置")),
+        cv.c("mdui-list-item",{rounded:true},"重置动态背景",cv.c("mdui-button",{slot:"end-icon",variant:"outlined",onClick:resetLive},"重置"))
+      )),
+      cv.c("div",{style:"height:30px"})
     ),
     cv.c(bottomBtn,{leftBtn:leftBtn,rightFn:save,leftText:"上传",rightText:"保存"})
   )
@@ -399,32 +551,32 @@ function musicScreen(){
   var close=()=>{dialog.current.open=false},coverChange=function(e){coverFile.name=e.target.files[0].name},musicChange=function(a){var b=a.target.files[0];if(b){var c=b.name.split(".").pop();return"ogg"===c?void(""===musicName.current.inputRef.value.value&&musicName.current.setRangeText(b.name.substring(0,b.name.lastIndexOf("."))),addBtn.current.disabled=!1):mdui.snackbar({message:"\u8BE5\u683C\u5F0F\u7684\u6587\u4EF6\u4E0D\u652F\u6301\uFF0C\u8BF7\u4E0A\u4F20 .ogg \u6587\u4EF6",closeable:!0,autoCloseDelay:3e3,closeOnOutsideClick:!0,placement:"top"})}};
   var allowDrop=function(a){a.preventDefault()},handleClickOrDrop=function(a,b){a.preventDefault();var c,d=b.current;if('drop'===a.type)c=a.dataTransfer.files,d.files=c;else if('click'===a.type)return void d.click()};
 
-  var setting = findFileByName(fileStructure,"_setting.json");
+  var setting=findFileByName(fileStructure,"_setting.json");
   if(setting.content===null)setting.content=`{"customAlbum@cn80b37451.f":{"$listContent":[]}}`;
-  var setJson = JSON.parse(setting.content)
-  var soundsDef = findFileByName(fileStructure,"sound_definitions.json");
-  if(soundsDef.content===null)soundsDef.content=`{"cv.music.custom":{"category":"ui","sounds":[]}}`;
-  var soundsDefJson = JSON.parse(soundsDef.content)
+  var setJson=JSON.parse(setting.content)
+  var soundsDef=findFileByName(fileStructure,"sound_definitions.json");
+  if(soundsDef.content===null)soundsDef.content=`{"cube.music.custom":{"category":"ui","sounds":[]}}`;
+  var soundsDefJson=JSON.parse(soundsDef.content)
 
-  var item = setJson["customAlbum@cn80b37451.f"]["$listContent"];
+  var item=setJson["customAlbum@cn80b37451.f"]["$listContent"];
   var newBtn=()=>{dialog.current.open=true}
   var addMusic=()=>{
     var name=musicName.current.inputRef.value.value,author=musicAuthor.current.inputRef.value.value,fileReader=new FileReader(),audio=new Audio();
-    fileReader.onload = function(e){
-      var blob = new Blob([e.target.result], { type: 'audio/ogg' });
-      var oggPath = "sounds/"+addFileToFolder("sounds",name+".ogg",blob);
-      var coverFiles = coverFile.current.files,coverPath="",oggID = get_uuid();
+    fileReader.onload=function(e){
+      var blob=new Blob([e.target.result], { type: 'audio/ogg' });
+      var oggPath="sounds/"+addFileToFolder("sounds",name+".ogg",blob);
+      var coverFiles=coverFile.current.files,coverPath="",oggID=get_uuid();
       if(coverFiles&&coverFiles.length>0){
         var coverID=get_uuid(),reader=new FileReader(),coverType=coverFiles[0].type;
         coverPath="textures/"+coverID+"."+coverFile.name.split('.').pop();
         reader.onload=function(e){
-          var coverBlob = new Blob([e.target.result], { type: coverType });
+          var coverBlob=new Blob([e.target.result], { type: coverType });
           addFileToFolder("textures",coverID+"."+coverFile.name.split('.').pop(),coverBlob)
         }
         reader.readAsArrayBuffer(coverFiles[0])
       }
       soundsDefJson[oggID]={category:"ui",sounds:[{name:oggPath.slice(0,oggPath.lastIndexOf(".")),load_on_low_memory:true,volume:0.5}]}
-      soundsDefJson["cv.music.custom"].sounds.push({name:oggPath.slice(0,oggPath.lastIndexOf(".")),load_on_low_memory:true,volume:0.5})
+      soundsDefJson["cube.music.custom"].sounds.push({name:oggPath.slice(0,oggPath.lastIndexOf(".")),load_on_low_memory:true,volume:0.5})
       soundsDef.content=JSON.stringify(soundsDefJson)
       audio.src=URL.createObjectURL(blob);
       audio.addEventListener('loadedmetadata',function(){
@@ -441,9 +593,9 @@ function musicScreen(){
   };
   var deleteMusic=i=>{
     var firstKeys=Object.keys(item[i]),musicID=item[i][firstKeys]["$music_id"],coverPath=item[i][firstKeys]["$music_cover"],soundsDef=fileRead("sounds/sound_definitions.json"),soundsDefJson=JSON.parse(soundsDef.content),oggPath=soundsDefJson[musicID]["sounds"][0]["name"]+".ogg";item.splice(i,1),
-    coverPath!==''&&deleteFile("textures",coverPath.slice(coverPath.lastIndexOf('/')+1)),deleteFile("sounds",oggPath.slice(oggPath.lastIndexOf('/')+1)),setting.content=JSON.stringify(setJson),soundsDefJson["cv.music.custom"].sounds.splice(i,1),delete soundsDefJson[musicID],soundsDef.content=JSON.stringify(soundsDefJson),cv.forceUpdate()
+    coverPath!==''&&deleteFile("textures",coverPath.slice(coverPath.lastIndexOf('/')+1)),deleteFile("sounds",oggPath.slice(oggPath.lastIndexOf('/')+1)),setting.content=JSON.stringify(setJson),soundsDefJson["cube.music.custom"].sounds.splice(i,1),delete soundsDefJson[musicID],soundsDef.content=JSON.stringify(soundsDefJson),cv.forceUpdate()
   }
-  var save = function(){cv.skipRouter("/item")}
+  var save=function(){cv.skipRouter("/item")}
   return cv.c(cv.fragment,null,
     cv.c("div",{id:"content",className:"ns mdui-container"},
       cv.c("mdui-list",{className:"mdui-container"},
@@ -455,7 +607,7 @@ function musicScreen(){
               cv.c("mdui-button-icon",{slot:"trigger"},cv.c("ion-icon",{attr:{name:"ellipsis-vertical"}})),
               cv.c("mdui-menu",null,cv.c("mdui-menu-item",{onClick:()=>deleteMusic(index)},"删除"))
             ))
-        })),
+        }),cv.c("div",{style:"height:30px"})),
       item.length===0&&cv.c("div",{style:{position:"fixed",top:"50%",left:"50%",transform:"translate(-50%, -50%)",textAlign:"center"}},
         cv.c("div",{style:{fontSize:"32px"}},"列表是空的"),
         cv.c("div",{style:{fontSize:"14px",marginTop:"4px"}},"点击左下角按钮添加音乐～")
@@ -505,7 +657,7 @@ function App(){
 }
 if(window.location.href.startsWith("https://wisebreeze.github.io")){cv.setInitialPath("/cv")}
 document.addEventListener("DOMContentLoaded",function(){
-  const container = document.getElementById("app")
+  const container=document.getElementById("app")
   cv.root(App,container)
 });
 })()
