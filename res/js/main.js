@@ -3,25 +3,13 @@ mdui.setColorScheme("#778BFF");
 var data=localStorage.getItem('themeType');
 typeof data == "string"&&mdui.setTheme(data);
 var saveAs=saveAs||"undefined"!=typeof navigator&&navigator.msSaveOrOpenBlob&&navigator.msSaveOrOpenBlob.bind(navigator)||function(a){if("undefined"==typeof navigator||!/MSIE [1-9]\./.test(navigator.userAgent)){var b=a.document,c=function(){return a.URL||a.webkitURL||a},d=a.URL||a.webkitURL||a,e=b.createElementNS("http://www.w3.org/1999/xhtml","a"),f=!a.externalHost&&"download"in e,g=a.webkitRequestFileSystem,h=a.requestFileSystem||g||a.mozRequestFileSystem,i=function(b){(a.setImmediate||a.setTimeout)(function(){throw b},0)},j="application/octet-stream",k=0,l=[],m=function(){for(var a,b=l.length;b--;)a=l[b],"string"==typeof a?d.revokeObjectURL(a):a.remove();l.length=0},n=function(a,b,c){var d,e;for(b=[].concat(b),d=b.length;d--;)if(e=a["on"+b[d]],"function"==typeof e)try{e.call(a,c||a)}catch(f){i(f)}},o=function(d,i){var m,o,p,q,r=this,s=d.type,t=!1,u=function(){var a=c().createObjectURL(d);return l.push(a),a},v=function(){n(r,"writestart progress write writeend".split(" "))},w=function(){(t||!m)&&(m=u(d)),o?o.location.href=m:window.open(m,"_blank"),r.readyState=r.DONE,v()},x=function(a){return function(){return r.readyState!==r.DONE?a.apply(this,arguments):void 0}},y={create:!0,exclusive:!1};return r.readyState=r.INIT,i||(i="download"),f?(m=u(d),b=a.document,e=b.createElementNS("http://www.w3.org/1999/xhtml","a"),e.href=m,e.download=i,q=b.createEvent("MouseEvents"),q.initMouseEvent("click",!0,!1,a,0,0,0,0,0,!1,!1,!1,!1,0,null),e.dispatchEvent(q),r.readyState=r.DONE,v(),void 0):(a.chrome&&s&&s!==j&&(p=d.slice||d.webkitSlice,d=p.call(d,0,d.size,j),t=!0),g&&"download"!==i&&(i+=".download"),(s===j||g)&&(o=a),h?(k+=d.size,h(a.TEMPORARY,k,x(function(a){a.root.getDirectory("saved",y,x(function(a){var b=function(){a.getFile(i,y,x(function(a){a.createWriter(x(function(b){b.onwriteend=function(b){o.location.href=a.toURL(),l.push(a),r.readyState=r.DONE,n(r,"writeend",b)},b.onerror=function(){var a=b.error;a.code!==a.ABORT_ERR&&w()},"writestart progress write abort".split(" ").forEach(function(a){b["on"+a]=r["on"+a]}),b.write(d),r.abort=function(){b.abort(),r.readyState=r.DONE},r.readyState=r.WRITING}),w)}),w)};a.getFile(i,{create:!1},x(function(a){a.remove(),b()}),x(function(a){a.code===a.NOT_FOUND_ERR?b():w()}))}),w)}),w),void 0):(w(),void 0))},p=o.prototype,q=function(a,b){return new o(a,b)};return p.abort=function(){var a=this;a.readyState=a.DONE,n(a,"abort")},p.readyState=p.INIT=0,p.WRITING=1,p.DONE=2,p.error=p.onwritestart=p.onprogress=p.onwrite=p.onabort=p.onerror=p.onwriteend=null,a.addEventListener("unload",m,!1),q.unload=function(){m(),a.removeEventListener("unload",m,!1)},q}}("undefined"!=typeof self&&self||"undefined"!=typeof window&&window||this.content);
-var {useState,useEffect,useRef}=cv,
-collapse=useRef()
+var {useState,useEffect,useRef}=cv
 
 var fileStructure=[
   {
     type: 'folder',
     name: 'assets',
-    children: [
-      {
-        type: 'folder',
-        name: 'cube',
-        children: [
-          {type:'folder',name:'defFrame',children:[]},
-          {type:'folder',name:'blurFrame',children:[]},
-          {type:'folder',name:'bg',children:[]},
-          {type:'file',name:'frame.ui',content:null}
-        ]
-      }
-    ]
+    children:[{type:'folder',name:'cube',children:[{type:'file',name:'frame.ui',content:null}]}]
   },
   {
     type: 'folder',
@@ -36,7 +24,11 @@ var fileStructure=[
       {type:'file',name:'_global_variables.json',content:`{"$cube_custom_boolean":true,"$cube_custom_from_website":true}`}
     ]
   },
-  {type:'folder',name:'textures',children:[]},
+  {type:'folder',name:'textures',children:[{type:'folder',name:'cube',children:[
+    {type:'folder',name:'frame',children:[]},
+    {type:'folder',name:'frameBlur',children:[]},
+    {type:'folder',name:'bg',children:[]}
+  ]}]},
   {type:'file',name:'manifest.json',content:'{"format_version":1,"header":{"description":"","name":"","uuid":"","version":[1,0,0]},"modules":[{"type":"resources","uuid":"","version":[1,0,0]}]}'},
   {type:'file',name:'pack_icon.png',content:null}
 ],
@@ -129,7 +121,7 @@ varObj=[
   {name:"调试状态",id:"status"},
   {name:"调试信息",id:"message"},
   {name:"调试布局",id:"layout"},
-  {name:"指针位置",id:"pointer",desc:"⚠️ 开发中"},
+  {name:"指针位置",id:"pointer"},
   {name:"聊天",id:"chat"},0,
   {name:"环境沙盒",id:"c923cef2"},
   {name:"屏幕大小",id:"5523405d",def:["default","default"],type:"size"},
@@ -139,7 +131,6 @@ varObj=[
   {name:"触屏",id:"cf295d3c"},
   {name:"游戏手柄",id:"950d0911"}
 ]}],bgData={live:false,src:null,img:null,showLive:true};
-window.fileStructure=fileStructure;
 let projectName="",projectDesc="";
 function arraysEqual(arr1,arr2){if(!Array.isArray(arr1)&&!Array.isArray(arr2))return arr1===arr2;if(arr1.length!==arr2.length)return false;return arr1.every((v,i)=>v===arr2[i])}
 function mergeObjects(){return Array.from(arguments).reduce((target,source)=>(Object.keys(source).forEach(key=>target[key]=source[key]),target),{})}
@@ -174,8 +165,8 @@ function topBar({title}){
   )
 }
 
-// index
-function navScreen(){
+// custom
+function customScreen(){
   const dialog=useRef();
   const nextBtn=useRef();
   const nameInput=useRef();
@@ -187,7 +178,7 @@ function navScreen(){
   const checkInput=function(e){projectName=e.target.inputRef.value.value;e.target.inputRef.value.value.trim().length>0?nextBtn.current.removeAttribute("disabled"):nextBtn.current.setAttribute("disabled","disabled")}
   const descInput=function(e){projectDesc=e.target.inputRef.value.value;}
   const next=function(){
-    fetchImage("/res/image/icon.png");
+    fetchImage("https://wisebreeze.github.io/cv/res/image/icon.png");
     let manifest=fileStructure.find(item=>item.name==='manifest.json'),
     manifestJSON=JSON.parse(manifest.content);
     manifestJSON.header.name=projectName;
@@ -202,12 +193,12 @@ function navScreen(){
     cv.skipRouter("/item");
   }
   return cv.c(cv.fragment,null,
-    cv.c("div",{id:"content",className:"ns mdui-container"},
+    cv.c("div",{id:"content",className:"ns mdui-container",style:"margin:8px"},
       cv.c("div",{className:"mdui-container"},
-      cv.c("h1",null,"站点索引"),
-      cv.c("p",null,"一目了然的网站全貌，轻松找到您需要的内容")),
+      cv.c("h1",null,"自定义"),
+      cv.c("p",null,"轻松定制立方之窗")),
       cv.c("div",null,
-        cv.c("mdui-button",{style:"width:100%;",onClick:customBtn},"开始自定义")
+        cv.c("mdui-button",{style:"width:100%;",onClick:customBtn},"新建")
       ),
       cv.c("mdui-dialog",{ref:dialog,attr:{"close-on-overlay-click":"close-on-overlay-click","close-on-esc":"close-on-esc"}},
         cv.c("span",{slot:"headline"},"资源包信息"),
@@ -222,9 +213,9 @@ function navScreen(){
 
 // item
 function bottomBtn({leftFn,rightFn,leftText,rightText,leftBtn}){
-  return cv.c("div",{style:"position: fixed;bottom: 0;display:flex;width: 100%"},
-    leftBtn?leftBtn:cv.c("mdui-button",{onClick:leftFn,style:"width:50%;margin-bottom:5px;margin-right:5px;box-sizing:border-box;width:calc(50% - 10px);",variant:"outlined"},leftText),
-    cv.c("mdui-button",{onClick:rightFn,style:"width:50%;margin-bottom:5px;box-sizing:border-box;width:calc(50% - 10px)",variant:"filled"},rightText)
+  return cv.c("div",{style:"position: fixed;bottom: 0;display:flex;width: 100%;padding:4px;background:rgba(var(--mdui-color-background-light),0.25)"},
+    leftBtn?leftBtn:cv.c("mdui-button",{onClick:leftFn,style:"margin-right:8px;box-sizing:border-box;width:calc(50% - 8px);",variant:"outlined"},leftText),
+    cv.c("mdui-button",{onClick:rightFn,style:"width:50%;box-sizing:border-box;width:calc(50% - 8px)",variant:"filled"},rightText)
   )
 }
 function itemScreen(){
@@ -236,7 +227,7 @@ function itemScreen(){
   const quitBtn=function(){
     mdui.dialog({
       headline:"你确定要退出吗？",
-      description:"刷新网页后，自定义操作的数据将会删除",
+      description:"刷新网页后，自定义操作的数据将会重置",
       closeOnEsc:true,closeOnOverlayClick:true,
       actions:[
         {text:"取消"},
@@ -266,7 +257,7 @@ function itemScreen(){
     )
   }
   return cv.c(cv.fragment,null,
-    cv.c("div",{id:"content",className:"ns mdui-container"},
+    cv.c("div",{id:"content",className:"ns mdui-container",style:"margin:8px"},
       cv.c("div",{className:"mdui-container"},
       cv.c("h1",null,"自定义项目"),
       cv.c("p",null,"选择你需要自定义的项目，定制完成后，点击下方的下载按钮下载压缩包"),
@@ -346,17 +337,17 @@ function variablesScreen(){
   }
   function save(){deployment();cv.skipRouter("/item")}
   return cv.c(cv.fragment,null,
-    cv.c("div",{id:"content",className:"ns mdui-container"},
+    cv.c("div",{id:"content",className:"ns mdui-container",style:"margin:8px"},
       cv.c("div",{className:"mdui-container",style:"height:calc(100vh - 11.5rem);overflow-y:auto;border-radius:var(--mdui-shape-corner-medium)"},
       cv.c("h1",null,"设置"),
       cv.c("div",{style:"margin:0 0 5px 0;position:sticky;top:0;z-index:10"},cv.c("mdui-text-field",{label:"搜索选项",clearable:!0,onInput:search})),
-      cv.c("div",{style:"background:rgba(var(--mdui-color-primary-dark), 0.2);border-radius:var(--mdui-shape-corner-medium);padding:0 5px;"},cv.c("mdui-list",null,cv.c("mdui-collapse",{ref:collapse,accordion:!0},
+      cv.c("div",{style:"background:rgba(var(--mdui-color-primary-dark), 0.2);border-radius:var(--mdui-shape-corner-medium);padding:0 5px;"},cv.c("mdui-list",null,cv.c("mdui-collapse",{accordion:!0},
         varObj.map(d=>cv.c(partition,{data:d})),
         isEmptyResult&&cv.c("b",{style:'display:flex;justify-content:center;width:100%'},"空空如也")
       )))
     )),
-    cv.c("div",{style:"position: fixed;bottom: 0;display:flex;width: 100%;z-index:1000"},
-      cv.c("mdui-button",{onClick:save,style:"margin-bottom:5px;box-sizing:border-box;width:calc(100% - 16px)",variant:"filled"},"保存")
+    cv.c("div",{style:"position: fixed;bottom: 0;display:flex;width: 100%;z-index:1000;padding:4px"},
+      cv.c("mdui-button",{onClick:save,style:"box-sizing:border-box;width:calc(100% - 8px)",variant:"filled"},"保存")
     )
   )
 }
@@ -379,6 +370,7 @@ function bgScreen(){
       progressDialog.current.description="正在加载图片中"
       liveSwitch.current.checked=false;
       liveSwitchFn();
+      fileRead("textures/cube")[2].children=[];
       var reader=new FileReader();
       reader.onload=function(event){
         var image=new Image();
@@ -390,12 +382,12 @@ function bgScreen(){
           ctx.drawImage(image, 0, 0);
           img.current.src=canvas.toDataURL('image/jpeg')
           bgData.img=img.current.src
-          await new Promise(resolve=>canvas.toBlob(blob=>{addFileToFolder("assets/cube/bg","bg.jpg",blob);resolve()}))
+          await new Promise(resolve=>canvas.toBlob(blob=>{addFileToFolder("textures/cube/bg","bg.jpg",blob);resolve()}))
           progressDialog.current.description="正在处理模糊中"
           if(engine=="engine1")ctx.putImageData(gaussBlur2(ctx.getImageData(0,0,canvas.width,canvas.height),10),0,0)
           else if(engine=="entity2")ctx.filter="blur(10px)"
           else ctx.putImageData(gaussBlur(ctx.getImageData(0,0,canvas.width,canvas.height),10),0,0)
-          await new Promise(resolve=>canvas.toBlob(blob=>{addFileToFolder("assets/cube/bg","blur.jpg",blob);resolve()}))
+          await new Promise(resolve=>canvas.toBlob(blob=>{addFileToFolder("textures/cube/bg","blur.jpg",blob);resolve()}))
           cancelBtn()
         }
         image.src=event.target.result
@@ -419,8 +411,8 @@ function bgScreen(){
       var video=document.createElement('video');
       video.addEventListener("loadedmetadata",function(){
         var duration=video.duration;
-        if(duration<=45)infoDialog.current.open=true;
-        else{cancelBtn();mdui.snackbar({message:"视频时长大于45秒，无法制作动态壁纸",placement:"top",autoCloseDelay:3000,closeable:true})}
+        if(duration<=30)infoDialog.current.open=true;
+        else{cancelBtn();mdui.snackbar({message:"视频时长大于30秒，无法制作动态壁纸",placement:"top",autoCloseDelay:3000,closeable:true})}
       })
       video.src=URL.createObjectURL(file);
     }else if(file.type.indexOf("image/")===0){
@@ -434,8 +426,8 @@ function bgScreen(){
     var width=video.current.videoWidth/2,height=video.current.videoHeight/2;
     liveSwitch.current.checked=true
     liveSwitchFn()
-    fileRead("assets/cube")[0].children=[]
-    fileRead("assets/cube")[1].children=[]
+    fileRead("textures/cube")[0].children=[]
+    fileRead("textures/cube")[1].children=[]
     timer=setInterval(()=>{
       var canvas=document.createElement("canvas"),ctx=canvas.getContext('2d');
       canvas.width=width;
@@ -455,7 +447,7 @@ function bgScreen(){
       for(var e of frameArr){
         var blob=await getBlobFromCanvas(e.frame)
         progress.current.value=e.index/len
-        addFileToFolder("assets/cube/defFrame",e.index===0?"frame.jpg":`frame_${e.index}.jpg`,blob)
+        addFileToFolder("textures/cube/frame",e.index===0?"frame.jpg":`frame_${e.index}.jpg`,blob)
       }
       handleBlur()
     }
@@ -473,7 +465,7 @@ function bgScreen(){
           if(engine=="engine1")ctx.putImageData(gaussBlur2(ctx.getImageData(0,0,e.frame.width,e.frame.height),30),0,0)
           else if(engine=="entity2")ctx.filter="blur(10px)"
           else ctx.putImageData(gaussBlur(ctx.getImageData(0,0,e.frame.width,e.frame.height),10),0,0)
-          e.frame.toBlob(blob=>{addFileToFolder("assets/cube/blurFrame",e.index===0?"frame.jpg":`frame_${e.index}.jpg`,blob);resolve()},"image/jpeg",0.8)
+          e.frame.toBlob(blob=>{addFileToFolder("textures/cube/frameBlur",e.index===0?"frame.jpg":`frame_${e.index}.jpg`,blob);resolve()},"image/jpeg",0.8)
         })
       }
       editFrameFile()
@@ -481,7 +473,7 @@ function bgScreen(){
     processBlurFrames()
   }
   var editFrameFile=()=>{
-    var frameJSON={"namespace":"cncded832c","a":{"type":"image","size":["100%","100%"],"fill":true},"b":{"anim_type":"offset","duration":duration},"c":{"type":"panel","controls":[{"a@cncded832c.e":{"size":["100%","100%"],"anchor_from":"center","anchor_to":"center"}},{"b":{"type":"image","texture":"assets/cube/defFrame/frame","layer":-2,"size":["100%","100%"],"fill":true}}]},"d":{"type":"panel","controls":[{"a@cncded832c.f":{"size":["100%","100%"],"anchor_from":"center","anchor_to":"center"}},{"b":{"type":"image","texture":"assets/cube/blurFrame/frame","layer":-2,"size":["100%","100%"],"fill":true}}]},"e@ct.vp":{"offset":"@cncded832c.1","controls":[]},"f@ct.vp":{"offset":"@cncded832c.1","controls":[]}}
+    var frameJSON={"namespace":"cncded832c","a":{"type":"image","size":["100%","100%"],"fill":true},"b":{"anim_type":"offset","duration":duration},"c":{"type":"panel","controls":[{"a@cncded832c.e":{"size":["100%","100%"],"anchor_from":"center","anchor_to":"center"}},{"b":{"type":"image","texture":"textures/cube/frame/frame","layer":-2,"size":["100%","100%"],"fill":true}}]},"d":{"type":"panel","controls":[{"a@cncded832c.f":{"size":["100%","100%"],"anchor_from":"center","anchor_to":"center"}},{"b":{"type":"image","texture":"textures/cube/frameBlur/frame","layer":-2,"size":["100%","100%"],"fill":true}}]},"e@ct.vp":{"offset":"@cncded832c.1","controls":[]},"f@ct.vp":{"offset":"@cncded832c.1","controls":[]}}
     var frameJSONFile=fileRead("assets/cube/frame.ui")
     frameJSON=JSON.parse(JSON.stringify(frameJSON))
     progressDialog.current.description="写入文件中"
@@ -490,10 +482,10 @@ function bgScreen(){
     frameArr.forEach((e,i)=>{
       progress.current.value=i/len
       frameJSON["e@ct.vp"]["controls"].push({
-        [i+"@cncded832c.a"]:{texture:"assets/cube/defFrame/frame"+(i===0?"":"_"+i)}
+        [i+"@cncded832c.a"]:{texture:"textures/cube/frame/frame"+(i===0?"":"_"+i)}
       })
       frameJSON["f@ct.vp"]["controls"].push({
-        [i+"@cncded832c.a"]:{texture:"assets/cube/blurFrame/frame"+(i===0?"":"_"+i)}
+        [i+"@cncded832c.a"]:{texture:"textures/cube/frameBlur/frame"+(i===0?"":"_"+i)}
       })
       frameJSON[(i+1)+"@cncded832c.b"]={
         from:[0,`${i*-100}%`],
@@ -514,13 +506,13 @@ function bgScreen(){
     img.current.style.display=liveState?"none":"block";
     globalVariablesFile.content=JSON.stringify(globalVariablesJSON)
   }
-  var resetStatic=function(){mdui.dialog({headline:"重置",description:"您确定重置静态背景相关数据吗？",closeOnOverlayClick:true,closeOnEsc:true,actions:[{text:"取消"},{text:"重置",onClick:function(){liveSwitch.current.checked=false;fileRead("assets/cube")[3].children=[];bgData.img=null;liveSwitchFn()}}]})}
-  var resetLive=function(){mdui.dialog({headline:"重置",description:"您确定重置动态背景相关数据吗？",closeOnOverlayClick:true,closeOnEsc:true,actions:[{text:"取消"},{text:"重置",onClick:function(){liveSwitch.current.checked=false;fileRead("assets/cube")[0].children=[];fileRead("assets/cube")[1].children=[];bgData.src=null;frameArr=[];liveSwitchFn()}}]})}
+  var resetStatic=function(){mdui.dialog({headline:"重置",description:"您确定重置静态背景相关数据吗？",closeOnOverlayClick:true,closeOnEsc:true,actions:[{text:"取消"},{text:"重置",onClick:function(){liveSwitch.current.checked=false;fileRead("textures/cube")[2].children=[];img.current.src=null;bgData.img=null;liveSwitchFn()}}]})}
+  var resetLive=function(){mdui.dialog({headline:"重置",description:"您确定重置动态背景相关数据吗？",closeOnOverlayClick:true,closeOnEsc:true,actions:[{text:"取消"},{text:"重置",onClick:function(){liveSwitch.current.checked=false;fileRead("textures/cube")[0].children=[];fileRead("textures/cube")[1].children=[];previewVideo.current.src=null;bgData.src=null;frameArr=[];liveSwitchFn()}}]})}
   var save=function(){cv.skipRouter("/item")}
   var allowDrop=function(a){a.preventDefault()},handleClickOrDrop=function(a,b){a.preventDefault();var c,d=b.current;if('drop'===a.type)c=a.dataTransfer.files,d.files=c;else if('click'===a.type)return void d.click()};
-  var leftBtn=cv.c("mdui-button",{onClick:e=>handleClickOrDrop(e,uploadFile),ondrop:e=>handleClickOrDrop(e,uploadFile),ondragover:allowDrop,style:"width:50%;margin-bottom:5px;margin-right:5px;box-sizing:border-box;width:calc(50% - 10px);",variant:"outlined"},"上传");
+  var leftBtn=cv.c("mdui-button",{onClick:e=>handleClickOrDrop(e,uploadFile),ondrop:e=>handleClickOrDrop(e,uploadFile),ondragover:allowDrop,style:"margin-right:8px;box-sizing:border-box;width:calc(50% - 8px);",variant:"outlined"},"上传");
   return cv.c(cv.fragment,null,
-    cv.c("div",{id:"content",className:"ns mdui-container"},
+    cv.c("div",{id:"content",className:"ns mdui-container",style:"margin:8px"},
       cv.c("mdui-dialog",{headline:"制作中",description:"提取每帧图片中",ref:progressDialog},cv.c("mdui-linear-progress",{ref:progress})),
       cv.c("mdui-dialog",{headline:"基本信息",ref:infoDialog},
         cv.c("mdui-text-field",{label:"每隔多少毫秒截图 (单位: 毫秒) [整数]",ref:delayInput,min:20,max:60000,type:"number",value:100,style:"margin-bottom:5px"}),
@@ -575,8 +567,8 @@ function musicScreen(){
         }
         reader.readAsArrayBuffer(coverFiles[0])
       }
-      soundsDefJson[oggID]={category:"ui",sounds:[{name:oggPath.slice(0,oggPath.lastIndexOf(".")),load_on_low_memory:true,volume:0.5}]}
-      soundsDefJson["cube.music.custom"].sounds.push({name:oggPath.slice(0,oggPath.lastIndexOf(".")),load_on_low_memory:true,volume:0.5})
+      soundsDefJson[oggID]={category:"ui",sounds:[{name:oggPath.slice(0,oggPath.lastIndexOf(".")),stream:true,volume:0.5}]}
+      soundsDefJson["cube.music.custom"].sounds.push({name:oggPath.slice(0,oggPath.lastIndexOf(".")),stream:true,volume:0.5})
       soundsDef.content=JSON.stringify(soundsDefJson)
       audio.src=URL.createObjectURL(blob);
       audio.addEventListener('loadedmetadata',function(){
@@ -597,17 +589,17 @@ function musicScreen(){
   }
   var save=function(){cv.skipRouter("/item")}
   return cv.c(cv.fragment,null,
-    cv.c("div",{id:"content",className:"ns mdui-container"},
-      cv.c("mdui-list",{className:"mdui-container"},
+    cv.c("div",{id:"content",className:"ns mdui-container",style:"margin:8px"},
+      item.length!==0&&cv.c("div",{className:"mdui-container"},cv.c("mdui-list",{style:"background:rgba(var(--mdui-color-primary-dark), 0.2);border-radius:var(--mdui-shape-corner-medium);padding:5px;"},
         item.map((i,index)=>{
           var firstKey=Object.keys(i),musicObj=i[firstKey[0]];
           return cv.c("mdui-list-item",{rounded:"rounded"},musicObj["$music_name"],
             cv.c("span",{slot:"description"},musicObj["$music_author"]),
             cv.c("mdui-dropdown",{slot:"end-icon",style:"line-height:normal;"},
               cv.c("mdui-button-icon",{slot:"trigger"},cv.c("ion-icon",{attr:{name:"ellipsis-vertical"}})),
-              cv.c("mdui-menu",null,cv.c("mdui-menu-item",{onClick:()=>deleteMusic(index)},"删除"))
-            ))
-        }),cv.c("div",{style:"height:30px"})),
+              cv.c("mdui-menu",null,cv.c("mdui-menu-item",{onClick:()=>mdui.dialog({headline:`移除 ${musicObj["$music_name"]}？`,description:"您确定要将该音乐从列表中移除吗？该操作不可撤销！",closeOnEsc:true,closeOnOverlayClick:true,actions:[{text:"取消"},{text:"移除",onClick:deleteMusic.bind(this,index)}]})},"移除"))
+          ))
+      })),cv.c("div",{style:"height:45px"})),
       item.length===0&&cv.c("div",{style:{position:"fixed",top:"50%",left:"50%",transform:"translate(-50%, -50%)",textAlign:"center"}},
         cv.c("div",{style:{fontSize:"32px"}},"列表是空的"),
         cv.c("div",{style:{fontSize:"14px",marginTop:"4px"}},"点击左下角按钮添加音乐～")
@@ -648,7 +640,7 @@ function errorScreen(){
 function App(){
   return cv.c(cv.fragment,null,cv.c(topBar),cv.c(cv.BrowserRouter,{errorComponent:errorScreen},
     cv.c(cv.router,{path:"/",component:home}),
-    cv.c(cv.router,{path:"/nav",component:navScreen}),
+    cv.c(cv.router,{path:"/custom",component:customScreen}),
     cv.c(cv.router,{path:"/item",component:itemScreen}),
     cv.c(cv.router,{path:"/music",component:musicScreen}),
     cv.c(cv.router,{path:"/variables",component:variablesScreen}),
