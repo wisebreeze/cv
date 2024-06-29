@@ -29,7 +29,7 @@ var fileStructure=[
     {type:'folder',name:'frameBlur',children:[]},
     {type:'folder',name:'bg',children:[]}
   ]}]},
-  {type:'file',name:'manifest.json',content:'{"format_version":1,"header":{"description":"","name":"","uuid":"","version":[1,0,0]},"modules":[{"type":"resources","uuid":"","version":[1,0,0]}]}'},
+  {type:'file',name:'manifest.json',content:'{"format_version":1,"header":{"description":"","name":"未设置名称","uuid":"","version":[1,0,0],"min_engine_version":[1,13,0]},"modules":[{"type":"resources","uuid":"","version":[1,0,0]}]}'},
   {type:'file',name:'pack_icon.png',content:null}
 ],
 varObj=[
@@ -183,8 +183,6 @@ function customScreen(){
     manifestJSON=JSON.parse(manifest.content);
     manifestJSON.header.name=projectName;
     manifestJSON.header.description=projectDesc;
-    manifestJSON.header.uuid=get_uuid();
-    manifestJSON.modules[0].uuid=get_uuid();
     manifest.content=JSON.stringify(manifestJSON);
     let globalVariablesFile=fileRead("ui/_global_variables.json"),
     globalVariablesJSON=JSON.parse(globalVariablesFile.content)
@@ -231,7 +229,7 @@ function itemScreen(){
       closeOnEsc:true,closeOnOverlayClick:true,
       actions:[
         {text:"取消"},
-        {text:"退出",onClick:function(){window.removeEventListener('beforeunload',confirmExit);cv.skipRouter("/nav")}}
+        {text:"退出",onClick:function(){window.removeEventListener('beforeunload',confirmExit);cv.skipRouter("/custom")}}
       ]
     })
   }
@@ -242,7 +240,7 @@ function itemScreen(){
       closeOnEsc:true,closeOnOverlayClick:true,
       actions:[
         {text:"取消"},
-        {text:"确定",onClick:function(){window.removeEventListener('beforeunload',confirmExit);deleteEmpty(fileStructure);downloadZip(fileStructure);}}
+        {text:"确定",onClick:function(){var manifestFile=fileRead("manifest.json"),manifestJSON=JSON.parse(manifestFile.content);manifestJSON.header.uuid=get_uuid();manifestJSON.modules[0].uuid=get_uuid();manifestFile.content=JSON.stringify(manifestJSON);window.removeEventListener('beforeunload',confirmExit);deleteEmpty(fileStructure);downloadZip(fileStructure)}}
       ]
     })
   }
