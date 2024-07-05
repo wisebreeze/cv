@@ -67,6 +67,9 @@ commitDeletionAll=(f,p)=>{while(f){if(f.dom)p.removeChild(f.dom);else commitDele
 root=(el,c)=>{wipRoot={dom:c,props:{children:[typeof el=="function"?cv.c(el,null):el]},alternate:currentRoot};deletions=[];nextUnitOfWork=wipRoot};
 let nextUnitOfWork=null,currentRoot=null,wipRoot=null,deletions=null,wipFiber=null,hookIndex=null,lastIdleTime=0,routerHistory=[],initialPath='';
 
+window.requestIdleCallback=window.requestIdleCallback||function(handler){var startTime=Date.now();return setTimeout(function(){handler({didTimeout:false,timeRemaining:function(){return Math.max(0,50.0-(Date.now()-startTime))}})},1)};
+window.cancelIdleCallback=window.cancelIdleCallback||function(id){clearTimeout(id)};
+
 function workLoop(dl){if(lastIdleTime-dl.timeStamp>MAX_TIME){nextUnitOfWork=null;wipRoot=null;return}let yi=false;while(nextUnitOfWork&&!yi){nextUnitOfWork=performUnitOfWork(nextUnitOfWork);lastIdleTime=dl.timeStamp;yi=dl.timeRemaining()<1}if(!nextUnitOfWork&&wipRoot)commitRoot();requestIdleCallback(workLoop)}
 requestIdleCallback(workLoop)
 
