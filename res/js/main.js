@@ -130,7 +130,7 @@ varObj=[
   {name:"键盘＆鼠标",id:"decdc2ac",def:!0},
   {name:"触屏",id:"cf295d3c"},
   {name:"游戏手柄",id:"950d0911"}
-]}],bgData={live:false,src:null,img:null,showLive:true};
+]}],bgData={live:false,src:null,img:null,showLive:true},MusicArr=[];
 let projectName="",projectDesc="";
 function arraysEqual(arr1,arr2){if(!Array.isArray(arr1)&&!Array.isArray(arr2))return arr1===arr2;if(arr1.length!==arr2.length)return false;return arr1.every((v,i)=>v===arr2[i])}
 function mergeObjects(){return Array.from(arguments).reduce((target,source)=>(Object.keys(source).forEach(key=>target[key]=source[key]),target),{})}
@@ -140,7 +140,7 @@ function fileRead(n){for(var r=n.split("/"),t=fileStructure,e=0;e<r.length;e++)!
 function findFileByName(a,b){var c=!0,d=!1,e=void 0;try{for(var g,h,f=a[Symbol.iterator]();!(c=(g=f.next()).done);c=!0){if(h=g.value,h.name===b)return h;if('folder'===h.type){var i=findFileByName(h.children,b);if(i)return i}}}catch(h){d=!0,e=h}finally{try{!c&&f.return&&f.return()}finally{if(d)throw e}}return null}
 function addFileToFolder(a,b,c,d){var f,g,i,j,k,l,m,n,e=a.split("/");for(d||(d=fileStructure),f=0;f<d.length;f++)if(g=d[f],"folder"===g.type&&g.name===e[0]){if(g.children||(g.children=[]),1===e.length){for(i=b.substring(0,b.lastIndexOf(".")),j=b.substring(b.lastIndexOf(".")),k=g.children.filter(function(a){return"file"===a.type}).map(function(a){return a.name}),l=1;k.includes(b);)b=i+"_"+l+j,l++;return g.children.push({type:"file",name:b,content:c}),b}if(m=e.slice(1).join("/"),n=addFileToFolder(m,b,c,g.children))return n}return console.error('Unable to find folder at path "'+a+'"'),null}
 function addFilesToZip(folder,zip){folder.forEach(item=>{if(item.type==='file'){zip.file(item.name,item.content);}else if(item.type==='folder'){const newFolder=zip.folder(item.name);addFilesToZip(item.children,newFolder);}});}
-function downloadZip(a){const b=new JSZip;addFilesToZip(a,b),b.generateAsync({type:"blob"}).then(function(a){saveAs(a,projectName||"立方之窗_自定义包")})}
+function downloadZip(a){const b=new JSZip;addFilesToZip(a,b),b.generateAsync({type:"blob"}).then(function(a){saveAs(a,(projectName||"立方之窗_自定义包")+".mcpack")})}
 function fetchImage(url,callback){fetch(url).then(response=>response.blob()).then(blob=>{const icon=fileStructure.find(item=>item.name==='pack_icon.png');if(icon)icon.content=blob;if(typeof callback==='function')callback(blob);}).catch(error=>console.error('Fetching image failed:',error));}
 function get_uuid(){var a=(new Date).getTime();return window.performance&&"function"==typeof window.performance.now&&(a+=performance.now()),"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(b){var c=0|(a+16*Math.random())%16;return a=Math.floor(a/16),("x"==b?c:8|3&c).toString(16)})}
 function debounce(func,delay){let timerId;return function(){const context=this;const args=arguments;clearTimeout(timerId);timerId=setTimeout(function(){func.apply(context,args);},delay)}}
@@ -236,7 +236,7 @@ function itemScreen(){
   const downloadBtn=function(){
     mdui.dialog({
       headline:"下载",
-      description:"下载完成后，将下载的压缩包的后缀改为.mcpack，之后使用 Minecraft 打开！",
+      description:"下载完成后，部分浏览器需要将压缩包的.mcpack.zip后缀后缀改为.mcpack，之后使用 Minecraft 打开",
       closeOnEsc:true,closeOnOverlayClick:true,
       actions:[
         {text:"取消"},
@@ -538,7 +538,7 @@ function bgScreen(){
 // music
 function musicScreen(){
   var musicName=useRef(),musicAuthor=useRef(),addBtn=useRef(),dialog=useRef(),musicFile=useRef(),coverFile=useRef();
-  var close=()=>{dialog.current.open=false},coverChange=function(e){coverFile.name=e.target.files[0].name},musicChange=function(a){var b=a.target.files[0];if(b){var c=b.name.split(".").pop();return"ogg"===c?void(""===musicName.current.inputRef.value.value&&musicName.current.setRangeText(b.name.substring(0,b.name.lastIndexOf("."))),addBtn.current.disabled=!1):mdui.snackbar({message:"\u8BE5\u683C\u5F0F\u7684\u6587\u4EF6\u4E0D\u652F\u6301\uFF0C\u8BF7\u4E0A\u4F20 .ogg \u6587\u4EF6",closeable:!0,autoCloseDelay:3e3,closeOnOutsideClick:!0,placement:"top"})}};
+  var close=()=>{dialog.current.open=false},coverChange=function(e){var reader=new FileReader();reader.onload=function(r){var img=new Image();img.onload=function(){new SimpleCrop({src:r.target.result,cropSizePercent:0.8,size:{width:Math.min(img.width,img.height),height:Math.min(img.width,img.height)},cropCallback:function(result){coverFile.result=result}})};img.src=r.target.result;coverFile.name=e.target.files[0].name};if(e.target.files.length>0)reader.readAsDataURL(e.target.files[0])},musicChange=function(a){var b=a.target.files[0];if(b){var c=b.name.split(".").pop();return"ogg"===c?void(""===musicName.current.inputRef.value.value&&musicName.current.setRangeText(b.name.substring(0,b.name.lastIndexOf("."))),addBtn.current.disabled=!1):mdui.snackbar({message:"\u8BE5\u683C\u5F0F\u7684\u6587\u4EF6\u4E0D\u652F\u6301\uFF0C\u8BF7\u4E0A\u4F20 .ogg \u6587\u4EF6",closeable:!0,autoCloseDelay:3e3,closeOnOutsideClick:!0,placement:"top"})}};
   var allowDrop=function(a){a.preventDefault()},handleClickOrDrop=function(a,b){a.preventDefault();var c,d=b.current;if('drop'===a.type)c=a.dataTransfer.files,d.files=c;else if('click'===a.type)return void d.click()};
 
   var setting=findFileByName(fileStructure,"_setting.json");
@@ -552,22 +552,23 @@ function musicScreen(){
   var newBtn=()=>{dialog.current.open=true}
   var addMusic=()=>{
     var name=musicName.current.inputRef.value.value,author=musicAuthor.current.inputRef.value.value,fileReader=new FileReader(),audio=new Audio();
-    fileReader.onload=function(e){
-      var blob=new Blob([e.target.result], { type: 'audio/ogg' });
+    fileReader.onload=async function(e){
+      var blob=new Blob([e.target.result],{type:'audio/ogg'}),musicDetails={};
       var oggPath="sounds/"+addFileToFolder("sounds",name+".ogg",blob);
       var coverFiles=coverFile.current.files,coverPath="",oggID=get_uuid();
       if(coverFiles&&coverFiles.length>0){
-        var coverID=get_uuid(),reader=new FileReader(),coverType=coverFiles[0].type;
+        var coverID=get_uuid(),coverType=coverFiles[0].type;
         coverPath="textures/"+coverID+"."+coverFile.name.split('.').pop();
-        reader.onload=function(e){
-          var coverBlob=new Blob([e.target.result], { type: coverType });
-          addFileToFolder("textures",coverID+"."+coverFile.name.split('.').pop(),coverBlob)
-        }
-        reader.readAsArrayBuffer(coverFiles[0])
+        var coverBlob = await new Promise(resolve=>{
+          musicDetails.img=coverFile.result.toDataURL(coverType)
+          coverFile.result.toBlob(blob=>resolve(blob),coverType);
+        })
+        addFileToFolder("textures",coverID+"."+coverFile.name.split('.').pop(),coverBlob)
       }
       soundsDefJson[oggID]={category:"ui",sounds:[{name:oggPath.slice(0,oggPath.lastIndexOf(".")),stream:true,volume:0.5}]}
       soundsDefJson["cube.music.custom"].sounds.push({name:oggPath.slice(0,oggPath.lastIndexOf(".")),stream:true,volume:0.5})
       soundsDef.content=JSON.stringify(soundsDefJson)
+      MusicArr.push(musicDetails)
       audio.src=URL.createObjectURL(blob);
       audio.addEventListener('loadedmetadata',function(){
         const duration=audio.duration,
@@ -582,7 +583,7 @@ function musicScreen(){
     fileReader.readAsArrayBuffer(musicFile.current.files[0]);
   };
   var deleteMusic=i=>{
-    var firstKeys=Object.keys(item[i]),musicID=item[i][firstKeys]["$music_id"],coverPath=item[i][firstKeys]["$music_cover"],soundsDef=fileRead("sounds/sound_definitions.json"),soundsDefJson=JSON.parse(soundsDef.content),oggPath=soundsDefJson[musicID]["sounds"][0]["name"]+".ogg";item.splice(i,1),
+    var firstKeys=Object.keys(item[i]),musicID=item[i][firstKeys]["$music_id"],coverPath=item[i][firstKeys]["$music_cover"],soundsDef=fileRead("sounds/sound_definitions.json"),soundsDefJson=JSON.parse(soundsDef.content),oggPath=soundsDefJson[musicID]["sounds"][0]["name"]+".ogg";MusicArr.splice(i,1),item.splice(i,1),
     coverPath!==''&&deleteFile("textures",coverPath.slice(coverPath.lastIndexOf('/')+1)),deleteFile("sounds",oggPath.slice(oggPath.lastIndexOf('/')+1)),setting.content=JSON.stringify(setJson),soundsDefJson["cube.music.custom"].sounds.splice(i,1),delete soundsDefJson[musicID],soundsDef.content=JSON.stringify(soundsDefJson),cv.forceUpdate()
   }
   var save=function(){cv.skipRouter("/item")}
@@ -593,6 +594,7 @@ function musicScreen(){
           var firstKey=Object.keys(i),musicObj=i[firstKey[0]];
           return cv.c("mdui-list-item",{rounded:"rounded"},musicObj["$music_name"],
             cv.c("span",{slot:"description"},musicObj["$music_author"]),
+            MusicArr[index].img&&cv.c("img",{slot:"icon",style:"width:2.5rem;height:2.5rem;border-radius:4px",src:MusicArr[index].img}),
             cv.c("mdui-dropdown",{slot:"end-icon",style:"line-height:normal;"},
               cv.c("mdui-button-icon",{slot:"trigger"},cv.c("ion-icon",{attr:{name:"ellipsis-vertical"}})),
               cv.c("mdui-menu",null,cv.c("mdui-menu-item",{onClick:()=>mdui.dialog({headline:`移除 ${musicObj["$music_name"]}？`,description:"您确定要将该音乐从列表中移除吗？该操作不可撤销！",closeOnEsc:true,closeOnOverlayClick:true,actions:[{text:"取消"},{text:"移除",onClick:deleteMusic.bind(this,index)}]})},"移除"))
@@ -603,7 +605,7 @@ function musicScreen(){
         cv.c("div",{style:{fontSize:"14px",marginTop:"4px"}},"点击左下角按钮添加音乐～")
     )),
     cv.c(bottomBtn,{leftFn:newBtn,rightFn:save,leftText:"添加",rightText:"保存"}),
-    cv.c("mdui-dialog",{ref:dialog,attr:{"close-on-overlay-click":"close-on-overlay-click","close-on-esc":"close-on-esc"}},
+    cv.c("mdui-dialog",{ref:dialog,attr:{"close-on-esc":"close-on-esc"}},
       cv.c("span",{slot:"headline"},"添加音乐"),
       cv.c("mdui-text-field",{maxlength:32,ref:musicName,counter:"counter",label:"音乐名称"}),
       cv.c("mdui-text-field",{maxlength:32,ref:musicAuthor,counter:"counter",label:"音乐作者"}),
