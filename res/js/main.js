@@ -586,6 +586,10 @@ function musicScreen(){
     var firstKeys=Object.keys(item[i]),musicID=item[i][firstKeys]["$music_id"],coverPath=item[i][firstKeys]["$music_cover"],soundsDef=fileRead("sounds/sound_definitions.json"),soundsDefJson=JSON.parse(soundsDef.content),oggPath=soundsDefJson[musicID]["sounds"][0]["name"]+".ogg";MusicArr.splice(i,1),item.splice(i,1),
     coverPath!==''&&deleteFile("textures",coverPath.slice(coverPath.lastIndexOf('/')+1)),deleteFile("sounds",oggPath.slice(oggPath.lastIndexOf('/')+1)),setting.content=JSON.stringify(setJson),soundsDefJson["cube.music.custom"].sounds.splice(i,1),delete soundsDefJson[musicID],soundsDef.content=JSON.stringify(soundsDefJson),cv.forceUpdate()
   }
+  var edit=(type,name,i)=>mdui.prompt({
+    headline:"编辑"+name,closeOnEsc:true,cancelText:"取消",confirmText:"确定",
+    onConfirm:value=>{if(type==="$music_name"&&value.trim()===""){mdui.snackbar({message:"音乐名称不能为空！",placement:"top",action:"知道了",onActionClick:()=>{}});return}var firstKeys=Object.keys(item[i]);item[i][firstKeys][type]=value;setting.content=JSON.stringify(setJson);cv.forceUpdate()}
+  })
   var save=function(){cv.skipRouter("/item")}
   return cv.c(cv.fragment,null,
     cv.c("div",{id:"content",className:"ns mdui-container",style:"margin:8px"},
@@ -595,9 +599,14 @@ function musicScreen(){
           return cv.c("mdui-list-item",{rounded:"rounded"},musicObj["$music_name"],
             cv.c("span",{slot:"description"},musicObj["$music_author"]),
             MusicArr[index].img&&cv.c("img",{slot:"icon",style:"width:2.5rem;height:2.5rem;border-radius:4px",src:MusicArr[index].img}),
-            cv.c("mdui-dropdown",{slot:"end-icon",style:"line-height:normal;"},
+            cv.c("mdui-dropdown",{slot:"end-icon",style:"line-height:normal;",trigger:"click","stay-open-on-click":true},
               cv.c("mdui-button-icon",{slot:"trigger"},cv.c("ion-icon",{attr:{name:"ellipsis-vertical"}})),
-              cv.c("mdui-menu",null,cv.c("mdui-menu-item",{onClick:()=>mdui.dialog({headline:`移除 ${musicObj["$music_name"]}？`,description:"您确定要将该音乐从列表中移除吗？该操作不可撤销！",closeOnEsc:true,closeOnOverlayClick:true,actions:[{text:"取消"},{text:"移除",onClick:deleteMusic.bind(this,index)}]})},"移除"))
+              cv.c("mdui-menu",{dense:true},
+                cv.c("mdui-menu-item",{onClick:()=>mdui.dialog({headline:`移除 ${musicObj["$music_name"]}？`,description:"您确定要将该音乐从列表中移除吗？该操作不可撤销！",closeOnEsc:true,closeOnOverlayClick:true,actions:[{text:"取消"},{text:"移除",onClick:deleteMusic.bind(this,index)}]})},"移除"),
+                cv.c("mdui-menu-item",null,"编辑 [长按展开]",
+                  cv.c("mdui-menu-item",{onClick:()=>edit("$music_name","音乐名称",index),slot:"submenu"},"音乐名称"),
+                  cv.c("mdui-menu-item",{onClick:()=>edit("$music_author","音乐作者",index),slot:"submenu"},"音乐作者")
+              ))
           ))
       })),cv.c("div",{style:"height:45px"})),
       item.length===0&&cv.c("div",{style:{position:"fixed",top:"50%",left:"50%",transform:"translate(-50%, -50%)",textAlign:"center"}},
