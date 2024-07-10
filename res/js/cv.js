@@ -1,4 +1,4 @@
-(function(){"use strict";const MAX_TIME=1000,
+(function(){"use strict";const MAX_TIME=1000,localizationData={current:"en-US"},
 createElement=(type,props,...children)=>({type,props:{...props,children:children.flat()/*.filter(c=>c!=null&&c!==false)*/.map(child=>typeof child==="object"?child:createTextElement(child))}}),
 createTextElement=t=>({type:"#text",props:{nodeValue:t}}),
 createDom=fiber=>{const isEmpty=fiber.props&&typeof fiber.props.nodeValue=="boolean",dom=fiber.type=="#text"?document.createTextNode(""):document.createElement(typeof fiber.type=='string'?fiber.type:'div');isEmpty||updateDom(dom,{},fiber.props);return dom},
@@ -173,6 +173,10 @@ function BrowserRouter({children:routers,errorComponent}){
   return routers.find(r=>pathToRegexp(window.location.pathname.slice(initialPath.length)).exec(r.props.path))||cv.c(cv.router,{component:errorComponent})
 }
 
+function T(a){function t(a,t){return t.forEach(function(t,o){a=a.replace("$"+(o+1),t)}),a}var o=localizationData.current.toLowerCase();if(localizationData[o]&&localizationData[o][a])return t(localizationData[o][a],Array.prototype.slice.call(arguments,1));return localizationData["en-us"]&&localizationData["en-us"][a]?t(localizationData["en-us"][a],Array.prototype.slice.call(arguments,1)):a}
+function setLocale(o){localizationData[o]?localizationData.current=o:console.error("Language '"+o+"' is not supported.")}
+function setLocalizationData(a){for(var t in a)if(a.hasOwnProperty(t)){localizationData[t]={};for(var i in a[t])a[t].hasOwnProperty(i)&&(localizationData[t][i]=a[t][i])}}
+
 const
 setInitialPath=path=>initialPath=path,
 passRef=fn=>p=>{const{ref,...P}=p;return fn(P,ref)},
@@ -189,4 +193,4 @@ window.addEventListener("hashchange",()=>{forceUpdate()});
 window.addEventListener('pushstate', function(e){forceUpdate()});
 window.addEventListener('popstate', function(e){forceUpdate()});
 document.addEventListener('click',e=>{if(typeof e.target.href === "string"){e.preventDefault();const url=new URL(e.target.getAttribute("href"),window.location.origin);if(url.hostname===window.location.hostname){skipRouter(url.pathname+url.search+url.hash)}else window.location.href=url.href}});
-window.cv={c:createElement,root,useState,useReducer,useEffect,forceUpdate,useID,router,transition,fragment,sleep,useMemo,useCallback,useRef,passRef,createContext,useContext,BrowserRouter,skipRouter,setInitialPath}})()
+window.cv={c:createElement,root,useState,useReducer,useEffect,forceUpdate,useID,router,transition,fragment,sleep,useMemo,useCallback,useRef,passRef,createContext,useContext,BrowserRouter,skipRouter,setInitialPath,T,setLocale,setLocalizationData}})()
