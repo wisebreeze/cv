@@ -79,7 +79,7 @@ fileStructure=[
     {type:'folder',name:'frameBlur',children:[]},
     {type:'folder',name:'bg',children:[]}
   ]}]},
-  {type:'file',name:'manifest.json',content:'{"format_version":1,"header":{"description":"","name":"未设置名称","uuid":"","version":[1,0,0],"min_engine_version":[1,13,0]},"modules":[{"type":"resources","uuid":"","version":[1,0,0]}]}'},
+  {type:'file',name:'manifest.json',content:'{"format_version":2,"header":{"description":"","name":"未设置名称","uuid":"","version":[1,0,0],"min_engine_version":[1,13,0]},"modules":[{"type":"resources","uuid":"","version":[1,0,0]}]}'},
   {type:'file',name:'pack_icon.png',content:null}
 ],
 varObj=[
