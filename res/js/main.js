@@ -7,52 +7,10 @@ var {T,useState,useEffect,useRef}=cv
 
 var language={
   "en-us":{
-    gui$packName:"CubeVisage",gui$light:"Light",gui$dark:"Dark",gui$system:"System",e$title:"The page does not exist",e$back:"Home",gui$coming:"coming soon",gui$comingDesc:"The site is being improved...",gui$cancel:"Cancel",gui$save:"Save",gui$download:"Download",gui$exit:"Exit",gui$confirm:"Confirm",gui$new:"New",gui$next:"Next",gui$continue:"Continue",gui$upload:"Upload",gui$reset:"Reset",gui$add:"Add",gui$edit:"Edit",gui$remove:"Remove",gui$know:"Understand",custom$title:"Custom",custom$desc:"Customizing CubeVisage",custom$new$title:"Resource package information",custom$new$name:"Name",custom$new$desc:"Description",custom$items$desc:"Select the project you want to customize. After the customization is complete, click the Download button below to download the package",custom$download$desc:"After the download is complete, some browsers need to be compressed.The mcpack.zip suffix is changed to.mcpack，Open later with Minecraft",custom$exit$title:"Are you sure you want to quit?",custom$exit$desc:"Data for custom actions will be reset after page refresh",setting$title:"Setting",setting$search:"Search options",setting$empty:"Empty",theme$title:"Theme",music$title:"Music",music$empty$title:"List is empty",music$empty$desc:"Click on the lower left corner button to add music ~",music$add:"Add music",music$name:"Music name",music$author:"Music author",music$cover:"Cover",music$file:"File",music$nameEmpty:"Music name cannot be empty.",music$deleteDesc:"Are you sure you want to remove this music from the list? This operation cannot be undone!",music$oggTip:"This file format is not supported. Please upload a .ogg file",music$longPress:"Long press",
-    bg$title:"Background",
-    bg$live:"Dynamic background",
-    bg$resetStatic:"Reset static background",
-    bg$resetLive:"Reset dynamic background",
-    bg$resetStaticDialog:"Are you sure you want to reset the static background data?",
-    bg$resetLiveDialog:"Are you sure you want to reset dynamic background related data?",
-    bg$info:"Basic information",
-    bg$interval:"How many milliseconds does it take? [integer]",
-    bg$duration:"Duration of each wallpaper [float]",
-    bg$blur:"Blur engine",
-    bg$blur$1:"Faster and average effect",
-    bg$blur$2:"Slow (not compatible Safari)",
-    bg$blur$3:"Slow",
-    bg$progress:"In the production",
-    bg$progress$extract:"Extracting each frame of picture",
-    bg$progress$load:"Loading pictures",
-    bg$progress$blur:"Processing blur now",
-    bg$progress$def:"Processing normal background",
-    bg$progress$write:"Writing to file",
-    bg$longVideo:"The video is longer than 30 seconds, and you cannot create live wallpapers",
-    bg$invalid:"Please upload a valid picture or video",
+    gui$packName:"CubeVisage",gui$light:"Light",gui$dark:"Dark",gui$system:"System",e$title:"The page does not exist",e$back:"Home",gui$coming:"coming soon",gui$comingDesc:"The site is being improved...",gui$cancel:"Cancel",gui$save:"Save",gui$download:"Download",gui$exit:"Exit",gui$confirm:"Confirm",gui$new:"New",gui$next:"Next",gui$continue:"Continue",gui$upload:"Upload",gui$reset:"Reset",gui$add:"Add",gui$edit:"Edit",gui$remove:"Remove",gui$know:"Understand",custom$title:"Custom",custom$desc:"Customizing CubeVisage",custom$new$title:"Resource package information",custom$new$name:"Name",custom$new$desc:"Description",custom$items$desc:"Select the project you want to customize. After the customization is complete, click the Download button below to download the package",custom$download$desc:"After the download is complete, some browsers need to be compressed.The mcpack.zip suffix is changed to.mcpack，Open later with Minecraft",custom$exit$title:"Are you sure you want to quit?",custom$exit$desc:"Data for custom actions will be reset after page refresh",setting$title:"Setting",setting$search:"Search options",setting$empty:"Empty",theme$title:"Theme",music$title:"Music",music$empty$title:"List is empty",music$empty$desc:"Click on the lower left corner button to add music ~",music$add:"Add music",music$name:"Music name",music$author:"Music author",music$cover:"Cover",music$file:"File",music$nameEmpty:"Music name cannot be empty.",music$deleteDesc:"Are you sure you want to remove this music from the list? This operation cannot be undone!",music$oggTip:"This file format is not supported. Please upload a .ogg file",music$longPress:"Long press",bg$title:"Background",bg$live:"Dynamic background",bg$resetStatic:"Reset static background",bg$resetLive:"Reset dynamic background",bg$resetStaticDialog:"Are you sure you want to reset the static background data?",bg$resetLiveDialog:"Are you sure you want to reset dynamic background related data?",bg$info:"Basic information",bg$interval:"How many milliseconds does it take? [integer]",bg$duration:"Duration of each wallpaper [float]",bg$blur:"Blur engine",bg$blur$1:"Faster and average effect",bg$blur$2:"Slow (not compatible Safari)",bg$blur$3:"Slow",bg$progress:"In the production",bg$progress$extract:"Extracting each frame of picture",bg$progress$load:"Loading pictures",bg$progress$blur:"Processing blur now",bg$progress$def:"Processing normal background",bg$progress$write:"Writing to file",bg$longVideo:"The video is longer than 30 seconds, and you cannot create live wallpapers",bg$invalid:"Please upload a valid picture or video",
    },
   "zh-cn":{
-    gui$packName:"立方之窗",gui$light:"浅色",gui$dark:"深色",gui$system:"跟随系统",e$title:"该页面不存在",e$back:"返回首页",gui$coming:"敬请期待",gui$comingDesc:"该网站正在完善中…",gui$cancel:"取消",gui$save:"保存",gui$download:"下载",gui$exit:"退出",gui$confirm:"确定",gui$new:"新建",gui$next:"下一步",gui$continue:"继续",gui$upload:"上传",gui$reset:"重置",gui$add:"添加",gui$edit:"编辑",gui$remove:"移除",gui$know:"知道了",custom$title:"自定义",custom$desc:"轻松定制立方之窗",custom$new$title:"资源包信息",custom$new$name:"名称",custom$new$desc:"描述",custom$items$desc:"选择你需要自定义的项目，定制完成后，点击下方的下载按钮下载压缩包",custom$download$desc:"下载完成后，部分浏览器需要将压缩包的.mcpack.zip后缀后缀改为.mcpack，之后使用 Minecraft 打开",custom$exit$title:"你确定要退出吗？",custom$exit$desc:"刷新网页后，自定义操作的数据将会重置",setting$title:"设置",setting$search:"搜索选项",setting$empty:"空空如也",theme$title:"主题",music$title:"音乐",music$empty$title:"列表是空的",music$empty$desc:"点击左下角按钮添加音乐～",music$add:"添加音乐",music$name:"音乐名称",music$author:"音乐作者",music$cover:"封面",music$file:"文件",music$nameEmpty:"音乐名称不能为空！",music$deleteDesc:"您确定要将该音乐从列表中移除吗？该操作不可撤销！",music$oggTip:"该格式的文件不支持，请上传 .ogg 文件",music$longPress:"长按展开",
-    bg$title:"背景",
-    bg$live:"动态背景",
-    bg$resetStatic:"重置静态背景",
-    bg$resetLive:"重置动态背景",
-    bg$resetStaticDialog:"您确定重置静态背景相关数据吗？",
-    bg$resetLiveDialog:"您确定重置动态背景相关数据吗？",
-    bg$info:"基本信息",
-    bg$interval:"每隔多少毫秒截图 (单位: 毫秒) [整数]",
-    bg$duration:"每张壁纸停留时长 (单位: 秒) [浮点数]",
-    bg$blur:"模糊引擎",
-    bg$blur$1:"速度较快, 效果一般",
-    bg$blur$2:"速度慢 (不兼容 Safari)",
-    bg$blur$3:"速度慢",
-    bg$progress:"制作中",
-    bg$progress$extract:"提取每帧图片中",
-    bg$progress$load:"正在加载图片中",
-    bg$progress$blur:"正在处理模糊中",
-    bg$progress$def:"正在处理普通背景",
-    bg$progress$write:"写入文件中",
-    bg$longVideo:"视频时长大于30秒，无法制作动态壁纸",
-    bg$invalid:"请上传有效的图片或视频",
+    gui$packName:"立方之窗",gui$light:"浅色",gui$dark:"深色",gui$system:"跟随系统",e$title:"该页面不存在",e$back:"返回首页",gui$coming:"敬请期待",gui$comingDesc:"该网站正在完善中…",gui$cancel:"取消",gui$save:"保存",gui$download:"下载",gui$exit:"退出",gui$confirm:"确定",gui$new:"新建",gui$next:"下一步",gui$continue:"继续",gui$upload:"上传",gui$reset:"重置",gui$add:"添加",gui$edit:"编辑",gui$remove:"移除",gui$know:"知道了",custom$title:"自定义",custom$desc:"轻松定制立方之窗",custom$new$title:"资源包信息",custom$new$name:"名称",custom$new$desc:"描述",custom$items$desc:"选择你需要自定义的项目，定制完成后，点击下方的下载按钮下载压缩包",custom$download$desc:"下载完成后，部分浏览器需要将压缩包的.mcpack.zip后缀后缀改为.mcpack，之后使用 Minecraft 打开",custom$exit$title:"你确定要退出吗？",custom$exit$desc:"刷新网页后，自定义操作的数据将会重置",setting$title:"设置",setting$search:"搜索选项",setting$empty:"空空如也",theme$title:"主题",music$title:"音乐",music$empty$title:"列表是空的",music$empty$desc:"点击左下角按钮添加音乐～",music$add:"添加音乐",music$name:"音乐名称",music$author:"音乐作者",music$cover:"封面",music$file:"文件",music$nameEmpty:"音乐名称不能为空！",music$deleteDesc:"您确定要将该音乐从列表中移除吗？该操作不可撤销！",music$oggTip:"该格式的文件不支持，请上传 .ogg 文件",music$longPress:"长按展开",bg$title:"背景",bg$live:"动态背景",bg$resetStatic:"重置静态背景",bg$resetLive:"重置动态背景",bg$resetStaticDialog:"您确定重置静态背景相关数据吗？",bg$resetLiveDialog:"您确定重置动态背景相关数据吗？",bg$info:"基本信息",bg$interval:"每隔多少毫秒截图 (单位: 毫秒) [整数]",bg$duration:"每张壁纸停留时长 (单位: 秒) [浮点数]",bg$blur:"模糊引擎",bg$blur$1:"速度较快, 效果一般",bg$blur$2:"速度慢 (不兼容 Safari)",bg$blur$3:"速度慢",bg$progress:"制作中",bg$progress$extract:"提取每帧图片中",bg$progress$load:"正在加载图片中",bg$progress$blur:"正在处理模糊中",bg$progress$def:"正在处理普通背景",bg$progress$write:"写入文件中",bg$longVideo:"视频时长大于30秒，无法制作动态壁纸",bg$invalid:"请上传有效的图片或视频",
   }
 },
 fileStructure=[
@@ -117,7 +75,8 @@ varObj=[
   {name:"过滤物品",id:"32686c12",desc:"⚠️ 开发中",def:!0},
   {name:"受伤时关闭容器",id:"7c333392",def:!0},
   {name:"物品 AUX ID",id:"5b8cc68e"},
-  {name:"选择数量",id:"ded3a8c5",def:!0},0,
+  {name:"选择数量",id:"ded3a8c5",def:!0},
+  {name:"纸娃娃",id:"50eee1e4",def:!0},0,
   {name:"帮助",id:"dfcffcc5",def:!0},
   {name:"增强酿造指南",id:"04d7ac52"},0,
   {name:"连锁移动",id:"70a9fab5"},
@@ -196,6 +155,9 @@ function fetchImage(url,callback){fetch(url).then(response=>response.blob()).the
 function get_uuid(){var a=(new Date).getTime();return window.performance&&"function"==typeof window.performance.now&&(a+=performance.now()),"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(b){var c=0|(a+16*Math.random())%16;return a=Math.floor(a/16),("x"==b?c:8|3&c).toString(16)})}
 function debounce(func,delay){let timerId;return function(){const context=this;const args=arguments;clearTimeout(timerId);timerId=setTimeout(function(){func.apply(context,args);},delay)}}
 function throttle(func,interval){let lastTime=0;return function(...args){const now=Date.now();if(now-lastTime>=interval){lastTime=now;func.apply(this,args)}}}
+
+function setVariables(obj){var globalVariablesFile=fileRead("ui/_global_variables.json"),globalVariablesJSON=JSON.parse(globalVariablesFile.content);Object.assign(globalVariablesJSON,obj);globalVariablesFile.content=JSON.stringify(globalVariablesJSON)}
+function removeVariables(str){var globalVariablesFile=fileRead("ui/_global_variables.json"),globalVariablesJSON=JSON.parse(globalVariablesFile.content),propArr=str.split(",").map(prop=>prop.trim());globalVariablesJSON=Object.keys(globalVariablesJSON).filter(key=>!propArr.includes(key)).reduce((obj,key)=>{obj[key]=globalVariablesJSON[key];return obj},{});globalVariablesFile.content=JSON.stringify(globalVariablesJSON)}
 
 function topBar({title}){
   const [language,setLanguage]=useState(localStorage.getItem('language')||urlObj.searchParams.get("lang")||"zh-cn");
@@ -423,6 +385,7 @@ function bgScreen(){
     engine=engineInput.current.value||"engine1"
     infoDialog.current.open=false
     progressDialog.current.open=true
+    setVariables({"$cube_custom_bg":true})
     if(bgData.showLive==0){
       progressDialog.current.description=T("bg$progress$load")
       liveSwitch.current.checked=false;
@@ -563,8 +526,8 @@ function bgScreen(){
     img.current.style.display=liveState?"none":"block";
     globalVariablesFile.content=JSON.stringify(globalVariablesJSON)
   }
-  var resetStatic=function(){mdui.dialog({headline:T("gui$reset"),description:T("bg$resetStaticDialog"),closeOnOverlayClick:true,closeOnEsc:true,actions:[{text:T("gui$cancel")},{text:T("gui$reset"),onClick:function(){liveSwitch.current.checked=false;fileRead("textures/cube")[2].children=[];img.current.src=null;bgData.img=null;liveSwitchFn()}}]})}
-  var resetLive=function(){mdui.dialog({headline:T("gui$reset"),description:T("bg$resetLiveDialog"),closeOnOverlayClick:true,closeOnEsc:true,actions:[{text:T("gui$cancel")},{text:T("gui$reset"),onClick:function(){liveSwitch.current.checked=false;fileRead("textures/cube")[0].children=[];fileRead("textures/cube")[1].children=[];previewVideo.current.src=null;bgData.src=null;frameArr=[];liveSwitchFn()}}]})}
+  var resetStatic=function(){mdui.dialog({headline:T("gui$reset"),description:T("bg$resetStaticDialog"),closeOnOverlayClick:true,closeOnEsc:true,actions:[{text:T("gui$cancel")},{text:T("gui$reset"),onClick:function(){liveSwitch.current.checked=false;removeVariables("$cube_custom_bg");fileRead("textures/cube")[2].children=[];img.current.src=null;bgData.img=null;liveSwitchFn()}}]})}
+  var resetLive=function(){mdui.dialog({headline:T("gui$reset"),description:T("bg$resetLiveDialog"),closeOnOverlayClick:true,closeOnEsc:true,actions:[{text:T("gui$cancel")},{text:T("gui$reset"),onClick:function(){liveSwitch.current.checked=false;removeVariables("$cube_custom_bg");fileRead("textures/cube")[0].children=[];fileRead("textures/cube")[1].children=[];previewVideo.current.src=null;bgData.src=null;frameArr=[];liveSwitchFn()}}]})}
   var save=function(){cv.skipRouter("/item")}
   var allowDrop=function(a){a.preventDefault()},handleClickOrDrop=function(a,b){a.preventDefault();var c,d=b.current;if('drop'===a.type)c=a.dataTransfer.files,d.files=c;else if('click'===a.type)return void d.click()};
   var leftBtn=cv.c("mdui-button",{onClick:e=>handleClickOrDrop(e,uploadFile),ondrop:e=>handleClickOrDrop(e,uploadFile),ondragover:allowDrop,style:"margin-right:8px;box-sizing:border-box;width:calc(50% - 8px);",variant:"outlined"},T("gui$upload"));
