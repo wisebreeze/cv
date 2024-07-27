@@ -7,23 +7,15 @@ var {T,useState,useEffect,useRef}=cv
 
 var language={
   "en-us":{
-    gui$packName:"CubeVisage",gui$light:"Light",gui$dark:"Dark",gui$system:"System",e$title:"The page does not exist",e$back:"Home",gui$coming:"coming soon",gui$comingDesc:"The site is being improved...",gui$cancel:"Cancel",gui$save:"Save",gui$download:"Download",gui$exit:"Exit",gui$confirm:"Confirm",gui$new:"New",gui$next:"Next",gui$continue:"Continue",gui$upload:"Upload",gui$reset:"Reset",gui$add:"Add",gui$edit:"Edit",gui$remove:"Remove",gui$know:"Understand",custom$title:"Custom",custom$desc:"Customizing CubeVisage",custom$new$title:"Resource package information",custom$new$name:"Name",custom$new$desc:"Description",custom$items$desc:"Select the project you want to customize. After the customization is complete, click the Download button below to download the package",custom$download$desc:"After the download is complete, some browsers need to be compressed.The mcpack.zip suffix is changed to.mcpack，Open later with Minecraft",custom$exit$title:"Are you sure you want to quit?",custom$exit$desc:"Data for custom actions will be reset after page refresh",setting$title:"Setting",setting$search:"Search options",setting$empty:"Empty",theme$title:"Theme",music$title:"Music",music$empty$title:"List is empty",music$empty$desc:"Click on the lower left corner button to add music ~",music$add:"Add music",music$name:"Music name",music$author:"Music author",music$cover:"Cover",music$file:"File",music$nameEmpty:"Music name cannot be empty.",music$deleteDesc:"Are you sure you want to remove this music from the list? This operation cannot be undone!",music$oggTip:"This file format is not supported. Please upload a .ogg file",music$longPress:"Long press",bg$title:"Background",bg$live:"Dynamic background",bg$resetStatic:"Reset static background",bg$resetLive:"Reset dynamic background",bg$resetStaticDialog:"Are you sure you want to reset the static background data?",bg$resetLiveDialog:"Are you sure you want to reset dynamic background related data?",bg$info:"Basic information",bg$interval:"How many milliseconds does it take? [integer]",bg$duration:"Duration of each wallpaper [float]",bg$blur:"Blur engine",bg$blur$1:"Faster and average effect",bg$blur$2:"Slow (not compatible Safari)",bg$blur$3:"Slow",bg$progress:"In the production",bg$progress$extract:"Extracting each frame of picture",bg$progress$load:"Loading pictures",bg$progress$blur:"Processing blur now",bg$progress$def:"Processing normal background",bg$progress$write:"Writing to file",bg$longVideo:"The video is longer than 30 seconds, and you cannot create live wallpapers",bg$invalid:"Please upload a valid picture or video",
+    gui$packName:"CubeVisage",gui$light:"Light",gui$dark:"Dark",gui$system:"System",e$title:"The page does not exist",e$back:"Home",gui$coming:"coming soon",gui$comingDesc:"The site is being improved...",gui$cancel:"Cancel",gui$save:"Save",gui$download:"Download",gui$exit:"Exit",gui$confirm:"Confirm",gui$new:"New",gui$next:"Next",gui$continue:"Continue",gui$upload:"Upload",gui$reset:"Reset",gui$add:"Add",gui$edit:"Edit",gui$remove:"Remove",gui$know:"Understand",custom$title:"Custom",custom$desc:"Customizing CubeVisage",custom$new$title:"Resource package information",custom$new$name:"Name",custom$new$desc:"Description",custom$items$desc:"Select the project you want to customize. After the customization is complete, click the Download button below to download the package",custom$download$desc:"After the download is complete, some browsers need to be compressed.The mcpack.zip suffix is changed to.mcpack，Open later with Minecraft",custom$exit$title:"Are you sure you want to quit?",custom$exit$desc:"Data for custom actions will be reset after page refresh",setting$title:"Setting",setting$search:"Search options",setting$empty:"Empty",theme$title:"Theme",theme$search:"Search style",music$title:"Music",music$empty$title:"List is empty",music$empty$desc:"Click on the lower left corner button to add music ~",music$add:"Add music",music$name:"Music name",music$author:"Music author",music$cover:"Cover",music$file:"File",music$nameEmpty:"Music name cannot be empty.",music$deleteDesc:"Are you sure you want to remove this music from the list? This operation cannot be undone!",music$oggTip:"This file format is not supported. Please upload a .ogg file",music$longPress:"Long press",bg$title:"Background",bg$live:"Dynamic background",bg$resetStatic:"Reset static background",bg$resetLive:"Reset dynamic background",bg$resetStaticDialog:"Are you sure you want to reset the static background data?",bg$resetLiveDialog:"Are you sure you want to reset dynamic background related data?",bg$info:"Basic information",bg$interval:"How many milliseconds does it take? [integer]",bg$duration:"Duration of each wallpaper [float]",bg$blur:"Blur engine",bg$blur$1:"Faster and average effect",bg$blur$2:"Slow (not compatible Safari)",bg$blur$3:"Slow",bg$progress:"In the production",bg$progress$extract:"Extracting each frame of picture",bg$progress$load:"Loading pictures",bg$progress$blur:"Processing blur now",bg$progress$def:"Processing normal background",bg$progress$write:"Writing to file",bg$longVideo:"The video is longer than 30 seconds, and you cannot create live wallpapers",bg$invalid:"Please upload a valid picture or video",
    },
   "zh-cn":{
-    gui$packName:"立方之窗",gui$light:"浅色",gui$dark:"深色",gui$system:"跟随系统",e$title:"该页面不存在",e$back:"返回首页",gui$coming:"敬请期待",gui$comingDesc:"该网站正在完善中…",gui$cancel:"取消",gui$save:"保存",gui$download:"下载",gui$exit:"退出",gui$confirm:"确定",gui$new:"新建",gui$next:"下一步",gui$continue:"继续",gui$upload:"上传",gui$reset:"重置",gui$add:"添加",gui$edit:"编辑",gui$remove:"移除",gui$know:"知道了",custom$title:"自定义",custom$desc:"轻松定制立方之窗",custom$new$title:"资源包信息",custom$new$name:"名称",custom$new$desc:"描述",custom$items$desc:"选择你需要自定义的项目，定制完成后，点击下方的下载按钮下载压缩包",custom$download$desc:"下载完成后，部分浏览器需要将压缩包的.mcpack.zip后缀后缀改为.mcpack，之后使用 Minecraft 打开",custom$exit$title:"你确定要退出吗？",custom$exit$desc:"刷新网页后，自定义操作的数据将会重置",setting$title:"设置",setting$search:"搜索选项",setting$empty:"空空如也",theme$title:"主题",music$title:"音乐",music$empty$title:"列表是空的",music$empty$desc:"点击左下角按钮添加音乐～",music$add:"添加音乐",music$name:"音乐名称",music$author:"音乐作者",music$cover:"封面",music$file:"文件",music$nameEmpty:"音乐名称不能为空！",music$deleteDesc:"您确定要将该音乐从列表中移除吗？该操作不可撤销！",music$oggTip:"该格式的文件不支持，请上传 .ogg 文件",music$longPress:"长按展开",bg$title:"背景",bg$live:"动态背景",bg$resetStatic:"重置静态背景",bg$resetLive:"重置动态背景",bg$resetStaticDialog:"您确定重置静态背景相关数据吗？",bg$resetLiveDialog:"您确定重置动态背景相关数据吗？",bg$info:"基本信息",bg$interval:"每隔多少毫秒截图 (单位: 毫秒) [整数]",bg$duration:"每张壁纸停留时长 (单位: 秒) [浮点数]",bg$blur:"模糊引擎",bg$blur$1:"速度较快, 效果一般",bg$blur$2:"速度慢 (不兼容 Safari)",bg$blur$3:"速度慢",bg$progress:"制作中",bg$progress$extract:"提取每帧图片中",bg$progress$load:"正在加载图片中",bg$progress$blur:"正在处理模糊中",bg$progress$def:"正在处理普通背景",bg$progress$write:"写入文件中",bg$longVideo:"视频时长大于30秒，无法制作动态壁纸",bg$invalid:"请上传有效的图片或视频",
+    gui$packName:"立方之窗",gui$light:"浅色",gui$dark:"深色",gui$system:"跟随系统",e$title:"该页面不存在",e$back:"返回首页",gui$coming:"敬请期待",gui$comingDesc:"该网站正在完善中…",gui$cancel:"取消",gui$save:"保存",gui$download:"下载",gui$exit:"退出",gui$confirm:"确定",gui$new:"新建",gui$next:"下一步",gui$continue:"继续",gui$upload:"上传",gui$reset:"重置",gui$add:"添加",gui$edit:"编辑",gui$remove:"移除",gui$know:"知道了",custom$title:"自定义",custom$desc:"轻松定制立方之窗",custom$new$title:"资源包信息",custom$new$name:"名称",custom$new$desc:"描述",custom$items$desc:"选择你需要自定义的项目，定制完成后，点击下方的下载按钮下载压缩包",custom$download$desc:"下载完成后，部分浏览器需要将压缩包的.mcpack.zip后缀后缀改为.mcpack，之后使用 Minecraft 打开",custom$exit$title:"你确定要退出吗？",custom$exit$desc:"刷新网页后，自定义操作的数据将会重置",setting$title:"设置",setting$search:"搜索选项",setting$empty:"空空如也",theme$title:"主题",theme$search:"搜索样式",music$title:"音乐",music$empty$title:"列表是空的",music$empty$desc:"点击左下角按钮添加音乐～",music$add:"添加音乐",music$name:"音乐名称",music$author:"音乐作者",music$cover:"封面",music$file:"文件",music$nameEmpty:"音乐名称不能为空！",music$deleteDesc:"您确定要将该音乐从列表中移除吗？该操作不可撤销！",music$oggTip:"该格式的文件不支持，请上传 .ogg 文件",music$longPress:"长按展开",bg$title:"背景",bg$live:"动态背景",bg$resetStatic:"重置静态背景",bg$resetLive:"重置动态背景",bg$resetStaticDialog:"您确定重置静态背景相关数据吗？",bg$resetLiveDialog:"您确定重置动态背景相关数据吗？",bg$info:"基本信息",bg$interval:"每隔多少毫秒截图 (单位: 毫秒) [整数]",bg$duration:"每张壁纸停留时长 (单位: 秒) [浮点数]",bg$blur:"模糊引擎",bg$blur$1:"速度较快, 效果一般",bg$blur$2:"速度慢 (不兼容 Safari)",bg$blur$3:"速度慢",bg$progress:"制作中",bg$progress$extract:"提取每帧图片中",bg$progress$load:"正在加载图片中",bg$progress$blur:"正在处理模糊中",bg$progress$def:"正在处理普通背景",bg$progress$write:"写入文件中",bg$longVideo:"视频时长大于30秒，无法制作动态壁纸",bg$invalid:"请上传有效的图片或视频",
   }
 },
 fileStructure=[
-  {
-    type: 'folder',
-    name: 'assets',
-    children:[{type:'folder',name:'cube',children:[{type:'file',name:'frame.ui',content:null}]}]
-  },
-  {
-    type: 'folder',
-    name: 'sounds',
-    children: [{type:'file',name:'sound_definitions.json',content:null}]
-  },
+  {type:'folder',name:'assets',children:[{type:'folder',name:'cube',children:[{type:'file',name:'frame.ui',content:null}]}]},
+  {type:'folder',name:'sounds',children: [{type:'file',name:'sound_definitions.json',content:null}]},
   {
     type: 'folder',
     name: 'ui',
@@ -139,7 +131,31 @@ varObj=[
   {name:"键盘＆鼠标",id:"decdc2ac",def:!0},
   {name:"触屏",id:"cf295d3c"},
   {name:"游戏手柄",id:"950d0911"}
-]}],bgData={live:false,src:null,img:null,showLive:true},MusicArr=[];
+]}],
+themeObj=[
+{title:"全局",desc:"Global",content:[{name:"图标主要颜色",desc:"icon_color",c:[0.529,0.6,1]},{name:"文字颜色",desc:"text_color",c:[1,1,1]},{name:"边框",desc:"border",c:[1,1,1],a:0.55}]},
+{title:"背景",desc:"Background",content:[{name:"背景",desc:"bg",c:[0,0,0],a:0.35},{name:"背景 (游戏内)",desc:"ingame_bg",c:[0,0,0],a:0.18},{name:"背景 (控件)",desc:"control_bg",c:[0,0,0],a:0.45},{name:"背景 (开始屏幕)",desc:"start_bg",c:[0,0,0],a:0.49},{name:"背景 (亮)",desc:"light_bg",c:[0.35,0.35,0.35],a:0.45},0,{name:"容器背景",desc:"container_background",c:[0.105,0.105,0.105],a:0.4},{name:"容器背景 (携带)",desc:"container_pocket_background",c:[0.105,0.105,0.105],a:0.4},0,{name:"选择区域背景",desc:"selector_area_bg",c:[0.105,0.105,0.105],a:0.2},{name:"更衣室背景",desc:"dressroom_bg",c:[0,0,0],a:0.45}]},
+{title:"按钮",desc:"Button",content:[{name:"按钮不透明度",desc:"button_alpha",a:0.65},{name:"按钮不透明度 (主要)",desc:"button_main_alpha",a:0.45},{name:"按钮不透明度 (亮)",desc:"button_light_alpha",a:0.55},0,{name:"主要按钮颜色",desc:"button_main_default_color",c:[0.259,0.522,0.957]},{name:"主要按钮颜色",desc:"button_main_hover_color",c:[0.098,0.404,0.824]},{name:"主要按钮颜色",desc:"button_main_pressed_color",c:[0.051,0.278,0.631]},{name:"亮按钮颜色",desc:"button_light_default_color",c:[0.55,0.55,0.55]},{name:"亮按钮颜色",desc:"button_light_hover_color",c:[0.55,0.55,0.55]},{name:"亮按钮颜色",desc:"button_light_pressed_color",c:[0.55,0.55,0.55]},{name:"按钮颜色",desc:"button_default_color",c:[0.188,0.188,0.188]},{name:"按钮颜色",desc:"button_hover_color",c:[0.55,0.55,0.55]},{name:"按钮颜色",desc:"button_pressed_color",c:[0.55,0.55,0.55]},{name:"破坏性按钮颜色",desc:"button_default_red_color",c:[0.6445,0.0507,0.0507]},{name:"破坏性按钮颜色",desc:"button_hover_red_color",c:[1,0.1875,0.1875]},{name:"破坏性按钮颜色",desc:"button_pressed_red_color",c:[1,0.1875,0.1875]},0,{name:"文字颜色",desc:"button_text_color",c:[1,1,1]},{name:"图标颜色",desc:"button_glyph_color",c:[1,1,1]}]},
+{title:"开关",desc:"Toggle",content:[{name:"背景不透明度",desc:"toggle_alpha",a:0.4},{name:"未选择背景不透明度",desc:"toggle_unchecked_alpha",a:0.4},{name:"已选择背景不透明度",desc:"toggle_checked_alpha",a:0.6},{name:"设置开关背景不透明度",desc:"toggle_setting_alpha",a:1},{name:"背景不透明度 (锁定)",desc:"toggle_locked_alpha",a:0.4},0,{name:"已选择",desc:"toggle_checked_default_color",c:[0.35,0.35,0.35]},{name:"已选择",desc:"toggle_checked_hover_color",c:[0.65,0.65,0.65]},{name:"未选择",desc:"toggle_unchecked_default_color",c:[0.188,0.188,0.188]},{name:"未选择",desc:"toggle_unchecked_hover_color",c:[0.55,0.55,0.55]},{name:"开关 (锁定)",desc:"toggle_locked_color",c:[1,0.1875,0.1875]},0,{name:"设置开关已选择",desc:"toggle_setting_checked_default_color",c:[0.3,0.3,0.3]},{name:"设置开关已选择",desc:"toggle_setting_checked_hover_color",c:[0.6,0.6,0.6]},{name:"设置开关未选择",desc:"toggle_setting_unchecked_default_color",c:[0.18,0.18,0.18]},{name:"设置开关未选择",desc:"toggle_setting_unchecked_hover_color",c:[0.5,0.5,0.5]},{name:"设置开关 (锁定)",desc:"toggle_setting_locked_color",c:[1,0.1875,0.1875]},{name:"设置开关圆点",desc:"toggle_setting_circle_default_color",c:[0.8,0.8,0.8]},{name:"设置开关圆点",desc:"toggle_setting_circle_hover_color",c:[1,1,1]},0,{name:"已选择文字",desc:"toggle_text_checked_color",c:[1,1,1]},{name:"已选择文字",desc:"toggle_text_checked_hover_color",c:[1,1,1]},{name:"未选择文字",desc:"toggle_text_unchecked_color",c:[1,1,1]},{name:"未选择文字",desc:"toggle_text_unchecked_hover_color",c:[1,1,1]}]},
+{title:"滑块",desc:"Slider",content:[{name:"背景 (默认)",desc:"slider_background",c:[0.105,0.105,0.105],a:0.6},{name:"背景",desc:"slider_background_hover_color",c:[0.5,0.5,0.5]},0,{name:"按钮不透明度",desc:"slider_button_alpha",a:0.95},{name:"按钮",desc:"slider_button_default_color",c:[1,1,1]},{name:"按钮",desc:"slider_button_hover_color",c:[0.8,0.8,0.8]},{name:"按钮 (缩进)",desc:"slider_button_indent_color",c:[1,1,1]},{name:"按钮 (锁定)",desc:"slider_button_locked_color",c:[1,0.1875,0.1875]},0,{name:"进度不透明度",desc:"slider_progress_alpha",a:0.8},{name:"进度",desc:"slider_progress_default_color",c:[0.259,0.522,0.957]},{name:"进度",desc:"slider_progress_hover_color",c:[0.012,0.467,0.922]},0,{name:"步数不透明度",desc:"slider_step_alpha",a:0.8},{name:"步数",desc:"slider_step_default_color",c:[0.9,0.9,0.9]},{name:"步数",desc:"slider_step_hover_color",c:[1,1,1]},{name:"进度步数",desc:"slider_step_progress_default_color",c:[0.5,0.5,0.5]},{name:"进度步数",desc:"slider_step_progress_hover_color",c:[1,1,1]}]},
+{title:"顶栏",desc:"Headbar",content:[{name:"背景",desc:"headbar",c:[0.105,0.105,0.105],a:0.75},{name:"文字",desc:"headbar_title_color",c:[1,1,1]}]},
+{title:"分段栏",desc:"Header",content:[{name:"背景",desc:"header",c:[0.105,0.105,0.105],a:0.6},{name:"文字",desc:"header_label_color",c:[1,1,1]}]},
+{title:"输入框",desc:"Text box",content:[{name:"背景不透明度",desc:"text_box_alpha",a:0.65},{name:"背景",desc:"text_box_default_color",c:[0.188,0.188,0.188]},{name:"背景",desc:"text_box_hover_color",c:[0.5,0.5,0.5]},{name:"背景",desc:"text_box_pressed_color",c:[0.5,0.5,0.5]},{name:"背景 (锁定)",desc:"text_box_locked_color",c:[1,0.1875,0.1875]},0,{name:"文字",desc:"text_box_text_color",c:[1,1,1]},{name:"文字 (锁定)",desc:"text_box_locked_text_color",c:[1,1,1]},{name:"占位符",desc:"text_box_place_holder_text_color",c:[0.85,0.85,0.85]}]},
+{title:"物品格子",desc:"Cell",content:[{name:"背景不透明度",desc:"cell_alpha",a:0.4},{name:"背景 (默认)",desc:"cell_color",c:[0.51,0.51,0.51]},{name:"背景 (选择)",desc:"cell_selected_color",c:[0.5,0.5,0.5]},{name:"背景 (禁用)",desc:"cell_red_color",c:[1,0.1875,0.1875]},{name:"高亮",desc:"cell_highlight",c:[0.65,0.65,0.65],a:0.35},{name:"快捷栏",desc:"cell_hotbar_color",c:[0.1,0.1,0.1]}]},
+{title:"滚动面板",desc:"Scroll box",content:[{name:"轨道",desc:"scroll_track",c:[0.188,0.188,0.188],a:0.4},{name:"条",desc:"scroll_box",c:[0.85,0.85,0.9],a:0.7}]},
+{title:"进度",desc:"Progress",content:[{name:"空",desc:"progress_empty",c:[0.105,0.105,0.105],a:0.6},{name:"填充",desc:"progress_full",c:[0.333,0.8,0.8],a:0.85},{name:"预期",desc:"progress_expected",c:[0.333,0.65,0.65],a:0.85},{name:"经验条文字颜色",desc:"progress_number_color",c:[0.333,0.8,0.8]}]},
+{title:"下拉面板",desc:"Dropdown",content:[{name:"背景",desc:"dropdown_background",c:[0.105,0.105,0.105],a:0.55}]},
+{title:"单选项",desc:"Radio",content:[{name:"背景不透明度",desc:"radio_background_alpha",a:0.55},{name:"背景颜色 (已选择)",desc:"radio_background_selected_color",c:[0,0,0]},{name:"背景颜色",desc:"radio_background_hover_color",c:[0.5,0.5,0.5]},0,{name:"文字颜色",desc:"radio_text_color",c:[1,1,1]},{name:"文字颜色",desc:"radio_text_hover_color",c:[1,1,1]}]},
+{title:"侧边栏",desc:"Sidebar",content:[{name:"栏",desc:"sidebar_focus",c:[1,1,1],a:1},{name:"边栏",desc:"sidebar_bar_color",c:[0.259,0.522,0.957]},{name:"控件背景颜色",desc:"sidebar_default_color",c:[0.105,0.105,0.105]},{name:"控件背景颜色",desc:"sidebar_hover_color",c:[0.5,0.5,0.5]},{name:"背景颜色",desc:"sidebar_bg_color",c:[0,0,0]},{name:"背景不透明度",desc:"sidebar_alpha",a:0.75}]},
+{title:"工具提示",desc:"Tooltip",content:[{name:"背景",desc:"tooltip_background",c:[0,0,0],a:0.65},{name:"箭头",desc:"tooltip_chevron",c:[0,0,0],a:0.65}]},
+{title:"下划线",desc:"Underline",content:[{name:"下划线",desc:"underline",c:[0.105,0.105,0.105],a:0.4}]},
+{title:"分割线",desc:"Divider",content:[{name:"分割线",desc:"divider",c:[0.9,0.9,0.9],a:0.33}]},
+{title:"弹出窗口",desc:"Dialog",content:[{name:"覆盖背景",desc:"dialog_overlay",c:[0,0,0],a:0.15},{name:"背景",desc:"dialog_background",c:[0.105,0.105,0.105],a:0.6},{name:"顶栏",desc:"dialog_headbar",c:[0.35,0.35,0.35],a:0.4},0,{name:"顶栏标题文字颜色",desc:"dialog_title_text_color",c:[1,1,1]},{name:"内容消息文字颜色",desc:"dialog_message_text_color",c:[1,1,1]}]},
+{title:"吐司",desc:"Toast",content:[{name:"背景",desc:"toast_background",c:[0,0,0],a:0.7}]},
+{title:"角标",desc:"Corner marker",content:[{name:"角标",desc:"corner_master",c:[0,0,0],a:0.7}]},
+{title:"记分板",desc:"Scoreboard",content:[{name:"玩家名颜色",desc:"scoreboard_player_name_color",c:[1,1,1]},{name:"标题颜色",desc:"scoreboard_objective_title_color",c:[1,1,1]},{name:"玩家分数颜色",desc:"scoreboard_player_score_color",c:[0.2,0.6,1]},{name:"玩家列表分数颜色",desc:"scoreboard_player_list_score_color",c:[1,1,1]},{name:"玩家排名颜色",desc:"scoreboard_player_list_rank_color",c:[1,1,1]}]},
+{title:"其他",desc:"Other",content:[{name:"栏",desc:"bar",c:[0.529,0.6,1],a:1}]},
+],bgData={live:false,src:null,img:null,showLive:true},MusicArr=[];
 let projectName="",projectDesc="";cv.setLocalizationData(language);
 var urlObj = new URL(window.location.href);cv.setLocale(localStorage.getItem('language')||urlObj.searchParams.get("lang")||"zh-cn");
 function arraysEqual(arr1,arr2){if(!Array.isArray(arr1)&&!Array.isArray(arr2))return arr1===arr2;if(arr1.length!==arr2.length)return false;return arr1.every((v,i)=>v===arr2[i])}
@@ -238,20 +254,14 @@ function bottomBtn({leftFn,rightFn,leftText,rightText,leftBtn}){
   )
 }
 function itemScreen(){
-  const confirmExit=function(e){
-    e.returnValue="你确定要退出表单提交吗？";
-    return "你确定要退出表单提交吗？";
-  }
+  const confirmExit=function(e){e.returnValue="你确定要退出表单提交吗？";return "你确定要退出表单提交吗？"}
   window.addEventListener('beforeunload',confirmExit);
   const quitBtn=function(){
     mdui.dialog({
       headline:T("custom$exit$title"),
       description:T("custom$exit$desc"),
       closeOnEsc:true,closeOnOverlayClick:true,
-      actions:[
-        {text:T("gui$cancel")},
-        {text:T("gui$exit"),onClick:function(){window.removeEventListener('beforeunload',confirmExit);cv.skipRouter("/custom")}}
-      ]
+      actions:[{text:T("gui$cancel")},{text:T("gui$exit"),onClick:function(){window.removeEventListener('beforeunload',confirmExit);cv.skipRouter("/custom")}}]
     })
   }
   const downloadBtn=function(){
@@ -259,14 +269,12 @@ function itemScreen(){
       headline:T("gui$download"),
       description:T("custom$download$desc"),
       closeOnEsc:true,closeOnOverlayClick:true,
-      actions:[
-        {text:T("gui$cancel")},
-        {text:T("gui$confirm"),onClick:function(){var manifestFile=fileRead("manifest.json"),manifestJSON=JSON.parse(manifestFile.content);manifestJSON.header.uuid=get_uuid();manifestJSON.modules[0].uuid=get_uuid();manifestFile.content=JSON.stringify(manifestJSON);window.removeEventListener('beforeunload',confirmExit);deleteEmpty(fileStructure);downloadZip(fileStructure)}}
-      ]
+      actions:[{text:T("gui$cancel")},{text:T("gui$confirm"),onClick:function(){var manifestFile=fileRead("manifest.json"),manifestJSON=JSON.parse(manifestFile.content);manifestJSON.header.uuid=get_uuid();manifestJSON.modules[0].uuid=get_uuid();manifestFile.content=JSON.stringify(manifestJSON);window.removeEventListener('beforeunload',confirmExit);deleteEmpty(fileStructure);downloadZip(fileStructure)}}]
     })
   }
   function toMusic(){cv.skipRouter("/music")}
   function toVariables(){cv.skipRouter("/variables")}
+  function toTheme(){cv.skipRouter("/theme")}
   function toBg(){cv.skipRouter("/bg")}
   function card({icon,title,onClick}){
     const coming_soon=function(){mdui.snackbar({message:T("gui$coming"),closeable:true,autoCloseDelay:3000,closeOnOutsideClick:true,placement:"top"})}
@@ -284,10 +292,305 @@ function itemScreen(){
         cv.c(card,{icon:"musical-notes",title:T("music$title"),onClick:toMusic}),
         cv.c(card,{icon:"image",title:T("bg$title"),onClick:toBg}),
         cv.c(card,{icon:"cog",title:T("setting$title"),onClick:toVariables}),
-        cv.c(card,{icon:"brush",title:T("theme$title")})
+        cv.c(card,{icon:"brush",title:T("theme$title"),onClick:toTheme})
       )),
     ),
     cv.c(bottomBtn,{leftFn:quitBtn,rightFn:downloadBtn,leftText:T("gui$exit"),rightText:T("gui$download")})
+  )
+}
+
+// theme
+const tool = {
+  addHandler(t,e,h){if(t.addEventListener)t.addEventListener(e,h,{passive:false});else if(t.attachEvent)t.attachEvent('on'+e,h);else t['on'+e]=h},
+  removeHandler(t,e,h){if(t.removeEventListener)t.removeEventListener(e,h,false);else if(t.detachEvent)t.detachEvent('on'+e,h);else t['on'+e]=null},
+  clamp(v,a,b){return v<a?a:(v>b?b:v)},
+  trimZero(s){return s.replace(/\.?0*$/, '')},
+  alphaFixed(a,b=0,c=255){return Math.min(c,Math.max(b,Number.parseFloat((a*255).toFixed())))},
+  regex:{hex:/^#?([0-9A-F]{6}|[0-9A-F]{3})([0-9A-F]{2})?$/i,a:/^\d*$/,b:/^\d*$/,c:/^\d*$/,alpha:/^(0(\.\d+)?|1(\.0+)?)$/},
+  color:{
+    hsbtohsl(s,l,r){var t={h:s};return t.l=(2-l)*r,t.s=l*r,t.l<=1&&t.l>0?t.s/=t.l:t.s=t.s/(2-t.l)||0,t.l/=2,t.s>1&&(t.s=1),t},
+    hsltorgb(r,n,t){r/=360;var e,u,i;if(0==n)e=u=i=t;else{var s=function(r,n,t){return t<0&&(t+=1),t>1&&(t-=1),t<1/6?r+6*(n-r)*t:t<.5?n:t<2/3?r+(n-r)*(2/3-t)*6:r},c=t<.5?t*(1+n):t+n-t*n,f=2*t-c;e=s(f,c,r+1/3),u=s(f,c,r),i=s(f,c,r-1/3)}return{r:e,g:u,b:i}},
+    rgbtohex(r,g,b){return"#"+(16777216|255*b|255*g<<8|255*r<<16).toString(16).slice(1)},
+    hextohsb(t){var s=arguments.length>1&&void 0!==arguments[1]?arguments[1]:1;t=t.replace(/^#/,""),t=3===t.length?t.replace(/(.)/g,"$1$1"):t,8===t.length&&(s=parseInt(t.substr(6,2),16)/255,t=t.substring(0,6));var r=parseInt(t.substr(0,2),16)/255,e=parseInt(t.substr(2,2),16)/255,a=parseInt(t.substr(4,2),16)/255,n=Math.max(r,e,a),u=n-Math.min(r,e,a),c=n?u/n:0;switch(n){case r:return[(e-a)/u%6*60||0,c,n,s];case e:return[60*((a-r)/u+2)||0,c,n,s];case a:return[60*((r-e)/u+4)||0,c,n,s]}},
+    rgbtohsb(t){var r=t.r,a=t.g,n=t.b,b=Math.max(r,a,n),h=b-Math.min(r,a,n),i=0===h?0:h&&b===r?(a-n)/h:b===a?2+(n-r)/h:4+(r-a)/h;return[60*(i<0?i+6:i),b&&h/b*1,1*b]},
+    hsltohsb(t){var s=t.h,h=t.s,n=t.l,r=s,i=h*Math.min(n,1-n)+n;return[r,i?2-2*n/i:0,i]}
+  }
+}
+class DragContext {
+  constructor({$context,$dragger,doms,name,direction,initX,initY}){
+    this.doms = doms;
+   	this.$context = $context;
+    this.$dragger = $dragger;
+    this.name = name;
+    this.direction = direction;
+    this.isDragging = false;
+    this.addMousedown();
+    this.addMousemove();
+    this.addMouseup();
+    this.x = initX || 0;
+    this.y = initY || 0;
+    this.$dragger.style.transform=`translate(${this.$context.getBoundingClientRect().width}px,0)`;
+    this.x=this.$context.getBoundingClientRect().width
+  }
+  getName(){return this.name}
+  addMousedown(){
+    const event=e=>{e.preventDefault();this.setStyles(e);this.isDragging=true}
+    this.downEvent=event;
+    tool.addHandler(this.$context,'mousedown',event);
+    tool.addHandler(this.$context,'touchstart',event);
+  }
+  addMousemove(){
+    const event=e=>{if(this.isDragging)this.setStyles(e)};
+    this.moveEvent=event;
+    tool.addHandler(document,'mousemove',event);
+    tool.addHandler(document,'touchmove',event);
+  }
+  addMouseup(){
+    const event=e=>{this.isDragging=false};
+    tool.addHandler(document,'mouseup',event);
+    tool.addHandler(document,'touchend',event);
+  }
+  setStyles(e){this.setDraggerStyles(e);this.doms.render.adjust()}
+  valueOf(){var t=this.$context.getBoundingClientRect().width,i=this.$context.getBoundingClientRect().height;switch(this.direction){case"horizontal":return"alpha"===this.name?this.x/t:1-this.x/t;case"vertical":return this.y/i;case"both":return[this.x/t,1-this.y/i]}}
+  setValue(t){var i=this.$context.getBoundingClientRect().width,e=this.$context.getBoundingClientRect().height;switch(this.x=0,this.y=0,this.direction){case"horizontal":this.x="alpha"===this.name?i*t:(1-t/360)*i;break;case"vertical":this.y=(1-t/360)*e;break;case"both":this.x=i*t[0],this.y=e*(1-t[1])}this.$dragger.style.transform="translate("+this.x+"px, "+this.y+"px)"}
+  setDraggerStyles(t){switch(this.x=tool.clamp((t.touches?t.touches[0].clientX:t.clientX)-this.$context.getBoundingClientRect().left,0,this.$context.getBoundingClientRect().width),this.y=tool.clamp((t.touches?t.touches[0].clientY:t.clientY)-this.$context.getBoundingClientRect().top,0,this.$context.getBoundingClientRect().height),this.direction){case"horizontal":this.$dragger.style.transform="translate("+this.x+"px, 0)";break;case"vertical":this.$dragger.style.transform="translate(0, "+this.y+"px)";break;case"both":this.$dragger.style.transform="translate("+this.x+"px, "+this.y+"px)"}}
+}
+class StyleRenderer {
+  constructor(dom,doms,contexts,obj){
+    this.select="hex";
+    this.doms=doms;this.obj=obj;this.useAlpha=!obj.desc.endsWith("color");this.useColor=!obj.desc.endsWith("alpha");
+    this.doms.preview=dom.querySelector('.preview');
+    this.doms.uploadBtn=dom.querySelector('.upload-button');
+    this.doms.uploadInput=dom.querySelector('.upload-input');
+    if(!this.useColor){
+      this.doms.alphaDom=dom.nextElementSibling;
+      this.alpha=tool.alphaFixed(obj.a);
+      this.doms.alphaInput=this.doms.alphaDom.querySelector(".colorInput");
+      this.doms.alphaSlider=this.doms.alphaDom.querySelector(".alphaSlider");
+      this.doms.alphaInput.value=this.alpha;this.doms.alphaSlider.value=this.alpha;
+      this.doms.alphaDom.style.display="block";dom.style.display="none";var self=this;
+      tool.addHandler(this.doms.alphaDom,"input",e=>{this.doms.alphaInput.value=e.target.value;this.doms.alphaSlider.value=e.target.value;self.setAlpha(e.target.value)});this.setAlpha(this.alpha);return
+    }
+    tool.addHandler(this.doms.uploadBtn,"click",_=>this.doms.uploadInput.click())
+    tool.addHandler(this.doms.uploadBtn,"ondrop",e=>{e.preventDefault();this.doms.uploadInput.files=e.dataTransfer.files})
+    tool.addHandler(this.doms.uploadBtn,"ondragover",e=>e.preventDefault())
+    tool.addHandler(this.doms.uploadInput,"change",e=>this.imageExtract(e,doms))
+    this.doms.result={hex:dom.querySelector('.hex'),rgb:dom.querySelector('.rgb'),hsl:dom.querySelector('.hsl')}
+    this.contexts=contexts;
+    if(obj.c){
+      var hsb=tool.color.rgbtohsb({r:obj.c[0],g:obj.c[1],b:obj.c[2]});
+      this.contexts.forEach(e=>{if(e.name=="alpha")return;e.setValue(e.name==="hue"?hsb[0]:[hsb[1],hsb[2]])})
+    }
+    if(obj.a)this.contexts.forEach(e=>{if(e.name=="alpha")e.setValue(obj.a)});
+    if(!this.useAlpha)this.contexts.forEach(e=>{if(e.name=="alpha"){e.$context.style.opacity=0.4;tool.removeHandler(e.$context,"mousedown",e.downEvent);tool.removeHandler(e.$context,"touchstart",e.downEvent);tool.removeHandler(e.$context,"mousemove",e.moveEvent);tool.removeHandler(e.$context,"touchstart",e.moveEvent)}});
+    this.doms.input=[...dom.querySelectorAll(".colorInputStack>*")].reduce((a,e)=>{a[e.getAttribute("type")]=e;a.arr.push(e);return a},{arr:[]})
+    Object.keys(this.doms.input).forEach(k=>{if(k==="arr")return;var $this=this;tool.addHandler(this.doms.input[k].children[0],"change",function(e){$this.adjust(k,e.target.value,e.target)})})
+    this.switchColor();
+    Object.keys(this.doms.result).forEach(k=>{var $this=this;
+      tool.addHandler(this.doms.result[k],'click',function(){$this.select=k;$this.switchColor(k==="hex",k)});
+    });
+    this.useColor&&this.adjust();
+  }
+  switchColor(isHex=true,a,s){
+    this.doms.input.arr.forEach(e=>{if(e.getAttribute("type")!=="hex")e.style.display=isHex?"none":(!this.useAlpha&&e.getAttribute("type")==="alpha"?"none":"block");else e.style.display=isHex?"block":"none"});
+    if(!isHex){var $this=this;
+      function setText(b,c){$this.doms.input[b].children[1].childNodes[0].nodeValue=a.split("")[c]}
+      setText("a",0);setText("b",1);setText("c",2)
+      this.adjust()
+    }
+  }
+  imageExtract(e,s){
+    var f=e.target.files[0];s=s.render;
+    if(!f.type.startsWith("image/"))return;
+    var r=new FileReader();
+    r.readAsDataURL(f);
+    r.onload=function(){var i=new Image();i.src=r.result;mdui.getColorFromImage(i).then(c=>s.adjust("hex",c))}
+  }
+  adjust(type,value,target){
+    if(!type){
+      // 色相
+      this.hue=360*this.contexts.filter(context=>context.getName()==='hue')[0].valueOf();
+      // 饱和度和明度
+      [this.saturation,this.brightness]=this.contexts.filter(context=>context.getName()==='color')[0].valueOf();
+      // 不透明度
+      this.alpha=this.contexts.filter(context=>context.getName()==='alpha')[0].valueOf();
+    }else{var self=this;
+      if(tool.regex[type].test(value)){
+        if(type==="hex")[this.hue,this.saturation,this.brightness,this.alpha]=tool.color.hextohsb(value);
+        else if(type==="alpha")this.alpha=Number.parseFloat(value);
+        else{
+          value=Math.min(this.select=="rgb"?255:type=="a"?360:100,Math.max(0,Number.parseFloat(value)))
+          target.value=value
+          this[this.select][this.select[type=="a"?0:type=="b"?1:2]]=(this.select=="hsl"&&type=="a"?360:(value/(this.select=="rgb"?255:100)))
+          var hsb=this.select=="rgb"?tool.color.rgbtohsb(this.rgb):tool.color.hsltohsb(this.hsl)
+          this.hue=hsb[0]
+          this.saturation=hsb[1]
+          this.brightness=hsb[2]
+        }
+      }else return
+      this.contexts.forEach(e=>{if(e.name!=="color")e.setValue(self[e.name]);else e.setValue([self.saturation,self.brightness])})
+    }
+    // 计算出hex, rgb, hsl的值
+    this.hsl=type&&this.select==="hsl"?this.hsl:tool.color.hsbtohsl(this.hue,this.saturation,this.brightness);
+    this.rgb=type&&this.select==="rgb"?this.rgb:tool.color.hsltorgb(this.hsl.h,this.hsl.s,this.hsl.l);
+    this.hex=type==="hex"?value:tool.color.rgbtohex(this.rgb.r,this.rgb.g,this.rgb.b);
+    // hex值简化
+    if(type!=="hex"&&this.useAlpha)this.hex=this.hex+Math.round(tool.trimZero(this.alpha.toFixed(2))*255).toString(16).padStart(2,'0');
+    const simplifyHex=/^#(?:([da-f])1){3}$/.exec(this.hex);
+    if(simplifyHex!==null)this.hex=`#${this.hex[1]}${this.hex[3]}${this.hex[5]}`;
+    this.setStyles()
+  }
+  setInput(k,v){this.doms.input[k].children[0].value=v}
+  setStyles(){
+    const round = Math.round;
+    const rgbValues = `${round(this.rgb.r * 255)}, ${round(this.rgb.g * 255)}, ${round(this.rgb.b * 255)}`;
+    const alphaValue = tool.trimZero(this.alpha.toFixed(2));
+    const hslaColor = `hsla(${round(this.hsl.h % 360)}, ${round(this.hsl.s * 100)}%, ${round(this.hsl.l * 100)}%${this.useAlpha?", "+alphaValue:""})`;
+    const rgbColor = `rgb(${rgbValues})`;
+    this.doms.preview.style.background =
+      `linear-gradient(${hslaColor}, ${hslaColor}) 0 0 / cover,
+      linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 0 0 / 12px 12px,
+      linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 6px 6px / 12px 12px`;
+    this.doms.$picker.parentNode.parentNode.parentNode.querySelector(".colorPreview").style.background=this.doms.preview.style.background;
+    if(this.useAlpha)this.doms.$palletes
+      .filter(element => element.getAttribute('name') === 'alpha')[0]
+      .style.background =
+        `linear-gradient(to right, rgba(0,0,0,0), ${rgbColor}) 0 0 / cover,
+        linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 0 0 / 10px 10px,
+        linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 5px 5px / 10px 10px`;
+    this.doms.$picker.style.backgroundColor = `hsl(${this.hue}, 100%, 50%)`;
+    // 结果
+    this.setInput("hex",this.hex)
+    var hslRegex=/hsla?\((\d+),\s*([\d.]+)%,\s*([\d.]+)%(?:,\s*([\d.]+))?\)/;
+    var hsl=hslaColor.match(hslRegex)
+    this.setInput("a",round(this.select=="hsl"?hsl[1]:this.rgb.r*255))
+    this.setInput("b",round(this.select=="hsl"?hsl[2]:this.rgb.g*255))
+    this.setInput("c",round(this.select=="hsl"?hsl[3]:this.rgb.b*255))
+    this.obj.modify=!(!this.obj.def||this.hex===this.obj.def);
+    if(!this.obj.def)this.obj.def=this.hex;
+    this.obj.c=[this.rgb.r,this.rgb.g,this.rgb.b].map(e=>Number.parseFloat(tool.trimZero(e.toFixed(3))));
+    if(this.useAlpha){this.obj.a=Number.parseFloat(alphaValue);}
+    this.setInput("alpha",alphaValue);
+    this.doms.result.hex.innerHTML=this.hex;
+    this.doms.result.rgb.innerHTML=`rgba(${round(this.rgb.r * 255)}, ${round(this.rgb.g * 255)}, ${round(this.rgb.b * 255)}${this.useAlpha?", "+alphaValue:""})`;
+    this.doms.result.hsl.innerHTML=hslaColor;
+  }
+  setAlpha(alpha){
+    alpha=Number.parseFloat(tool.trimZero((alpha/255).toFixed(2)))
+    this.doms.alphaDom.parentNode.parentNode.querySelector(".colorPreview").style.background =
+      `linear-gradient(rgba(0,0,0,${alpha}), rgba(0,0,0,${alpha})) 0 0 / cover,
+      linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 0 0 / 12px 12px,
+      linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 6px 6px / 12px 12px`;
+    // 结果
+    this.obj.modify=!(!this.obj.def||alpha===this.obj.def);
+    if(!this.obj.def)this.obj.def=this.obj.a;
+    this.obj.a=alpha;
+  }
+}
+function kickPicker(e,r,t){var c=e.querySelector(".color-palette"),o=e.querySelector(".color-pointer");r.$picker=c,r.$indicator=o;var i=c.getAttribute("name"),n=new DragContext({$context:c,$dragger:o,doms:r,name:i,direction:"both"});t.push(n)}
+function _toConsumableArray(r){if(Array.isArray(r)){for(var e=0,t=Array(r.length);e<r.length;e++)t[e]=r[e];return t}return Array.from(r)}function kickSliders(r,e,t){var a=Array.prototype.slice.call(r.querySelectorAll(".slider")),l=Array.prototype.slice.call(r.querySelectorAll(".sliderBox"));e.$palletes=a,e.$sliders=l;var n=a.map(function(r){var t=r.getAttribute("name"),a=l.filter(function(r){return r.getAttribute("name")===t})[0];return new DragContext({$context:r,$dragger:a,doms:e,name:t,direction:"horizontal",initX:0})});t.push.apply(t,_toConsumableArray(n))}
+function themeScreen(){
+  const [searchText,setSearchText]=useState("")
+  var isOpenEl={},hasOption=item=>typeof item==="object"&&item!==null&&(item.hasOwnProperty('name')&&item.name.toLowerCase().includes(searchText.toLowerCase()))||(item.hasOwnProperty("desc")&&item.desc.toLowerCase().includes(searchText.toLowerCase())),
+  isEmptyResult=searchText.trim()!==""&&!themeObj.some(item=>item.content.some(hasOption))
+  function parseNumber(e,varItem){return Math.max(Number.parseFloat(e.target.value.slice(e.target.value.startsWith("item")?4:0)||varItem.def||0),0)}
+  function partition({data}){
+    function changeEvent(e){
+      const varItem=data.content.find(item=>item.id===e.target.id);
+      if(varItem.type==="size"){
+        let value=e.target.value==="default"?"default":parseNumber(e,varItem),xDef=varItem.def[0],yDef=varItem.def[1]
+        varItem.current=[e.target.axis==="x"?Number.isNaN(value)?xDef:value:xDef,e.target.axis==="y"?Number.isNaN(value)?yDef:value:yDef]
+        return
+      }
+      varItem.current=varItem.type==null||varItem.type==="switch"?e.target.checked:
+      typeof varItem.def==="number"?parseNumber(e,varItem):e.target.value
+      if(varItem.round===!0)varItem.current=Math.round(varItem.current)
+      if(varItem.type==="textField"&&typeof varItem.def==="number"){
+        let textFieldExpression=varItem.round?/^\d+$/:/^\d+(\.\d+)?$/
+        e.target.helper=textFieldExpression.test(e.target.value)?"":varItem.round?`不能是浮点数，使用${Math.round(parseNumber(e,varItem))}代替`:`类型错误，使用${varItem.def}代替`
+      }
+    }
+    var hasResult=searchText.trim()===""||data.content.some(hasOption)
+    return hasResult&&cv.c(searchText.trim()===""?"mdui-collapse-item":"div",null,
+      cv.c("mdui-list-item",{slot:"header",description:data.desc,rounded:true},cv.c("b",null,data.title)),
+      cv.c("mdui-list",null,
+        data.content.map(function(e){
+          var content=useRef();content.isOpen=false;content.uuid=e.name;
+          function accordion(){
+            if(!content.isInit){
+              content.current.innerHTML=`
+<div class="palettePanel">
+  <div class="color-palette" name="color"><div class="color-pointer" name="color"></div></div>
+  <div class="preview"></div>
+  <div class="hue slider" name="hue"><div class="sliderBox" name="hue"></div></div>
+  <div class="alpha slider" name="alpha"><div class="sliderBox" name="alpha"></div></div>
+  <div class="colorInputPanel">
+    <div class="colorInputStack">
+      <div type="a"><input class="colorInput" name="a" type="number"><div>r</div></div>
+      <div type="b"><input class="colorInput" name="b" type="number"><div>g</div></div>
+      <div type="c"><input class="colorInput" name="c" type="number"><div>b</div></div>
+      <div type="alpha"><input class="colorInput" name="alpha" type="number"><div>a</div></div>
+      <div type="hex"><input class="colorInput" name="hex" maxlength="9" type="text"/><div>hex</div></div>
+    </div>
+    <mdui-dropdown><mdui-button variant="tonal" slot="trigger" style="padding:5px;height:3rem;width:1.8rem"><ion-icon style="font-size:1.5rem" name="chevron-expand-outline" /></mdui-button><mdui-menu dense><mdui-menu-item class="hex result">#ff0000</mdui-menu-item><mdui-menu-item class="rgb result">rgb(255, 255, 255)</mdui-menu-item><mdui-menu-item class="hsl result">hsl(0, 100%, 50%)</mdui-menu-item></mdui-menu></mdui-dropdown>
+  </div>
+  <mdui-button class="upload-button">上传图片并取色</mdui-button>
+  <input class="upload-input" type="file" accept="image/*">
+</div>
+<div class="palettePanel" type="alpha"><div class="sliderFlex"><input class="colorInput" type="number" name="alpha" /><mdui-slider class="alphaSlider" max="255" nolabel></div></mdui-slider></div>`;
+              const dom=content.current.children[0],doms={},context=[];
+              kickPicker(dom,doms,context);
+              kickSliders(dom,doms,context);
+              doms.render=new StyleRenderer(dom,doms,context,e);
+              content.isInit=true
+            }
+            content.current.style.height=!content.isOpen?content.current.scrollHeight+"px":0;
+            if(content.uuid!==isOpenEl.uuid&&!content.isOpen){isOpenEl.isOpen=false;if(isOpenEl.current)isOpenEl.current.style.height=0;isOpenEl=content}
+            content.isOpen=!content.isOpen
+          }
+          if(!e)return searchText.trim()===""&&cv.c("mdui-divider");
+          else{var name=e.name+(e.desc.includes("default")?" (默认)":e.desc.includes("hover")?" (悬停)":e.desc.includes("pressed")?" (按下)":"");return (searchText.trim()===""||name.toLowerCase().includes(searchText.toLowerCase())||e.hasOwnProperty("desc")&&e.desc.toLowerCase().includes(searchText.toLowerCase()))&&cv.c("div",null,cv.c("mdui-list-item",{rounded:true,onClick:accordion,description:e.desc||""},name,cv.c("div",{slot:"end-icon",style:(function(){var c=(typeof e.c==="object"?e.c.map(e=>e*255):[0,0,0]).join(","),a=typeof e.a==="number"?e.a:1;return `background:linear-gradient(rgba(${c},${a}),rgba(${c},${a})) 0 0 / cover,linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 0 0 / 12px 12px,linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 6px 6px / 12px 12px`}).call(),className:"colorPreview"})
+        ),cv.c("div",{ref:content,style:"overflow:hidden;height:0;transition: height 0.15s cubic-bezier(0.55, 0.06, 0.68, 0.19) 0s;"},"loading..."
+        ))}})
+      )
+    )
+  }
+  function deployment(){
+    let globalVariablesFile=fileRead("ui/_global_variables.json"),
+    globalVariablesJSON=JSON.parse(globalVariablesFile.content),
+    tempVar={},detect=[];
+    themeObj.forEach(i=>i.content.forEach(e=>{
+      if(e===0)return;
+      var hasColor=e.desc.endsWith("color"),hasAlpha=e.desc.endsWith("alpha");
+      if(e.modify){if(typeof e.c=="object")tempVar["$cube_"+e.desc+(hasColor?'':'_color')]=e.c;if(typeof e.a=="number")tempVar["$cube_"+e.desc+(hasAlpha?'':'_alpha')]=e.a}
+      else if(e.modify===false){if(typeof e.c=="object")detect.push("$cube_"+e.desc+(hasColor?'':'_color'));if(typeof e.a=="number")detect.push("$cube_"+e.desc+(hasAlpha?'':'_alpha'))}
+    }))
+    globalVariablesJSON=Object.keys(globalVariablesJSON).reduce((acc,key)=>{
+      if(!detect.includes(key))acc[key]=globalVariablesJSON[key];
+      return acc
+    },{})
+    globalVariablesJSON=mergeObjects(globalVariablesJSON,tempVar)
+    globalVariablesFile.content=JSON.stringify(globalVariablesJSON)
+  }
+  function search(e){
+    throttle(function(){
+      setSearchText(e.target.value)
+    },5000)()
+  }
+  function save(){deployment();cv.skipRouter("/item")}
+  return cv.c(cv.fragment,null,
+    cv.c("div",{id:"content",className:"ns mdui-container",style:"margin:8px"},
+      cv.c("div",{className:"mdui-container",style:"height:calc(100vh - 11.5rem);overflow-y:auto;border-radius:var(--mdui-shape-corner-medium)"},
+      cv.c("h1",null,T("theme$title")),
+      cv.c("div",{style:"margin:0 0 5px 0;position:sticky;top:0;z-index:10"},cv.c("mdui-text-field",{label:T("theme$search"),clearable:!0,onInput:search})),
+      cv.c("div",{style:"background:rgba(var(--mdui-color-primary-dark), 0.2);border-radius:var(--mdui-shape-corner-medium);padding:0 5px;"},cv.c("mdui-list",null,cv.c("mdui-collapse",{accordion:!0},
+        themeObj.map(d=>cv.c(partition,{data:d})),
+        isEmptyResult&&cv.c("b",{style:'display:flex;justify-content:center;width:100%'},T("setting$empty"))
+      )))
+    )),
+    cv.c("div",{style:"position: fixed;bottom: 0;display:flex;width: 100%;z-index:1000;padding:4px"},
+      cv.c("mdui-button",{onClick:save,style:"box-sizing:border-box;width:calc(100% - 8px)",variant:"filled"},T("gui$save"))
+    )
   )
 }
 
@@ -443,7 +746,7 @@ function bgScreen(){
     }else{cancelBtn();mdui.snackbar({message:T("bg$invalid"),placement:"top",autoCloseDelay:3000,closeable:true})}
   }
   var videoCanPlay=()=>{
-    var width=video.current.videoWidth/2,height=video.current.videoHeight/2;
+    var width=video.current.videoWidth,height=video.current.videoHeight;
     liveSwitch.current.checked=true
     liveSwitchFn()
     fileRead("textures/cube")[0].children=[]
@@ -674,6 +977,7 @@ function App(){
     cv.c(cv.router,{path:"/custom",component:customScreen}),
     cv.c(cv.router,{path:"/item",component:itemScreen}),
     cv.c(cv.router,{path:"/music",component:musicScreen}),
+    cv.c(cv.router,{path:"/theme",component:themeScreen}),
     cv.c(cv.router,{path:"/variables",component:variablesScreen}),
     cv.c(cv.router,{path:"/bg",component:bgScreen}),
   ));
