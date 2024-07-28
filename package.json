@@ -1,5 +1,5 @@
 {
-  "name": "CubeVisage",
+  "name": "cubevisage",
   "version": "1.0.0",
   "description": "CubeVisage official website",
   "scripts": {
@@ -26,5 +26,6 @@
   },
   "dependencies": {
     "mdui": "^2.1.2"
-  }
+  },
+  "main": "webpack.config.js"
 }

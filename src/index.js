@@ -1,4 +1,4 @@
-import 'mdui/mdui.scss'
+import 'mdui/mdui.css'
 import "./res/css/simpleCrop.scss"
 import "./res/css/style.scss"
 
