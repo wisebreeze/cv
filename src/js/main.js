@@ -1,4 +1,5 @@
 import 'mdui/mdui.global.js';
+import * as simplecrop from "./simpleCrop.js"
 
 mdui.setColorScheme("#778BFF");
 var data=localStorage.getItem('themeType');
@@ -885,7 +886,7 @@ function bgScreen(){
 // music
 function musicScreen(){
   var musicName=useRef(),musicAuthor=useRef(),addBtn=useRef(),dialog=useRef(),musicFile=useRef(),coverFile=useRef();
-  var close=()=>{dialog.current.open=false},coverChange=function(e){var reader=new FileReader();reader.onload=function(r){var img=new Image();img.onload=function(){new SimpleCrop({src:r.target.result,cropSizePercent:0.8,size:{width:Math.min(img.width,img.height),height:Math.min(img.width,img.height)},cropCallback:function(result){coverFile.result=result}})};img.src=r.target.result;coverFile.name=e.target.files[0].name};if(e.target.files.length>0)reader.readAsDataURL(e.target.files[0])},musicChange=function(a){var b=a.target.files[0];if(b){var c=b.name.split(".").pop();return"ogg"===c?void(""===musicName.current.inputRef.value.value&&musicName.current.setRangeText(b.name.substring(0,b.name.lastIndexOf("."))),addBtn.current.disabled=!1):mdui.snackbar({message:T("music$oggTip"),closeable:!0,autoCloseDelay:3e3,closeOnOutsideClick:!0,placement:"top"})}};
+  var close=()=>{dialog.current.open=false},coverChange=function(e){var reader=new FileReader();reader.onload=function(r){var img=new Image();img.onload=function(){new simplecrop({src:r.target.result,cropSizePercent:0.8,size:{width:Math.min(img.width,img.height),height:Math.min(img.width,img.height)},cropCallback:function(result){coverFile.result=result}})};img.src=r.target.result;coverFile.name=e.target.files[0].name};if(e.target.files.length>0)reader.readAsDataURL(e.target.files[0])},musicChange=function(a){var b=a.target.files[0];if(b){var c=b.name.split(".").pop();return"ogg"===c?void(""===musicName.current.inputRef.value.value&&musicName.current.setRangeText(b.name.substring(0,b.name.lastIndexOf("."))),addBtn.current.disabled=!1):mdui.snackbar({message:T("music$oggTip"),closeable:!0,autoCloseDelay:3e3,closeOnOutsideClick:!0,placement:"top"})}};
   var allowDrop=function(a){a.preventDefault()},handleClickOrDrop=function(a,b){a.preventDefault();var c,d=b.current;if('drop'===a.type)c=a.dataTransfer.files,d.files=c;else if('click'===a.type)return void d.click()};
 
   var setting=findFileByName(fileStructure,"_setting.json");

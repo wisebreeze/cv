@@ -27,7 +27,7 @@ function SPA(pages) {
 
 module.exports = {
   mode: "development",
-  entry:{index:path.resolve(__dirname, "src", "index.js")},
+  entry:{index:path.resolve(__dirname, "src", "js/index.js")},
   output:{filename:"index_[contenthash:8].js",path:distPath},
   stats:{errorDetails:false,warnings:false},
   resolve:{extensions:['.js','.jsx']},
