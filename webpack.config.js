@@ -1,13 +1,36 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require('terser-webpack-plugin');
+const distPath = path.resolve(__dirname, 'dist');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+
+const pages = ['index','404','custom/','item/','music/','theme/','variables/','bg/'];
+function SPA(pages) {
+  let htmlPath='index.html';
+  return pages.map(page => {
+    if (page.endsWith('/'))htmlPath = page+"index.html";
+    else htmlPath=page.endsWith(".html")?page:page+".html";
+    return new HtmlWebpackPlugin({
+      filename: path.resolve(__dirname, "dist", htmlPath),
+      template: path.resolve(__dirname, "src", "index.html"),
+      minify: {
+        collapseWhitespace: true,
+        removeComments: true,
+        removeRedundantAttributes: true,
+        removeScriptTypeAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        useShortDoctype: true
+      }
+    });
+  });
+}
 
 module.exports = {
   mode: "development",
   entry:{index:path.resolve(__dirname, "src", "index.js")},
-  output:{filename:'index_[contenthash:8].js',path:path.resolve(__dirname,'dist')},
+  output:{filename:"index_[contenthash:8].js",path:distPath},
   stats:{errorDetails:false,warnings:false},
+  resolve:{extensions:['.js','.jsx']},
   module: {
     rules: [
       {
@@ -15,9 +38,14 @@ module.exports = {
         use: ["style-loader", "css-loader", "sass-loader"]
       },
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ["babel-loader"]
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
       },
       {
         test: /\.(jpe?g|png|svg|gif)/i,
@@ -33,32 +61,9 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: path.resolve(__dirname, "src", "index.html"),
-      minify: {
-        collapseWhitespace: true,
-        removeComments: true,
-        removeRedundantAttributes: true,
-        removeScriptTypeAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        useShortDoctype: true
-      }
-    }),
-    new HtmlWebpackPlugin({
-      filename: '404.html',
-      template: path.resolve(__dirname, 'src', 'index.html'),
-      minify: {
-        collapseWhitespace: true,
-        removeComments: true,
-        removeRedundantAttributes: true,
-        removeScriptTypeAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        useShortDoctype: true
-      }
-    }),
+    ...SPA(pages),
     new TerserPlugin({
-      extractComments: true,
+      extractComments: false,
       terserOptions: {
         format: {comments:false}
       }
