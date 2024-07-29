@@ -28,13 +28,13 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    env:
+      TERM: xterm
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Build Pages
         run: |
-          export TERM=xterm
-          source ~/.bashrc
           npm run dev
       - name: Setup Pages
         uses: actions/configure-pages@v5
