@@ -1,10 +1,12 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require('terser-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
   mode: "development",
   entry:{index:path.resolve(__dirname, "src", "index.js")},
+  output:{filename:'index_[contenthash:8].js',path:path.resolve(__dirname,'dist')},
   stats:{errorDetails:false,warnings:false},
   module: {
     rules: [
@@ -30,6 +32,7 @@ module.exports = {
     splitChunks: {chunks:"all"}
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.resolve(__dirname, "src", "index.html"),
@@ -54,7 +57,12 @@ module.exports = {
         useShortDoctype: true
       }
     }),
-    new TerserPlugin(),
+    new TerserPlugin({
+      extractComments: true,
+      terserOptions: {
+        format: {comments:false}
+      }
+    }),
   ],
   devServer: {
     historyApiFallback: true,
