@@ -8,7 +8,7 @@
     "build": "clear && webpack --config webpack.config.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "wiseBreeze",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.24.9",
