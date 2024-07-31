@@ -28,7 +28,7 @@ function SPA(pages) {
 module.exports = {
   mode: "development",
   entry:{index:path.resolve(__dirname, "src", "js/index.js")},
-  output:{filename:"index_[contenthash:8].js",path:distPath},
+  output:{filename:"index_[contenthash:8].js",path:distPath,publicPath:"/"},
   stats:{errorDetails:false,warnings:false},
   resolve:{extensions:['.js','.jsx']},
   module: {
@@ -75,6 +75,6 @@ module.exports = {
     open: ["/custom"],
     hot: true,
     host: "localhost",
-    port: "8080",
+    port: 8080,
   }
 };
