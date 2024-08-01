@@ -31,7 +31,7 @@ fileStructure=[
     {type:'folder',name:'frameBlur',children:[]},
     {type:'folder',name:'bg',children:[]}
   ]}]},
-  {type:'file',name:'manifest.json',content:'{"format_version":2,"header":{"description":"","name":"未设置名称","uuid":"","version":[1,0,0],"min_engine_version":[1,13,0]},"modules":[{"type":"resources","uuid":"","version":[1,0,0]}]}'},
+  {type:'file',name:'manifest.json',content:'{"format_version":2,"header":{"description":"","name":"CubeVisage Custom Pack","uuid":"","version":[1,0,0],"min_engine_version":[1,13,0]},"modules":[{"type":"resources","uuid":"","version":[1,0,0]}]}'},
   {type:'file',name:'pack_icon.png',content:null}
 ],
 varObj=[
@@ -169,11 +169,11 @@ function fileRead(n){for(var r=n.split("/"),t=fileStructure,e=0;e<r.length;e++)!
 function findFileByName(a,b){var c=!0,d=!1,e=void 0;try{for(var g,h,f=a[Symbol.iterator]();!(c=(g=f.next()).done);c=!0){if(h=g.value,h.name===b)return h;if('folder'===h.type){var i=findFileByName(h.children,b);if(i)return i}}}catch(h){d=!0,e=h}finally{try{!c&&f.return&&f.return()}finally{if(d)throw e}}return null}
 function addFileToFolder(a,b,c,d){var f,g,i,j,k,l,m,n,e=a.split("/");for(d||(d=fileStructure),f=0;f<d.length;f++)if(g=d[f],"folder"===g.type&&g.name===e[0]){if(g.children||(g.children=[]),1===e.length){for(i=b.substring(0,b.lastIndexOf(".")),j=b.substring(b.lastIndexOf(".")),k=g.children.filter(function(a){return"file"===a.type}).map(function(a){return a.name}),l=1;k.includes(b);)b=i+"_"+l+j,l++;return g.children.push({type:"file",name:b,content:c}),b}if(m=e.slice(1).join("/"),n=addFileToFolder(m,b,c,g.children))return n}return console.error('Unable to find folder at path "'+a+'"'),null}
 function addFilesToZip(folder,zip){folder.forEach(item=>{if(item.type==='file'){zip.file(item.name,item.content);}else if(item.type==='folder'){const newFolder=zip.folder(item.name);addFilesToZip(item.children,newFolder);}});}
-function downloadZip(a){const b=new JSZip;addFilesToZip(a,b),b.generateAsync({type:"blob"}).then(function(a){saveAs(a,(projectName||"立方之窗_自定义包")+".mcpack")})}
 function fetchImage(url,callback){fetch(url).then(response=>response.blob()).then(blob=>{const icon=fileStructure.find(item=>item.name==='pack_icon.png');if(icon)icon.content=blob;if(typeof callback==='function')callback(blob);}).catch(error=>console.error('Fetching image failed:',error));}
 function get_uuid(){var a=(new Date).getTime();return window.performance&&"function"==typeof window.performance.now&&(a+=performance.now()),"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(b){var c=0|(a+16*Math.random())%16;return a=Math.floor(a/16),("x"==b?c:8|3&c).toString(16)})}
 function debounce(func,delay){let timerId;return function(){const context=this;const args=arguments;clearTimeout(timerId);timerId=setTimeout(function(){func.apply(context,args);},delay)}}
 function throttle(func,interval){let lastTime=0;return function(...args){const now=Date.now();if(now-lastTime>=interval){lastTime=now;func.apply(this,args)}}}
+async function downloadZip(a){return new Promise(resolve=>{const b=new JSZip;addFilesToZip(a,b),b.generateAsync({type:"blob"}).then(function(a){saveAs(a,(projectName||"立方之窗_自定义包")+".mcpack");resolve()})})}
 
 function setVariables(obj){var globalVariablesFile=fileRead("ui/_global_variables.json"),globalVariablesJSON=JSON.parse(globalVariablesFile.content);Object.assign(globalVariablesJSON,obj);globalVariablesFile.content=JSON.stringify(globalVariablesJSON)}
 function removeVariables(str){var globalVariablesFile=fileRead("ui/_global_variables.json"),globalVariablesJSON=JSON.parse(globalVariablesFile.content),propArr=str.split(",").map(prop=>prop.trim());globalVariablesJSON=Object.keys(globalVariablesJSON).filter(key=>!propArr.includes(key)).reduce((obj,key)=>{obj[key]=globalVariablesJSON[key];return obj},{});globalVariablesFile.content=JSON.stringify(globalVariablesJSON)}
@@ -272,7 +272,7 @@ function itemScreen(){
       headline:T("gui$download"),
       description:T("custom$download$desc"),
       closeOnEsc:true,closeOnOverlayClick:true,
-      actions:[{text:T("gui$cancel")},{text:T("gui$confirm"),onClick:function(){var manifestFile=fileRead("manifest.json"),manifestJSON=JSON.parse(manifestFile.content);manifestJSON.header.uuid=get_uuid();manifestJSON.modules[0].uuid=get_uuid();manifestFile.content=JSON.stringify(manifestJSON);window.removeEventListener('beforeunload',confirmExit);deleteEmpty(fileStructure);downloadZip(fileStructure)}}]
+      actions:[{text:T("gui$cancel")},{text:T("gui$confirm"),onClick:async function(){var uuid=get_uuid(),manifestFile=fileRead("manifest.json"),manifestJSON=JSON.parse(manifestFile.content);manifestJSON.header.uuid=uuid;manifestJSON.modules[0].uuid=uuid;manifestFile.content=JSON.stringify(manifestJSON);var globalVariablesFile=fileRead("ui/_global_variables.json"),globalVariablesJSON=JSON.parse(globalVariablesFile.content);globalVariablesJSON["$cube_custom_uuid"]=uuid;globalVariablesFile.content=JSON.stringify(globalVariablesJSON);window.removeEventListener('beforeunload',confirmExit);deleteEmpty(fileStructure);await downloadZip(fileStructure)}}]
     })
   }
   function toMusic(){cv.skipRouter("/music")}
