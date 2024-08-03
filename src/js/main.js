@@ -1,5 +1,7 @@
 import 'mdui/mdui.global.js';
-import * as simplecrop from "./simpleCrop.js"
+import * as simplecrop from "./simpleCrop"
+import varObj from './data/var'
+import themeObj from './data/theme'
 
 mdui.setColorScheme("#778BFF");
 var data=localStorage.getItem('themeType');
@@ -33,131 +35,6 @@ fileStructure=[
   ]}]},
   {type:'file',name:'manifest.json',content:'{"format_version":2,"header":{"description":"","name":"CubeVisage Custom Pack","uuid":"","version":[1,0,0],"min_engine_version":[1,13,0]},"modules":[{"type":"resources","uuid":"","version":[1,0,0]}]}'},
   {type:'file',name:'pack_icon.png',content:null}
-],
-varObj=[
-{title:"HUD",content:[
-  {name:"快捷栏选定颜色动画",id:"daf3c18e"},
-  {name:"圆角快捷栏",id:"f51d10b7",def:!0},
-  {name:"侧边记分板分数",id:"838534a8",def:!0},
-  {name:"折叠附魔信息",id:"bac1d62e"},0,
-  {name:"隐藏 HUD",id:"ecf4b741",def:!0},
-  {name:"隐藏 HUD 提示",id:"13564f64",def:!0},
-  {name:"HUD 提示时长",id:"269a8a99",def:3.5,type:"textField"},
-  {name:"始终显示快捷栏",desc:"隐藏Hud时，始终显示快捷栏",id:"f89237ba"},0,
-  {name:"聊天栏消息显示条数",id:"706f8519",def:8,round:!0,type:"textField"},0,
-  {name:"环境渲染",id:"352b190b",def:!0},
-  {name:"触屏圆圈进度",id:"7b5039a2",def:!0},0,
-  {name:"信息显示位置",id:"83f6db8f",def:1,type:"dropdown",items:["顶部","底部"]},
-  {name:"耐久样式",id:"fb27fdf6",def:0,type:"dropdown",items:["百分比","详细"]},
-  {name:"物品数量",id:"c827079b",def:!0},
-  {name:"物品 ID",id:"d0c8872c"},
-  {name:"物品数据值",id:"506d4838",desc:"需启用“物品 ID”"},
-  {name:"耐久",id:"41dd8cd4",def:!0},
-  {name:"辅助物品",id:"b21e18db",def:!0},
-  {name:"追溯指针",id:"ef309951",desc:"需启用“辅助物品”，低于1.19版本不要开启"},0,
-  {name:"区块",id:"65717a9f"},0,
-  {name:"辅助准心",id:"089fd192",def:!0},
-  {name:"无条件显示",id:"78743dd4",desc:"需启用“辅助准心”"},0,
-  {name:"地图",id:"af0089db",desc:"仅中国版可用"},
-  {name:"大小",id:"8d09f184",def:[32,32],type:"size"},
-  {name:"实时更新",id:"d6b5a438",def:!0},
-  {name:"实时更新间隔",id:"eb035ece",def:3,round:!0,type:"textField"}
-]},{title:"背包和容器",content:[
-  {name:"始终快速移动",id:"a4709548"},
-  {name:"控制物品数量",id:"bf7db8a5",def:!0},
-  {name:"显示飞行物品",id:"894d44d5",def:!0},
-  {name:"是否双击一键合成",id:"40fac462",def:!0},
-  {name:"过滤物品",id:"32686c12",desc:"⚠️ 开发中",def:!0},
-  {name:"受伤时关闭容器",id:"7c333392",def:!0},
-  {name:"物品 AUX ID",id:"5b8cc68e"},
-  {name:"选择数量",id:"ded3a8c5",def:!0},
-  {name:"纸娃娃",id:"50eee1e4",def:!0},0,
-  {name:"帮助",id:"dfcffcc5",def:!0},
-  {name:"增强酿造指南",id:"04d7ac52"},0,
-  {name:"连锁移动",id:"70a9fab5"},
-  {name:"默认连锁移动",id:"b6cb0c61",def:!0},
-  {name:"快捷栏连锁移动",id:"c7e25550"},
-  {name:"禁用连锁丢弃",id:"ca15dac8",def:!0},0,
-  {name:"显示盔甲值",id:"099671d2",desc:"⚠️ 开发中",def:!0}
-]},{title:"隐私",content:[
-  {name:"玩家名称",id:"b83676b3",def:!0},
-  {name:"坐标",id:"e4a7ac08",def:!0}
-]},{title:"全局",content:[
-  {name:"文本框最大字符长度",id:"0a923b41",def:2147483647,round:!0,type:"textField"},
-  {name:"文本框亵渎过滤器",id:"b0455ac5"},
-  {name:"测试版顶部调试文字",id:"1e2ff19a",def:!0},
-  {name:"百分比",id:"20ccca31",def:!0}
-]},{title:"设置",content:[
-  {name:"查看路径",id:"c4c8702e",def:!0},
-  {name:"旧世界",id:"84b37071",desc:"✨ 需要使用 1.20.73 以及更早版本版本，新版本被 Ore UI 代替",def:!0},
-  {name:"流畅度",id:"e1ed717a",def:!0}
-]},{title:"美化",content:[
-  {name:"屏幕边框",id:"e6786154",def:!0}
-]},{title:"优化",content:[
-  {name:"低频渲染",id:"8a30c7d6"}
-]},{title:"模态",content:[
-  {name:"遮罩",id:"3f9be171"},
-  {name:"空白处关闭类型",id:"c4db2e62",def:2,type:"dropdown",items:["无","点击","双击"]}
-]},{title:"开始",content:[
-  {name:"相片分割",id:"c1919f11"}
-]},{title:"游戏",content:[
-  {name:"最近游戏",id:"e5ccf1eb",def:!0}
-]},{title:"音乐",content:[
-  {name:"音乐",id:"5fc8cf29",def:!0},
-  {name:"当前播放时长",id:"9cdaa0d3",def:!0},
-  {name:"倍速播放",id:"5d9e4f0e"},
-  {name:"音量调节",id:"9c9e051d",def:!0}
-]},{title:"暂停",content:[
-  {name:"保存并退出提示",id:"e4e1334d",def:!0}
-]},{title:"聊天",content:[
-  {name:"显示限制",id:"e8bcd7b9",def:100,round:!0,type:"textField"},
-  {name:"受伤时关闭聊天屏幕",id:"9cbb46ee",def:!0},
-  {name:"增强命令显示",id:"b9a8724e",def:!0},
-  {name:"忽略设置字体",id:"fa7d1a3c"}
-]},{title:"其他",content:[
-  {name:"受伤时关闭药水效果屏幕",id:"9003f259",def:!0},
-  {name:"受伤时关闭书与羽毛屏幕",id:"f2234e31",def:!0},
-  {name:"总是解锁未交易选项",id:"9ed4aeaf",def:!0},
-  {name:"命令实际延迟",id:"539b5cb4",def:!0},
-  {name:"彩蛋",id:"bc8b0fd2",desc:"⚠️ 开发中",def:!0}
-]},{title:"开发者",prefix:"$cube_dev_",content:[
-  {name:"调试工具",id:"tool"},
-  {name:"调试状态",id:"status"},
-  {name:"调试信息",id:"message"},
-  {name:"调试布局",id:"layout"},
-  {name:"指针位置",id:"pointer"},
-  {name:"聊天",id:"chat"},0,
-  {name:"环境沙盒",id:"c923cef2"},
-  {name:"屏幕大小",id:"5523405d",def:["default","default"],type:"size"},
-  {name:"开发者",id:"9b52c609",def:!0},
-  {name:"中国版",id:"b53ba732"},
-  {name:"键盘＆鼠标",id:"decdc2ac",def:!0},
-  {name:"触屏",id:"cf295d3c"},
-  {name:"游戏手柄",id:"950d0911"}
-]}],
-themeObj=[
-{title:"全局",desc:"Global",content:[{name:"图标主要颜色",desc:"icon_color",c:[0.529,0.6,1]},{name:"文字颜色",desc:"text_color",c:[1,1,1]},{name:"边框",desc:"border",c:[1,1,1],a:0.55}]},
-{title:"背景",desc:"Background",content:[{name:"背景",desc:"bg",c:[0,0,0],a:0.35},{name:"背景 (游戏内)",desc:"ingame_bg",c:[0,0,0],a:0.18},{name:"背景 (控件)",desc:"control_bg",c:[0,0,0],a:0.45},{name:"背景 (开始屏幕)",desc:"start_bg",c:[0,0,0],a:0.49},{name:"背景 (亮)",desc:"light_bg",c:[0.35,0.35,0.35],a:0.45},0,{name:"容器背景",desc:"container_background",c:[0.105,0.105,0.105],a:0.4},{name:"容器背景 (携带)",desc:"container_pocket_background",c:[0.105,0.105,0.105],a:0.4},0,{name:"选择区域背景",desc:"selector_area_bg",c:[0.105,0.105,0.105],a:0.2},{name:"更衣室背景",desc:"dressroom_bg",c:[0,0,0],a:0.45}]},
-{title:"按钮",desc:"Button",content:[{name:"按钮不透明度",desc:"button_alpha",a:0.65},{name:"按钮不透明度 (主要)",desc:"button_main_alpha",a:0.45},{name:"按钮不透明度 (亮)",desc:"button_light_alpha",a:0.55},0,{name:"主要按钮颜色",desc:"button_main_default_color",c:[0.259,0.522,0.957]},{name:"主要按钮颜色",desc:"button_main_hover_color",c:[0.098,0.404,0.824]},{name:"主要按钮颜色",desc:"button_main_pressed_color",c:[0.051,0.278,0.631]},{name:"亮按钮颜色",desc:"button_light_default_color",c:[0.55,0.55,0.55]},{name:"亮按钮颜色",desc:"button_light_hover_color",c:[0.55,0.55,0.55]},{name:"亮按钮颜色",desc:"button_light_pressed_color",c:[0.55,0.55,0.55]},{name:"按钮颜色",desc:"button_default_color",c:[0.188,0.188,0.188]},{name:"按钮颜色",desc:"button_hover_color",c:[0.55,0.55,0.55]},{name:"按钮颜色",desc:"button_pressed_color",c:[0.55,0.55,0.55]},{name:"破坏性按钮颜色",desc:"button_default_red_color",c:[0.6445,0.0507,0.0507]},{name:"破坏性按钮颜色",desc:"button_hover_red_color",c:[1,0.1875,0.1875]},{name:"破坏性按钮颜色",desc:"button_pressed_red_color",c:[1,0.1875,0.1875]},0,{name:"文字颜色",desc:"button_text_color",c:[1,1,1]},{name:"图标颜色",desc:"button_glyph_color",c:[1,1,1]}]},
-{title:"开关",desc:"Toggle",content:[{name:"背景不透明度",desc:"toggle_alpha",a:0.4},{name:"未选择背景不透明度",desc:"toggle_unchecked_alpha",a:0.4},{name:"已选择背景不透明度",desc:"toggle_checked_alpha",a:0.6},{name:"设置开关背景不透明度",desc:"toggle_setting_alpha",a:1},{name:"背景不透明度 (锁定)",desc:"toggle_locked_alpha",a:0.4},0,{name:"已选择",desc:"toggle_checked_default_color",c:[0.35,0.35,0.35]},{name:"已选择",desc:"toggle_checked_hover_color",c:[0.65,0.65,0.65]},{name:"未选择",desc:"toggle_unchecked_default_color",c:[0.188,0.188,0.188]},{name:"未选择",desc:"toggle_unchecked_hover_color",c:[0.55,0.55,0.55]},{name:"开关 (锁定)",desc:"toggle_locked_color",c:[1,0.1875,0.1875]},0,{name:"设置开关已选择",desc:"toggle_setting_checked_default_color",c:[0.3,0.3,0.3]},{name:"设置开关已选择",desc:"toggle_setting_checked_hover_color",c:[0.6,0.6,0.6]},{name:"设置开关未选择",desc:"toggle_setting_unchecked_default_color",c:[0.18,0.18,0.18]},{name:"设置开关未选择",desc:"toggle_setting_unchecked_hover_color",c:[0.5,0.5,0.5]},{name:"设置开关 (锁定)",desc:"toggle_setting_locked_color",c:[1,0.1875,0.1875]},{name:"设置开关圆点",desc:"toggle_setting_circle_default_color",c:[0.8,0.8,0.8]},{name:"设置开关圆点",desc:"toggle_setting_circle_hover_color",c:[1,1,1]},0,{name:"已选择文字",desc:"toggle_text_checked_color",c:[1,1,1]},{name:"已选择文字",desc:"toggle_text_checked_hover_color",c:[1,1,1]},{name:"未选择文字",desc:"toggle_text_unchecked_color",c:[1,1,1]},{name:"未选择文字",desc:"toggle_text_unchecked_hover_color",c:[1,1,1]}]},
-{title:"滑块",desc:"Slider",content:[{name:"背景 (默认)",desc:"slider_background",c:[0.105,0.105,0.105],a:0.6},{name:"背景",desc:"slider_background_hover_color",c:[0.5,0.5,0.5]},0,{name:"按钮不透明度",desc:"slider_button_alpha",a:0.95},{name:"按钮",desc:"slider_button_default_color",c:[1,1,1]},{name:"按钮",desc:"slider_button_hover_color",c:[0.8,0.8,0.8]},{name:"按钮 (缩进)",desc:"slider_button_indent_color",c:[1,1,1]},{name:"按钮 (锁定)",desc:"slider_button_locked_color",c:[1,0.1875,0.1875]},0,{name:"进度不透明度",desc:"slider_progress_alpha",a:0.8},{name:"进度",desc:"slider_progress_default_color",c:[0.259,0.522,0.957]},{name:"进度",desc:"slider_progress_hover_color",c:[0.012,0.467,0.922]},0,{name:"步数不透明度",desc:"slider_step_alpha",a:0.8},{name:"步数",desc:"slider_step_default_color",c:[0.9,0.9,0.9]},{name:"步数",desc:"slider_step_hover_color",c:[1,1,1]},{name:"进度步数",desc:"slider_step_progress_default_color",c:[0.5,0.5,0.5]},{name:"进度步数",desc:"slider_step_progress_hover_color",c:[1,1,1]}]},
-{title:"顶栏",desc:"Headbar",content:[{name:"背景",desc:"headbar",c:[0.105,0.105,0.105],a:0.75},{name:"文字",desc:"headbar_title_color",c:[1,1,1]}]},
-{title:"分段栏",desc:"Header",content:[{name:"背景",desc:"header",c:[0.105,0.105,0.105],a:0.6},{name:"文字",desc:"header_label_color",c:[1,1,1]}]},
-{title:"输入框",desc:"Text box",content:[{name:"背景不透明度",desc:"text_box_alpha",a:0.65},{name:"背景",desc:"text_box_default_color",c:[0.188,0.188,0.188]},{name:"背景",desc:"text_box_hover_color",c:[0.5,0.5,0.5]},{name:"背景",desc:"text_box_pressed_color",c:[0.5,0.5,0.5]},{name:"背景 (锁定)",desc:"text_box_locked_color",c:[1,0.1875,0.1875]},0,{name:"文字",desc:"text_box_text_color",c:[1,1,1]},{name:"文字 (锁定)",desc:"text_box_locked_text_color",c:[1,1,1]},{name:"占位符",desc:"text_box_place_holder_text_color",c:[0.85,0.85,0.85]}]},
-{title:"物品格子",desc:"Cell",content:[{name:"背景不透明度",desc:"cell_alpha",a:0.4},{name:"背景 (默认)",desc:"cell_color",c:[0.51,0.51,0.51]},{name:"背景 (选择)",desc:"cell_selected_color",c:[0.5,0.5,0.5]},{name:"背景 (禁用)",desc:"cell_red_color",c:[1,0.1875,0.1875]},{name:"高亮",desc:"cell_highlight",c:[0.65,0.65,0.65],a:0.35},{name:"快捷栏",desc:"cell_hotbar_color",c:[0.1,0.1,0.1]}]},
-{title:"滚动面板",desc:"Scroll box",content:[{name:"轨道",desc:"scroll_track",c:[0.188,0.188,0.188],a:0.4},{name:"条",desc:"scroll_box",c:[0.85,0.85,0.9],a:0.7}]},
-{title:"进度",desc:"Progress",content:[{name:"空",desc:"progress_empty",c:[0.105,0.105,0.105],a:0.6},{name:"填充",desc:"progress_full",c:[0.333,0.8,0.8],a:0.85},{name:"预期",desc:"progress_expected",c:[0.333,0.65,0.65],a:0.85},{name:"经验条文字颜色",desc:"progress_number_color",c:[0.333,0.8,0.8]}]},
-{title:"下拉面板",desc:"Dropdown",content:[{name:"背景",desc:"dropdown_background",c:[0.105,0.105,0.105],a:0.55}]},
-{title:"单选项",desc:"Radio",content:[{name:"背景不透明度",desc:"radio_background_alpha",a:0.55},{name:"背景颜色 (已选择)",desc:"radio_background_selected_color",c:[0,0,0]},{name:"背景颜色",desc:"radio_background_hover_color",c:[0.5,0.5,0.5]},0,{name:"文字颜色",desc:"radio_text_color",c:[1,1,1]},{name:"文字颜色",desc:"radio_text_hover_color",c:[1,1,1]}]},
-{title:"侧边栏",desc:"Sidebar",content:[{name:"栏",desc:"sidebar_focus",c:[1,1,1],a:1},{name:"边栏",desc:"sidebar_bar_color",c:[0.259,0.522,0.957]},{name:"控件背景颜色",desc:"sidebar_default_color",c:[0.105,0.105,0.105]},{name:"控件背景颜色",desc:"sidebar_hover_color",c:[0.5,0.5,0.5]},{name:"背景颜色",desc:"sidebar_bg_color",c:[0,0,0]},{name:"背景不透明度",desc:"sidebar_alpha",a:0.75}]},
-{title:"工具提示",desc:"Tooltip",content:[{name:"背景",desc:"tooltip_background",c:[0,0,0],a:0.65},{name:"箭头",desc:"tooltip_chevron",c:[0,0,0],a:0.65}]},
-{title:"下划线",desc:"Underline",content:[{name:"下划线",desc:"underline",c:[0.105,0.105,0.105],a:0.4}]},
-{title:"分割线",desc:"Divider",content:[{name:"分割线",desc:"divider",c:[0.9,0.9,0.9],a:0.33}]},
-{title:"弹出窗口",desc:"Dialog",content:[{name:"覆盖背景",desc:"dialog_overlay",c:[0,0,0],a:0.15},{name:"背景",desc:"dialog_background",c:[0.105,0.105,0.105],a:0.6},{name:"顶栏",desc:"dialog_headbar",c:[0.35,0.35,0.35],a:0.4},0,{name:"顶栏标题文字颜色",desc:"dialog_title_text_color",c:[1,1,1]},{name:"内容消息文字颜色",desc:"dialog_message_text_color",c:[1,1,1]}]},
-{title:"吐司",desc:"Toast",content:[{name:"背景",desc:"toast_background",c:[0,0,0],a:0.7}]},
-{title:"角标",desc:"Corner marker",content:[{name:"角标",desc:"corner_master",c:[0,0,0],a:0.7}]},
-{title:"记分板",desc:"Scoreboard",content:[{name:"玩家名颜色",desc:"scoreboard_player_name_color",c:[1,1,1]},{name:"标题颜色",desc:"scoreboard_objective_title_color",c:[1,1,1]},{name:"玩家分数颜色",desc:"scoreboard_player_score_color",c:[0.2,0.6,1]},{name:"玩家列表分数颜色",desc:"scoreboard_player_list_score_color",c:[1,1,1]},{name:"玩家排名颜色",desc:"scoreboard_player_list_rank_color",c:[1,1,1]}]},
-{title:"其他",desc:"Other",content:[{name:"栏",desc:"bar",c:[0.529,0.6,1],a:1}]},
 ],bgData={live:false,src:null,img:null,showLive:true},MusicArr=[];
 let projectName="",projectDesc="";cv.setLocalizationData(language);
 var urlObj = new URL(window.location.href);cv.setLocale(localStorage.getItem('language')||urlObj.searchParams.get("lang")||"zh-cn");
@@ -272,7 +149,7 @@ function itemScreen(){
       headline:T("gui$download"),
       description:T("custom$download$desc"),
       closeOnEsc:true,closeOnOverlayClick:true,
-      actions:[{text:T("gui$cancel")},{text:T("gui$confirm"),onClick:async function(){var uuid=get_uuid(),manifestFile=fileRead("manifest.json"),manifestJSON=JSON.parse(manifestFile.content);manifestJSON.header.uuid=uuid;manifestJSON.modules[0].uuid=uuid;manifestFile.content=JSON.stringify(manifestJSON);var globalVariablesFile=fileRead("ui/_global_variables.json"),globalVariablesJSON=JSON.parse(globalVariablesFile.content);globalVariablesJSON["$cube_custom_uuid"]=uuid;globalVariablesFile.content=JSON.stringify(globalVariablesJSON);window.removeEventListener('beforeunload',confirmExit);deleteEmpty(fileStructure);await downloadZip(fileStructure)}}]
+      actions:[{text:T("gui$cancel")},{text:T("gui$confirm"),onClick:async function(){var uuid=get_uuid(),manifestFile=fileRead("manifest.json"),manifestJSON=JSON.parse(manifestFile.content);manifestJSON.header.uuid=uuid;manifestJSON.modules[0].uuid=get_uuid();manifestFile.content=JSON.stringify(manifestJSON);var globalVariablesFile=fileRead("ui/_global_variables.json"),globalVariablesJSON=JSON.parse(globalVariablesFile.content);globalVariablesJSON["$cube_custom_uuid"]=uuid;globalVariablesFile.content=JSON.stringify(globalVariablesJSON);window.removeEventListener('beforeunload',confirmExit);deleteEmpty(fileStructure);await downloadZip(fileStructure)}}]
     })
   }
   function toMusic(){cv.skipRouter("/music")}
