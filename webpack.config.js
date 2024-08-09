@@ -44,7 +44,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
+            presets: ['@babel/preset-env','@babel/preset-react']
           }
         }
       },
@@ -52,7 +52,7 @@ module.exports = {
         test: /\.(jpe?g|png|svg|gif)/i,
         type: "asset/resource",
         generator: {
-          filename: 'assets/[hash][ext][query]'
+          filename: 'assets/[name][ext][query]'
         }
       }
     ]
