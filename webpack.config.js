@@ -20,7 +20,8 @@ function SPA(pages) {
         removeScriptTypeAttributes: true,
         removeStyleLinkTypeAttributes: true,
         useShortDoctype: true
-      }
+      },
+      chunks: [page]
     });
   });
 }
