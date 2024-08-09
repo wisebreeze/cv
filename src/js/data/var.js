@@ -19,7 +19,7 @@ const varObj=[
   {name:"耐久",id:"41dd8cd4",def:!0},
   {name:"辅助物品",id:"b21e18db",def:!0},
   {name:"追溯指针",id:"ef309951",desc:"需启用“辅助物品”，低于1.19版本不要开启"},0,
-  {name:"区块",id:"65717a9f"},
+  {name:"区块",id:"65717a9f",def:!0},
   {name:"资源高度距离",id:"fe8e132d"},0,
   {name:"辅助准心",id:"089fd192",def:!0},
   {name:"无条件显示",id:"78743dd4",desc:"需启用“辅助准心”"},0,
