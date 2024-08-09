@@ -95,7 +95,7 @@ function customScreen(){
   const checkInput=function(e){projectName=e.target.inputRef.value.value;e.target.inputRef.value.value.trim().length>0?nextBtn.current.removeAttribute("disabled"):nextBtn.current.setAttribute("disabled","disabled")}
   const descInput=function(e){projectDesc=e.target.inputRef.value.value;}
   const next=function(){
-    fetchImage("https://cv-erd.pages.dev/res/image/icon.png");
+    fetchImage("https://cv-erd.pages.dev/assets/icon.png");
     let manifest=fileStructure.find(item=>item.name==='manifest.json'),
     manifestJSON=JSON.parse(manifest.content);
     manifestJSON.header.name=projectName;
