@@ -37,6 +37,7 @@ const varObj=[
   {name:"物品 AUX ID",id:"5b8cc68e"},
   {name:"选择数量",id:"ded3a8c5",def:!0},
   {name:"纸娃娃",id:"50eee1e4",def:!0},0,
+  {name:"物品网格间距",id:"bedae7de"},0,
   {name:"帮助",id:"dfcffcc5",def:!0},
   {name:"增强酿造指南",id:"04d7ac52"},0,
   {name:"连锁移动",id:"70a9fab5"},
@@ -49,15 +50,19 @@ const varObj=[
   {name:"坐标",id:"e4a7ac08",def:!0}
 ]},{title:"全局",content:[
   {name:"文本框最大字符长度",id:"0a923b41",def:2147483647,round:!0,type:"textField"},
+  {name:"最高低耐久",id:"49b7e060",def:20,round:!0,type:"textField"},
   {name:"文本框亵渎过滤器",id:"b0455ac5"},
   {name:"测试版顶部调试文字",id:"1e2ff19a",def:!0},
-  {name:"百分比",id:"20ccca31",def:!0}
+  {name:"百分比",id:"20ccca31",def:!0},
+  {name:"始终显示滚动条",id:"c99f06d0",def:!0},
+  {name:"游戏内背景",id:"9ec76f17",def:!0}
 ]},{title:"设置",content:[
   {name:"查看路径",id:"c4c8702e",def:!0},
   {name:"旧世界",id:"84b37071",desc:"✨ 需要使用 1.20.73 以及更早版本版本，新版本被 Ore UI 代替",def:!0},
   {name:"流畅度",id:"e1ed717a",def:!0}
 ]},{title:"美化",content:[
-  {name:"屏幕边框",id:"e6786154"}
+  {name:"屏幕边框",id:"e6786154"},
+  {name:"栏动画",id:"d26f6d49",def:!0}
 ]},{title:"优化",content:[
   {name:"低频渲染",id:"8a30c7d6"}
 ]},{title:"模态",content:[
@@ -78,7 +83,8 @@ const varObj=[
   {name:"显示限制",id:"e8bcd7b9",def:100,round:!0,type:"textField"},
   {name:"受伤时关闭聊天屏幕",id:"9cbb46ee",def:!0},
   {name:"增强命令显示",id:"b9a8724e",def:!0},
-  {name:"忽略设置字体",id:"fa7d1a3c"}
+  {name:"忽略设置字体",id:"fa7d1a3c"},
+  {name:"背景",id:"8edb9fbb",def:!0}
 ]},{title:"其他",content:[
   {name:"受伤时关闭药水效果屏幕",id:"9003f259",def:!0},
   {name:"受伤时关闭书与羽毛屏幕",id:"f2234e31",def:!0},
