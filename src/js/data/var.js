@@ -44,6 +44,7 @@ const varObj=[
   {name:"默认连锁移动",id:"b6cb0c61",def:!0},
   {name:"快捷栏连锁移动",id:"c7e25550"},
   {name:"禁用连锁丢弃",id:"ca15dac8",def:!0},0,
+  {name:"装备显示位置",id:"1629b6ab",def:0,type:"dropdown",items:["左侧","右侧"]},
   {name:"显示盔甲值",id:"099671d2",desc:"⚠️ 开发中",def:!0}
 ]},{title:"隐私",content:[
   {name:"玩家名称",id:"b83676b3",def:!0},
