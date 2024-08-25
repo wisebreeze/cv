@@ -9,6 +9,28 @@ $color-primary-dark: var(--mdui-color-primary-dark);
 $color-surface-container-highest: var(--mdui-color-surface-container-highest);
 $color-on-surface-variant: var(--mdui-color-on-surface-variant);
 
+// 首页
+.HomeScreen {
+  overflow: hidden;
+  .Home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    .part {
+      //opacity: 1;
+      width: 100%;
+      height: 100%;
+      //transition: opacity 0.2s ease-in-out;
+      /*&:not(.current) {
+        opacity: 0;
+      }*/
+    }
+  }
+}
+
+// 主题
 .colorPreview{width:32px;height:32px;background:red;border-radius: 50%;}
 
 .palettePanel {
