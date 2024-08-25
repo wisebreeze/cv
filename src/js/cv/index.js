@@ -1,7 +1,7 @@
 import {lazy} from "./lazy.js"
 import {hook,useEffect,useState,useReducer,useCallback,useMemo} from "./hook.js"
 import {T,setLocale,setLocalizationData} from "./local.js"
-import {BrowserRouter,router,skipRouter,setInitialPath} from "./router.js"
+import {BrowserRouter,Router,skipRouter,setInitialPath} from "./router.js"
 
 const MAX_TIME=1000,
 createElement=(type,props,...children)=>({type,props:{...props,children:children.flat()/*.filter(c=>c!=null&&c!==false)*/.map(child=>typeof child==="object"?child:createTextElement(child))}}),
@@ -169,6 +169,6 @@ window.addEventListener("hashchange",()=>{forceUpdate()});
 window.addEventListener('pushstate',function(e){forceUpdate()});
 window.addEventListener('popstate',function(e){forceUpdate()});
 document.addEventListener('click',e=>{if(typeof e.target.href === "string"){e.preventDefault();const url=new URL(e.target.getAttribute("href"),window.location.origin);if(url.hostname===window.location.hostname){skipRouter(url.pathname+url.search+url.hash)}else window.location.href=url.href}});
-window.cv={c:createElement,createElement,root,useState,useReducer,useEffect,forceUpdate,useID,router,transition,fragment,sleep,useMemo,useCallback,useRef,passRef,createContext,useContext,BrowserRouter,skipRouter,setInitialPath,T,setLocale,setLocalizationData,lazy}
+window.cv={c:createElement,createElement,root,useState,useReducer,useEffect,forceUpdate,useID,transition,fragment,sleep,useMemo,useCallback,useRef,passRef,createContext,useContext,skipRouter,setInitialPath,T,setLocale,setLocalizationData,lazy}
 
-export {wipFiber,forceUpdate,createElement}
+export {wipFiber,forceUpdate,createElement,BrowserRouter,Router}

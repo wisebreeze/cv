@@ -24,8 +24,8 @@ function pathToRegexp(path, matchKeys = [], matchOptions = {}) {
 const BrowserRouter=({children:routers,errorComponent})=>{
   return routers.find(r=>pathToRegexp(window.location.pathname.slice(initialPath.length)).exec(r.props.path))||cv.c(cv.router,{component:errorComponent})
 }
-const router=({path,component,transition,props})=>{let ts=transition&&{style:{transition:`all ${transition.timeout}ms`},timeout:transition.timeout,In:transition.in,timeout:transition.timeout,transition:transition.className};return cv.c("router",ts,cv.c(component,props))};
+const Router=({path,component,transition,props})=>{let ts=transition&&{style:{transition:`all ${transition.timeout}ms`},timeout:transition.timeout,In:transition.in,timeout:transition.timeout,transition:transition.className};return cv.c("router",ts,cv.c(component,props))};
 const skipRouter=path=>{history.pushState(null,null,initialPath+path);forceUpdate()};
 const setInitialPath=path=>initialPath=path;
 
-export {BrowserRouter,router,skipRouter,setInitialPath}
+export {BrowserRouter,Router,skipRouter,setInitialPath}

@@ -1,4 +1,5 @@
 import 'mdui/mdui.global.js';
+import {BrowserRouter,Router} from './cv/index'
 import language from './data/language'
 
 // screen
@@ -86,8 +87,6 @@ function TopBar({title}){
 }
 
 function App(){
-  const BrowserRouter = cv.BrowserRouter;
-  const Router = cv.router;
   return (<>
     <TopBar/>
     <BrowserRouter errorComponent={ErrorScreen}>
