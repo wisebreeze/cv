@@ -15,7 +15,7 @@ mdui.setColorScheme("#778BFF");
 var data=localStorage.getItem('themeType');
 typeof data == "string"&&mdui.setTheme(data);
 var saveAs=saveAs||"undefined"!=typeof navigator&&navigator.msSaveOrOpenBlob&&navigator.msSaveOrOpenBlob.bind(navigator)||function(a){if("undefined"==typeof navigator||!/MSIE [1-9]\./.test(navigator.userAgent)){var b=a.document,c=function(){return a.URL||a.webkitURL||a},d=a.URL||a.webkitURL||a,e=b.createElementNS("http://www.w3.org/1999/xhtml","a"),f=!a.externalHost&&"download"in e,g=a.webkitRequestFileSystem,h=a.requestFileSystem||g||a.mozRequestFileSystem,i=function(b){(a.setImmediate||a.setTimeout)(function(){throw b},0)},j="application/octet-stream",k=0,l=[],m=function(){for(var a,b=l.length;b--;)a=l[b],"string"==typeof a?d.revokeObjectURL(a):a.remove();l.length=0},n=function(a,b,c){var d,e;for(b=[].concat(b),d=b.length;d--;)if(e=a["on"+b[d]],"function"==typeof e)try{e.call(a,c||a)}catch(f){i(f)}},o=function(d,i){var m,o,p,q,r=this,s=d.type,t=!1,u=function(){var a=c().createObjectURL(d);return l.push(a),a},v=function(){n(r,"writestart progress write writeend".split(" "))},w=function(){(t||!m)&&(m=u(d)),o?o.location.href=m:window.open(m,"_blank"),r.readyState=r.DONE,v()},x=function(a){return function(){return r.readyState!==r.DONE?a.apply(this,arguments):void 0}},y={create:!0,exclusive:!1};return r.readyState=r.INIT,i||(i="download"),f?(m=u(d),b=a.document,e=b.createElementNS("http://www.w3.org/1999/xhtml","a"),e.href=m,e.download=i,q=b.createEvent("MouseEvents"),q.initMouseEvent("click",!0,!1,a,0,0,0,0,0,!1,!1,!1,!1,0,null),e.dispatchEvent(q),r.readyState=r.DONE,v(),void 0):(a.chrome&&s&&s!==j&&(p=d.slice||d.webkitSlice,d=p.call(d,0,d.size,j),t=!0),g&&"download"!==i&&(i+=".download"),(s===j||g)&&(o=a),h?(k+=d.size,h(a.TEMPORARY,k,x(function(a){a.root.getDirectory("saved",y,x(function(a){var b=function(){a.getFile(i,y,x(function(a){a.createWriter(x(function(b){b.onwriteend=function(b){o.location.href=a.toURL(),l.push(a),r.readyState=r.DONE,n(r,"writeend",b)},b.onerror=function(){var a=b.error;a.code!==a.ABORT_ERR&&w()},"writestart progress write abort".split(" ").forEach(function(a){b["on"+a]=r["on"+a]}),b.write(d),r.abort=function(){b.abort(),r.readyState=r.DONE},r.readyState=r.WRITING}),w)}),w)};a.getFile(i,{create:!1},x(function(a){a.remove(),b()}),x(function(a){a.code===a.NOT_FOUND_ERR?b():w()}))}),w)}),w),void 0):(w(),void 0))},p=o.prototype,q=function(a,b){return new o(a,b)};return p.abort=function(){var a=this;a.readyState=a.DONE,n(a,"abort")},p.readyState=p.INIT=0,p.WRITING=1,p.DONE=2,p.error=p.onwritestart=p.onprogress=p.onwrite=p.onabort=p.onerror=p.onwriteend=null,a.addEventListener("unload",m,!1),q.unload=function(){m(),a.removeEventListener("unload",m,!1)},q}}("undefined"!=typeof self&&self||"undefined"!=typeof window&&window||this.content);
-var {T,useState,useEffect,useRef}=cv
+var {T,useState}=cv
 
 var fileStructure=[
   {type:'folder',name:'assets',children:[{type:'folder',name:'cube',children:[{type:'file',name:'frame.ui',content:null}]}]},
@@ -61,28 +61,28 @@ function removeVariables(str){var globalVariablesFile=fileRead("ui/_global_varia
 function TopBar({title}){
   const [language,setLanguage]=useState(localStorage.getItem('language')||urlObj.searchParams.get("lang")||"zh-cn");
   const [theme,setTheme]=useState(localStorage.getItem('themeType'));
-  return cv.c("div",{className:"ns",style:"position: relative;overflow: hidden"},
-    cv.c("mdui-top-app-bar",{"scroll-behavior":"elevate","scroll-target":"#content"},
-      cv.c("mdui-top-app-bar-title",{style:"margin-left:8px"},cv.c("a",{href:"/",style:"color: inherit; text-decoration: none;"},title||T("gui$packName"))),
-      cv.c("div",{style:"flex-grow: 1"}),
-      cv.c("mdui-dropdown",null,
-        cv.c("mdui-button-icon",{slot:"trigger"},cv.c("ion-icon",{attr:{name:"language-outline"}})),
-        cv.c("mdui-menu",{selects:"single",value:language||"zh-cn"},
-          cv.c("mdui-menu-item",{onClick:()=>{setLanguage("en-us");cv.setLocale('en-us');localStorage.setItem('language',"en-us");},value:"en-us"},"English"),
-          cv.c("mdui-menu-item",{onClick:()=>{setLanguage("zh-cn");cv.setLocale('zh-cn');localStorage.setItem('language',"zh-cn");},value:"zh-cn"},"简体中文")
-        )
-      ),
-      cv.c("mdui-dropdown",null,
-        cv.c("mdui-button-icon",{slot:"trigger"},cv.c("ion-icon",{attr:{name:theme==="dark"?"moon-outline":"sunny-outline"}})),
-        cv.c("mdui-menu",{selects:"single",value:theme||"auto"},
-          cv.c("mdui-menu-item",{onClick:()=>{setTheme("light");mdui.setTheme('light');localStorage.setItem('themeType',"light");},value:"light"},T("gui$light")),
-          cv.c("mdui-menu-item",{onClick:()=>{setTheme("dark");mdui.setTheme('dark');localStorage.setItem('themeType',"dark");},value:"dark"},T("gui$dark")),
-          cv.c("mdui-divider"),
-          cv.c("mdui-menu-item",{onClick:()=>{setTheme("auto");mdui.setTheme('auto'),localStorage.setItem('themeType',"auto");},value:"auto"},T("gui$system"))
-        )
-      )
-    )
-  )
+  return (<div className="ns" style="position: relative;overflow: hidden">
+    <mdui-top-app-bar scroll-behavior="elevate" scroll-target="#content">
+      <mdui-top-app-bar-title style="margin-left:8px"><a href="/" style="color: inherit;text-decoration:none">{title||T("gui$packName")}</a></mdui-top-app-bar-title>
+      <div style="flex-grow:1"/>
+      <mdui-dropdown>
+        <mdui-button-icon slot="trigger"><ion-icon name="language-outline"/></mdui-button-icon>
+        <mdui-menu selects="single" value={language||"zh-cn"}>
+          <mdui-menu-item value="en-us" onClick={()=>{setLanguage("en-us");cv.setLocale('en-us');localStorage.setItem('language',"en-us")}}>English</mdui-menu-item>
+          <mdui-menu-item value="zh-cn" onClick={()=>{setLanguage("zh-cn");cv.setLocale('zh-cn');localStorage.setItem('language',"zh-cn")}}>简体中文</mdui-menu-item>
+        </mdui-menu>
+      </mdui-dropdown>
+      <mdui-dropdown>
+        <mdui-button-icon slot="trigger"><ion-icon name={theme==="dark"?"moon-outline":"sunny-outline"}/></mdui-button-icon>
+        <mdui-menu selects="single" value={theme||"auto"}>
+          <mdui-menu-item value="light" onClick={()=>{setTheme("light");mdui.setTheme('light');localStorage.setItem('themeType',"light")}}>{T("gui$light")}</mdui-menu-item>
+          <mdui-menu-item value="dark" onClick={()=>{setTheme("dark");mdui.setTheme('dark');localStorage.setItem('themeType',"dark")}}>{T("gui$dark")}</mdui-menu-item>
+          <mdui-divider />
+          <mdui-menu-item value="auto" onClick={()=>{setTheme("auto");mdui.setTheme('auto');localStorage.setItem('themeType',"auto")}}>{T("gui$system")}</mdui-menu-item>
+        </mdui-menu>
+      </mdui-dropdown>
+    </mdui-top-app-bar>
+  </div>)
 }
 
 function App(){
