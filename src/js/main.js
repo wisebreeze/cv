@@ -1,5 +1,5 @@
 import 'mdui/mdui.global.js';
-import {BrowserRouter,Router} from './cv/index'
+import {Root,BrowserRouter,Router} from './cv/index'
 import language from './data/language'
 
 // screen
@@ -103,7 +103,7 @@ function App(){
 if(window.location.href.startsWith("https://wisebreeze.github.io")){cv.setInitialPath("/cv")}
 document.addEventListener("DOMContentLoaded",function(){
   const container=document.getElementById("app")
-  cv.root(App,container)
+  Root(App,container)
 });
 
 export {project as default}// data

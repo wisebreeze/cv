@@ -1,5 +1,7 @@
+import logo from "../../image/icon.png"
+
 var {T,useEffect}=cv
-/*const HomeRef={current:{}}
+const HomeRef={current:{}}
 const HomeContent={current:{}}
 let contentHeight=0;
 const setHomeHight=(init=!1)=>{
@@ -46,23 +48,29 @@ function touchend(event){
     updatePart(displacement)
   }
 }
-const wheel=e=>updatePart(e.deltaY);*/
+const wheel=e=>updatePart(e.deltaY);
 
 function HomeScreen(){
-  //useEffect(setHomeHight.bind(this,!0),[])
-  return (<>
+  const useNewHome = false;
+  if(useNewHome)useEffect(setHomeHight.bind(this,!0),[]);
+  return useNewHome?(<>
+    <div className="HomeScreen" onTouchstart={touchstart} onTouchend={touchend} onWheel={wheel} ref={HomeRef}><div className="Home" ref={HomeContent}>
+    <div className="part">
+      <img className="logo" src={logo} alt="logo"/>
+      <p>测试</p>
+      <mdui-button>下载</mdui-button>
+      <mdui-button>自定义</mdui-button>
+    </div>
+    <div className="part" style="background:#eeffee;">测试</div>
+    <div className="part"></div>
+    <div className="part"></div>
+  </div></div></>):
+  (<>
     <div id="content" className="ns" style={{position:"fixed",top:"50%",left:"50%",transform:"translate(-50%, -50%)",textAlign:"center"}}>
       <div style={{fontSize:"32px"}}>{T("gui$coming")}</div>
       <div style={{fontSize:"15px",marginTop:"4px"}}>{T("gui$comingDesc")}</div>
     </div>
   </>)
-  /*return (<>
-    <div className="HomeScreen" onTouchstart={touchstart} onTouchend={touchend} onWheel={wheel} ref={HomeRef}><div className="Home" ref={HomeContent}>
-    <div className="part"></div>
-    <div className="part" style="background:#eeffee;">测试</div>
-    <div className="part"></div>
-    <div className="part"></div>
-  </div></div></>)*/
 }
 
 export default HomeScreen
