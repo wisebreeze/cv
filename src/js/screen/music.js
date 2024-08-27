@@ -4,10 +4,28 @@ import {BottomBtn} from "./item"
 
 const MusicArr=[];
 
+function parseTime(timeString) {
+  let regex = /^(\d+):(\d{1,2})$/;
+  let match = timeString.match(regex);
+  let minutes = 0;
+  let seconds = 0;
+  if (match) {
+    minutes = parseInt(match[1], 10);
+    seconds = parseInt(match[2], 10);
+    if (minutes >= 60) {
+      minutes += Math.floor(seconds / 60);
+      seconds = seconds % 60;
+    }
+  }
+  return minutes * 60 + seconds;
+}
+
 function MusicScreen(){
   var {T,useRef}=cv
 
-  var musicName=useRef(),musicAuthor=useRef(),addBtn=useRef(),dialog=useRef(),musicFile=useRef(),coverFile=useRef();
+  var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
+
+  var musicName=useRef(),musicAuthor=useRef(),musicDuration=useRef(),addBtn=useRef(),dialog=useRef(),musicFile=useRef(),coverFile=useRef();
   var close=()=>{dialog.current.open=false},coverChange=function(e){var reader=new FileReader();reader.onload=function(r){var img=new Image();img.onload=function(){new simplecrop({src:r.target.result,cropSizePercent:0.8,size:{width:Math.min(img.width,img.height),height:Math.min(img.width,img.height)},cropCallback:function(result){coverFile.result=result}})};img.src=r.target.result;coverFile.name=e.target.files[0].name};if(e.target.files.length>0)reader.readAsDataURL(e.target.files[0])},musicChange=function(a){var b=a.target.files[0];if(b){var c=b.name.split(".").pop();return"ogg"===c?void(""===musicName.current.inputRef.value.value&&musicName.current.setRangeText(b.name.substring(0,b.name.lastIndexOf("."))),addBtn.current.disabled=!1):mdui.snackbar({message:T("music$oggTip"),closeable:!0,autoCloseDelay:3e3,closeOnOutsideClick:!0,placement:"top"})}};
   var allowDrop=function(a){a.preventDefault()},handleClickOrDrop=function(a,b){a.preventDefault();var c,d=b.current;if('drop'===a.type)c=a.dataTransfer.files,d.files=c;else if('click'===a.type)return void d.click()};
 
@@ -38,17 +56,21 @@ function MusicScreen(){
       soundsDefJson[oggID]={category:"ui",sounds:[{name:oggPath.slice(0,oggPath.lastIndexOf(".")),stream:true,volume:0.5}]}
       soundsDefJson["cube.music.custom"].sounds.push({name:oggPath.slice(0,oggPath.lastIndexOf(".")),stream:true,volume:0.5})
       soundsDef.content=JSON.stringify(soundsDefJson)
-      MusicArr.push(musicDetails)
-      audio.src=URL.createObjectURL(blob);
-      audio.addEventListener('loadedmetadata',function(){
-        const duration=audio.duration,
-        musicData={[item.length+"@cn80b37451.m"]:{"$music_name":name,"$music_author":author,"$music_id":oggID,"$music_cover":coverPath,"$music_minute":Math.floor(duration / 60),"$music_second":Math.floor(duration % 60)}};
+      MusicArr.push(musicDetails);
+      const duration = parseTime(musicDuration.current.value);
+      function setData(duration=audio.duration){
+        const musicData={[item.length+"@cn80b37451.m"]:{"$music_name":name,"$music_author":author,"$music_id":oggID,"$music_cover":coverPath,"$music_minute":Math.floor(duration / 60),"$music_second":Math.floor(duration % 60)}};
         setJson["customAlbum@cn80b37451.f"]["$listContent"].push(musicData)
         setting.content=JSON.stringify(setJson)
         musicFile.current.value="",coverFile.current.value="",addBtn.current.disabled=!0;
         dialog.current.open=false
         cv.forceUpdate()
-      })
+      }
+      if(!isIOS && duration === 0){
+        audio.src=URL.createObjectURL(blob);
+        audio.addEventListener('loadedmetadata',()=>{setData(audio.duration)});
+      }
+      else setData(duration);
     };
     fileReader.readAsArrayBuffer(musicFile.current.files[0]);
   };
@@ -73,10 +95,9 @@ function MusicScreen(){
               cv.c("mdui-button-icon",{slot:"trigger"},cv.c("ion-icon",{attr:{name:"ellipsis-vertical"}})),
               cv.c("mdui-menu",{dense:true},
                 cv.c("mdui-menu-item",{onClick:()=>mdui.dialog({headline:T("gui$remove")+` ${musicObj["$music_name"]}? `,description:T("music$deleteDesc"),closeOnEsc:true,closeOnOverlayClick:true,actions:[{text:T("gui$cancel")},{text:T("gui$remove"),onClick:deleteMusic.bind(this,index)}]})},T("gui$remove")),
-                cv.c("mdui-menu-item",null,T("gui$edit")+" ["+T("music$longPress")+"]",
-                  cv.c("mdui-menu-item",{onClick:()=>edit("$music_name",T("music$name"),index),slot:"submenu"},T("music$name")),
-                  cv.c("mdui-menu-item",{onClick:()=>edit("$music_author",T("music$author"),index),slot:"submenu"},T("music$author"))
-              ))
+                cv.c("mdui-menu-item",{onClick:()=>edit("$music_name",T("music$name"),index)},T("gui$edit")+" "+T("music$name")),
+                cv.c("mdui-menu-item",{onClick:()=>edit("$music_author",T("music$author"),index)},T("gui$edit")+" "+T("music$author"))
+              )
           ))
       })),cv.c("div",{style:"height:45px"})),
       item.length===0&&cv.c("div",{style:{position:"fixed",top:"50%",left:"50%",transform:"translate(-50%, -50%)",textAlign:"center"}},
@@ -84,18 +105,21 @@ function MusicScreen(){
         cv.c("div",{style:{fontSize:"14px",marginTop:"4px"}},T("music$empty$desc"))
     )),
     cv.c(BottomBtn,{leftFn:newBtn,rightFn:save,leftText:T("gui$add"),rightText:T("gui$save")}),
-    cv.c("mdui-dialog",{ref:dialog,attr:{"close-on-esc":"close-on-esc"}},
-      cv.c("span",{slot:"headline"},T("music$add")),
-      cv.c("mdui-text-field",{maxlength:32,ref:musicName,counter:"counter",label:T("music$name")}),
-      cv.c("mdui-text-field",{maxlength:32,ref:musicAuthor,counter:"counter",label:T("music$author")}),
-      cv.c("mdui-segmented-button-group",{attr:{"full-width":"full-width"}},
-        cv.c("mdui-segmented-button",{ondrop:e=>handleClickOrDrop(e,coverFile),onClick:e=>handleClickOrDrop(e,coverFile),ondragover:allowDrop},T("music$cover")),
-        cv.c("mdui-segmented-button",{ondrop:e=>handleClickOrDrop(e,musicFile),onClick:e=>handleClickOrDrop(e,musicFile),ondragover:allowDrop},T("music$file"))),
-      cv.c("input",{attr:{type:"file"/*,accept:"audio/*"*/},ref:musicFile,onChange:musicChange,style:"display:none"}),
-      cv.c("input",{attr:{type:"file",accept:"image/*"},ref:coverFile,onChange:coverChange,style:"display:none"}),
-      cv.c("mdui-button",{slot:"action",variant:"text",onClick:close},T("gui$cancel")),
-      cv.c("mdui-button",{slot:"action",variant:"filled",onClick:addMusic,ref:addBtn,disabled:"disabled"},T("gui$add"))
-    )
+    (<mdui-dialog className="ns" ref={dialog} close-on-esc>
+      <span slot="headline">{T("music$add")}</span>
+      <mdui-text-field maxlength="32" ref={musicName} counter label={T("music$name")}/>
+      <mdui-text-field maxlength="32" ref={musicAuthor} counter label={T("music$author")}/>
+      <mdui-text-field maxlength="8" ref={musicDuration} counter label={T("music$duration")} helper={T("music$example")} attr={{"helper-on-focus":"helper-on-focus"}}/>
+      <mdui-segmented-button-group attr={{"full-width":"full-width"}}>
+        <mdui-segmented-button ondrop={e=>handleClickOrDrop(e,coverFile)} onClick={e=>handleClickOrDrop(e,coverFile)} ondragover={allowDrop}>{T("music$cover")}</mdui-segmented-button>
+        <mdui-segmented-button ondrop={e=>handleClickOrDrop(e,musicFile)} onClick={e=>handleClickOrDrop(e,musicFile)} ondragover={allowDrop}>{T("music$file")}</mdui-segmented-button>
+      </mdui-segmented-button-group>
+      {!isIOS&&<span style="display:block;width:100%;text-align:center;margin-top:5px;font-size:0.8rem">{T("music$durationAuto")}</span>}
+      {/*accept:audio*/}<input type="file" ref={musicFile} onChange={musicChange} style="display:none"/>
+      <input type="file" accept="image/*" ref={coverFile} onChange={coverChange} style="display:none"/>
+      <mdui-button slot="action" variant="text" onClick={close}>{T("gui$cancel")}</mdui-button>
+      <mdui-button slot="action" variant="filled" onClick={addMusic} ref={addBtn} disabled>{T("gui$add")}</mdui-button>
+    </mdui-dialog>)
   )
 }
 
