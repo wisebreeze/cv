@@ -28,8 +28,10 @@ const varObj=[
   {name:"实时更新",id:"d6b5a438",def:!0},
   {name:"实时更新间隔",id:"eb035ece",def:3,round:!0,type:"textField"}
 ]},{title:"背包和容器",content:[
+  {name:"模式切换",id:"41120ebc",def:!0},
+  {name:"辅助按钮",id:"264eb9cf",def:!0},
   {name:"始终快速移动",id:"a4709548"},
-  {name:"控制物品数量",id:"bf7db8a5",def:!0},
+  {name:"控制物品数量",id:"bf7db8a5",def:!0},0,
   {name:"显示飞行物品",id:"894d44d5",def:!0},
   {name:"是否双击一键合成",id:"40fac462",def:!0},
   {name:"过滤物品",id:"32686c12",desc:"⚠️ 开发中",def:!0},
