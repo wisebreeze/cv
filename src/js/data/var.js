@@ -19,7 +19,7 @@ const varObj=[
   {name:"耐久",id:"41dd8cd4",def:!0},
   {name:"辅助物品",id:"b21e18db",def:!0},
   {name:"追溯指针",id:"ef309951",desc:"需启用“辅助物品”，低于1.19版本不要开启"},0,
-  {name:"区块",id:"65717a9f",def:!0},
+  {name:"区块",id:"65717a9f"},
   {name:"资源高度距离",id:"fe8e132d"},0,
   {name:"辅助准心",id:"089fd192",def:!0},
   {name:"无条件显示",id:"78743dd4",desc:"需启用“辅助准心”"},0,
@@ -28,6 +28,7 @@ const varObj=[
   {name:"实时更新",id:"d6b5a438",def:!0},
   {name:"实时更新间隔",id:"eb035ece",def:3,round:!0,type:"textField"}
 ]},{title:"背包和容器",content:[
+  {name:"非触屏使用模式切换",id:"baf2497a"},
   {name:"模式切换",id:"41120ebc",def:!0},
   {name:"辅助按钮",id:"264eb9cf",def:!0},
   {name:"始终快速移动",id:"a4709548"},
@@ -38,7 +39,8 @@ const varObj=[
   {name:"受伤时关闭容器",id:"7c333392",def:!0},
   {name:"物品 AUX ID",id:"5b8cc68e"},
   {name:"选择数量",id:"ded3a8c5",def:!0},
-  {name:"纸娃娃",id:"50eee1e4",def:!0},0,
+  {name:"纸娃娃",id:"50eee1e4",def:!0},
+  {name:"空白处关闭类型",id:"c536f677",def:2,type:"dropdown",items:["无","单击","双击"]},0,
   {name:"物品网格间距",id:"bedae7de"},0,
   {name:"帮助",id:"dfcffcc5",def:!0},
   {name:"增强酿造指南",id:"04d7ac52"},0,
@@ -46,6 +48,7 @@ const varObj=[
   {name:"默认连锁移动",id:"b6cb0c61",def:!0},
   {name:"快捷栏连锁移动",id:"c7e25550"},
   {name:"禁用连锁丢弃",id:"ca15dac8",def:!0},0,
+  {name:"红石能量",id:"2a0f5a84",def:!0},0,
   {name:"装备显示位置",id:"1629b6ab",def:0,type:"dropdown",items:["左侧","右侧"]},
   {name:"显示盔甲值",id:"099671d2",desc:"⚠️ 开发中",def:!0}
 ]},{title:"隐私",content:[
