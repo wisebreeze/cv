@@ -28,11 +28,12 @@ const varObj=[
   {name:"实时更新",id:"d6b5a438",def:!0},
   {name:"实时更新间隔",id:"eb035ece",def:3,round:!0,type:"textField"}
 ]},{title:"背包和容器",content:[
-  {name:"非触屏使用模式切换",id:"baf2497a"},
+  {name:"非触屏使用模式切换",id:"baf2497a",def:!0},
   {name:"模式切换",id:"41120ebc",def:!0},
   {name:"辅助按钮",id:"264eb9cf",def:!0},
   {name:"始终快速移动",id:"a4709548"},
-  {name:"控制物品数量",id:"bf7db8a5",def:!0},0,
+  {name:"控制物品数量",id:"bf7db8a5",def:!0},
+  {name:"操作全部",id:"e453c46f",def:!0},0,
   {name:"悬停文字",id:"f4f8111b"},
   {name:"触屏选中显示",id:"5abe79bd",def:!0},
   {name:"物品 AUX ID",id:"5b8cc68e"},0,
@@ -86,13 +87,18 @@ const varObj=[
   {name:"倍速播放",id:"5d9e4f0e"},
   {name:"音量调节",id:"9c9e051d",def:!0}
 ]},{title:"暂停",content:[
-  {name:"保存并退出提示",id:"e4e1334d",def:!0}
+  {name:"默认隐藏玩家列表",id:"5ef6853d"},
+  {name:"二次确认保存并退出",id:"e4e1334d",def:!0},
+  {name:"二次确认提示时长",id:"271d1f71",def:1.5,type:"textField"}
 ]},{title:"聊天",content:[
   {name:"显示限制",id:"e8bcd7b9",def:100,round:!0,type:"textField"},
   {name:"受伤时关闭聊天屏幕",id:"9cbb46ee",def:!0},
   {name:"增强命令显示",id:"b9a8724e",def:!0},
   {name:"忽略设置字体",id:"fa7d1a3c"},
-  {name:"背景",id:"8edb9fbb",def:!0}
+  {name:"命令补全时隐藏命令提示",id:"77ff892c",def:!0},
+  {name:"自动滚动到底部",id:"a6c0924f"},
+  {name:"背景",id:"8edb9fbb",def:!0},0,
+  {name:"命令翻译",id:"11d05560",def:!0}
 ]},{title:"其他",content:[
   {name:"受伤时关闭药水效果屏幕",id:"9003f259",def:!0},
   {name:"受伤时关闭书与羽毛屏幕",id:"f2234e31",def:!0},
