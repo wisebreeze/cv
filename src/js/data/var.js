@@ -1,4 +1,21 @@
 const varObj=[
+{title:"立方面板",prefix:"$cube_panel",content: [
+  {name:"总开关",id:""},
+  {name:"进入/退出动画",id:"_anims",def:!0},
+  {name:"仅进入动画",id:"_only_enter_anims",def:!0},0,
+
+  {name:"区块地图",id:"_chunk_map"},0,
+  {name:"功能概览",id:"_feature_overview"},
+  {name:"不透明度",id:"_feature_overview_alpha",desc:"0~1之间的浮点数",def:0.4,type:"textField"},0,
+
+  {name:"标题",id:"_title",def:!0},
+  {name:"主标题",id:"_title_title",def:!0},
+  {name:"副标题",id:"_title_subtitle",def:!0},
+  {name:"活动栏",id:"_title_actionbar",def:!0},0,
+
+  {name:"计分板",id:"_scoreboard",def:!0},
+  {name:"药水效果",id:"_mob_effects",def:!0}
+]},
 {title:"HUD",content:[
   {name:"快捷栏选定颜色动画",id:"daf3c18e"},
   {name:"圆角快捷栏",id:"f51d10b7",def:!0},
@@ -20,6 +37,7 @@ const varObj=[
   {name:"辅助物品",id:"b21e18db",def:!0},
   {name:"追溯指针",id:"ef309951",desc:"需启用“辅助物品”，低于1.19版本不要开启"},0,
   {name:"区块",id:"65717a9f"},
+  {name:"史莱姆区块",id:"3198439e",def:!0},
   {name:"资源高度距离",id:"fe8e132d"},0,
   {name:"辅助准心",id:"089fd192",def:!0},
   {name:"无条件显示",id:"78743dd4",desc:"需启用“辅助准心”"},0,
@@ -39,12 +57,13 @@ const varObj=[
   {name:"物品 AUX ID",id:"5b8cc68e"},0,
   {name:"显示飞行物品",id:"894d44d5",def:!0},
   {name:"是否双击一键合成",id:"40fac462",def:!0},
-  {name:"过滤物品",id:"32686c12",desc:"⚠️ 开发中",def:!0},
+  {name:"搜索物品",id:"32686c12",def:!0},
   {name:"受伤时关闭容器",id:"7c333392",def:!0},
   {name:"选择数量",id:"ded3a8c5",def:!0},
   {name:"纸娃娃",id:"50eee1e4",def:!0},
   {name:"空白处关闭类型",id:"c536f677",def:2,type:"dropdown",items:["无","单击","双击"]},0,
-  {name:"物品网格间距",id:"bedae7de"},0,
+  {name:"物品网格间距",id:"bedae7de"},
+  {name:"网格悬停效果",id:"e615756d"},0,
   {name:"帮助",id:"dfcffcc5",def:!0},
   {name:"增强酿造指南",id:"04d7ac52"},0,
   {name:"连锁移动",id:"70a9fab5"},
@@ -66,19 +85,24 @@ const varObj=[
   {name:"始终显示滚动条",id:"c99f06d0",def:!0},
   {name:"游戏内背景",id:"9ec76f17",def:!0}
 ]},{title:"设置",content:[
+  {name:"世界高级设置",id:"2abe3412",def:!0},
   {name:"查看路径",id:"c4c8702e",def:!0},
   {name:"旧世界",id:"84b37071",desc:"✨ 需要使用 1.20.73 以及更早版本版本，新版本被 Ore UI 代替",def:!0},
-  {name:"流畅度",id:"e1ed717a",def:!0}
+  {name:"流畅度",id:"e1ed717a",def:!0},
+  {name:"展示更多下拉选项",id:"567cb601"}
 ]},{title:"美化",content:[
   {name:"屏幕边框",id:"e6786154"},
-  {name:"栏动画",id:"d26f6d49",def:!0}
+  {name:"栏动画",id:"d26f6d49",def:!0},
+  {name:"开关过渡动画",id:"b3eb627d",def:!0},
+  {name:"控件悬停动画",id:"35c074c1",desc:"✨ 实验性内容",def:!0}
 ]},{title:"优化",content:[
   {name:"低频渲染",id:"8a30c7d6"}
 ]},{title:"模态",content:[
   {name:"遮罩",id:"3f9be171"},
   {name:"空白处关闭类型",id:"c4db2e62",def:2,type:"dropdown",items:["无","点击","双击"]}
 ]},{title:"开始",content:[
-  {name:"相片分割",id:"c1919f11"}
+  {name:"相片分割",id:"c1919f11"},
+  {name:"未读红点",id:"ed324947",def:!0}
 ]},{title:"游戏",content:[
   {name:"最近游戏",id:"e5ccf1eb",def:!0}
 ]},{title:"音乐",content:[
@@ -87,9 +111,7 @@ const varObj=[
   {name:"倍速播放",id:"5d9e4f0e"},
   {name:"音量调节",id:"9c9e051d",def:!0}
 ]},{title:"暂停",content:[
-  {name:"默认隐藏玩家列表",id:"5ef6853d"},
-  {name:"二次确认保存并退出",id:"e4e1334d",def:!0},
-  {name:"二次确认提示时长",id:"271d1f71",def:1.5,type:"textField"}
+  {name:"保存并退出提示",id:"e4e1334d",def:!0}
 ]},{title:"聊天",content:[
   {name:"显示限制",id:"e8bcd7b9",def:100,round:!0,type:"textField"},
   {name:"受伤时关闭聊天屏幕",id:"9cbb46ee",def:!0},
@@ -97,13 +119,14 @@ const varObj=[
   {name:"忽略设置字体",id:"fa7d1a3c"},
   {name:"命令补全时隐藏命令提示",id:"77ff892c",def:!0},
   {name:"自动滚动到底部",id:"a6c0924f"},
-  {name:"背景",id:"8edb9fbb",def:!0},0,
-  {name:"命令翻译",id:"11d05560",def:!0}
+  {name:"背景",id:"8edb9fbb",def:!0}
 ]},{title:"其他",content:[
   {name:"受伤时关闭药水效果屏幕",id:"9003f259",def:!0},
   {name:"受伤时关闭书与羽毛屏幕",id:"f2234e31",def:!0},
   {name:"总是解锁未交易选项",id:"9ed4aeaf",def:!0},
   {name:"命令实际延迟",id:"539b5cb4",def:!0},
+  {name:"命令输入框可滚动",id:"b04cb703"},
+  {name:"无维度加载背景",id:"4be847bd"},
   {name:"彩蛋",id:"bc8b0fd2",desc:"⚠️ 开发中",def:!0}
 ]},{title:"开发者",prefix:"$cube_dev_",content:[
   {name:"调试工具",id:"tool"},
