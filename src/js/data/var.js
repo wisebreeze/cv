@@ -116,12 +116,12 @@ const varObj=[
 ]},{title:"暂停",content:[
   {name:"保存并退出提示",id:"e4e1334d",def:!0}
 ]},{title:"聊天",content:[
-  {name:"显示限制",id:"e8bcd7b9",def:100,round:!0,type:"textField"},
+  {name:"显示限制",id:"e8bcd7b9",def:80,round:!0,type:"textField"},
   {name:"受伤时关闭聊天屏幕",id:"9cbb46ee",def:!0},
   {name:"增强命令显示",id:"b9a8724e",def:!0},
   {name:"忽略设置字体",id:"fa7d1a3c"},
   {name:"命令补全时隐藏命令提示",id:"77ff892c",def:!0},
-  {name:"自动滚动到底部",id:"a6c0924f"},
+  {name:"自动滚动到底部",id:"a6c0924f",def:!0},
   {name:"背景",id:"8edb9fbb",def:!0}
 ]},{title:"其他",content:[
   {name:"受伤时关闭药水效果屏幕",id:"9003f259",def:!0},
