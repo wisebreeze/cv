@@ -13,6 +13,14 @@ const varObj=[
   {name:"副标题",id:"_title_subtitle",def:!0},
   {name:"活动栏",id:"_title_actionbar",def:!0},0,
 
+  {name:"聊天",id:"_chat",def:!0},
+  {name:"不透明度",id:"_chat_alpha",desc:"0~1之间的浮点数",def:0.4,type:"textField"},0,
+
+  {name:"背包",id:"__backpack"},
+  {name:"不透明度",id:"_backpack_background_alpha",desc:"0~1之间的浮点数",def:0.4,type:"textField"},0,
+
+  {name:"纸娃娃",id:"_paperdoll",def:!0},
+  {name:"BOSS 血量",id:"_bossbar",def:!0},
   {name:"计分板",id:"_scoreboard",def:!0},
   {name:"药水效果",id:"_mob_effects",def:!0}
 ]},
@@ -66,7 +74,7 @@ const varObj=[
   {name:"空白处关闭类型",id:"c536f677",def:2,type:"dropdown",items:["无","单击","双击"]},0,
   {name:"物品网格间距",id:"bedae7de"},
   {name:"网格悬停效果",id:"e615756d",def:!0},
-  {name:"物品稀有度",id:"89434e8f",def:!0},0,
+  {name:"物品稀有度",id:"89434e8f"},0,
   {name:"帮助",id:"dfcffcc5",def:!0},
   {name:"增强酿造指南",id:"04d7ac52"},0,
   {name:"连锁移动",id:"70a9fab5"},
