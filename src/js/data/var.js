@@ -96,6 +96,9 @@ const varObj=[
   {name:"始终显示滚动条",id:"c99f06d0",def:!0},
   {name:"游戏内背景",id:"9ec76f17",def:!0}
 ]},{title:"设置",content:[
+  {name:"在HUD上快速访问",id:"c1f8e213"},
+  {name:"默认锁定可拖动",id:"b8d23e2e",def:!0},
+  {name:"退出旁观模式",id:"69f24ce6",def:!0},0,
   {name:"世界高级设置",id:"2abe3412",def:!0},
   {name:"查看路径",id:"c4c8702e",def:!0},
   {name:"旧世界",id:"84b37071",desc:"✨ 需要使用 1.20.73 以及更早版本版本，新版本被 Ore UI 代替",def:!0},
