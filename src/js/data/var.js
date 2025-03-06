@@ -8,11 +8,11 @@ const varObj=[
   {name:"区块文本",id:"_chunk_map_text",def:!0},
   {name:"史莱姆区块",id:"_chunk_map_slime",def:!0},
   {name:"方向",id:"_chunk_map_direction",def:!0},
-  {name:"X轴偏移",id:"_chunk_offset_x",desc:"0~1之间的浮点数",def:1,type:"textField"},
-  {name:"Y轴偏移",id:"_chunk_offset_y",desc:"0~1之间的浮点数",def:1,type:"textField"},0,
+  {name:"X轴偏移",id:"_chunk_offset_x",def:1,type:"slider"},
+  {name:"Y轴偏移",id:"_chunk_offset_y",def:1,type:"slider"},0,
 
   {name:"功能概览",id:"_feature_overview"},
-  {name:"不透明度",id:"_feature_overview_alpha",desc:"0~1之间的浮点数",def:0.4,type:"textField"},0,
+  {name:"不透明度",id:"_feature_overview_alpha",def:0.4,type:"slider"},0,
 
   {name:"标题",id:"_title",def:!0},
   {name:"主标题",id:"_title_title",def:!0},
@@ -20,13 +20,13 @@ const varObj=[
   {name:"活动栏",id:"_title_actionbar",def:!0},0,
 
   {name:"聊天",id:"_chat",def:!0},
-  {name:"不透明度",id:"_chat_alpha",desc:"0~1之间的浮点数",def:0.4,type:"textField"},
-  {name:"X轴大小",id:"_chat_size_x",desc:"0~1之间的浮点数",def:0.8,type:"textField"},0,
+  {name:"不透明度",id:"_chat_alpha",def:0.4,type:"slider"},
+  {name:"X轴大小",id:"_chat_size_x",def:0.8,type:"slider"},0,
 
   {name:"背包",id:"__backpack"},
-  {name:"不透明度",id:"_backpack_background_alpha",desc:"0~1之间的浮点数",def:0.4,type:"textField"},
-  {name:"X轴偏移",id:"_backpack_offset_x",desc:"0~1之间的浮点数",def:1,type:"textField"},
-  {name:"Y轴偏移",id:"_backpack_offset_y",desc:"0~1之间的浮点数",def:0.15,type:"textField"},0,
+  {name:"不透明度",id:"_backpack_background_alpha",def:0.4,type:"slider"},
+  {name:"X轴偏移",id:"_backpack_offset_x",def:1,type:"slider"},
+  {name:"Y轴偏移",id:"_backpack_offset_y",def:0.15,type:"slider"},0,
 
   {name:"纸娃娃",id:"_paperdoll",def:!0},
   {name:"BOSS 血量",id:"_bossbar",def:!0},
@@ -120,10 +120,10 @@ const varObj=[
   {name:"退出旁观模式",id:"69f24ce6",def:!0},
   {name:"精美图像",id:"f1d095df"},
   {name:"强制操作 (疾跑)",id:"d5872399"},
-  {name:"快捷按钮大小",id:"d4545d73",desc:"0~1之间的浮点数",def:0,type:"textField"},
-  {name:"更多设置面板宽度",id:"0ded74fc",desc:"0~1之间的浮点数",def:0.7,type:"textField"},
-  {name:"设置X轴大小",id:"a1de0189",desc:"0~1之间的浮点数",def:0.75,type:"textField"},
-  {name:"设置Y轴大小",id:"1592cc44",desc:"0~1之间的浮点数",def:0.75,type:"textField"},0,
+  {name:"快捷按钮大小",id:"d4545d73",def:0,type:"slider"},
+  {name:"更多设置面板宽度",id:"0ded74fc",def:0.7,type:"slider"},
+  {name:"设置X轴大小",id:"a1de0189",def:0.75,type:"slider"},
+  {name:"设置Y轴大小",id:"1592cc44",def:0.75,type:"slider"},0,
 
   {name:"世界高级设置",id:"2abe3412",def:!0},
   {name:"查看路径",id:"c4c8702e",def:!0},

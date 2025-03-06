@@ -17,12 +17,13 @@ function VariablesScreen(){
         varItem.current=[e.target.axis==="x"?Number.isNaN(value)?xDef:value:xDef,e.target.axis==="y"?Number.isNaN(value)?yDef:value:yDef]
         return
       }
-      varItem.current=varItem.type==null||varItem.type==="switch"?e.target.checked:
-      typeof varItem.def==="number"?parseNumber(e,varItem):e.target.value
-      if(varItem.round===!0)varItem.current=Math.round(varItem.current)
-      if(varItem.type==="textField"&&typeof varItem.def==="number"){
-        let textFieldExpression=varItem.round?/^\d+$/:/^\d+(\.\d+)?$/
-        e.target.helper=textFieldExpression.test(e.target.value)?"":varItem.round?`不能是浮点数，使用${Math.round(parseNumber(e,varItem))}代替`:`类型错误，使用${varItem.def}代替`
+      varItem.current = varItem.type == null || varItem.type === "switch" ? e.target.checked :
+      varItem.type === "slider" ? Number.parseFloat(e.target.value) / 100 :
+      typeof varItem.def === "number" ? parseNumber(e,varItem) : e.target.value;
+      if (varItem.round === !0) varItem.current = Math.round(varItem.current)
+      if (varItem.type === "textField"&&typeof varItem.def === "number") {
+        let textFieldExpression = varItem.round ? /^\d+$/ : /^\d+(\.\d+)?$/
+        e.target.helper = textFieldExpression.test(e.target.value) ? "" : varItem.round ? `不能是浮点数，使用${Math.round(parseNumber(e,varItem))}代替`:`类型错误，使用${varItem.def}代替`
       }
     }
     var hasResult=searchText.trim()===""||data.content.some(hasOption)
@@ -33,6 +34,7 @@ function VariablesScreen(){
           if(!e)return searchText.trim()===""&&cv.c("mdui-divider");
           return (searchText.trim()===""||e.name.toLowerCase().includes(searchText.toLowerCase())||e.hasOwnProperty("desc")&&e.desc.toLowerCase().includes(searchText.toLowerCase()))&&cv.c("mdui-list-item",{rounded:true,description:e.desc||""},e.name,
             e.type==="textField"?cv.c("mdui-text-field",{slot:"end-icon",value:e.current==null?e.def||"":e.current,id:e.id,onChange:changeEvent,style:"width:120px;",inputmode:typeof e.def==="number"?"decimal":"text",placeholder:(e.def||"").toString()}):
+            e.type==="slider"?cv.c("mdui-slider",{slot:"end-icon",value:e.current==null?e.def*100||0:e.current*100,id:e.id,onChange:changeEvent,style:"width:170px;"}):
             e.type==="dropdown"?cv.c("mdui-select",{slot:"end-icon",value:e.current==null?'item'+(e.def||0):e.current,id:e.id,onChange:changeEvent,style:"width:120px;line-height:normal;"},
               e.items.map((item,i)=>{
                 return cv.c("mdui-menu-item",{value:'item'+i},item)
