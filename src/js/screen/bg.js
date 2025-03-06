@@ -1,32 +1,9 @@
 import {setVariables,removeVariables,fileRead,addFileToFolder} from "../main"
 import {BottomBtn} from "./item"
 
+let loopInterval = null;
+let isLooping = false;
 const bgData={live:false,src:null,img:null,showLive:true};
-
-function gaussBlur(blur,canvas,ctx){
-  let start = +new Date();
-	let sum = 0;
-	let delta = 5;
-	let alpha_left = 1 / (2 * Math.PI * delta * delta);
-	let step = blur < 3 ? 1 : 2;
-	for (let y = -blur; y <= blur; y += step) {
-		for (let x = -blur; x <= blur; x += step) {
-			let weight = alpha_left * Math.exp(-(x * x + y * y) / (2 * delta * delta));
-			sum += weight;
-		}
-	}
-	let count = 0;
-	for (let y = -blur; y <= blur; y += step) {
-		for (let x = -blur; x <= blur; x += step) {
-			count++;
-			ctx.globalAlpha = alpha_left * Math.exp(-(x * x + y * y) / (2 * delta * delta)) / sum * blur;
-			ctx.drawImage(canvas,x,y);
-		}
-	}
-	ctx.globalAlpha = 1;
-}
-//function gaussBlur(t){var r=arguments.length>1&&void 0!==arguments[1]?arguments[1]:1;r*=3;var a,o,e,n,f,u,h,s,i,d,p,c=new Uint8ClampedArray(t.data),l=t.width,v=t.height,M=[];r=Math.floor(r);var g=r/3;for(h=1/(Math.sqrt(2*Math.PI)*g),u=-1/(2*g*g),s=-r;s<=r;s++)M.push(h*Math.exp(u*s*s));for(e=0;e<v;e++)for(o=0;o<l;o++){for(n=f=u=h=a=0,i=-r;i<=r;i++)(d=o+i)>=0&&d<l&&(s=4*(e*l+d),p=M[i+r],n+=c[s]*p,f+=c[s+1]*p,u+=c[s+2]*p,h+=c[s+3]*p,a+=p);s=4*(e*l+o),t.data.set([n,f,u,h].map(function(t){return t/a}),s)}for(c.set(t.data),o=0;o<l;o++)for(e=0;e<v;e++){for(n=f=u=h=a=0,i=-r;i<=r;i++)(d=e+i)>=0&&d<v&&(s=4*(d*l+o),p=M[i+r],n+=c[s]*p,f+=c[s+1]*p,u+=c[s+2]*p,h+=c[s+3]*p,a+=p);s=4*(e*l+o),t.data.set([n,f,u,h].map(function(t){return t/a}),s)}return t}
-function gaussBlur2(r,t,o){var a,f,h,e,s,u,i,n,M,d,g=r.data,l=r.width,c=r.height,p=[],q=0;for(t=Math.floor(t)||3,o=o||t/3,u=1/(Math.sqrt(2*Math.PI)*o),s=-1/(2*o*o),i=0,a=-t;a<=t;a++,i++)e=u*Math.exp(s*a*a),p[i]=e,q+=e;for(i=0,d=p.length;i<d;i++)p[i]/=q;for(f=0;f<c;f++)for(a=0;a<l;a++){for(h=e=s=u=0,q=0,n=-t;n<=t;n++)(M=a+n)>=0&&M<l&&(i=4*(f*l+M),h+=g[i]*p[n+t],e+=g[i+1]*p[n+t],s+=g[i+2]*p[n+t],q+=p[n+t]);i=4*(f*l+a),g[i]=h/q,g[i+1]=e/q,g[i+2]=s/q}for(a=0;a<l;a++)for(f=0;f<c;f++){for(h=e=s=u=0,q=0,n=-t;n<=t;n++)(M=f+n)>=0&&M<c&&(i=4*(M*l+a),h+=g[i]*p[n+t],e+=g[i+1]*p[n+t],s+=g[i+2]*p[n+t],q+=p[n+t]);i=4*(f*l+a),g[i]=h/q,g[i+1]=e/q,g[i+2]=s/q}return r.data=g,r}
 
 function BgScreen(){
   var {T,useRef}=cv;
@@ -34,31 +11,92 @@ function BgScreen(){
   var frameArr=[];
 
   var uploadFile=useRef(),
-  video=useRef(),
   previewVideo=useRef(),
   img=useRef(),
-  progress=useRef(),
-  progressDialog=useRef(),
   infoDialog=useRef(),
   delayInput=useRef(),
   durationInput=useRef(),
-  engineInput=useRef(),
+  blurRadiusInput=useRef(),
   liveSwitch=useRef();
 
-  var timer=null,delay=400,duration=0.1,frameIndex=0,engine="engine2",useBlur=true;
-  var cancelBtn=function(){delayInput.current.disabled=false;durationInput.current.disabled=false;progressDialog.current.open=false;infoDialog.current.open=false;var cloneUpload=document.createElement("input");cloneUpload.type="file";cloneUpload.accept="image/*, video/*";cloneUpload.style="display:none";cloneUpload.addEventListener("change",fileHandle);uploadFile.current.parentNode.replaceChild(cloneUpload,uploadFile.current);uploadFile.current=cloneUpload}
+  // 动态背景
+  var progressText = useRef(),
+  progressPercentage = useRef(),
+  progressBar = useRef();
+
+  const setProgressText = text => {
+    progressText.current.textContent = text;
+  }
+
+  const updateProgress = (current, total) => {
+    const progress = total === 0 ? 0 : current / total;
+    progressBar.current.value = progress;
+    progressPercentage.current.textContent = `${(progress * 100).toFixed(1)}%`;
+    setProgressText(T("bg$progress$videoProcessing",`${current}`,`${total}`));
+  }
+
+  const handleVideoEnd = () => {
+    if (isLooping) {
+      previewVideo.current.currentTime = 0;
+      previewVideo.current.play().catch(error => {
+        console.log(error);
+      });
+    }
+  }
+
+  const startVideoLoop = () => {
+    if (isLooping) return;
+    isLooping = true;
+    previewVideo.current.play().catch(error => {
+      console.error(error)
+    });
+    previewVideo.current.addEventListener('ended', handleVideoEnd);
+    loopInterval = setInterval(() => {
+      if (previewVideo.current.paused && isLooping) {
+        previewVideo.current.currentTime = 0;
+        previewVideo.current.play();
+      }
+    }, 1000);
+  }
+
+  const stopVideoLoop = () => {
+    isLooping = false;
+    previewVideo.current.pause();
+    previewVideo.current.removeEventListener('ended', handleVideoEnd);
+    clearInterval(loopInterval);
+  }
+
+  var delay=0.5,duration=0.1,blurRadius=10;
+  var cancelBtn=function(){delayInput.current.disabled=false;durationInput.current.disabled=false;infoDialog.current.open=false;var cloneUpload=document.createElement("input");cloneUpload.type="file";cloneUpload.accept="image/*, video/*";cloneUpload.style="display:none";cloneUpload.addEventListener("change",fileHandle);uploadFile.current.parentNode.replaceChild(cloneUpload,uploadFile.current);uploadFile.current=cloneUpload}
   var continueBtn=function(){
-    delay=Math.max(20,Math.min(Number.parseInt(delayInput.current.value),60000))
-    duration=Math.max(0,Math.min(Number.parseFloat(durationInput.current.value),10))
-    engine=engineInput.current.value||"engine2"
-    infoDialog.current.open=false
-    progressDialog.current.open=true
+    delay=Math.max(0,Math.min(Number.parseFloat(delayInput.current.value),100));
+    duration=Math.max(0,Math.min(Number.parseFloat(durationInput.current.value),10));
+    blurRadius=Math.max(0,Math.min(Number.parseInt(blurRadiusInput.current.value),50));
+    infoDialog.current.open=false;
     setVariables({"$cube_custom_bg":true})
+
+    if (isNaN(delay)) {
+      setProgressText(T("bg$progress$delayError"));
+      cancelBtn();
+    }
+    if (isNaN(duration)) {
+      setProgressText(T("bg$progress$durationError"));
+      cancelBtn();
+    }
+    if (isNaN(blurRadius)) {
+      setProgressText(T("bg$progress$blurRadiusError"));
+      cancelBtn();
+    }
+
     if(bgData.showLive==0){
-      progressDialog.current.description=T("bg$progress$load")
+      setProgressText(T("bg$progress$load"));
       liveSwitch.current.checked=false;
       liveSwitchFn();
-      fileRead("textures/cube")[2].children=[];
+      try {
+        fileRead("textures/cube")[2].children=[];
+      } catch (e) {
+        console.error(e)
+      }
       var reader=new FileReader();
       reader.onload=function(event){
         var image=new Image();
@@ -70,29 +108,88 @@ function BgScreen(){
           ctx.drawImage(image, 0, 0);
           img.current.src=canvas.toDataURL('image/jpeg')
           bgData.img=img.current.src
-          await new Promise(resolve=>canvas.toBlob(blob=>{addFileToFolder("textures/cube/bg","bg.jpg",blob);resolve()}))
-          progressDialog.current.description=T("bg$progress$blur")
-          if(useBlur&&engine=="engine1")ctx.putImageData(gaussBlur2(ctx.getImageData(0,0,canvas.width,canvas.height),10),0,0)
-          else if(useBlur)gaussBlur(10,canvas,ctx)
-          await new Promise(resolve=>canvas.toBlob(blob=>{addFileToFolder("textures/cube/bg","blur.jpg",blob);resolve()}))
-          cancelBtn()
+          await new Promise(resolve => canvas.toBlob(blob => {
+            addFileToFolder("textures/cube/bg","bg.jpg",blob);
+            resolve()
+          }));
+
+          progressBar.current.value = 0.5;
+          progressPercentage.current.textContent = `50.0%`;
+          setProgressText(T("bg$progress$blur"));
+
+          const requestIdle = window.requestIdleCallback||function(handler){var startTime=Date.now();return setTimeout(function(){handler({didTimeout:false,timeRemaining:function(){return Math.max(0,50.0-(Date.now()-startTime))}})},1)};
+
+          const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+          const processor = optimizedGaussBlur(imgData, blurRadius);
+          const generator = processor.process();
+
+          async function nextChunk(deadline) {
+            while (true) {
+              const { value: task, done } = generator.next();
+              if (done) {
+                // 处理完成
+                ctx.putImageData(imgData, 0, 0);
+                
+                await new Promise(resolve => canvas.toBlob(blob => {
+                  addFileToFolder("textures/cube/bg","blur.jpg",blob);
+                  resolve()
+                }));
+                progressBar.current.value = 1;
+                progressPercentage.current.textContent = `100.0%`;
+                setProgressText(T("bg$progress$done"));
+                cancelBtn();
+    
+                resolve();
+                break;
+              }
+              
+              // 执行当前分块任务
+              task();
+              
+              if (deadline.timeRemaining() <= 5) {
+                // 时间不足，等待下一个空闲周期
+                requestIdle(nextChunk);
+                break;
+              }
+            }
+          }
+          requestIdle(nextChunk)
         }
         image.src=event.target.result
       }
       reader.readAsDataURL(uploadFile.current.files[0]);
       return
     }
-    function videoHandle(){
-      frameArr=[];
-      progressDialog.current.description=T("bg$progress$extract")
-      bgData.src=URL.createObjectURL(uploadFile.current.files[0])
-      previewVideo.current.setAttribute("src",URL.createObjectURL(uploadFile.current.files[0]))
-      video.current.setAttribute("src",URL.createObjectURL(uploadFile.current.files[0]))
-      video.current.muted=true
-      video.current.play()
+    frameArr = [];
+
+    // 初始化
+    liveSwitch.current.checked = true;
+    liveSwitchFn();
+    try {
+      fileRead("textures/cube")[0].children = [];
+      fileRead("textures/cube")[1].children = [];
+    } catch (e) {
+      console.error(e);
     }
-    console.log(useBlur)
-    mdui.dialog({headline:T("bg$staticWarn$title"),description:T("bg$staticWarn$desc"),closeOnEsc:true,actions:[{text:T("gui$cancel"),onClick:cancelBtn},{text:T("gui$continue"),onClick:videoHandle}]})
+    setProgressText(T("bg$progress$videoLoading"));
+
+    const videoPlayer = document.createElement('video');
+    videoPlayer.muted = true;
+    videoPlayer.src = URL.createObjectURL(uploadFile.current.files[0]);
+    videoPlayer.style.display = 'none';
+    document.body.appendChild(videoPlayer);
+
+    // 缓存播放的视频
+    bgData.src = URL.createObjectURL(uploadFile.current.files[0]);
+    previewVideo.current.setAttribute("src",URL.createObjectURL(uploadFile.current.files[0]));
+
+    // 视频加载完成事件
+    videoPlayer.addEventListener('loadedmetadata', () => {
+      startVideoLoop();
+      videoPlayer.play().catch(console.error);
+      detectFrameRate(videoPlayer);
+    });
   }
   var fileHandle=function(e){
     var file=e.target.files[0];
@@ -102,7 +199,7 @@ function BgScreen(){
       var video=document.createElement('video');
       video.addEventListener("loadedmetadata",function(){
         var duration=video.duration;
-        if(duration<=30)infoDialog.current.open=true;
+        if(duration<=1200)infoDialog.current.open=true;
         else{cancelBtn();mdui.snackbar({message:T("bg$longVideo"),placement:"top",autoCloseDelay:3000,closeable:true})}
       })
       video.src=URL.createObjectURL(file);
@@ -113,65 +210,276 @@ function BgScreen(){
       infoDialog.current.open=true
     }else{cancelBtn();mdui.snackbar({message:T("bg$invalid"),placement:"top",autoCloseDelay:3000,closeable:true})}
   }
-  var videoCanPlay=()=>{
-    var width=video.current.videoWidth,height=video.current.videoHeight;
-    liveSwitch.current.checked=true
-    liveSwitchFn()
-    fileRead("textures/cube")[0].children=[]
-    fileRead("textures/cube")[1].children=[]
-    video.current.playbackRate=2;
-    timer=setInterval(()=>{
-      var canvas=document.createElement("canvas"),ctx=canvas.getContext('2d');
-      canvas.width=width;
-      canvas.height=height;
-      canvas.getContext('2d').drawImage(video.current,0,0,canvas.width,canvas.height)
-      frameArr.push({index:frameIndex,time:video.current.currentTime,frame:canvas,blur:null})
-      frameIndex++
-      progress.current.value=video.current.currentTime/video.current.duration
-    },delay/2)
-  }
-  var getBlobFromCanvas=canvas=>new Promise(resolve=>canvas.toBlob(blob=>resolve(blob),"image/jpeg",0.8))
-  var videoEnded=()=>{
-    clearInterval(timer)
-    progressDialog.current.description=T("bg$progress$def")
-    async function processDefFrames(){
-      var len=frameArr.length;
-      for(var e of frameArr){
-        var blob=await getBlobFromCanvas(e.frame)
-        progress.current.value=e.index/len
-        addFileToFolder("textures/cube/frame",e.index===0?"frame.jpg":`frame_${e.index}.jpg`,blob)
+
+  const detectFrameRate = video => {
+    let frameRate = 30;
+    if (typeof video.requestVideoFrameCallback === "function") {
+      let lastTime = performance.now();
+      let frameCount = 0;
+      const checkFrameRate = () => {
+        const now = performance.now();
+        frameCount++;
+        if (now - lastTime >= 1000) {
+          frameRate = Math.round((frameCount * 1000) / (now - lastTime));
+          extractFrames(video, frameRate);
+        } else {
+          video.requestVideoFrameCallback(checkFrameRate);
+        }
       }
-      handleBlur()
+      video.requestVideoFrameCallback(checkFrameRate);
+    } else {
+      extractFrames(video, frameRate);
     }
-    processDefFrames()
   }
-  var handleBlur=function(){
-    progress.current.value=1
-    progressDialog.current.description=T("bg$progress$blur")
-    async function processBlurFrames(){
-      var len=frameArr.length;
-      for (var e of frameArr){
-        var ctx=e.frame.getContext("2d");
-        await new Promise(resolve=>{
-          progress.current.value=e.index/len
-          if(useBlur&&engine=="engine1")ctx.putImageData(gaussBlur2(ctx.getImageData(0,0,e.frame.width,e.frame.height),30),0,0)
-          else if(useBlur)gaussBlur(10,e.frame,ctx)
-          e.frame.toBlob(blob=>{addFileToFolder("textures/cube/frameBlur",e.index===0?"frame.jpg":`frame_${e.index}.jpg`,blob);resolve()},"image/jpeg",0.8)
-        })
+
+  const extractFrames = (video, frameRate) => {
+    const frameInterval = Math.round(delay * frameRate);
+    const totalFrames = Math.floor(video.duration * frameRate);
+    const totalImages = Math.ceil(totalFrames / frameInterval);
+
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    let currentImage = 0;
+    setProgressText(T("bg$progress$videoProcessing","0",`${totalImages}`));
+
+    video.addEventListener("seeked", function onSeeked() {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      canvas.toBlob(blob => {
+        const img = new Image();
+        img.src = URL.createObjectURL(blob);
+        img.onload = () => {
+          frameArr.push(img)
+          addFileToFolder("textures/cube/frame",currentImage===0?"frame.jpg":`frame_${currentImage}.jpg`,blob)
+          currentImage++;
+          updateProgress(currentImage, totalImages);
+          if (currentImage < totalImages) {
+            video.currentTime = (currentImage * frameInterval) / frameRate;
+          } else {
+            completeProcessing(video, totalImages);
+          }
+        }
+      }, 'image/jpeg')
+    });
+
+    video.currentTime = 0;
+  }
+
+  const completeProcessing = async (video, total) => {
+    const startAllTime = performance.now();
+    setProgressText(T("bg$progress$videoProcessingDone",`${total}`));
+
+    progressBar.current.value = 0;
+    progressPercentage.current.textContent = `0%`;
+
+    let startTime = performance.now();
+    let lastImageTime = startTime;
+    let remainingTime = T("bg$progress$videoBlurUnknown");
+
+    const requestIdle = window.requestIdleCallback||function(handler){var startTime=Date.now();return setTimeout(function(){handler({didTimeout:false,timeRemaining:function(){return Math.max(0,50.0-(Date.now()-startTime))}})},1)};
+
+    const timeUpdater = setInterval(() => {
+      const elapsed = (performance.now() - startTime) / 1000;
+      const timeStr = remainingTime === T("bg$progress$videoBlurUnknown") ? remainingTime : `${remainingTime}s`;
+      setProgressText(T("bg$progress$videoBlur",`${processedCount}`,`${frameArr.length}`,`${timeStr}`));
+    }, 500);
+
+    let processedCount = 0;
+    const processQueue = async () => {
+      while (processedCount < frameArr.length) {
+        await new Promise(resolve => {
+          requestIdle(async deadline => {
+            // 在空闲时段内尽可能处理多个任务
+            while (deadline.timeRemaining() > 5 && processedCount < frameArr.length) {
+              const img = frameArr[processedCount];
+              const singleStart = performance.now();
+              await processBlur(img, blurRadius, processedCount);
+
+              // 计算单张耗时
+              const singleDuration = performance.now() - singleStart;
+              const avgTime = singleDuration / (processedCount > 3 ? 3 : 1);
+              remainingTime = ((avgTime * (frameArr.length - processedCount - 1)) / 1000).toFixed(1);
+
+              // 更新进度
+              processedCount++;
+              const progress = (processedCount / frameArr.length * 100).toFixed(1);
+              progressBar.current.value = Number.parseInt(progress) / 100;
+              progressPercentage.current.textContent = `${progress}%`;
+            }
+            resolve();
+          });
+        });
       }
-      editFrameFile()
+      clearInterval(timeUpdater);
+      setProgressText(T("bg$progress$videoBlurDone",`${total}`,`${formatProcessingTime(startAllTime)}`));
+      document.body.removeChild(video);
+      editFrameFile();
     }
-    processBlurFrames()
+    processQueue();
   }
+
+  const formatProcessingTime = startTime => {
+    const seconds = ((performance.now() - startTime) / 1000).toFixed(1);
+    if (seconds >= 60) {
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.round(seconds % 60);
+      return T("bg$progress$videoBlurTimeMinute",`${mins}`,`${secs.toString().padStart(2, '0')}`);
+    }
+    return T("bg$progress$videoBlurTimeSecond",`${seconds}`);
+  }
+
+  const processBlur = async (img, radius, progress) => {
+    return new Promise(resolve => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+
+      ctx.drawImage(img, 0, 0);
+
+      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+      const processor = optimizedGaussBlur(imgData, radius);
+      const generator = processor.process();
+
+      // 空闲时间调度
+      const requestIdle = window.requestIdleCallback||function(handler){var startTime=Date.now();return setTimeout(function(){handler({didTimeout:false,timeRemaining:function(){return Math.max(0,50.0-(Date.now()-startTime))}})},1)};
+
+      function nextChunk(deadline) {
+        while (true) {
+          const { value: task, done } = generator.next();
+          if (done) {
+            // 处理完成
+            ctx.putImageData(imgData, 0, 0);
+            
+            canvas.toBlob(blob => {
+              addFileToFolder("textures/cube/frameBlur",progress===0?"frame.jpg":`frame_${progress}.jpg`,blob);
+            }, "image/jpeg");
+
+            resolve();
+            break;
+          }
+          
+          // 执行当前分块任务
+          task();
+          
+          if (deadline.timeRemaining() <= 5) {
+            // 时间不足，等待下一个空闲周期
+            requestIdle(nextChunk);
+            break;
+          }
+        }
+      }
+      requestIdle(nextChunk)
+    });
+  }
+
+  const optimizedGaussBlur = (imgData, radius) => {
+    const pixels = imgData.data;
+    const width = imgData.width;
+    const height = imgData.height;
+    
+    // 生成高斯核
+    const kernel = buildKernel(radius);
+    const chunkSize = 50; // 每块处理50行
+    
+    // 创建中间缓冲区
+    const tempPixels = new Uint8ClampedArray(pixels.length);
+    
+    return {
+      * process() {
+        // 水平模糊分块处理
+        for (let y = 0; y < height; y += chunkSize) {
+          yield () => horizontalBlurChunk(pixels, tempPixels, width, height, kernel, y, Math.min(y + chunkSize, height));
+        }
+        // 垂直模糊分块处理
+        for (let x = 0; x < width; x += chunkSize) {
+          yield () => verticalBlurChunk(tempPixels, pixels, width, height, kernel, x, Math.min(x + chunkSize, width));
+        }
+      }
+    };
+  }
+  
+  const buildKernel = radius => {
+    const sigma = radius / 3;
+    const kernel = [];
+    let sum = 0;
+    
+    for (let i = -radius; i <= radius; i++) {
+      const weight = Math.exp(-(i*i)/(2*sigma*sigma));
+      kernel.push(weight);
+      sum += weight;
+    }
+    
+    return kernel.map(w => w / sum);
+  }
+
+  const horizontalBlurChunk = (src, dest, width, height, kernel, startY, endY) => {
+    const radius = (kernel.length - 1) >> 1;
+    
+    for (let y = startY; y < endY; y++) {
+      for (let x = 0; x < width; x++) {
+        let r = 0, g = 0, b = 0, a = 0;
+        
+        for (let i = -radius; i <= radius; i++) {
+          const px = clamp(x + i, 0, width - 1);
+          const pos = (y * width + px) * 4;
+          
+          const weight = kernel[i + radius];
+          a += src[pos] * weight;
+          r += src[pos + 1] * weight;
+          g += src[pos + 2] * weight;
+          b += src[pos + 3] * weight;
+        }
+  
+        const destPos = (y * width + x) * 4;
+        dest[destPos] = a;
+        dest[destPos + 1] = r;
+        dest[destPos + 2] = g;
+        dest[destPos + 3] = b;
+      }
+    }
+  }
+
+  const verticalBlurChunk = (src, dest, width, height, kernel, startX, endX) => {
+    const radius = (kernel.length - 1) >> 1;
+    
+    for (let x = startX; x < endX; x++) {
+      for (let y = 0; y < height; y++) {
+        let r = 0, g = 0, b = 0, a = 0;
+        
+        for (let i = -radius; i <= radius; i++) {
+          const py = clamp(y + i, 0, height - 1);
+          const pos = (py * width + x) * 4;
+          
+          const weight = kernel[i + radius];
+          a += src[pos] * weight;
+          r += src[pos + 1] * weight;
+          g += src[pos + 2] * weight;
+          b += src[pos + 3] * weight;
+        }
+        
+        const destPos = (y * width + x) * 4;
+        dest[destPos] = a;
+        dest[destPos] = a;
+        dest[destPos + 1] = r;
+        dest[destPos + 2] = g;
+        dest[destPos + 3] = b;
+      }
+    }
+  }
+
+  const clamp = (value, min, max) => Math.max(min, Math.min(value, max));
+
   var editFrameFile=()=>{
     var frameJSON={"namespace":"cncded832c","a":{"type":"image","size":["100%","100%"],"fill":true},"b":{"anim_type":"offset","duration":duration},"c":{"type":"panel","controls":[{"a@cncded832c.e":{"size":["100%","100%"],"anchor_from":"center","anchor_to":"center"}},{"b":{"type":"image","texture":"textures/cube/frame/frame","layer":-2,"size":["100%","100%"],"fill":true}}]},"d":{"type":"panel","controls":[{"a@cncded832c.f":{"size":["100%","100%"],"anchor_from":"center","anchor_to":"center"}},{"b":{"type":"image","texture":"textures/cube/frameBlur/frame","layer":-2,"size":["100%","100%"],"fill":true}}]},"e@ct.vp":{"offset":"@cncded832c.1","controls":[]},"f@ct.vp":{"offset":"@cncded832c.1","controls":[]}}
     var frameJSONFile=fileRead("assets/cube/frame.ui")
     frameJSON=JSON.parse(JSON.stringify(frameJSON))
-    progressDialog.current.description=T("bg$progress$write")
-    progress.current.value=0
     var len=frameArr.length
     frameArr.forEach((e,i)=>{
-      progress.current.value=i/len
       frameJSON["e@ct.vp"]["controls"].push({
         [i+"@cncded832c.a"]:{texture:"textures/cube/frame/frame"+(i===0?"":"_"+i)}
       })
@@ -185,6 +493,7 @@ function BgScreen(){
       }
     })
     frameJSONFile.content=JSON.stringify(frameJSON)
+    stopVideoLoop();
     cancelBtn()
   }
   var liveSwitchFn=function(){
@@ -204,21 +513,25 @@ function BgScreen(){
   var leftBtn=cv.c("mdui-button",{onClick:e=>handleClickOrDrop(e,uploadFile),ondrop:e=>handleClickOrDrop(e,uploadFile),ondragover:allowDrop,style:"margin-right:8px;box-sizing:border-box;width:calc(50% - 8px);",variant:"outlined"},T("gui$upload"));
   return cv.c(cv.fragment,null,
     cv.c("div",{id:"content",className:"ns mdui-container",style:"margin:8px"},
-      cv.c("mdui-dialog",{headline:T("bg$progress"),description:T("bg$progress$extract"),ref:progressDialog},cv.c("mdui-linear-progress",{ref:progress})),
       cv.c("mdui-dialog",{headline:T("bg$info"),ref:infoDialog},
-        cv.c("mdui-text-field",{label:T("bg$interval"),ref:delayInput,min:20,max:60000,type:"number",value:400,style:"margin-bottom:5px"}),
-        cv.c("mdui-text-field",{label:T("bg$duration"),ref:durationInput,min:0,max:10,type:"number",value:0.1,style:"margin-bottom:5px"}),
-        cv.c("mdui-select",{label:T("bg$blur"),ref:engineInput,value:"engine2",style:"margin-bottom:5px;line-height:normal;"},cv.c("mdui-menu-item",{value:"engine1"},T("bg$blur$1")),cv.c("mdui-menu-item",{value:"engine2"},T("bg$blur$2"))),
-        (<mdui-list-item rounded>{T("bg$useBlur")}<mdui-switch slot="end-icon" checked={true} onChange={function(e){useBlur=e.target.checked}}><div slot="checked-icon"></div></mdui-switch></mdui-list-item>),
+        cv.c("mdui-text-field",{label:T("bg$interval"),ref:delayInput,inputmode:"decimal",value:0.5,style:"margin-bottom:5px"}),
+        cv.c("mdui-text-field",{label:T("bg$duration"),ref:durationInput,inputmode:"decimal",value:0.1,style:"margin-bottom:5px"}),
+        cv.c("mdui-text-field",{label:"模糊半径",ref:blurRadiusInput,inputmode:"decimal",value:10,style:"margin-bottom:5px"}),
         cv.c("mdui-button",{slot:"action",variant:"text",onClick:cancelBtn},T("gui$cancel")),
         cv.c("mdui-button",{slot:"action",variant:"filled",onClick:continueBtn},T("gui$continue"))
       ),
       cv.c("h1",null,T("bg$title")),
       cv.c("input",{attr:{type:"file",accept:"image/*, video/*"},onChange:fileHandle,ref:uploadFile,style:"display:none"}),
-      cv.c("video",{attr:{controls:"controls"},onCanplay:videoCanPlay,onEnded:videoEnded,ref:video,style:"width:0;height:0;visibility:hidden;"}),
-      cv.c("video",{attr:{controls:"controls"},ref:previewVideo,src:bgData.src,style:`display:${bgData.showLive?"block":"none"};width:100%;border-radius:var(--mdui-shape-corner-medium);`}),
+      cv.c("video",{attr:{controls:"controls",loop:"loop",muted:"muted"},ref:previewVideo,src:bgData.src,style:`display:${bgData.showLive?"block":"none"};width:100%;border-radius:var(--mdui-shape-corner-medium);`}),
       cv.c("img",{ref:img,src:bgData.img,style:`display:${bgData.showLive?"none":"block"};width:100%;height:180px;border-radius:var(--mdui-shape-corner-medium);`}),
       cv.c("div",{style:"background:rgba(var(--mdui-color-primary-dark), 0.2);border-radius:var(--mdui-shape-corner-medium);padding:0 5px;margin-top:5px;"},cv.c("mdui-list",null,
+        (<div style="padding:16px">
+          <div style="display:flex;justify-content:space-between;">
+            <span style="font-size:14px;" ref={progressText}>{T("bg$progress")}</span>
+            <span style="font-size:14px;" ref={progressPercentage}>0%</span>
+          </div>
+          <mdui-linear-progress value="0" ref={progressBar}/>
+        </div>),
         cv.c("mdui-list-item",{rounded:true},T("bg$live"),cv.c("mdui-switch",{slot:"end-icon",checked:bgData.live,ref:liveSwitch,onChange:liveSwitchFn},cv.c("div",{slot:"checked-icon"}))),
         cv.c("mdui-list-item",{rounded:true},T("bg$resetStatic"),cv.c("mdui-button",{slot:"end-icon",variant:"outlined",onClick:resetStatic},T("gui$reset"))),
         cv.c("mdui-list-item",{rounded:true},T("bg$resetLive"),cv.c("mdui-button",{slot:"end-icon",variant:"outlined",onClick:resetLive},T("gui$reset")))
