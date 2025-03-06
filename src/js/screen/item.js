@@ -34,7 +34,7 @@ function ItemScreen(){
   function toBg(){cv.skipRouter("/bg")}
   function card({icon,title,onClick}){
     const coming_soon=function(){mdui.snackbar({message:T("gui$coming"),closeable:true,autoCloseDelay:3000,closeOnOutsideClick:true,placement:"top"})}
-    return cv.c("mdui-card",{onClick:onClick||coming_soon,style:"box-sizing:border-box;width:calc(50% - 10px);padding:10px;margin:5px;height:90px",clickable:"clickable"},
+    return cv.c("mdui-card",{onClick:onClick||coming_soon,variant:"filled",style:"box-sizing:border-box;width:calc(50% - 10px);padding:10px;margin:5px;height:90px",clickable:"clickable"},
       cv.c("ion-icon",{style:"font-size:32px;",attr:{name:icon}}),
       cv.c("span",{style:"position:absolute;bottom:10px;left:10px;"},title)
     )
