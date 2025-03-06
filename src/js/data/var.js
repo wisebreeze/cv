@@ -4,7 +4,13 @@ const varObj=[
   {name:"进入/退出动画",id:"_anims",def:!0},
   {name:"仅进入动画",id:"_only_enter_anims",def:!0},0,
 
-  {name:"区块地图",id:"_chunk_map"},0,
+  {name:"区块地图",id:"_chunk_map"},
+  {name:"区块文本",id:"_chunk_map_text",def:!0},
+  {name:"史莱姆区块",id:"_chunk_map_slime",def:!0},
+  {name:"方向",id:"_chunk_map_direction",def:!0},
+  {name:"X轴偏移",id:"_chunk_offset_x",desc:"0~1之间的浮点数",def:1,type:"textField"},
+  {name:"Y轴偏移",id:"_chunk_offset_y",desc:"0~1之间的浮点数",def:1,type:"textField"},0,
+
   {name:"功能概览",id:"_feature_overview"},
   {name:"不透明度",id:"_feature_overview_alpha",desc:"0~1之间的浮点数",def:0.4,type:"textField"},0,
 
@@ -14,10 +20,13 @@ const varObj=[
   {name:"活动栏",id:"_title_actionbar",def:!0},0,
 
   {name:"聊天",id:"_chat",def:!0},
-  {name:"不透明度",id:"_chat_alpha",desc:"0~1之间的浮点数",def:0.4,type:"textField"},0,
+  {name:"不透明度",id:"_chat_alpha",desc:"0~1之间的浮点数",def:0.4,type:"textField"},
+  {name:"X轴大小",id:"_chat_size_x",desc:"0~1之间的浮点数",def:0.8,type:"textField"},0,
 
   {name:"背包",id:"__backpack"},
-  {name:"不透明度",id:"_backpack_background_alpha",desc:"0~1之间的浮点数",def:0.4,type:"textField"},0,
+  {name:"不透明度",id:"_backpack_background_alpha",desc:"0~1之间的浮点数",def:0.4,type:"textField"},
+  {name:"X轴偏移",id:"_backpack_offset_x",desc:"0~1之间的浮点数",def:1,type:"textField"},
+  {name:"Y轴偏移",id:"_backpack_offset_y",desc:"0~1之间的浮点数",def:0.15,type:"textField"},0,
 
   {name:"纸娃娃",id:"_paperdoll",def:!0},
   {name:"BOSS 血量",id:"_bossbar",def:!0},
@@ -60,7 +69,9 @@ const varObj=[
   {name:"辅助按钮",id:"264eb9cf",def:!0},
   {name:"始终快速移动",id:"a4709548"},
   {name:"控制物品数量",id:"bf7db8a5",def:!0},
-  {name:"操作全部",id:"e453c46f",def:!0},0,
+  {name:"操作全部",id:"e453c46f",def:!0},
+  {name:"是否双击操作全部",id:"e99063a4",def:!0},0,
+
   {name:"悬停文字",id:"f4f8111b"},
   {name:"触屏选中显示",id:"5abe79bd",def:!0},
   {name:"物品 AUX ID",id:"5b8cc68e"},0,
@@ -72,22 +83,30 @@ const varObj=[
   {name:"纸娃娃",id:"50eee1e4",def:!0},
   {name:"屏幕偏移动画",id:"968d6c5e",def:!0},
   {name:"空白处关闭类型",id:"c536f677",def:2,type:"dropdown",items:["无","单击","双击"]},0,
+
   {name:"物品网格间距",id:"bedae7de"},
   {name:"网格悬停效果",id:"e615756d",def:!0},
   {name:"物品稀有度",id:"89434e8f"},0,
+
   {name:"帮助",id:"dfcffcc5",def:!0},
   {name:"增强酿造指南",id:"04d7ac52"},0,
+
   {name:"连锁移动",id:"70a9fab5"},
   {name:"默认连锁移动",id:"b6cb0c61",def:!0},
   {name:"快捷栏连锁移动",id:"c7e25550"},
   {name:"禁用连锁丢弃",id:"ca15dac8",def:!0},0,
+
   {name:"红石能量",id:"2a0f5a84",def:!0},0,
+
   {name:"装备显示位置",id:"1629b6ab",def:0,type:"dropdown",items:["左侧","右侧"]},
   {name:"显示盔甲值",id:"099671d2",desc:"⚠️ 开发中",def:!0}
 ]},{title:"隐私",content:[
   {name:"玩家名称",id:"b83676b3",def:!0},
   {name:"坐标",id:"e4a7ac08",def:!0}
 ]},{title:"全局",content:[
+  {name:"遮罩",id:"3f9be171"},
+  {name:"空白处关闭类型",id:"c4db2e62",def:2,type:"dropdown",items:["无","点击","双击"]},0,
+
   {name:"文本框最大字符长度",id:"0a923b41",def:2147483647,round:!0,type:"textField"},
   {name:"最高低耐久",id:"49b7e060",def:20,round:!0,type:"textField"},
   {name:"文本框亵渎过滤器",id:"b0455ac5"},
@@ -98,22 +117,30 @@ const varObj=[
 ]},{title:"设置",content:[
   {name:"在HUD上快速访问",id:"c1f8e213"},
   {name:"默认锁定可拖动",id:"b8d23e2e",def:!0},
-  {name:"退出旁观模式",id:"69f24ce6",def:!0},0,
+  {name:"退出旁观模式",id:"69f24ce6",def:!0},
+  {name:"精美图像",id:"f1d095df"},
+  {name:"强制操作 (疾跑)",id:"d5872399"},
+  {name:"快捷按钮大小",id:"d4545d73",desc:"0~1之间的浮点数",def:0,type:"textField"},
+  {name:"更多设置面板宽度",id:"0ded74fc",desc:"0~1之间的浮点数",def:0.7,type:"textField"},
+  {name:"设置X轴大小",id:"a1de0189",desc:"0~1之间的浮点数",def:0.75,type:"textField"},
+  {name:"设置Y轴大小",id:"1592cc44",desc:"0~1之间的浮点数",def:0.75,type:"textField"},0,
+
   {name:"世界高级设置",id:"2abe3412",def:!0},
   {name:"查看路径",id:"c4c8702e",def:!0},
   {name:"旧世界",id:"84b37071",desc:"✨ 需要使用 1.20.73 以及更早版本版本，新版本被 Ore UI 代替",def:!0},
   {name:"流畅度",id:"e1ed717a",def:!0},
   {name:"展示更多下拉选项",id:"567cb601"}
 ]},{title:"美化",content:[
+  {name:"局部模糊",id:"594c4eb2",def:!0},
   {name:"屏幕边框",id:"e6786154"},
   {name:"栏动画",id:"d26f6d49",def:!0},
   {name:"开关过渡动画",id:"b3eb627d",def:!0},
-  {name:"控件悬停动画",id:"35c074c1",desc:"✨ 实验性内容",def:!0}
+  {name:"控件悬停动画",id:"35c074c1",desc:"✨ 实验性内容",def:!0},
+  {name:"控件边缘光泽",id:"262e4ae6",desc:"✨ 实验性内容"}
+]},{title:"无障碍",content:[
+  {name:"开/关标签",id:"7b00d0c8"}
 ]},{title:"优化",content:[
   {name:"低频渲染",id:"8a30c7d6"}
-]},{title:"模态",content:[
-  {name:"遮罩",id:"3f9be171"},
-  {name:"空白处关闭类型",id:"c4db2e62",def:2,type:"dropdown",items:["无","点击","双击"]}
 ]},{title:"开始",content:[
   {name:"相片分割",id:"c1919f11"},
   {name:"未读红点",id:"ed324947",def:!0}
@@ -125,7 +152,10 @@ const varObj=[
   {name:"倍速播放",id:"5d9e4f0e"},
   {name:"音量调节",id:"9c9e051d",def:!0}
 ]},{title:"暂停",content:[
-  {name:"保存并退出提示",id:"e4e1334d",def:!0}
+  {name:"新布局",id:"33c00efe"},
+  {name:"默认隐藏玩家列表",id:"5ef6853d"},
+  {name:"二次确认保存并退出",id:"e4e1334d",def:!0},
+  {name:"二次确认提示时长",id:"271d1f71",def:1.5,type:"textField"}
 ]},{title:"聊天",content:[
   {name:"显示限制",id:"e8bcd7b9",def:80,round:!0,type:"textField"},
   {name:"受伤时关闭聊天屏幕",id:"9cbb46ee",def:!0},
@@ -133,6 +163,7 @@ const varObj=[
   {name:"忽略设置字体",id:"fa7d1a3c"},
   {name:"命令补全时隐藏命令提示",id:"77ff892c",def:!0},
   {name:"自动滚动到底部",id:"a6c0924f",def:!0},
+  {name:"手柄可选中聊天消息",id:"f39ea8da",def:!0},
   {name:"背景",id:"8edb9fbb",def:!0}
 ]},{title:"其他",content:[
   {name:"受伤时关闭药水效果屏幕",id:"9003f259",def:!0},
@@ -141,7 +172,10 @@ const varObj=[
   {name:"命令实际延迟",id:"539b5cb4",def:!0},
   {name:"命令输入框可滚动",id:"b04cb703"},
   {name:"无维度加载背景",id:"4be847bd"},
-  {name:"彩蛋",id:"bc8b0fd2",desc:"⚠️ 开发中",def:!0}
+  {name:"服务器表单强制内核",id:"d755287c"},0,
+
+  {name:"彩蛋",id:"bc8b0fd2",def:!0},
+  {name:"大型内容沙盒",id:"ff9ae346"}
 ]},{title:"开发者",prefix:"$cube_dev_",content:[
   {name:"调试工具",id:"tool"},
   {name:"调试状态",id:"status"},
