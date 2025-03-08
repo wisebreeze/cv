@@ -23,7 +23,7 @@ const varObj=[
   {name:"不透明度",id:"_chat_alpha",def:0.4,type:"slider"},
   {name:"X轴大小",id:"_chat_size_x",def:0.8,type:"slider"},0,
 
-  {name:"背包",id:"__backpack"},
+  {name:"背包",id:"_backpack"},
   {name:"不透明度",id:"_backpack_background_alpha",def:0.4,type:"slider"},
   {name:"X轴偏移",id:"_backpack_offset_x",def:1,type:"slider"},
   {name:"Y轴偏移",id:"_backpack_offset_y",def:0.15,type:"slider"},0,
