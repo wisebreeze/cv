@@ -4,6 +4,16 @@ const varObj=[
   {name:"进入/退出动画",id:"_anims",def:!0},
   {name:"仅进入动画",id:"_only_enter_anims",def:!0},0,
 
+  {name:"信息助手",id:"_information",def:!0},
+  {name:"手持物品",id:"_information_handheld_items",def:!0},
+  {name:"耐久",id:"_information_durability",def:!0},
+  {name:"调试",id:"_information_debug",def:!0},
+  {name:"经验",id:"_information_experience",def:!0},
+  {name:"辅助物品",id:"_information_auxiliary_items",def:!0},
+  {name:"钟",id:"_information_clock",def:!0},
+  {name:"指南针",id:"_information_compass",def:!0},
+  {name:"追溯指针",id:"_information_recovery_compass",def:!0},0,
+
   {name:"区块地图",id:"_chunk_map"},
   {name:"区块文本",id:"_chunk_map_text",def:!0},
   {name:"史莱姆区块",id:"_chunk_map_slime",def:!0},
@@ -52,6 +62,7 @@ const varObj=[
   {name:"物品 ID",id:"d0c8872c"},
   {name:"物品数据值",id:"506d4838",desc:"需启用“物品 ID”"},
   {name:"耐久",id:"41dd8cd4",def:!0},
+  {name:"经验",id:"2ade97e8",def:!0},
   {name:"辅助物品",id:"b21e18db",def:!0},
   {name:"追溯指针",id:"ef309951",desc:"需启用“辅助物品”，低于1.19版本不要开启"},0,
   {name:"区块",id:"65717a9f"},
@@ -157,14 +168,17 @@ const varObj=[
   {name:"二次确认保存并退出",id:"e4e1334d",def:!0},
   {name:"二次确认提示时长",id:"271d1f71",def:1.5,type:"textField"}
 ]},{title:"聊天",content:[
-  {name:"显示限制",id:"e8bcd7b9",def:80,round:!0,type:"textField"},
+  {name:"消息显示限制",id:"e8bcd7b9",def:80,round:!0,type:"textField"},
   {name:"受伤时关闭聊天屏幕",id:"9cbb46ee",def:!0},
-  {name:"增强命令显示",id:"b9a8724e",def:!0},
   {name:"忽略设置字体",id:"fa7d1a3c"},
-  {name:"命令补全时隐藏命令提示",id:"77ff892c",def:!0},
   {name:"自动滚动到底部",id:"a6c0924f",def:!0},
   {name:"手柄可选中聊天消息",id:"f39ea8da",def:!0},
-  {name:"背景",id:"8edb9fbb",def:!0}
+  {name:"过滤敏感词",id:"8dc1650b",def:!0},
+  {name:"背景",id:"8edb9fbb",def:!0},0,
+
+  {name:"增强命令显示",id:"b9a8724e",def:!0},
+  {name:"命令补全时隐藏命令提示",id:"77ff892c",def:!0},
+  {name:"命令翻译",id:"11d05560",def:!0}
 ]},{title:"其他",content:[
   {name:"受伤时关闭药水效果屏幕",id:"9003f259",def:!0},
   {name:"受伤时关闭书与羽毛屏幕",id:"f2234e31",def:!0},
@@ -183,6 +197,7 @@ const varObj=[
   {name:"调试布局",id:"layout"},
   {name:"指针位置",id:"pointer"},
   {name:"聊天",id:"chat"},0,
+
   {name:"环境沙盒",id:"c923cef2"},
   {name:"屏幕大小",id:"5523405d",def:["default","default"],type:"size"},
   {name:"开发者",id:"9b52c609",def:!0},

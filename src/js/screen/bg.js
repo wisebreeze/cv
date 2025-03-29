@@ -66,7 +66,7 @@ function BgScreen(){
     clearInterval(loopInterval);
   }
 
-  var delay=0.5,duration=0.1,blurRadius=10;
+  var delay=0.2,duration=0.1,blurRadius=10;
   var cancelBtn=function(){delayInput.current.disabled=false;durationInput.current.disabled=false;infoDialog.current.open=false;var cloneUpload=document.createElement("input");cloneUpload.type="file";cloneUpload.accept="image/*, video/*";cloneUpload.style="display:none";cloneUpload.addEventListener("change",fileHandle);uploadFile.current.parentNode.replaceChild(cloneUpload,uploadFile.current);uploadFile.current=cloneUpload}
   var continueBtn=function(){
     delay=Math.max(0,Math.min(Number.parseFloat(delayInput.current.value),100));
@@ -514,9 +514,9 @@ function BgScreen(){
   return cv.c(cv.fragment,null,
     cv.c("div",{id:"content",className:"ns mdui-container",style:"margin:8px"},
       cv.c("mdui-dialog",{headline:T("bg$info"),ref:infoDialog},
-        cv.c("mdui-text-field",{label:T("bg$interval"),ref:delayInput,inputmode:"decimal",value:0.5,style:"margin-bottom:5px"}),
+        cv.c("mdui-text-field",{label:T("bg$interval"),ref:delayInput,inputmode:"decimal",value:0.2,style:"margin-bottom:5px"}),
         cv.c("mdui-text-field",{label:T("bg$duration"),ref:durationInput,inputmode:"decimal",value:0.1,style:"margin-bottom:5px"}),
-        cv.c("mdui-text-field",{label:"模糊半径",ref:blurRadiusInput,inputmode:"decimal",value:10,style:"margin-bottom:5px"}),
+        cv.c("mdui-text-field",{label:T("bg$blurRadius"),ref:blurRadiusInput,inputmode:"decimal",value:10,style:"margin-bottom:5px"}),
         cv.c("mdui-button",{slot:"action",variant:"text",onClick:cancelBtn},T("gui$cancel")),
         cv.c("mdui-button",{slot:"action",variant:"filled",onClick:continueBtn},T("gui$continue"))
       ),
