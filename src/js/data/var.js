@@ -53,9 +53,12 @@ const varObj=[
   {name:"隐藏 HUD 提示",id:"13564f64",def:!0},
   {name:"HUD 提示时长",id:"269a8a99",def:3.5,type:"textField"},
   {name:"始终显示快捷栏",desc:"隐藏Hud时，始终显示快捷栏",id:"f89237ba"},0,
+
   {name:"聊天栏消息显示条数",id:"706f8519",def:8,round:!0,type:"textField"},0,
+
   {name:"环境渲染",id:"352b190b",def:!0},
   {name:"触屏圆圈进度",id:"7b5039a2",def:!0},0,
+
   {name:"信息显示位置",id:"83f6db8f",def:1,type:"dropdown",items:["顶部","底部"]},
   {name:"耐久样式",id:"fb27fdf6",def:0,type:"dropdown",items:["百分比","详细"]},
   {name:"物品数量",id:"c827079b",def:!0},
@@ -65,11 +68,13 @@ const varObj=[
   {name:"经验",id:"2ade97e8",def:!0},
   {name:"辅助物品",id:"b21e18db",def:!0},
   {name:"追溯指针",id:"ef309951",desc:"需启用“辅助物品”，低于1.19版本不要开启"},0,
+
   {name:"区块",id:"65717a9f"},
   {name:"史莱姆区块",id:"3198439e",def:!0},
   {name:"资源高度距离",id:"fe8e132d"},0,
   {name:"辅助准心",id:"089fd192",def:!0},
   {name:"无条件显示",id:"78743dd4",desc:"需启用“辅助准心”"},0,
+
   {name:"地图",id:"af0089db",desc:"仅中国版可用"},
   {name:"大小",id:"8d09f184",def:[32,32],type:"size"},
   {name:"实时更新",id:"d6b5a438",def:!0},
@@ -163,6 +168,7 @@ const varObj=[
   {name:"倍速播放",id:"5d9e4f0e"},
   {name:"音量调节",id:"9c9e051d",def:!0}
 ]},{title:"暂停",content:[
+  {name:"时停",id:"12fb5977",desc:"✨ 需要使用 1.20.70 以及更高版本版本"},
   {name:"新布局",id:"33c00efe"},
   {name:"默认隐藏玩家列表",id:"5ef6853d"},
   {name:"二次确认保存并退出",id:"e4e1334d",def:!0},
