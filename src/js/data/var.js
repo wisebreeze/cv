@@ -184,7 +184,10 @@ const varObj=[
 
   {name:"增强命令显示",id:"b9a8724e",def:!0},
   {name:"命令补全时隐藏命令提示",id:"77ff892c",def:!0},
-  {name:"命令翻译",id:"11d05560",def:!0}
+  {name:"命令翻译",id:"11d05560",def:!0},0,
+
+  {name:"工具箱",id:"41ee3e72",def:!0},
+  {name:"定位自然生成建筑",id:"a77721ca"}
 ]},{title:"其他",content:[
   {name:"受伤时关闭药水效果屏幕",id:"9003f259",def:!0},
   {name:"受伤时关闭书与羽毛屏幕",id:"f2234e31",def:!0},
