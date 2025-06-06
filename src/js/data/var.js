@@ -67,8 +67,8 @@ const varObj=[
   {name:"药水效果",id:"_mob_effects",def:!0},0,
 
   {name:"原版准心",id:"_crosshair_vanilla",def:!0},
-  {name:"准心样式",id:"_crosshair_style",def:0,type:"dropdown",items:Array.from({length: 30}, (_, i) => i + 1)},
-  {name:"准心类型",id:"_crosshair_type",def:0,type:"dropdown",items:["无","始终显示","特定物品"]},
+  {name:"准心样式",id:"_crosshair_style",desc:"0～30",def:1,round:!0,type:"textField"},
+  {name:"准心类型",id:"_crosshair_type",def:2,type:"dropdown",items:["无","始终显示","特定物品"]},
   {name:"准心不透明度",id:"_crosshair_alpha",def:0.8,type:"slider"},
   {name:"准心大小",id:"_crosshair_size",def:0.32,type:"slider"},
   {name:"准心颜色",id:"_crosshair_color",def:0,type:"dropdown",items:["白色","黑色","动态变色","红色","绿色","蓝色"]}
