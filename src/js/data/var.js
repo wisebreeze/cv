@@ -18,8 +18,21 @@ const varObj=[
   {name:"区块文本",id:"_chunk_map_text",def:!0},
   {name:"史莱姆区块",id:"_chunk_map_slime",def:!0},
   {name:"方向",id:"_chunk_map_direction",def:!0},
-  {name:"X轴偏移",id:"_chunk_offset_x",def:1,type:"slider"},
-  {name:"Y轴偏移",id:"_chunk_offset_y",def:1,type:"slider"},0,
+  {name:"X轴偏移",id:"_chunk_map_offset_x",def:1,type:"slider"},
+  {name:"Y轴偏移",id:"_chunk_map_offset_y",def:1,type:"slider"},0,
+
+  {name:"地图",id:"_map",desc:"仅中国版可用"},
+  {name:"X轴大小",id:"_map_size_x",def:0.5,type:"slider"},
+  {name:"Y轴大小",id:"_map_size_y",def:0.5,type:"slider"},
+  {name:"X轴偏移",id:"_map_offset_x",def:1,type:"slider"},
+  {name:"Y轴偏移",id:"_map_offset_y",def:1,type:"slider"},
+  {name:"实时更新",id:"_map_live_update"},
+  {name:"实时更新间隔",id:"_map_live_update_interval",def:3,round:!0,type:"textField"},0,
+
+  {name:"玩家列表",id:"_player_list"},
+  {name:"背景不透明度",id:"_player_list_background_alpha",def:0.4,type:"slider"},
+  {name:"X轴偏移",id:"_player_list_offset_x",def:0.5,type:"slider"},
+  {name:"Y轴偏移",id:"_player_list_offset_y",def:0.1,type:"slider"},0,
 
   {name:"功能概览",id:"_feature_overview"},
   {name:"不透明度",id:"_feature_overview_alpha",def:0.4,type:"slider"},0,
@@ -34,14 +47,31 @@ const varObj=[
   {name:"X轴大小",id:"_chat_size_x",def:0.8,type:"slider"},0,
 
   {name:"背包",id:"_backpack"},
+  {name:"索引数字",id:"_backpack_index_text"},
+  {name:"索引数字不透明度",id:"_backpack_index_text_alpha",def:0.8,type:"slider"},
   {name:"不透明度",id:"_backpack_background_alpha",def:0.4,type:"slider"},
   {name:"X轴偏移",id:"_backpack_offset_x",def:1,type:"slider"},
-  {name:"Y轴偏移",id:"_backpack_offset_y",def:0.15,type:"slider"},0,
+  {name:"Y轴偏移",id:"_backpack_offset_y",def:0.15,type:"slider"},
+  {name:"大小",id:"_backpack_size",def:0.5,type:"slider"},0,
+
+  {name:"滤镜调节",id:"_filters"},
+  {name:"不透明度",id:"_filters_alpha",def:0.18,type:"slider"},
+  {name:"颜色",id:"_filters_color",def:0,type:"dropdown",items:["白色","黑色","动态变色","红色","绿色","蓝色"]},
 
   {name:"纸娃娃",id:"_paperdoll",def:!0},
+  {name:"位置",id:"_position",def:!0},
+  {name:"游玩天数",id:"_count_of_days",def:!0},
   {name:"BOSS 血量",id:"_bossbar",def:!0},
   {name:"计分板",id:"_scoreboard",def:!0},
-  {name:"药水效果",id:"_mob_effects",def:!0}
+  {name:"进度指示（触屏圆圈）",id:"_progress_indicator",def:!0},
+  {name:"药水效果",id:"_mob_effects",def:!0},0,
+
+  {name:"原版准心",id:"_crosshair_vanilla",def:!0},
+  {name:"准心样式",id:"_crosshair_style",def:0,type:"dropdown",items:Array.from({length: 30}, (_, i) => i + 1)},
+  {name:"准心类型",id:"_crosshair_type",def:0,type:"dropdown",items:["无","始终显示","特定物品"]},
+  {name:"准心不透明度",id:"_crosshair_alpha",def:0.8,type:"slider"},
+  {name:"准心大小",id:"_crosshair_size",def:0.32,type:"slider"},
+  {name:"准心颜色",id:"_crosshair_color",def:0,type:"dropdown",items:["白色","黑色","动态变色","红色","绿色","蓝色"]}
 ]},
 {title:"HUD",content:[
   {name:"快捷栏选定颜色动画",id:"daf3c18e"},
@@ -73,12 +103,7 @@ const varObj=[
   {name:"史莱姆区块",id:"3198439e",def:!0},
   {name:"资源高度距离",id:"fe8e132d"},0,
   {name:"辅助准心",id:"089fd192",def:!0},
-  {name:"无条件显示",id:"78743dd4",desc:"需启用“辅助准心”"},0,
-
-  {name:"地图",id:"af0089db",desc:"仅中国版可用"},
-  {name:"大小",id:"8d09f184",def:[32,32],type:"size"},
-  {name:"实时更新",id:"d6b5a438",def:!0},
-  {name:"实时更新间隔",id:"eb035ece",def:3,round:!0,type:"textField"}
+  {name:"无条件显示",id:"78743dd4",desc:"需启用“辅助准心”"}
 ]},{title:"背包和容器",content:[
   {name:"非触屏使用模式切换",id:"baf2497a",def:!0},
   {name:"模式切换",id:"41120ebc",def:!0},
