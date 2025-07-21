@@ -7,9 +7,6 @@
     }]
   ],
   "plugins":[
-    ["@babel/plugin-transform-react-jsx",{
-      "pragma": "cv.c",
-      "pragmaFrag": "cv.fragment"
-    }]
+    ["@babel/plugin-transform-react-jsx"]
   ]
 }

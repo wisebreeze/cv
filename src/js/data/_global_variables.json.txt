@@ -1,0 +1,1013 @@
+{
+// 中文
+// 欢迎来到立方之窗的全局变量文件，在这里编辑设置，提升立方之窗的使用体验！
+// 现在访问下方链接即可快速自定义变量
+//
+// 修改须知：
+//  1. 请不要删除此文件！
+//  2. 检查 json 格式是否正确！
+//  3. 建议关闭编辑器自动换行编辑
+//  4. 不要删除任何一个键、注释 (即 "//") 和逗号！
+//  5. 该文件不受协议中关于修改的条例限制，并且可以分发该文件
+//  6. 建议某个变量到自定义包修改（整行复制）
+//
+// 自定义网站：
+//  1. https://cv-erd.pages.dev/custom/
+//  2. https://cubevisage.netlify.app/custom/
+//  3. https://wisebreeze.github.io/cv/custom/
+//
+// 变量标记：
+//  [!] 未完成标记
+//  [experiment] 实验性标记
+//  [discarded] 弃用标记
+//
+// 修改提示：
+//  color 是rgb数组，数组由rgb的每个数值除于 255 得出（数值归一化），精度建议保留小数点后三位。
+//  示例 [1,1,1] [0,0,0] [0.3,0.3,0.3]  rgb(114,114,114,0.5) ÷ 255 => [0.447,0.447,0.447]
+//
+//  alpha 是不透明值，由0~1之间的浮点数组成，精度建议保留小数点后三位。
+//  示例 1 0 0.4
+//
+//  number 是数字，由整数（-2147483647 ~ 2147483647）组成。
+//  示例 1 2 3
+//
+//  bool 是布尔值，由 true(启用) 和 false(禁用) 组成，在本文件中可以控制某些功能的启用。
+//  示例 true false
+
+// English
+// Welcome to the global variables file for CubeVisage, Improve the user experience of CubeVisage by editing these settings!
+// Now visit the link below to quickly customize variables
+//
+// Modification notice:
+//  1. Please do not delete this file!
+//  2. Check if the json format is correct!
+//  3. It is recommended to turn off editor wrap editing
+//  4. Do not Redacted any keys, comments (e.g. "//") and commas!
+//  5. The file is not subject to the provisions of the User Agreement on modification and can be distributed
+//  6. Suggest a variable to be modified in the custom package (copy the entire line)
+//
+// Custom website:
+//  1. https://cv-erd.pages.dev/custom/
+//  2. https://cubevisage.netlify.app/custom/
+//  3. https://wisebreeze.github.io/cv/custom/
+//
+// Variable flags:
+//  [!] Incomplete flag
+//  [experiment] Experimental flag
+//  [discarded] Discarded flag
+//
+// Modification prompt:
+//  color is an array of RGB values, obtained by dividing each value by 255 (value normalization), with a recommended precision of three decimal places.
+//  Example: [1,1,1] [0,0,0] [0.3,0.3,0.3]  rgb(114,114,114,0.5) ÷ 255 => [0.447,0.447,0.447]
+//
+//  alpha is opacity, consisting of floating-point numbers between 0 and 1, with a recommended precision of three decimal places.
+//  Example: 1 0 0.4
+//
+//  number is a number (-2147483647 ~ 2147483647) composed of integers.
+//  Example: 1 2 3
+//
+//  bool is a boolean value, composed of true (enabled) and false (disabled), used to control the enablement of certain functions in this file.
+//  Example: true false
+
+// ━━━━━━━━━━
+// 兼容 | compatible
+// ━━━━━━━━━━
+//$ 全局 | global $//
+// 适配旧版 Minecraft
+// adapt to old version Minecraft
+
+// $mc_ver = Minecraft version
+// ver: 1.21+ int: 121
+// and so on…
+// ver: 1.12 int: 112
+"$mc_ver": 121,
+"$mc_sub_ver": 93,
+
+"$cube_compatible_bundle": true,// 收纳袋 | bundle
+"$cube_compatible_global_gradient": true,// 渐变效果 | gradient effect
+"$cube_compatible_hud_chunk_map_use_slider_offset": false,// 区块地图使用滑块移动 | chunk map moves with slider
+// 不启用循环获取位置的方法仅支持 1.21 版本以及 1.21 以上版本
+// The method that does not enable the cyclic obtaining of the location is supported only in version 1.21 and later
+"$cube_compatible_hud_get_position_cycle": false,// [!] 使用循环获取位置 | use loop to get position
+
+//$ 屏幕 | screens $//
+// 启用后将丢失立方之窗功能
+// The CubeVisage function will be lost when enabled
+"$cube_compatible_screens_chest": false,// 箱子 | chest
+"$cube_compatible_screens_redstone": false,// 红石 | redstone
+
+// ━━━━━━━━━━
+// 配置 | config
+// ━━━━━━━━━━
+// HUD //
+"$cube_set_daf3c18e": false,// 快捷栏选定颜色动画 | hotbar selection color anim
+"$cube_set_f51d10b7": true,// 圆角快捷栏 | fillet hotbar
+"$cube_set_2b2c8eeb": true,// 快捷栏偏移动画 | hotbar offset animation
+"$cube_set_838534a8": true,// 侧边记分板分数 | scoreboard scores
+"$cube_set_bac1d62e": false,// 折叠附魔信息 | folding enchant information
+"$cube_set_ddff0632": false,// [only china edition] 新触控自定义 | new touch customization
+
+"$cube_set_abe4bb75": true,// 工具箱 | toolbox
+"$cube_set_9ae6a2ef": false,// 数据概览 | data overview
+"$cube_set_ecf4b741": true,// 隐藏 HUD | hide hud
+"$cube_set_13564f64": true,// 隐藏 HUD 提示 | hide HUD prompts
+"$cube_set_269a8a99": 1.5,// HUD 提示时长 | hide HUD prompts duration
+"$cube_set_f89237ba": false,// 隐藏Hud时，始终显示快捷栏 | always show hotbar
+
+"$cube_set_4a0d69b6": true,// 等长消息 | equal length message
+"$cube_set_706f8519": 8,// 聊天栏消息显示条数 | number of chat display
+
+"$cube_set_352b190b": true,// 环境渲染 | environment render
+"$cube_set_7b5039a2": true,// 触屏圆圈进度 | touch progress
+
+"$cube_set_83f6db8f": 1,// 信息显示位置 | information display position [0-顶部/top 1-底部/bottom]
+"$cube_set_fb27fdf6": 0,// 耐久样式 | durability style [0-百分比/percentage 1-详细/detail]
+"$cube_set_c827079b": true,// 物品数量 | item count
+"$cube_set_d0c8872c": false,// 物品 ID | item ID
+"$cube_set_506d4838": false,// 物品数据值 | item data
+"$cube_set_41dd8cd4": true,// 耐久 | durability
+"$cube_set_2ade97e8": true,// 经验 | experience
+"$cube_set_b21e18db": true,// 辅助物品 | ancillary item
+
+"$cube_set_65717a9f": false,// 区块地图 | chunk map
+  "$cube_set_3198439e": true,// 史莱姆区块 | slime chunk
+  "$cube_set_c70c72bb": false,// 坐标轴 | asix
+  "$cube_set_fe8e132d": false,// 资源高度距离 | resource height distance
+
+"$cube_set_ef309951": false,// 追溯指针 | recovery compass
+  "$cube_set_30943146": 683,// 追溯指针 | recovery compass
+
+// 弓 弩
+"$cube_set_85785fce": "_324_608_542_399_277_448_416_750_749_418_",// 发射武器 | launch weapons
+"$cube_set_e8e87095": 325,// 箭 | arrow
+
+// 喷溅药水 滞留药水 附魔之瓶 雪球 风弹 末影珍珠 鸡蛋 棕色蛋 蓝色蛋 钓鱼竿
+"$cube_set_d13aee79": "_594_595_542_399_277_448_416_750_749_418_",// 显示目标 | show target
+"$cube_set_089fd192": true,// 辅助准心 | assist crosshair
+"$cube_set_78743dd4": false,// 无条件显示 | unconditional display
+
+// 背包和容器 | inventory and container //
+"$cube_set_baf2497a": true,// 非触屏使用模式切换 | switching the non-touch screen mode
+"$cube_set_41120ebc": true,// 模式切换 | mode switch
+"$cube_set_264eb9cf": true,// 辅助按钮 | auxiliary button
+"$cube_set_a4709548": false,// 始终快速移动 | always fast move
+"$cube_set_bf7db8a5": true,// 控制物品数量 | control the number
+"$cube_set_32686c12": true,// 搜索物品 | search items
+"$cube_set_e453c46f": true,// 操作全部 | operation all
+"$cube_set_e99063a4": true,// 是否双击操作全部 | double click operation all
+
+"$cube_set_f4f8111b": false,// 悬停文字 | hover text
+"$cube_set_5abe79bd": true,// 触屏选中显示 | touch select display
+"$cube_set_5b8cc68e": false,// 物品 AUX ID | item AUX ID
+"$cube_set_dd62b27d": 0,// 收纳袋位置 | bundle position [0-底部/bottom 1-左下角/bottomLeft 2-右下角/bottomRight]
+
+"$cube_set_894d44d5": true,// 显示飞行物品 | show flying item
+"$cube_set_ded3a8c5": true,// 选择数量 | select the number
+"$cube_set_40fac462": true,// 是否双击一键合成 | double click craft
+"$cube_set_7c333392": true,// 受伤时关闭容器 | auto close container
+"$cube_set_50eee1e4": true,// 纸娃娃 | paper doll
+"$cube_set_968d6c5e": true,// 屏幕偏移动画 | screen offset animation
+"$cube_set_c536f677": 2,// 空白处关闭类型 | blankClosable [0-无/none 1-点击/click 2-双击/doubleClick]
+
+"$cube_set_bedae7de": false,// 物品网格间距 | item grid spacing
+"$cube_set_e615756d": true,// 网格悬停效果 | grid hover effect
+"$cube_set_89434e8f": false,// 物品稀有度 | item rarity
+
+"$cube_set_dfcffcc5": true,// 帮助 | help
+"$cube_set_6959b919": true,// 缩放 | scale
+
+"$cube_set_70a9fab5": false,// 连锁移动 | chain movement
+  "$cube_set_b6cb0c61": true,// 默认连锁移动 | default chain movement
+  "$cube_set_c7e25550": false,// 快捷栏连锁移动 | hotbar chain movement
+  "$cube_set_ca15dac8": true,// 禁用连锁丢弃 | disable chain drop
+
+"$cube_set_2a0f5a84": true,// 红石能量 | redstone energy
+"$cube_set_1629b6ab": 0,// 装备显示位置 | equipment display [0-左侧/left 1-右侧/right]
+
+// 隐私 | privacy //
+"$cube_set_b83676b3": true,// 玩家名称 | player name
+"$cube_set_e4a7ac08": true,// 坐标 | coordinates
+
+// 全局 | global //
+"$cube_set_3f9be171": false,// 对话框遮罩 | dialog mask
+"$cube_set_2da2fb1c": 0,// 布局 | layout [0-右侧取消按钮/rightCancelButton 1-左侧取消按钮/rightCancelButton]
+"$cube_set_c4db2e62": 2,// 对话框空白处关闭类型 | dialog blankClosable [0-无/none 1-点击/click 2-双击/doubleClick]
+
+"$cube_set_0a923b41": 2147483647,// 文本框最大字符长度 | text box max length
+"$cube_set_49b7e060": 20,// 最高低耐久 | maximum low durability
+"$cube_set_b0455ac5": false,// 文本框亵渎过滤器 | editbox profanity filter
+"$cube_set_1e2ff19a": true,// 测试版顶部调试文字 | beta debug text
+"$cube_set_20ccca31": true,// 百分比 | percentage
+"$cube_set_c99f06d0": true,// 始终显示滚动条 | always show scrollbar
+"$cube_set_9ec76f17": true,// 游戏内背景 | ingame bg
+
+// 设置 | setting //
+"$cube_set_c1f8e213": false,// 在HUD上快速访问 | quick access on hud screen
+  "$cube_set_b8d23e2e": true,// 默认锁定可拖动 | default locked draggable
+  "$cube_set_69f24ce6": true,// 退出旁观模式 | quit spectator mode
+  "$cube_set_f1d095df": false,// 精美图像 | graphics
+  "$cube_set_d5872399": false,// 强制操作 (疾跑) | forced operation (sprint)
+  "$cube_set_0ceb4d40": false,// 时停 | time stop
+  "$cube_set_d4545d73": 0,// 快捷按钮大小 | shortcut button size
+  "$cube_set_0ded74fc": 0.7,// 更多设置面板宽度 | more setting panel width
+  "$cube_set_a1de0189": 0.75,// 设置X轴大小 | settings x axis size
+  "$cube_set_1592cc44": 0.75,// 设置Y轴大小 | settings y axis size
+
+"$cube_set_2abe3412": true,// 世界高级设置 | world advanced settings
+"$cube_set_c4c8702e": true,// 查看路径 | view path
+"$cube_set_84b37071": true,// 旧世界 | old world
+"$cube_set_e1ed717a": true,// 流畅度 | fluency
+"$cube_set_567cb601": false,// 展示更多下拉选项 | show more dropdown options
+
+// 美化 | beautify //
+"$cube_set_594c4eb2": true,// 局部模糊 | partially blurred
+"$cube_set_e6786154": false,// 屏幕边框 | screen border
+"$cube_set_0a57c067": false,// 动态壁纸 | dynamic wallpaper
+"$cube_set_d26f6d49": true,// [discarded] 栏动画 | bar animation
+"$cube_set_b3eb627d": false,// 开关过渡动画 | toggle transition animation
+"$cube_set_35c074c1": true,// [experiment] 控件悬停动画 | controls hover animation
+"$cube_set_262e4ae6": false,// [experiment] 控件边缘光泽 | controls edge gloss
+
+// 无障碍 | accessibility //
+"$cube_set_7b00d0c8": false,// 开/关标签 | on/off label
+
+// 优化 | optimize //
+"$cube_set_8a30c7d6": false,// 低频渲染 | low frequency rendering
+
+// 开始 | start //
+"$cube_set_c1919f11": false,// 相片切片 | photp clip
+"$cube_set_ed324947": true,// 未读红点 | unread red dot
+
+// 游戏 | play //
+"$cube_set_b0044162": 1,// 布局 | layout [0-顶部选项/headerTab 1-侧边选项/sideTab]
+"$cube_set_e5ccf1eb": true,// 最近游戏 | recent game
+
+// 音乐 | music //
+"$cube_set_5fc8cf29": true,// 音乐 | music
+"$cube_set_9cdaa0d3": true,// 当前播放时长 | current duration
+"$cube_set_5d9e4f0e": false,// 倍速播放 | use pitch
+"$cube_set_9c9e051d": true,// 音量调节 | volume
+
+// 暂停 | pause //
+"$cube_set_12fb5977": false,// [1.20.70+] 时停 | time stop
+"$cube_set_33c00efe": true,// 新布局 | new layout
+"$cube_set_5ef6853d": false,// 默认隐藏玩家列表 | hide player list by default
+"$cube_set_e4e1334d": true,// 二次确认保存并退出 | second confirm exit
+  "$cube_set_271d1f71": 1.5,// 二次确认提示时长 | second confirmation prompt duration
+
+// 聊天 | chat //
+"$cube_set_e8bcd7b9": 80,// 消息显示限制 | messages show limit
+"$cube_set_f39ea8da": true,// 手柄可选中聊天消息 | gamepad can select messages
+"$cube_set_8dc1650b": true,// 过滤敏感词 | filter sensitive words
+"$cube_set_9cbb46ee": true,// 受伤时关闭聊天屏幕 | auto close chat screen
+"$cube_set_fa7d1a3c": false,// 忽略设置字体 | ignore setting font
+"$cube_set_a6c0924f": true,// 自动滚动到底部 | automatically scroll to bottom
+"$cube_set_8edb9fbb": true,// 背景 | bg
+
+"$cube_set_b9a8724e": true,// 增强命令显示 | enhanced command display
+"$cube_set_77ff892c": true,// 命令补全时隐藏命令提示 | hide command prompts when command completion
+"$cube_set_11d05560": true,// 命令翻译 | command translation
+  "$cube_set_0e1127df": " - ",// 分隔 | separate
+
+"$cube_set_41ee3e72": true,// 工具箱 | toolbox
+  "$cube_set_eea2b4c3": true,// [!] 区块地图 | chunk map
+
+// 其他 | other //
+"$cube_set_9003f259": true,// 受伤时关闭药水效果屏幕 | auto close effect screen
+"$cube_set_f2234e31": true,// 受伤时关闭书与羽毛屏幕 | auto close book with feather screen
+"$cube_set_c9ab82f1": true,// 受伤时关闭告示牌屏幕 | auto close sign screen
+"$cube_set_9ed4aeaf": true,// 总是解锁未交易选项 | always unlock trade option
+"$cube_set_6a7a531e": false,// 交易列表网格布局 | grid layout of the transaction list
+"$cube_set_539b5cb4": true,// 命令实际延迟 | command actual delay
+"$cube_set_b04cb703": false,// 命令输入框可滚动 | command edit text box can be scrolled
+"$cube_set_4be847bd": false,// 无维度加载背景 | no dimension loading background
+"$cube_set_d755287c": false,// 服务器表单强制内核 | server form forced core
+
+"$cube_set_bc8b0fd2": true,// 彩蛋 | easter eggs
+  // 大型内容沙盒 | large content sandbox
+  //   创建世界屏幕 create world screen
+  //   编辑世界屏幕 edit world screen
+  //   游戏屏幕 play screen
+  "$cube_set_ff9ae346": false,// 大型内容沙盒 | large content sandbox
+
+// 危险区 | danger zone //
+"$cube_set_5ff43006": false,// 移除促销 | remove promotion
+"$cube_set_f02b91c6": false,// 离线登录 | login offline
+
+// ━━━━━━━━━━
+// 立方面板 | cube panel
+// ━━━━━━━━━━
+//# 基本 | basic #//
+"$cube_panel": false,// 总开关 | total switch
+"$cube_panel_anims": true,// 进入/退出动画 | enter/exit animation
+"$cube_panel_centered_layout": false,// 居中布局 | centered layout
+"$cube_panel_only_functions": false,// 仅功能 (无面板模式，以下设置生效) | only functions (In the non-panel mode, the following settings take effect)
+
+//# 组件 | widget #//
+"$cube_panel_information": true,// 信息助手 | information assistant
+  "$cube_panel_information_handheld_items": true,// 手持物品 | handheld items
+  "$cube_panel_information_durability": true,// 耐久 | durability
+  "$cube_panel_information_debug": true,// 调试 | debug
+  "$cube_panel_information_experience": true,// 经验 | experience
+  "$cube_panel_information_auxiliary_items": true,// 辅助物品 | auxiliary items
+
+  "$cube_panel_information_clock": true,// 钟 | clock
+  "$cube_panel_information_compass": true,// 指南针 | compass
+  "$cube_panel_information_recovery_compass": true,// 追溯指针 | recovery compass
+
+"$cube_panel_chunk_map": false,// 区块地图 | chunk map
+  "$cube_panel_chunk_map_text": true,// 区块文本 | chunk text
+  "$cube_panel_chunk_map_slime": true,// 史莱姆区块 | slime chunk
+  "$cube_panel_chunk_map_direction": true,// 方向 | direction
+  "$cube_panel_chunk_map_offset_x": 1.0,// X轴偏移 | offset x
+  "$cube_panel_chunk_map_offset_y": 1.0,// Y轴偏移 | offset y
+
+"$cube_panel_map": false,// [only china edition] 地图 | map
+  "$cube_panel_map_size_x": 0.5,// X轴大小 | size x
+  "$cube_panel_map_size_y": 0.5,// Y轴大小 | size y
+  "$cube_panel_map_offset_x": 1.0,// X轴偏移 | offset x
+  "$cube_panel_map_offset_y": 1.0,// Y轴偏移 | offset y
+  "$cube_panel_map_live_update": true,// 实时更新 | live update
+  "$cube_panel_map_live_update_interval": 3,// 实时更新间隔 | live update interval
+
+"$cube_panel_player_list": false,// 玩家列表 | player list
+  "$cube_panel_player_list_background_alpha": 0.4,// 不透明度 | alpha
+  "$cube_panel_player_list_offset_x": 0.5,// X轴偏移 | offset x
+  "$cube_panel_player_list_offset_y": 0.1,// Y轴偏移 | offset y
+
+"$cube_panel_feature_overview": false,// 功能概览 | feature overview
+  "$cube_panel_feature_overview_alpha": 0.4,// 不透明度 | alpha
+
+"$cube_panel_title": true,// 标题 | title
+  "$cube_panel_title_title": true,// 主标题 | main title
+  "$cube_panel_title_subtitle": true,// 副标题 | subtitle
+  "$cube_panel_title_actionbar": true,// 活动栏 | actionbar
+
+"$cube_panel_chat": true,// 聊天 | chat
+  "$cube_panel_chat_alpha": 0.25,// 不透明度 | alpha
+  "$cube_panel_chat_size_x": 0.8,// X轴大小 | size x
+
+"$cube_panel_backpack": false,// 背包 | backpack
+  "$cube_panel_backpack_index_text": false,// 索引数字 | index number text
+  "$cube_panel_backpack_index_text_alpha": 0.8,// 索引数字不透明度 | index number text alpha
+  "$cube_panel_backpack_background_alpha": 0.4,// 背景不透明度 | background alpha
+  "$cube_panel_backpack_offset_x": 1.0,// X轴偏移 | offset x
+  "$cube_panel_backpack_offset_y": 0.15,// Y轴偏移 | offset y
+  "$cube_panel_backpack_size": 0.5,// 大小 | size
+
+"$cube_panel_paperdoll": true,// 纸娃娃 | paperdoll
+  "$cube_panel_paperdoll_type": 0,// 类型 | type [0-默认/default 1-平面/flat 2-固定/fixed]
+  "$cube_panel_paperdoll_size": 0.5,// 大小 | size
+  "$cube_panel_paperdoll_offset_x": 0.0,// X轴偏移 | offset x
+  "$cube_panel_paperdoll_offset_y": 0.0,// Y轴偏移 | offset y
+
+"$cube_panel_bossbar": true,// BOSS 血量 | bossbar
+  "$cube_panel_bossbar_name": true,// BOSS 名称
+
+"$cube_panel_filters": false,// 滤镜调节 | filter adjustment
+  "$cube_panel_filters_alpha": 0.18,// 不透明度 | alpha
+  "$cube_panel_filters_color": 0,// 颜色 | color [0-白色/white 1-黑色/black 2-动态/dynamic 3-红色/red 4-绿色/green 5-蓝色/blue]
+
+"$cube_panel_position": true,// 位置 | position
+"$cube_panel_count_of_days": true,// 游玩天数 | count of days
+"$cube_panel_scoreboard": true,// 计分板 | scoreboard
+"$cube_panel_progress_indicator": true,// 进度指示 (触屏圆圈) | progress indicator (touch circle)
+"$cube_panel_mob_effects": true,// 药水效果 | mob effects
+"$cube_panel_locator": true,// 定位栏 | locator
+"$cube_panel_item_name": true,// 物品名称 | item name
+"$cube_panel_jukebox_popup_text": true,// 唱片机弹出文本 | jukebox popup text
+
+//# 准心 | crosshair #//
+"$cube_panel_crosshair_vanilla": true,// 原版准心 | vanilla crosshair
+"$cube_panel_crosshair_style": 1,// 准心样式 (1~30) | crosshair style (1~30)
+"$cube_panel_crosshair_type": 2,// 准心类型 | crosshair type [0-无/none 1-始终显示/alwaysVisible 2-特定物品/specificItems]
+"$cube_panel_crosshair_alpha": 0.8,// 不透明度 | alpha
+"$cube_panel_crosshair_size": 0.35,// 大小 (8px~32px) | size (8px~32px)
+"$cube_panel_crosshair_color": 0,// 颜色 | color [0-白色/white 1-黑色/black 2-动态/dynamic 3-红色/red 4-绿色/green 5-蓝色/blue]
+
+//# 信息 | info #//
+"$cube_panel_name": "CubeVisage Panel",
+"$cube_panel_author": "wisebreeze",
+"$cube_panel_version": "9",
+"$cube_panel_version_prefix": "snapshot",
+"$cube_panel_date": "2025/6/6",
+"$cube_panel_time_zone": "GMT+08:00",
+
+"$cube_panel_client_name": "",// 客户端名称 (必填, 留空则不显示以下信息) | client name (mandatory. If left blank, the following information will not be displayed)
+"$cube_panel_client_author": "",// 客户端作者 | client author
+"$cube_panel_client_key": "",// 客户端密钥 (商用授权必填，个人使用或免费提供留空) | client key (mandatory for commercial authorization, left blank for personal use or free)
+"$cube_panel_client_version": "",// 客户端版本 (参考格式: prefix + version_code) | client version (reference format: Prefix + version_code)
+"$cube_panel_client_date": "",// 客户端该版本的发布时间 (参考格式: yyyy/mm/dd) | release time of the client version (reference format: yyyy/mm/dd)
+"$cube_panel_client_time_zone": "GMT+08:00",// 客户端该版本的时区 (默认为北京时间) | time zone of the client version (the default value is Beijing time)
+
+// ━━━━━━━━━━
+// 动画 | animation
+// ━━━━━━━━━━
+// int, float => duration
+// string => easing
+
+// 基本 | base //
+"$cube_animation_base_entrance_easing": "out_sine",
+"$cube_animation_base_entrance_short_duration": 0.35,
+"$cube_animation_base_entrance_duration": 0.5,
+"$cube_animation_base_entrance_long_duration": 0.75,
+"$cube_animation_base_exit_easing": "in_sine",
+"$cube_animation_base_exit_short_duration": 0.175,
+"$cube_animation_base_exit_duration": 0.25,
+"$cube_animation_base_exit_long_duration": 0.375,
+
+// 屏幕 | screen //
+"$cube_animation_screen_entrance_easing": "out_sine",
+"$cube_animation_screen_entrance_duration": 0.28,
+"$cube_animation_screen_exit_easing": "in_sine",
+"$cube_animation_screen_exit_duration": 0.2,
+
+// 弹窗 | dialog //
+"$cube_animation_dialog_overlay_easing": "out_sine",
+"$cube_animation_dialog_overlay_duration": 0.2,
+"$cube_animation_dialog_easing": "out_sine",
+"$cube_animation_dialog_duration": 0.3,
+
+// HUD 快捷栏选中 | HUD hotbar selected //
+"$cube_animation_hud_hotbar_selected_duration": 0.42,
+"$cube_animation_hud_hotbar_selected_easing": "out_sine",
+
+// 指示器 | indicator //
+"$cube_animation_indicator_unchecked_easing": "in_bounce",
+"$cube_animation_indicator_unchecked_duration": 0.2,
+"$cube_animation_indicator_checked_easing": "out_bounce",
+"$cube_animation_indicator_checked_duration": 0.25,
+
+// 控件过渡 | control transition //
+"$cube_animation_control_transition_easing": "out_sine",
+"$cube_animation_control_transition_duration": 0.15,
+
+// 模糊过渡 | blur transition //
+"$cube_animation_blur_transition_easing": "out_sine",
+"$cube_animation_blur_transition_duration": 0.2,
+
+// 背景过渡 | background transition //
+"$cube_animation_background_transition_start_push_duration": 0.45,
+"$cube_animation_background_transition_start_pop_duration": 0.2,
+"$cube_animation_background_transition_end_push_duration": 2.5,
+"$cube_animation_background_transition_end_pop_duration": 1.5,
+
+// 二次提示 | secondary prompt //
+"$cube_animation_secondary_prompt_start_duration": 0.18,
+"$cube_animation_secondary_prompt_end_duration": 0.18,
+
+// 容器 | container //
+"$cube_animation_container_entrance_easing": "out_expo",
+"$cube_animation_container_entrance_duration": 0.45,
+"$cube_animation_container_exit_easing": "out_expo",
+"$cube_animation_container_exit_duration": 0.23,
+
+// 下拉 | dropdown //
+"$cube_animation_dropdown_easing": "out_quad",
+"$cube_animation_dropdown_open_alpha_duration": 0.4,
+"$cube_animation_dropdown_close_alpha_duration": 0.35,
+"$cube_animation_dropdown_open_size_duration": 0.25,
+"$cube_animation_dropdown_close_size_duration": 0.2,
+
+// 侧边栏 | sidebar //
+"$cube_animation_sidebar_expand_easing": "out_sine",
+"$cube_animation_sidebar_expand_duration": 0.25,
+"$cube_animation_sidebar_collect_easing": "in_sine",
+"$cube_animation_sidebar_collect_duration": 0.18,
+
+// ━━━━━━━━━━
+// 主题 | theme
+// ━━━━━━━━━━
+//$ 基本 | basic $//
+"$cube_theme_bg_photographer": "开朗的满级雪人",// 摄影者
+"$cube_theme_bg_seed": "seed: -9103460155717766965",// 种子
+"$cube_theme_bg_coordinate": "coordinate: -1993 63 -500",// 坐标
+"$cube_theme_bg_addon": "",// 模组
+
+//$ 全局 | global $//
+// 主题色 #0099ff | Theme color #0099ff
+"$cube_success_color": [0,0.78,0],// 成功颜色
+"$cube_error_color": [1,0.353,0.353],// 错误颜色
+"$cube_warning_color": [1,0.647,0],// 警告颜色
+"$cube_main_color": [0,0.6,1],// 主要颜色
+
+"$cube_icon_base_color": [1,1,1],// 图标基本颜色
+"$cube_icon_color": [0.8,0.8,0.8],// 图标双色颜色
+"$cube_text_color": [1,1,1],// 文本颜色
+"$cube_text_desc_color": [0.8,0.8,0.8],// 描述颜色
+"$cube_text_title_color": [1,0.839,0],// 标题颜色
+"$cube_text_font": "smooth",// 文本字体
+"$cube_text_backup_font": "default",// 文本备用字体
+
+"$cube_border_color": [1,1,1],// 边框颜色
+"$cube_border_alpha": 0.55,// 边框不透明度
+"$cube_gloss_color": [1,1,1],// 光泽颜色
+"$cube_gloss_alpha": 0.3,// 光泽不透明度
+"$cube_gloss_netease_alpha": 0.008,// 光泽不透明度（中国版）
+"$cube_gloss_inside_color": [1,1,1],// 控件内部的光泽颜色
+"$cube_gloss_inside_alpha": 0.1,// 控件内部的光泽不透明度
+
+//$ 屏幕 | screens $//
+//# 书 | book #//
+"$cube_theme_book_page_text_color": [0,0,0],// 文本颜色
+"$cube_theme_book_page_place_holder_text_color": [0,0,0],// 占位符颜色
+"$cube_theme_book_title_text_color": [1,1,1],// 标题颜色
+"$cube_theme_book_title_place_holder_text_color": [1,1,1],// 标题占位符颜色
+"$cube_theme_book_author_text_color": [1,1,1],// 作者文本颜色
+"$cube_theme_book_author_text_place_holder_color": [1,1,1],// 作者文本颜色
+
+//# 进度 | progress #//
+"$cube_theme_progress_gradient_top": [0,0,0,0],// 渐变颜色（顶部）
+"$cube_theme_progress_gradient_bottom": [0,0,0,0.8],// 渐变颜色（底部）
+"$cube_theme_progress_gradient_safezone_alpha": 0.8,// 渐变安全区不透明度
+
+//$ 组件 | component $//
+//# 背景 | background #//
+"$cube_bg": "textures/cube/bg/bg",// 背景路径
+"$cube_blur_bg": "textures/cube/bg/blur",// 模糊背景路径
+"$cube_bg_color": [0,0,0],// 纯色背景颜色
+"$cube_bg_alpha": 0.25,// 纯色背景不透明度
+"$cube_ingame_bg_color": [0,0,0],// 游戏内背景颜色
+"$cube_ingame_bg_alpha": 0.18,// 游戏内背景不透明度
+"$cube_control_bg_color": [0,0,0],// 控件背景颜色
+"$cube_control_bg_alpha": 0.45,// 控件背景不透明度
+"$cube_light_bg_color": [0.35,0.35,0.35],// 浅色背景颜色
+"$cube_light_bg_alpha": 0.45,// 浅色背景不透明度
+
+"$cube_start_bg_color": [0,0,0],// 开始屏幕背景颜色
+"$cube_start_bg_alpha": 0.49,// 开始屏幕背景不透明度
+"$cube_chat_bg_color": [0,0,0],// 聊天屏幕背景颜色
+"$cube_chat_bg_alpha": 0.28,// 聊天屏幕背景不透明度
+
+"$cube_progress_background_custom": false,
+"$cube_progress_background_texture": "textures/cube/bg/progress",// custom = true
+"$cube_progress_background_fill": true,
+
+"$cube_container_background_custom": false,
+"$cube_container_background_texture": "textures/cube/bg/container",// custom = true
+"$cube_container_background_fill": true,
+"$cube_container_background_alpha": 0.4,
+"$cube_container_background_color": [0.105,0.105,0.105],// custom = false
+
+"$cube_container_pocket_background_custom": false,
+"$cube_container_pocket_background_texture": "textures/cube/bg/container_pocket",// custom = true
+"$cube_container_pocket_background_fill": true,
+"$cube_container_pocket_background_alpha": 0.4,
+"$cube_container_pocket_background_color": [0.105,0.105,0.105],// custom = false
+
+"$cube_selector_area_bg_color": [0.105,0.105,0.105],// 选择区域背景颜色
+"$cube_selector_area_bg_alpha": 0.2,// 选择区域背景不透明度
+"$cube_dressroom_bg_color": [0,0,0],// 更衣室背景颜色
+"$cube_dressroom_bg_alpha": 0.45,// 更衣室背景不透明度
+
+//# 按钮 | button #//
+"$cube_button_alpha": 0.65,// 不透明度
+"$cube_button_main_alpha": 0.45,// 主要不透明度
+"$cube_button_light_alpha": 0.55,// 浅色不透明度
+
+"$cube_button_default_color": [0.188,0.188,0.188],// 默认颜色
+"$cube_button_hover_color": [0.55,0.55,0.55],// 悬停颜色
+"$cube_button_pressed_color": [0.55,0.55,0.55],// 按下颜色
+"$cube_button_locked_color": [0.69,0,0.125],// 锁定颜色
+"$cube_button_main_default_color": [0.259,0.522,0.957],// 主要默认颜色
+"$cube_button_main_hover_color": [0.098,0.404,0.824],// 主要悬停颜色
+"$cube_button_main_pressed_color": [0.051,0.278,0.631],// 主要按下颜色
+"$cube_button_main_locked_color": [0.6445,0.0507,0.0507],// 主要锁定颜色
+"$cube_button_destructive_default_color": [0.69,0,0.125],// 破坏性默认颜色
+"$cube_button_destructive_hover_color": [0.776,0.157,0.157],// 破坏性悬停颜色
+"$cube_button_destructive_pressed_color": [0.498,0,0],// 破坏性按下颜色
+"$cube_button_destructive_locked_color": [0.55,0.55,0.55],// 破坏性锁定颜色
+"$cube_button_light_default_color": [0.8,0.8,0.8],// 浅色默认颜色
+"$cube_button_light_hover_color": [0.7,0.7,0.7],// 浅色悬停颜色
+"$cube_button_light_pressed_color": [0.7,0.7,0.7],// 浅色按下颜色
+"$cube_button_light_locked_color": [0.69,0,0.125],// [!] 浅色锁定颜色
+
+"$cube_button_transparent_default_alpha": 0,// 透明默认不透明度
+"$cube_button_transparent_hover_alpha": 0.25,// 透明悬停不透明度
+"$cube_button_transparent_pressed_alpha": 0.15,// 透明按下不透明度
+"$cube_button_transparent_default_color": [1,1,1],// 透明默认颜色
+"$cube_button_transparent_hover_color": [0.8,0.8,0.8],// 透明悬停颜色
+"$cube_button_transparent_pressed_color": [0.8,0.8,0.8],// 透明按下颜色
+"$cube_button_transparent_icon_default_color": [1,1,1],// 透明图标默认颜色
+"$cube_button_transparent_icon_hover_color": [1,0.85,0.85],// 透明图标悬停颜色
+"$cube_button_transparent_icon_pressed_color": [0.8,0.8,0.8],// 透明图标按下颜色
+
+"$cube_button_sound_name": "random.click",// 音效
+"$cube_button_sound_volume": 1.0,// 音效音量
+"$cube_button_sound_pitch": 1.0,// 音效音高
+
+"$cube_button_text_color": [1,1,1],// 文本颜色
+"$cube_button_text_default_color": [1,1,1],// 文本默认颜色
+"$cube_button_text_hover_color": [1,1,1],// 文本悬停颜色
+"$cube_button_text_pressed_color": [1,1,1],// 文本按下颜色
+"$cube_button_text_locked_color": [1,1,1],// 文本锁定颜色
+"$cube_button_text_font": "smooth",// 文本字体
+"$cube_button_text_backup_font": "default",// 文本备份字体
+
+"$cube_button_secondary_text_default_color": [0.8,0.8,0.8],// 次要文本默认颜色
+"$cube_button_secondary_text_hover_color": [0.9,0.9,0.9],// 次要文本悬停颜色
+"$cube_button_secondary_text_pressed_color": [0.9,0.9,0.9],// 次要文本按下颜色
+"$cube_button_secondary_text_locked_color": [0.8,0.8,0.8],// 次要文本锁定颜色
+
+"$cube_button_glyph_default_color": [1,1,1],// 图标默认颜色
+"$cube_button_glyph_hover_color": [1,1,1],// 图标悬停颜色
+"$cube_button_glyph_pressed_color": [1,1,1],// 图标按下颜色
+"$cube_button_glyph_locked_color": [1,1,1],// 图标锁定颜色
+
+//# 开关 | toggle #//
+"$cube_toggle_alpha": 0.65,// 整体背景不透明度
+"$cube_toggle_unchecked_alpha": 0.65,// 未选中状态背景不透明度
+"$cube_toggle_checked_alpha": 0.65,// 选中状态背景不透明度
+"$cube_toggle_switch_alpha": 0.65,// 开关滑块不透明度
+"$cube_toggle_locked_alpha": 0.4,// 锁定状态不透明度
+
+"$cube_toggle_checked_default_color": [0.35,0.35,0.35],// 选中状态默认背景颜色
+"$cube_toggle_checked_hover_color": [0.65,0.65,0.65],// 选中状态悬停背景颜色
+"$cube_toggle_unchecked_default_color": [0.188,0.188,0.188],// 未选中状态默认背景颜色
+"$cube_toggle_unchecked_hover_color": [0.55,0.55,0.55],// 未选中状态悬停背景颜色
+"$cube_toggle_locked_color": [0.69,0,0.125],// 锁定状态背景颜色
+
+"$cube_toggle_switch_checked_default_color": [0,0.6,1],// 选中状态滑块默认颜色
+"$cube_toggle_switch_checked_hover_color": [0.2,0.8,1],// 选中状态滑块悬停颜色
+"$cube_toggle_switch_unchecked_default_color": [0.18,0.18,0.18],// 未选中状态滑块默认颜色
+"$cube_toggle_switch_unchecked_hover_color": [0.5,0.5,0.5],// 未选中状态滑块悬停颜色
+"$cube_toggle_switch_locked_color": [0.69,0,0.125],// 锁定状态滑块颜色
+"$cube_toggle_switch_point_checked_color": [1,1,1],// 选中状态开关点颜色
+"$cube_toggle_switch_point_unchecked_color": [0.95,0.95,0.95],// 未选中状态开关点颜色
+
+"$cube_toggle_state_checked_default_color": [0.9,0.9,0.9],// 选中状态默认图标颜色
+"$cube_toggle_state_checked_hover_color": [0.9,0.9,0.9],// 选中状态悬停图标颜色
+"$cube_toggle_state_checked_locked_color": [0.69,0,0.125],// 选中状态锁定图标颜色
+"$cube_toggle_state_unchecked_default_color": [0.9,0.9,0.9],// 未选中状态默认图标颜色
+"$cube_toggle_state_unchecked_hover_color": [0.9,0.9,0.9],// 未选中状态悬停图标颜色
+"$cube_toggle_state_unchecked_locked_color": [0.69,0,0.125],// 未选中状态锁定图标颜色
+"$cube_toggle_state_checked_default_alpha": 0.85,// 选中状态默认图标不透明度
+"$cube_toggle_state_checked_hover_alpha": 0.95,// 选中状态悬停图标不透明度
+"$cube_toggle_state_checked_locked_alpha": 0.85,// 选中状态锁定图标不透明度
+"$cube_toggle_state_unchecked_default_alpha": 0.5,// 未选中状态默认图标不透明度
+"$cube_toggle_state_unchecked_hover_alpha": 0.65,// 未选中状态悬停图标不透明度
+"$cube_toggle_state_unchecked_locked_alpha": 0.5,// 未选中状态锁定图标不透明度
+
+"$cube_toggle_indicator_checked_color": [0,0.6,1],// 选中状态指示器颜色
+"$cube_toggle_indicator_unchecked_color": [0,0.6,1],// 未选中状态指示器颜色
+"$cube_toggle_indicator_checked_alpha": 1,// 选中状态指示器不透明度
+"$cube_toggle_indicator_unchecked_alpha": 1,// 未选中状态指示器不透明度
+
+"$cube_toggle_sound_name": "random.click",// 音效名
+"$cube_toggle_sound_volume": 1.0,// 音效音量
+"$cube_toggle_sound_pitch": 1.0,// 音效音高
+
+"$cube_toggle_text_font": "smooth",// 文本字体
+"$cube_toggle_text_backup_font": "default",// 备用文本字体
+"$cube_toggle_text_unchecked_color": [1,1,1],// 未选中状态文本颜色
+"$cube_toggle_text_checked_color": [1,1,1],// 选中状态文本颜色
+"$cube_toggle_text_unchecked_hover_color": [1,1,1],// 未选中状态悬停文本颜色
+"$cube_toggle_text_checked_hover_color": [1,1,1],// 选中状态悬停文本颜色
+
+//# 滑块 | slider #//
+"$cube_slider_background_alpha": 0.6,// 背景不透明度
+"$cube_slider_background_color": [0.105,0.105,0.105],// 背景颜色
+"$cube_slider_background_hover_color": [0.5,0.5,0.5],// 悬停背景颜色
+
+"$cube_slider_button_alpha": 0.95,// 按钮不透明度
+"$cube_slider_button_default_color": [1,1,1],// 按钮默认颜色
+"$cube_slider_button_hover_color": [0.8,0.8,0.8],// 按钮悬停颜色
+"$cube_slider_button_indent_color": [1,1,1],// 按钮凹槽颜色
+"$cube_slider_button_locked_color": [0.69,0,0.125],// 按钮锁定颜色
+
+"$cube_slider_progress_alpha": 0.45,// 进度条不透明度
+"$cube_slider_progress_default_color": [0,0.6,1],// 进度条默认颜色
+"$cube_slider_progress_hover_color": [0.2,0.8,1],// 进度条悬停颜色
+
+"$cube_slider_border_alpha": 0.4,// 边框不透明度
+"$cube_slider_border_default_color": [0.105,0.105,0.105],// 边框默认颜色
+"$cube_slider_border_hover_color": [0.5,0.5,0.5],// 边框悬停颜色
+
+"$cube_slider_step_alpha": 0.8,// 步进标记不透明度
+"$cube_slider_step_default_color": [0.9,0.9,0.9],// 步进标记默认颜色
+"$cube_slider_step_hover_color": [1,1,1],// 步进标记悬停颜色
+"$cube_slider_step_progress_default_color": [0.5,0.5,0.5],// 进度条步进标记默认颜色
+"$cube_slider_step_progress_hover_color": [1,1,1],// 进度条步进标记悬停颜色
+
+//# 顶栏 | topbar #//
+"$cube_headbar_color": [0.105,0.105,0.105],// 背景颜色
+"$cube_headbar_alpha": 0.75,// 不透明度
+
+"$cube_headbar_gradient_color": [0,0,0],// 渐变颜色
+"$cube_headbar_gradient_alpha": 0.35,// 渐变不透明度
+
+"$cube_headbar_title_color": [1,1,1],// 标题颜色
+"$cube_headbar_title_font": "smooth",// 标题字体
+"$cube_headbar_title_backup_font": "default",// 标题备用字体
+
+//# 分段栏 | header #//
+"$cube_header_alpha": 0.6,// 不透明度
+"$cube_header_color": [0.105,0.105,0.105],// 背景颜色
+"$cube_header_label_color": [1,1,1],// 标签颜色
+"$cube_header_label_font": "smooth",// 标签字体
+"$cube_header_label_backup_font": "default",// 标签备用字体
+
+//# 输入框 | text box #//
+"$cube_text_box_alpha": 0.65,// 不透明度
+
+"$cube_text_box_default_color": [0.188,0.188,0.188],// 默认背景颜色
+"$cube_text_box_hover_color": [0.5,0.5,0.5],// 悬停背景颜色
+"$cube_text_box_pressed_color": [0.5,0.5,0.5],// 按下背景颜色
+"$cube_text_box_locked_color": [0.69,0,0.125],// 锁定背景颜色
+
+"$cube_text_box_text_color": [1,1,1],// 文本颜色
+"$cube_text_box_locked_text_color": [1,1,1],// 锁定文本颜色
+"$cube_text_box_place_holder_text_color": [0.85,0.85,0.85],// 占位符文本颜色
+
+"$cube_text_box_font": "default",// 文本字体
+"$cube_text_box_place_holder_font": "smooth",// 占位符字体
+"$cube_text_box_backup_font": "default",// 备用字体
+"$cube_text_box_place_holder_backup_font": "default",// 占位符备用字体
+
+//# 物品格子 | cell #//
+"$cube_cell_alpha": 0.4,// 不透明度
+"$cube_cell_color": [0.51,0.51,0.51],// 背景颜色
+"$cube_cell_selected_color": [0.5,0.5,0.5],// 选中颜色
+"$cube_cell_red_color": [0.69,0,0.125],// 红色状态颜色
+"$cube_cell_highlight_color": [0.65,0.65,0.65],// 高亮颜色
+"$cube_cell_highlight_alpha": 0.35,// 高亮不透明度
+"$cube_cell_hotbar_color": [0.1,0.1,0.1],// 快捷栏颜色
+
+//# 容器组件 | container components #//
+"$cube_container_components_alpha": 0.55,// 不透明度
+"$cube_container_components_color": [1,1,1],// 颜色
+"$cube_container_components_full_alpha": 1,// 满状态不透明度
+"$cube_container_components_full_color": [0,0.6,1],// 满状态颜色
+
+//# 滚动面板 | scroll panel #//
+"$cube_scroll_track_color": [0.188,0.188,0.188],// 滚动条轨道颜色
+"$cube_scroll_track_alpha": 0.4,// 滚动条轨道不透明度
+
+"$cube_scroll_box_color": [0.85,0.85,0.9],// 滚动条滑块颜色
+"$cube_scroll_box_alpha": 0.7,// 滚动条滑块不透明度
+
+//# 进度 | progress #//
+"$cube_progress_empty_color": [0.105,0.105,0.105],// 空状态颜色
+"$cube_progress_empty_alpha": 0.6,// 空状态不透明度
+"$cube_progress_full_color": [0.333,0.8,0.8],// 满状态颜色
+"$cube_progress_full_alpha": 0.85,// 满状态不透明度
+"$cube_progress_expected_color": [0.333,0.65,0.65],// 预期状态颜色
+"$cube_progress_expected_alpha": 0.85,// 预期状态不透明度
+"$cube_progress_number_color": [0.333,0.8,0.8],// 进度数字颜色
+"$cube_progress_number_font": "default",// 进度数字字体
+
+//# 下拉面板 | dropdown #//
+"$cube_dropdown_background_color": [0.105,0.105,0.105],// 背景颜色
+"$cube_dropdown_background_alpha": 0.55,// 背景不透明度
+
+"$cube_dropdown_sound_name": "random.click",// 音效名称
+"$cube_dropdown_sound_volume": 1.0,// 音效音量
+"$cube_dropdown_sound_pitch": 1.0,// 音效音高
+
+//# 单选框 | radio #//
+"$cube_radio_background_alpha": 0.55,// 背景不透明度
+"$cube_radio_background_selected_color": [0,0,0],// 选中背景颜色
+"$cube_radio_background_hover_color": [0.5,0.5,0.5],// 悬停背景颜色
+
+"$cube_radio_filled_color": [1,1,1],// 填充颜色
+"$cube_radio_filled_alpha": 0.55,// 填充不透明度
+
+"$cube_radio_on_texture": "textures/cube/radio/radio_on",// 开启默认颜色
+"$cube_radio_on_hover_texture": "textures/cube/radio/radio_on_hover",// 开启悬停颜色
+"$cube_radio_off_texture": "textures/cube/radio/radio_off",// 关闭默认颜色
+"$cube_radio_off_hover_texture": "textures/cube/radio/radio_off_hover",// 关闭悬停颜色
+
+"$cube_radio_text_color": [1,1,1],// 文本颜色
+"$cube_radio_text_hover_color": [1,1,1],// 文本悬停颜色
+"$cube_radio_text_font": "smooth",// 字体
+"$cube_radio_text_backup_font": "default",// 备份字体
+
+"$cube_radio_sound_name": "random.click",// 音效
+"$cube_radio_sound_volume": 1.0,// 音量
+"$cube_radio_sound_pitch": 1.0,// 音高
+
+//# 多选框 | checkbox #//
+"$cube_checkbox_on_texture": "textures/cube/checkbox/checkbox_on",// 开启默认纹理
+"$cube_checkbox_on_locked_texture": "textures/cube/checkbox/checkbox_on_locked",// 开启锁定纹理
+"$cube_checkbox_on_hover_texture": "textures/cube/checkbox/checkbox_on_hover",// 开启悬停纹理
+"$cube_checkbox_off_texture": "textures/cube/checkbox/checkbox_off",// 关闭默认纹理
+"$cube_checkbox_off_locked_texture": "textures/cube/checkbox/checkbox_off_locked",// 关闭锁定纹理
+"$cube_checkbox_off_hover_texture": "textures/cube/checkbox/checkbox_off_hover",// 关闭悬停纹理
+
+"$cube_checkbox_sound_name": "random.click",// 音效
+"$cube_checkbox_sound_volume": 1.0,// 音量
+"$cube_checkbox_sound_pitch": 1.0,// 音高
+
+//# 侧边栏 | sidebar #//
+"$cube_sidebar_bg_color": [0,0,0],// 颜色
+"$cube_sidebar_alpha": 0.75,// 不透明度
+
+//# 工具提示 | tooltip #//
+"$cube_tooltip_background_color": [0,0,0],// 背景颜色
+"$cube_tooltip_background_alpha": 0.65,// 背景不透明度
+"$cube_tooltip_chevron_color": [0,0,0],// 箭头颜色
+"$cube_tooltip_chevron_alpha": 0.65,// 箭头不透明度
+
+//# 下划线 | underline #//
+"$cube_underline_color": [0.105,0.105,0.105],// 颜色
+"$cube_underline_alpha": 0.4,// 不透明度
+
+//# 分割线 | divider #//
+"$cube_divider_color": [0.9,0.9,0.9],// 颜色
+"$cube_divider_alpha": 0.33,// 不透明度
+
+//# 弹出窗口 | dialog #//
+"$cube_dialog_overlay_color": [0,0,0],// 遮罩颜色
+"$cube_dialog_overlay_alpha": 0.15,// 遮罩不透明度
+"$cube_dialog_background_color": [0.105,0.105,0.105],// 背景颜色
+"$cube_dialog_background_alpha": 0.6,// 背景不透明度
+"$cube_dialog_headbar_color": [0.35,0.35,0.35],// 顶栏颜色
+"$cube_dialog_headbar_alpha": 0.4,// 顶栏不透明度
+
+"$cube_dialog_title_text_color": [1,1,1],// 标题颜色
+"$cube_dialog_title_font": "smooth",// 字体
+"$cube_dialog_title_backup_font": "default",// 备份字体
+
+"$cube_dialog_message_text_color": [1,1,1],// 消息颜色
+"$cube_dialog_message_font": "smooth",// 字体
+"$cube_dialog_message_backup_font": "default",// 备份字体
+
+//# 吐司 | toast #//
+"$cube_toast_background_color": [0,0,0],// 颜色
+"$cube_toast_background_alpha": 0.65,// 不透明度
+
+//# 角标 | corner marker #//
+"$cube_corner_master_color": [0,0,0],// 颜色
+"$cube_corner_master_alpha": 0.7,// 不透明度
+"$cube_red_dot_color": [1,0,0],// 红点颜色
+"$cube_red_dot_alpha": 0.8,// 红点不透明度
+
+//# 调试 | debug #//
+"$cube_dev_color": [0,0,0],// 颜色
+"$cube_dev_alpha": 0.75,// 不透明度
+"$cube_dev_tool_color": [0,0,0],// 工具背景颜色
+"$cube_dev_tool_alpha": 0.65,// 工具背景不透明度
+
+//# 记分板 | scoreboard #//
+"$cube_scoreboard_player_score_font": "smooth",// 字体
+"$cube_scoreboard_player_score_backup_font": "default",// 备份字体
+"$cube_scoreboard_player_name_color": [1,1,1],// 玩家名颜色
+"$cube_scoreboard_objective_title_color": [1,1,1],// 目标标题颜色
+"$cube_scoreboard_player_score_color": [0.2,0.6,1],// 分数颜色
+"$cube_scoreboard_player_list_score_color": [1,1,1],// 玩家列表分数颜色
+"$cube_scoreboard_player_list_rank_color": [1,1,1],// 玩家列表文字颜色
+
+//# 选轮 | selection wheel #//
+"$cube_selection_wheel_sound_name": "random.click",// 音效
+"$cube_selection_wheel_sound_volume": 1.0,// 音量
+"$cube_selection_wheel_sound_pitch": 1.0,// 音高
+
+//# 其他 | other #//
+"$cube_bar_color": [0,0.6,1],// 栏颜色
+"$cube_bar_alpha": 1,// 栏不透明度
+
+// ━━━━━━━━━━
+// 开发者 | Developer
+// ━━━━━━━━━━
+//# 基本 | basic #//
+"$cube_dev_status": false,// 调试状态 | debug status
+"$cube_dev_layout": false,// 调试布局 | debug layout
+"$cube_dev_pointer": false,// 指针位置 | pointer location
+"$cube_dev_chat": false,// 聊天 | chat
+
+//# 信息 | info #//
+// 需要启用 $cube_dev_status
+// $cube_dev_status needs to be enabled
+"$cube_dev_message": false,// 调试信息 | debug info
+"$cube_dev_27370eb4": false,// 屏幕类型 | screen type
+"$cube_dev_2a7cb1e3": false,// 输入类型 | input type
+"$cube_dev_22972fe9": false,// 系统 | system
+"$cube_dev_54fc718e": false,// 发布版 | publish
+"$cube_dev_33913970": false,// 教育版 | education
+"$cube_dev_77b0ce67": false,// 预发布 | pre_release
+"$cube_dev_af384e5f": false,// 准备游戏 | pregame
+"$cube_dev_c2cbe4e6": false,// 文件采集 | file picking
+"$cube_dev_abd649a3": false,// 过渡动画 | screen transitions
+"$cube_dev_fb753fa2": false,// 服务器 | server
+"$cube_dev_fdab481c": false,// 低内存 | low memory device
+
+//# 工具箱 | toolbox #//
+"$cube_dev_tool": false,// 调试菜单 | debug menu
+  "$cube_dev_auxiliary_line": false,// 屏幕辅助线 | auxiliary line
+  "$cube_dev_ruler": false,// [!] 屏幕刻尺 | ruler
+
+//# 动画 | anims #//
+"$cube_dev_anims": false,// 动画 | anims
+
+//# 环境沙盒 | environment sandbox #//
+"$cube_dev_c923cef2": false,// 环境沙盒 | environment sandbox
+"$cube_dev_5523405d": ["default","default"],// screen size
+"$cube_dev_9b52c609": true,// developer
+"$cube_dev_b53ba732": false,// netease
+"$cube_dev_decdc2ac": true,// mouse
+"$cube_dev_cf295d3c": false,// touch
+"$cube_dev_950d0911": false,// game pad
+
+// ━━━━━━━━━━
+// ! 以下本文谨慎修改
+// ! The following text is modified with caution
+// ━━━━━━━━━━
+//# 状态 | status #//
+"$cube_status": true,// 立方之窗 | CubeVisage UI
+"$cube_status_cloud_texture": false,// 云材质 | cloud texture
+"$cube_status_education": false,// 教育版 | education
+"$cube_status_extends": false,// 扩展 | extends
+"$cube_status_global_variables": true,// 全局变量 | global variables
+"$cube_status_life": false,// 精简版 | Lite
+"$cube_status_store": false,// 资源中心 | store
+
+//# 主题 | theme #//
+"$cube_theme_type": "dark",
+
+//# 标签 | tag #//
+"$cube_tag_verify_id": "",
+"$cube_tag_plugin": "§◈",
+
+//# 兼容 | compatible #//
+"$cube_compatible_version_minecraft_detection": true,// [!]
+"$cube_compatible_version_minecraft_target": "1.21.93",
+"$cube_compatible_version_minecraft_min": "1.12",
+
+//# 更新日志 | update log #//
+"$cube_update_log_new": false,
+"$cube_update_log_change": false,
+"$cube_update_log_fixed": false,
+"$cube_update_log_remove": false,
+
+//# 路径 | path #//
+// 文件 | files //
+"$cube_path_pack_icon": "textures/cube/pack_icon",// picture
+"$cube_path_border": "textures/cube/border",// picture
+"$cube_path_round_a": "textures/cube/round/a",// picture
+"$cube_path_round_c": "textures/cube/round/c",// picture
+"$cube_path_white": "textures/ui/White",// picture
+
+// 文件夹 | folders //
+"$cube_path_icons": "textures/cube/icons/",
+"$cube_path_setting": "textures/cube/icons/setting/",
+"$cube_path_extends": "textures/cube/extends/",
+"$cube_path_round": "textures/cube/round/",
+"$cube_path_arrow": "textures/cube/arrow/",
+"$cube_path_crosshair": "textures/cube/crosshair/",
+"$cube_path_inv": "textures/cube/inv/",
+"$cube_path_base": "textures/cube/",
+"$cube_path_bg": "textures/cube/bg/",
+"$cube_path_ui": "textures/ui/",
+"$cube_path_color": "color/",
+
+//# 网站 | website #//
+"$cube_website": "cubevisage.top",
+"$cube_website_custom": "cubevisage.top/custom",
+"$cube_website_channels": "pd.qq.com/s/233egiixi",
+"$cube_website_discord": "discord.gg/zYWvyhXsAq",
+"$cube_website_donation": "afdian.com/a/zybreeze",
+
+//# 自定义信息 | custom info #//
+"$cube_custom_boolean": false,
+"$cube_custom_from_website": false,
+"$cube_custom_bg": false,
+"$cube_custom_name": "",
+"$cube_custom_desc": "",
+"$cube_custom_uuid": "",
+"$cube_custom_version": 0,
+"$cube_custom_target_api": 40000,
+
+//# 信息 | info #//
+"$cube_name": "CubeVisage",
+"$cube_creator": "breeze",
+"$cube_creator_xbox": "wiseBreeze2303",
+"$cube_uuid": "28e65475-dda7-46e6-9212-e6c90cd9bafc",
+"$cube_display_name": "§b§lCubeVisage UI§r§f",
+"$cube_version": "4.14",
+"$cube_version_patch": 0,
+"$cube_version_code": 4140100,
+"$cube_version_prefix": "snapshot",
+"$cube_version_date": "2025/7/6",
+"$cube_version_time_zone": "GMT+08:00",
+
+"$cube_protocol_version": "3.5.3",
+"$cube_protocol_date": "2025/4/26",
+"$cube_protocol_time_zone": "GMT+08:00",
+
+"$cube_core_name": "CubeVisage Core",
+"$cube_core_version": "1.0.56",
+"$cube_core_version_code": 10056,
+"$cube_core_version_prefix": "release",
+"$cube_core_date": "2025/7/18",
+"$cube_core_time_zone": "GMT+08:00",
+
+"$cube_design_name": "CubeVisage Design",
+"$cube_design_author": "breeze",
+"$cube_design_version": "1.0.16",
+"$cube_design_version_code": 10016,
+"$cube_design_version_target_code": 4130400,
+"$cube_design_version_min_code": 40600,
+"$cube_design_version_prefix": "snapshot",
+"$cube_design_date": "2025/6/21",
+"$cube_design_time_zone": "GMT+08:00"
+}

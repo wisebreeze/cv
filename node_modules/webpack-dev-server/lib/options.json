@@ -2,6 +2,11 @@
   "title": "Dev Server options",
   "type": "object",
   "definitions": {
+    "App": {
+      "instanceof": "Function",
+      "description": "Allows to use custom applications, such as 'connect', 'fastify', etc.",
+      "link": "https://webpack.js.org/configuration/dev-server/#devserverapp"
+    },
     "AllowedHosts": {
       "anyOf": [
         {
@@ -151,11 +156,12 @@
       ]
     },
     "ClientProgress": {
-      "description": "Prints compilation progress in percentage in the browser.",
+      "description": "Displays compilation progress in the browser. Options include 'linear' and 'circular' for visual indicators.",
       "link": "https://webpack.js.org/configuration/dev-server/#progress",
-      "type": "boolean",
+      "type": ["boolean", "string"],
+      "enum": [true, false, "linear", "circular"],
       "cli": {
-        "negatedDescription": "Does not print compilation progress in percentage in the browser."
+        "negatedDescription": "Does not display compilation progress in the browser."
       }
     },
     "ClientReconnect": {
@@ -510,6 +516,9 @@
           "$ref": "#/definitions/ServerEnum"
         },
         {
+          "$ref": "#/definitions/ServerFn"
+        },
+        {
           "$ref": "#/definitions/ServerString"
         },
         {
@@ -520,10 +529,13 @@
       "description": "Allows to set server and options (by default 'http')."
     },
     "ServerType": {
-      "enum": ["http", "https", "spdy"]
+      "enum": ["http", "https", "spdy", "http2"]
+    },
+    "ServerFn": {
+      "instanceof": "Function"
     },
     "ServerEnum": {
-      "enum": ["http", "https", "spdy"],
+      "enum": ["http", "https", "spdy", "http2"],
       "cli": {
         "exclude": true
       }
@@ -545,6 +557,9 @@
             },
             {
               "$ref": "#/definitions/ServerString"
+            },
+            {
+              "$ref": "#/definitions/ServerFn"
             }
           ]
         },
@@ -996,6 +1011,9 @@
     },
     "server": {
       "$ref": "#/definitions/Server"
+    },
+    "app": {
+      "$ref": "#/definitions/App"
     },
     "setupExitSignals": {
       "$ref": "#/definitions/SetupExitSignals"
