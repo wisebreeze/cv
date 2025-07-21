@@ -37,7 +37,7 @@ module.exports = {
   output: {
     filename: "index_[contenthash:8].js",
     path: distPath,
-    publicPath: "/"
+    publicPath: process.env.PUBLIC_PATH || "/"
   },
   stats: {
     errorDetails: false,
