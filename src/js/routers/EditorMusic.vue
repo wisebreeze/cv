@@ -90,7 +90,7 @@
                 <div class="empty-text">{{ t('editor.music.empty') }}</div>
               </div>
             </Transition>
-            <mdui-list class="scrollable-content">
+            <mdui-list class="scrollable-content music-content">
               <TransitionGroup name="list-item" tag="div">
                 <mdui-list-item
                   v-for="(song, index) in currentAlbum.songs"
@@ -184,13 +184,16 @@
           <mdui-text-field
             name="newAlbumName"
             style="margin-bottom: 0.5rem"
-            v-model="newAlbumName"
             :label="t('editor.music.albumName')"
+            :value="newAlbumName"
+            @change="newAlbumName = $event.target.value"
           />
           <mdui-text-field
             name="newAlbumArtist"
             v-model="newAlbumArtist"
             :label="t('editor.music.albumArtist')"
+            :value="newAlbumArtist"
+            @change="newAlbumArtist = $event.target.value"
           />
         </div>
         <div class="dialog-actions">
@@ -1258,7 +1261,7 @@ onUnmounted(() => {
 .music-container-wrapper {
   position: relative;
   width: 100%;
-  height: calc(100% - 64px);
+  height: 100%;
   overflow: hidden;
 }
 
@@ -1271,8 +1274,11 @@ onUnmounted(() => {
 }
 
 .scrollable-content {
-  max-height: calc(100% - 70px);
+  max-height: 100%;
   overflow-y: auto;
+  .music-content {
+    max-height: calc(100% - 70px);
+  }
   .song-progress {
     position: absolute;
     bottom: 0;
