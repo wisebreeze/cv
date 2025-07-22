@@ -5,8 +5,9 @@
       <div class="search-container" :class="{ 'scrolled': hasScrolled }">
         <mdui-text-field 
           :label="t('editor.settings.search')" 
+          :value="searchQuery" 
+          @change="searchQuery = $event.target.value" 
           variant="filled" 
-          v-model="searchQuery"
           clearable
           class="search-field"
           name="search"
@@ -45,17 +46,17 @@
                 <mdui-list-item rounded v-else-if="option.type === 'string'">
                   <div>{{ getText(option.text) }}</div>
                   <div slot="description" v-if="option.desc">{{ option.desc.startsWith(".") ? t("editor.settings" + option.desc) : option.desc }}</div>
-                  <mdui-text-field slot="end-icon" name="input" class="list-end-element" v-model="option.value" type="text" @change="toggleString($event, option)"/>
+                  <mdui-text-field slot="end-icon" name="input" class="list-end-element" :value="option.value" type="text" @change="toggleString($event, option)"/>
                 </mdui-list-item>
                 <mdui-list-item rounded v-else-if="option.type === 'number'">
                   <div>{{ getText(option.text) }}</div>
                   <div slot="description" v-if="option.desc">{{ option.desc.startsWith(".") ? t("editor.settings" + option.desc) : option.desc }}</div>
-                  <mdui-text-field slot="end-icon" name="input" class="list-end-element" v-model.number="option.value" type="number" @input="fixedFloatInput($event)" @change="toggleNumber($event, option)" />
+                  <mdui-text-field slot="end-icon" name="input" class="list-end-element" :value="option.value" type="number" @input="fixedFloatInput($event)" @change="toggleNumber($event, option)" />
                 </mdui-list-item>
                 <mdui-list-item rounded v-else-if="option.type === 'float'">
                   <div>{{ getText(option.text) }}</div>
                   <div slot="description" v-if="option.desc">{{ option.desc.startsWith(".") ? t("editor.settings" + option.desc) : option.desc }}</div>
-                  <mdui-text-field slot="end-icon" name="input" class="list-end-element" v-model.number="option.value" type="number" @input="fixedFloatInput($event)" @change="toggleFloat($event, option)" />
+                  <mdui-text-field slot="end-icon" name="input" class="list-end-element" :value="option.value" type="number" @input="fixedFloatInput($event)" @change="toggleFloat($event, option)" />
                 </mdui-list-item>
                 <mdui-list-item rounded v-else-if="option.type === 'group'" @click="toggleGroup(option)">
                   <div>{{ getText(option.text) }}</div>

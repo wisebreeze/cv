@@ -3,7 +3,14 @@
     <Topbar v-if="!isDesktop"/>
     <div :id="!isDesktop ? 'content' : ''" class="ns" style="width:100%;height:var(--window-height);box-sizing:border-box;overflow-y:auto">
       <div class="search-container" :class="{scrolled:!isScrolledToTop}">
-        <mdui-text-field :placeholder="t('editor.word.search')" clearable class="full-width" variant="filled" v-model="searchText" name="search"></mdui-text-field>
+        <mdui-text-field
+          :placeholder="t('editor.word.search')" 
+          :value="searchText" 
+          @change="searchText = $event.target.value"
+          clearable 
+          class="full-width" 
+          variant="filled" 
+          name="search"></mdui-text-field>
       </div>
       <div @scroll="handleScroll">
         <mdui-list v-if="filteredItems.length">
