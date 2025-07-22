@@ -141,6 +141,7 @@ function handleKeydown(e){
   }
 }
 async function syncSettingFile(){
+  let settings = await fs.value.read("ui/_setting.json")
   const controls=[]
   const bag={'#property_field':'#item_name','#item_name':''}
   const bindings=[]
@@ -163,36 +164,36 @@ async function syncSettingFile(){
   const sourceExpr=items.value.length
     ?'('+items.value.map(item=>`#f${item.id}*${item.id}`).join('+')+')'
     :'#undefined'
-  const settings={
-    namespace:'cube_setting',
-    cmd_custom_panel:{
-      modifications:[{
-        array_name:'controls',
-        operation:'insert_back',
-        value:controls
-      }]
-    },
-    command_filling:{
-      $text_edit_box_content_property_bag:bag,
-      modifications:[
-        {
-          array_name:'$text_edit_box_content_bindings',
-          where:{target_property_name:'#custom_id'},
-          operation:'replace',
-          value:{
-            binding_type:'view',
-            source_property_name:sourceExpr,
-            target_property_name:'#custom_id'
-          }
-        },
-        {
-          array_name:'$text_edit_box_content_bindings',
-          where:{target_property_name:'#f201'},
-          operation:'insert_back',
-          value:bindings
+  if (!settings || !settings.namespace) settings = {
+    namespace: 'cube_setting'
+  }
+  settings.cmd_custom_panel = {
+    modifications:[{
+      array_name:'controls',
+      operation:'insert_back',
+      value:controls
+    }]
+  }
+  settings.command_filling = {
+    $text_edit_box_content_property_bag:bag,
+    modifications:[
+      {
+        array_name:'$text_edit_box_content_bindings',
+        where:{target_property_name:'#custom_id'},
+        operation:'replace',
+        value:{
+          binding_type:'view',
+          source_property_name:sourceExpr,
+          target_property_name:'#custom_id'
         }
-      ]
-    }
+      },
+      {
+        array_name:'$text_edit_box_content_bindings',
+        where:{target_property_name:'#f201'},
+        operation:'insert_back',
+        value:bindings
+      }
+    ]
   }
   await fs.value.write('ui/_setting.json',settings)
 }

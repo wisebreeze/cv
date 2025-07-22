@@ -111,9 +111,6 @@ export default class FileSystem {
     if (!STORAGE_TYPES.includes(storageType)) {
       throw new Error(`Invalid storage type: ${storageType}`);
     }
-    window.fs = FileSystem
-    window.test = this
-
     this.storageType = storageType;
     this.fileSystem = this._initStorage();
     this.mimeExtensions = {

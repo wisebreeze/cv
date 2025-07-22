@@ -2,7 +2,6 @@
   <div>
     <Topbar v-if="!isDesktop" />
     <div :id="!isDesktop ? 'content' : ''" class="ns" style="width: 100%;height: var(--window-height);box-sizing: border-box;overflow-y: auto">
-      <!-- 专辑列表和音乐列表 -->
       <div class="music-container-wrapper">
         <!-- 专辑列表 -->
         <Transition name="fade-slide" mode="out-in">
@@ -190,7 +189,6 @@
           />
           <mdui-text-field
             name="newAlbumArtist"
-            v-model="newAlbumArtist"
             :label="t('editor.music.albumArtist')"
             :value="newAlbumArtist"
             @change="newAlbumArtist = $event.target.value"
@@ -232,19 +230,22 @@
           <mdui-text-field
             name="newSongTitle"
             style="margin-bottom: 0.5rem"
-            v-model="newSongTitle"
             :label="t('editor.music.songTitle')"
+            :value="newSongTitle"
+            @change="newSongTitle = $event.target.value"
           />
           <mdui-text-field
             name="newSongArtist"
             style="margin-bottom: 0.5rem"
-            v-model="newSongArtist"
             :label="t('editor.music.songArtist')"
+            :value="newSongArtist"
+            @change="newSongArtist = $event.target.value"
           />
           <mdui-text-field
             name="newSongDuration"
-            v-model="newSongDuration"
             :label="t('editor.music.songDuration')"
+            :value="newSongDuration"
+            @change="newSongDuration = $event.target.value"
           />
           <div class="audio-upload">
             <div 
@@ -1148,45 +1149,46 @@ onMounted(async () => {
 
   try {
     if (!(await fs.value.exist('sounds/sound_definitions.json')))
-      fs.value.write('sounds/sound_definitions.json', {})
+      await fs.value.write('sounds/sound_definitions.json', {})
     if (!(await fs.value.exist('ui/_setting.json'))) {
-      let exists = await fs.value.read("ui/_setting.json")
-      if (exists.music_album === undefined)
-        fs.value.write('ui/_setting.json', {
-          namespace: "cube_setting",
-          music_album: {
-            modifications: [
-              {
-                array_name: "content",
-                operation: "insert_back",
-                value: []
-              }
-            ]
-          },
-          music_sidebar_content: {
-            modifications: [
-              {
-                array_name: "content",
-                operation: "insert_back",
-                value: []
-              }
-            ]
-          },
-          music_content: {
-            modifications: [
-              {
-                array_name: "content",
-                operation: "insert_back",
-                value: []
-              }
-            ]
-          }
-        })
+      await fs.value.write('ui/_setting.json', {
+        namespace: "cube_setting"
+      })
     }
 
     const settings = await fs.value.read("ui/_setting.json")
     const sounds = await fs.value.read("sounds/sound_definitions.json")
     if (settings) {
+      if (settings.music_album === undefined) {
+        settings.music_album = {
+          modifications: [
+            {
+              array_name: "content",
+              operation: "insert_back",
+              value: []
+            }
+          ]
+        }
+        settings.music_sidebar_content = {
+          modifications: [
+            {
+              array_name: "content",
+              operation: "insert_back",
+              value: []
+            }
+          ]
+        }
+        settings.music_content = {
+          modifications: [
+            {
+              array_name: "content",
+              operation: "insert_back",
+              value: []
+            }
+          ]
+        }
+        await fs.value.write('ui/_setting.json', settings)
+      }
       for (const [i, item] of settings.music_album.modifications[0].value.entries()) {
         const obj = item[Object.keys(item)[0]]
         const { $album_id: id, $album_cover, $album_name: name } = obj
