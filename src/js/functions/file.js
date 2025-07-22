@@ -1,5 +1,4 @@
 import JSZip from 'jszip';
-import { saveAs } from 'file-saver';
 
 const STORAGE_TYPES = ['memory', 'indexedDB', 'localStorage'];
 
@@ -343,14 +342,47 @@ export default class FileSystem {
   async exportToZip(filename = 'export.zip', progressCallback, completedCallback) {
     const zip = new JSZip();
     const files = await this._getAllFiles();
-    
     files.forEach(({ path, content }) => {
       zip.file(path, content);
     });
-
     return zip.generateAsync({ type: 'blob' }, progressCallback)
       .then(blob => {
-        saveAs(blob, filename);
+        const downloadBlob = (blob, fileName) => {
+          if (typeof Blob === 'undefined') {
+            handleError('Your browser does not support file downloading');
+            return;
+          }
+          if (window.navigator.msSaveOrOpenBlob) {
+            window.navigator.msSaveBlob(blob, fileName);
+            return;
+          }
+          const link = document.createElement('a');
+          const url = URL.createObjectURL(blob);
+          link.href = url;
+          link.download = fileName;
+          link.style.display = 'none';
+          if (/(iPod|iPhone|iPad)/i.test(navigator.userAgent)) {
+            document.body.appendChild(link);
+            const event = new MouseEvent('touchstart', {
+              view: window,
+              bubbles: true,
+              cancelable: true
+            });
+            link.dispatchEvent(event);
+          } else {
+            document.body.appendChild(link);
+            link.click();
+          }
+          setTimeout(() => {
+            try {
+              document.body.removeChild(link);
+              URL.revokeObjectURL(url);
+            } catch (e) {
+              handleError('Resource cleanup failure (' + e + ')');
+            }
+          }, 1000);
+        };
+        downloadBlob(blob, filename);
         if (completedCallback) completedCallback();
         return true;
       })
