@@ -18,8 +18,8 @@
 
         <div class="input-group">
           <mdui-text-field 
-            v-model="pack_name"
             :label="t('custom$new$name')"
+            :value="pack_name"
             variant="filled"
             class="input-field"
             name="packName"
@@ -27,8 +27,8 @@
           />
           
           <mdui-text-field
-            v-model="pack_description"
             :label="t('custom$new$desc')"
+            :value="pack_description"
             variant="filled"
             class="input-field"
             name="packDescription"
