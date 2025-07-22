@@ -34,7 +34,9 @@
           </mdui-list-item>
         </mdui-list>
         <div v-else class="empty-state">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor" class="empty-icon"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor" class="empty-icon">
+            <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2M20 16H5.2L4 17.2V4H20V16Z"/>
+          </svg>
           <div class="empty-text">{{ t('editor.word.emptyMessage') }}</div>
         </div>
       </div>
@@ -43,11 +45,11 @@
       </mdui-fab>
       <mdui-dialog :open="dialogOpen" @close="closeDialog">
         <div class="dialog-content">
-          <mdui-text-field :label="t('editor.word.title')" v-model="currentItem.title" variant="filled" name="title"></mdui-text-field>
-          <mdui-text-field :label="t('editor.word.description')" v-model="currentItem.description" variant="filled" textarea required :error-text="descriptionError" @input="validateDescription" name="description"></mdui-text-field>
+          <mdui-text-field :label="t('editor.word.title')" :value="currentItem.title" variant="filled" name="title" @change="currentItem.title = $event.target.value"></mdui-text-field>
+          <mdui-text-field :label="t('editor.word.description')" :value="currentItem.description" variant="filled" textarea @change="currentItem.description = $event.target.value" name="description"></mdui-text-field>
         </div>
         <mdui-button slot="action" variant="text" @click="closeDialog">{{ t('editor.word.cancel') }}</mdui-button>
-        <mdui-button slot="action" variant="filled" @click="saveItem" :disabled="!descriptionValid">{{ t('editor.word.confirm') }}</mdui-button>
+        <mdui-button slot="action" variant="filled" @click="saveItem" :disabled="currentItem.description.trim() === ''">{{ t('editor.word.confirm') }}</mdui-button>
       </mdui-dialog>
       <mdui-dialog :open="deleteDialogOpen" @close="deleteDialogOpen=false">
         <div class="dialog-content">{{ t('editor.word.deleteConfirm') }}</div>
@@ -72,7 +74,6 @@ const dialogOpen=ref(false)
 const deleteDialogOpen=ref(false)
 const currentIndex=ref(-1)
 const currentItem=ref({title:'',description:''})
-const descriptionValid=ref(false)
 const descriptionError=ref('')
 const isScrolledToTop=ref(true)
 
@@ -88,15 +89,9 @@ function openDialog(){
 }
 function closeDialog(){
   dialogOpen.value=false
-  descriptionValid.value=false
   descriptionError.value=''
 }
-function validateDescription(){
-  descriptionValid.value=currentItem.value.description.trim()!==''
-  descriptionError.value=descriptionValid.value?'':t('editor.word.descriptionRequired')
-}
 async function saveItem(){
-  if(!descriptionValid.value)return
   const isNew=currentIndex.value===-1
   const newId=isNew?202+items.value.length:items.value[currentIndex.value].id
   if(isNew){
