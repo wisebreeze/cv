@@ -119,18 +119,17 @@
     },
     word: {
       screenTitle: "快捷短语",
-      "search": "搜索...",
-      "title": "标题",
-      "description": "描述",
-      "cancel": "取消",
-      "confirm": "确定",
-      "moveUp": "上移",
-      "moveDown": "下移",
-      "delete": "删除",
-      "descriptionRequired": "描述不能为空",
-      "emptyMessage": "快捷短语用于聊天栏快速输入内容",
-      "addShortcut": "添加快捷短语",
-      "deleteConfirm": "确定要删除这个快捷短语吗？"
+      search: "搜索...",
+      title: "标题",
+      description: "短语内容",
+      cancel: "取消",
+      confirm: "确定",
+      moveUp: "上移",
+      moveDown: "下移",
+      delete: "删除",
+      emptyMessage: "快捷短语用于聊天栏快速输入内容",
+      addShortcut: "添加快捷短语",
+      deleteConfirm: "确定要删除这个快捷短语吗？"
     }
   },
   download: {

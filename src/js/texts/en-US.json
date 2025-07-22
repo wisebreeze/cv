@@ -122,18 +122,17 @@
     },
     word: {
       screenTitle: "Quick phrases",
-      "search": "Search...",
-      "title": "Title",
-      "description": "Description",
-      "cancel": "Cancel",
-      "confirm": "Confirm",
-      "moveUp": "Move Up",
-      "moveDown": "Move Down",
-      "delete": "Delete",
-      "descriptionRequired": "Description cannot be empty",
-      "emptyMessage": "Quick phrases for fast input in chat",
-      "addShortcut": "Add Shortcut",
-      "deleteConfirm": "Are you sure you want to delete this shortcut?"
+      search: "Search...",
+      title: "Title",
+      description: "Phrase Content",
+      cancel: "Cancel",
+      confirm: "Confirm",
+      moveUp: "Move Up",
+      moveDown: "Move Down",
+      delete: "Delete",
+      emptyMessage: "Quick phrases for fast input in chat",
+      addShortcut: "Add Shortcut",
+      deleteConfirm: "Are you sure you want to delete this shortcut?"
     }
   },
   download: {
