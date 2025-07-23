@@ -115,6 +115,10 @@ const contentStyle = computed(() => {
   z-index: 1;
 }
 
+mdui-dialog {
+  z-index: 10000;
+}
+
 /* 动画定义 */
 .slide-left-enter-active,
 .slide-left-leave-active,
