@@ -131,6 +131,27 @@ const handleDownload = async () => {
     const manifestJSON = await fs.value.read("manifest.json")
     const packName = manifestJSON.header ? manifestJSON.header.name && manifestJSON.header.name.trim(" ") !== '' ? manifestJSON.header.name : 'export' : 'export'
     zipFileName = packName.length > 15 ? packName.substring(0, 15) + '....zip' : packName + '.zip';
+  } else {
+    const getUUID = await import('../functions/uuid')
+    uuid1 = getUUID.default()
+    uuid2 = getUUID.default()
+    await fs.value.write("manifest.json", {
+      format_version: 2,
+      header: {
+        name: "",
+        description: "",
+        uuid: uuid1,
+        version: [1,0,0],
+        min_engine_version: [1,18,0]
+      },
+      modules: [
+        {
+          type: "resources",
+          uuid: uuid2,
+          version: [1,0,0]
+        }
+      ]
+    })
   }
 
   await fs.value.exportToZip(zipFileName, ({ percent }) => {

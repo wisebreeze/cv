@@ -61,12 +61,12 @@
                 <mdui-list-item rounded v-else-if="option.type === 'color'" @click="expandedColorPicker = expandedColorPicker === option.id ? '' : option.id">
                   <div>{{ getText(option.text) }}</div>
                   <div slot="description" v-if="option.desc">{{ option.desc.startsWith(".") ? t("editor.settings" + option.desc) : option.desc }}</div>
-                  <div slot="end-icon" class="color-preview" :style="colorPreview(option.value)"/>
+                  <div slot="end-icon" class="color-preview" :style="colorPreview(option.previewValue)"/>
                 </mdui-list-item>
                 <Transition name="expanded">
                   <Palette
                     v-if="(option.type === 'color' || option.type === 'float') && expandedColorPicker === option.id"
-                    v-model="option.value"
+                    v-model="option.previewValue"
                     :use-alpha="option.value[3] !== undefined || option.type === 'float'"
                     :only-alpha="option.type === 'float'"
                     @change="saveColor(option)"
@@ -167,7 +167,7 @@ const colorPreview = arr => ({
 })
 
 const saveColor = (option) => {
-  const value = typeof option.value === "object" ? option.value.map((v, i) => i < 3 ? parseFloat((v / 255).toFixed(3)) : v) : option
+  const value = typeof option.previewValue === "object" ? option.previewValue.map((v, i) => i < 3 ? parseFloat((v / 255).toFixed(3)) : v) : option.previewValue
   saveOption(option, value)
 }
 
@@ -247,9 +247,7 @@ onMounted(async () => {
           valueContent = valueLower === 'true'
         } else if (value.includes('[') && value.includes(']')) {
           valueType = 'color'
-          valueContent = JSON.parse(value).map((val, i) => 
-            i < 3 ? Math.round(val * 255) : val
-          )
+          valueContent = JSON.parse(value)
         } else if (value.includes('.') && !value.includes('"')) {
           valueType = 'float'
           valueContent = parseFloat(value)
@@ -265,10 +263,15 @@ onMounted(async () => {
         }
   
         prevType = valueType
+        const target = variables[key.slice(1, -1)] === undefined ? valueContent : variables[key.slice(1, -1)]
+        const previewValue = typeof target === 'object' ? target.map((val, i) => 
+          i < 3 ? Math.round(val * 255) : val
+        ) : target
         const optionEntry = {
           type: valueType,
           default: valueContent,
-          value: variables[key.slice(1, -1)] === undefined ? valueContent : variables[key.slice(1, -1)],
+          previewValue: previewValue,
+          value: target,
           id: key.slice(1, -1),
           text: {
             'zh-cn': commentText.replace('[!] ', '').replace('[experiment] ', '').replace('[discarded] ', '').replace('[only china edition] ', ''),

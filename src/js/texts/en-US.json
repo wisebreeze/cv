@@ -70,6 +70,7 @@
   editor: {
     empty_title: "Welcome to the CubeVisage Custom Package Editor",
     empty_subtitle: "Click the options on the left to edit layouts for each section",
+    continue_tip: "You have created a customized package. Do you want to continue editing?\nClick New to create a customized package and overwrite the previous customized operation. This operation cannot be undone.",
     music: {
       addAlbum: "Add Album",
       albumArtist: "Artist",

@@ -29,7 +29,7 @@ const currentKey = ref(router.currentRoute.value.path)
 const previousKey = ref('')
 const showPrevious = ref(false)
 
-const fileProvide = ref(new fs('memory'))
+const fileProvide = ref(new fs('indexedDB'))
 provide('fs', fileProvide)
 
 const windowWidth = ref(0)

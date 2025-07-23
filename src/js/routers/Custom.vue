@@ -29,6 +29,12 @@
       style="display: none"
       @change="handleFileSelect"
     />
+    <mdui-dialog :open="showContinueDialog" @close="showContinueDialog = false">
+      <div v-html="$t('editor.continue_tip').replace(/\n/g, '<br>')"/>
+      <mdui-button slot="action" variant="text" @click="showContinueDialog = false">{{ t('gui$cancel') }}</mdui-button>
+      <mdui-button slot="action" variant="text" @click="createCustomPack(true)">{{ t('gui$new') }}</mdui-button>
+      <mdui-button slot="action" variant="filled" @click="createCustomPack(false)">{{ t('gui$continue') }}</mdui-button>
+    </mdui-dialog>
   </div>
 </div>
 </template>
@@ -44,6 +50,7 @@ const router = useRouter()
 const fs = inject("fs")
 
 const zipInput = ref(null)
+const showContinueDialog = ref(false)
 
 const manifestJSON = {
   format_version: 2,
@@ -52,7 +59,7 @@ const manifestJSON = {
     description: "",
     uuid: "",
     version: [1,0,0],
-    min_engine_version: [1,13,0]
+    min_engine_version: [1,18,0]
   },
   modules: [
     {
@@ -71,25 +78,33 @@ const buttons = ref([
 const handleAction = async (action) => {
   switch (action) {
     case "create":
-      const getUUID = await import('../functions/uuid')
-      manifestJSON.header.uuid = getUUID.default()
-      manifestJSON.modules[0].uuid = getUUID.default()
-      await fs.value.write('manifest.json', manifestJSON)
-
-      await fs.value.write('ui/_global_variables.json', {
-        $cube_custom_boolean: true,
-        $cube_custom_from_website: true,
-        $cube_custom_name: "",
-        $cube_custom_desc: "",
-        $cube_custom_uuid: manifestJSON.header.uuid
-      })
-
-      router.push(window.innerWidth <= 768 ? '/editor' : '/editor/music')
+      if (await fs.value.exist('manifest.json'))
+        showContinueDialog.value = true
+      else createCustomPack(true)
       break
     case "edit":
       zipInput.value.click()
       break
   }
+}
+
+const createCustomPack = async isNew => {
+  if (isNew) {
+    await fs.value.remove('/')
+    const getUUID = await import('../functions/uuid')
+    manifestJSON.header.uuid = getUUID.default()
+    manifestJSON.modules[0].uuid = getUUID.default()
+    await fs.value.write('manifest.json', manifestJSON)
+  
+    await fs.value.write('ui/_global_variables.json', {
+      $cube_custom_boolean: true,
+      $cube_custom_from_website: true,
+      $cube_custom_name: "",
+      $cube_custom_desc: "",
+      $cube_custom_uuid: manifestJSON.header.uuid
+    })
+  }
+  router.push(window.innerWidth <= 768 ? '/editor' : '/editor/music')
 }
 
 const handleFileSelect = event => {
