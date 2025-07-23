@@ -358,22 +358,12 @@ export default class FileSystem {
           link.href = url;
           link.download = fileName;
           link.style.display = 'none';
-          if (/(iPod|iPhone|iPad)/i.test(navigator.userAgent)) {
-            document.body.appendChild(link);
-            const event = new MouseEvent('touchstart', {
-              view: window,
-              bubbles: true,
-              cancelable: true
-            });
-            link.dispatchEvent(event);
-          } else {
-            document.body.appendChild(link);
-            link.click();
-          }
+          document.body.appendChild(link);
+          link.click();
           setTimeout(() => {
             try {
               document.body.removeChild(link);
-              URL.revokeObjectURL(url);
+              // URL.revokeObjectURL(url);
             } catch (e) {
               handleError('Resource cleanup failure (' + e + ')');
             }
