@@ -31,7 +31,7 @@ const currentKey = ref(router.currentRoute.value.path)
 const previousKey = ref('')
 const showPrevious = ref(false)
 
-const fileProvide = ref(new fs('indexedDB'))
+const fileProvide = ref(new fs('memory'))
 const error = ref(e => {
   console.error(e)
   mdui.snackbar({
