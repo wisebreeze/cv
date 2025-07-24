@@ -21,8 +21,10 @@
 <script setup>
 import { ref, provide, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import fs from '../functions/file'
 
+const { t } = useI18n()
 const router = useRouter()
 const transitionName = ref('')
 const currentKey = ref(router.currentRoute.value.path)
@@ -30,7 +32,36 @@ const previousKey = ref('')
 const showPrevious = ref(false)
 
 const fileProvide = ref(new fs('indexedDB'))
+const error = ref(e => {
+  mdui.snackbar({
+    action: t("editor.copy"),
+    autoCloseDelay: 5000,
+    closeable: true,
+    message: e,
+    onActionClick: () => {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(e)
+      } else {
+        const textArea = document.createElement('textarea')
+        textArea.value = e
+        textArea.style.display = 'none'
+        textArea.style.position = 'fixed'
+        textArea.style.left = '-9999px'
+        textArea.style.top = '-9999px'
+        document.body.appendChild(textArea)
+        textArea.focus()
+        textArea.select()
+        try {
+          document.execCommand('copy')
+        } catch (err) {}
+        document.body.removeChild(textArea)
+      }
+    },
+    placement: "bottom"
+  })
+})
 provide('fs', fileProvide)
+provide('error', error)
 
 const windowWidth = ref(0)
 const windowHeight = ref(0)
