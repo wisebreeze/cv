@@ -441,11 +441,46 @@ const fileConversion = ref({
   progressTotal: 0
 })
 
+const repairSettings = obj => {
+  if (!obj) obj = {}
+  if (!obj.music_album || !obj.music_album.modifications) 
+    obj.music_album = {
+      modifications: [
+        {
+          array_name: "content",
+          operation: "insert_back",
+          value: []
+        }
+      ]
+    }
+  if (!obj.music_sidebar_content || !obj.music_sidebar_content.modifications) 
+    obj.music_sidebar_content = {
+      modifications: [
+        {
+          array_name: "content",
+          operation: "insert_back",
+          value: []
+        }
+      ]
+    }
+  if (!obj.music_content || !obj.music_content.modifications) 
+    settings.music_content = {
+      modifications: [
+        {
+          array_name: "content",
+          operation: "insert_back",
+          value: []
+        }
+      ]
+    }
+  return obj
+}
 const addAlbum = async () => {
   try {
     if (newAlbumName.value && newAlbumArtist.value) {
-      const settings = await fs.value.read('ui/_setting.json')
+      let settings = await fs.value.read('ui/_setting.json')
       const sounds = await fs.value.read('sounds/sound_definitions.json')
+      settings = repairSettings(settings)
       if (currentEditAlbumIndex.value >= 0) {
         // 编辑专辑
         const albumToUpdate = albums.value[currentEditAlbumIndex.value]
@@ -625,9 +660,10 @@ const handleAddFabClick = () => {
 
 const deleteAlbum = async index => {
   try {
-    const settings = await fs.value.read('ui/_setting.json')
+    let settings = await fs.value.read('ui/_setting.json')
     const sounds = await fs.value.read('sounds/sound_definitions.json')
     const id = albums.value[index].id
+    settings = repairSettings(settings)
   
     const albumData = settings.music_album.modifications[0].value.find(obj => Object.keys(obj)[0] === id + "_album@cn80b37451.album")
     if (albumData) {
@@ -657,8 +693,9 @@ const deleteAlbum = async index => {
 const deleteSong = async index => {
   if (currentAlbum.value) {
     if (player.value.index === index) stopSong()
-    const settings = await fs.value.read('ui/_setting.json')
+    let settings = await fs.value.read('ui/_setting.json')
     const sounds = await fs.value.read('sounds/sound_definitions.json')
+    settings = repairSettings(settings)
 
     const albumID = currentAlbum.value.id
     const songDataTemp = settings[albumID + "Album@cn80b37451.f"].modifications[0].value[index]
@@ -839,9 +876,10 @@ function moveElement(arr, currentIndex, targetIndex) {
   arr.splice(targetIndex, 0, removedElement);
 }
 const moveUp = async (type, index) => {
-  const settings = await fs.value.read('ui/_setting.json')
+  let settings = await fs.value.read('ui/_setting.json')
   const sounds = await fs.value.read('sounds/sound_definitions.json')
   if (type === 'album' && index > 0) {
+    settings = repairSettings(settings)
     const album = albums.value[index]
     const id = album.id
     const i = settings.music_album.modifications[0].value.findIndex(obj => Object.keys(obj)[0] === id + "_album@cn80b37451.album")
@@ -863,9 +901,10 @@ const moveUp = async (type, index) => {
   fs.value.write('sounds/sound_definitions.json', sounds)
 }
 const moveDown = async (type, index) => {
-  const settings = await fs.value.read('ui/_setting.json')
+  let settings = await fs.value.read('ui/_setting.json')
   const sounds = await fs.value.read('sounds/sound_definitions.json')
   if (type === 'album' && index < albums.value.length + 1) {
+    settings = repairSettings(settings)
     const album = albums.value[index]
     const id = album.id
     const i = settings.music_album.modifications[0].value.findIndex(obj => Object.keys(obj)[0] === id + "_album@cn80b37451.album")

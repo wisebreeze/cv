@@ -33,6 +33,7 @@ const showPrevious = ref(false)
 
 const fileProvide = ref(new fs('indexedDB'))
 const error = ref(e => {
+  console.error(e)
   mdui.snackbar({
     action: t("editor.copy"),
     autoCloseDelay: 5000,
@@ -44,7 +45,6 @@ const error = ref(e => {
       } else {
         const textArea = document.createElement('textarea')
         textArea.value = e
-        textArea.style.display = 'none'
         textArea.style.position = 'fixed'
         textArea.style.left = '-9999px'
         textArea.style.top = '-9999px'
