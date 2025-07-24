@@ -464,7 +464,7 @@ const repairSettings = obj => {
       ]
     }
   if (!obj.music_content || !obj.music_content.modifications) 
-    settings.music_content = {
+    obj.music_content = {
       modifications: [
         {
           array_name: "content",
