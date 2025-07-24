@@ -525,7 +525,7 @@ const addAlbum = async () => {
       resetAddAlbumFields()
     }
   } catch (e) {
-    error(e)
+    error.value(e)
   }
 }
 
@@ -614,7 +614,7 @@ const addSong = async () => {
       resetAddSongFields();
     }
   } catch (e) {
-    error(e)
+    error.value(e)
   }
 }
 
@@ -650,7 +650,7 @@ const deleteAlbum = async index => {
     albums.value.splice(index, 1);
     if (albums.value.length === 0) currentAlbum.value = null;
   } catch (e) {
-    error(e)
+    error.value(e)
   }
 }
 
