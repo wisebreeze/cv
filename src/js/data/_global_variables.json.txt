@@ -88,13 +88,24 @@
 "$cube_compatible_hud_chunk_map_use_slider_offset": false,// 区块地图使用滑块移动 | chunk map moves with slider
 // 不启用循环获取位置的方法仅支持 1.21 版本以及 1.21 以上版本
 // The method that does not enable the cyclic obtaining of the location is supported only in version 1.21 and later
-"$cube_compatible_hud_get_position_cycle": false,// [!] 使用循环获取位置 | use loop to get position
+"$cube_compatible_hud_get_position_cycle": true,// [!] 使用循环获取位置 | use loop to get position
 
 //$ 屏幕 | screens $//
-// 启用后将丢失立方之窗功能
-// The CubeVisage function will be lost when enabled
+// 启用后将允许其他资源包修改并丢失立方之窗功能
+// When enabled, other resource packages are allowed to be modified and the CubeVisage function is lost
+"$cube_compatible_screens_anvil": false,// 铁砧 | anvil
+"$cube_compatible_screens_bencon": false,// 信标 | bencon
+"$cube_compatible_screens_brewing_stand": false,// 酿造台 | brewing stand
+"$cube_compatible_screens_cartography": false,// 制图台 | cartography
 "$cube_compatible_screens_chest": false,// 箱子 | chest
+"$cube_compatible_screens_crafting": false,// 背包 | crafting
+"$cube_compatible_screens_enchanting": false,// 附魔 | enchanting
+"$cube_compatible_screens_furnace": false,// 熔炉 | furnace
+"$cube_compatible_screens_grindstone": false,// 砂轮 | grindstone
+"$cube_compatible_screens_horse": false,// 马 | horse
+"$cube_compatible_screens_loom": false,// 织布机 | loom
 "$cube_compatible_screens_redstone": false,// 红石 | redstone
+"$cube_compatible_screens_smithing_table": false,// 锻造 | smithing table
 
 // ━━━━━━━━━━
 // 配置 | config
@@ -121,7 +132,7 @@
 "$cube_set_7b5039a2": true,// 触屏圆圈进度 | touch progress
 
 "$cube_set_83f6db8f": 1,// 信息显示位置 | information display position [0-顶部/top 1-底部/bottom]
-"$cube_set_fb27fdf6": 0,// 耐久样式 | durability style [0-百分比/percentage 1-详细/detail]
+"$cube_set_fb27fdf6": 1,// 耐久样式 | durability style [0-百分比/percentage 1-详细/detail 2-详情和百分比/detailWithPercent]
 "$cube_set_c827079b": true,// 物品数量 | item count
 "$cube_set_d0c8872c": false,// 物品 ID | item ID
 "$cube_set_506d4838": false,// 物品数据值 | item data
@@ -155,6 +166,7 @@
 "$cube_set_32686c12": true,// 搜索物品 | search items
 "$cube_set_e453c46f": true,// 操作全部 | operation all
 "$cube_set_e99063a4": true,// 是否双击操作全部 | double click operation all
+"$cube_set_e4dc138a": false,// 默认打开工具箱 | open the toolbox by default
 
 "$cube_set_f4f8111b": false,// 悬停文字 | hover text
 "$cube_set_5abe79bd": true,// 触屏选中显示 | touch select display
@@ -190,14 +202,14 @@
 
 // 全局 | global //
 "$cube_set_3f9be171": false,// 对话框遮罩 | dialog mask
-"$cube_set_2da2fb1c": 0,// 布局 | layout [0-右侧取消按钮/rightCancelButton 1-左侧取消按钮/rightCancelButton]
+"$cube_set_2da2fb1c": 0,// 对话框布局 | dialog layout [0-右侧取消按钮/rightCancelButton 1-左侧取消按钮/rightCancelButton]
 "$cube_set_c4db2e62": 2,// 对话框空白处关闭类型 | dialog blankClosable [0-无/none 1-点击/click 2-双击/doubleClick]
 
 "$cube_set_0a923b41": 2147483647,// 文本框最大字符长度 | text box max length
 "$cube_set_49b7e060": 20,// 最高低耐久 | maximum low durability
 "$cube_set_b0455ac5": false,// 文本框亵渎过滤器 | editbox profanity filter
 "$cube_set_1e2ff19a": true,// 测试版顶部调试文字 | beta debug text
-"$cube_set_20ccca31": true,// 百分比 | percentage
+"$cube_set_20ccca31": true,// 进度百分比 | progress percentage
 "$cube_set_c99f06d0": true,// 始终显示滚动条 | always show scrollbar
 "$cube_set_9ec76f17": true,// 游戏内背景 | ingame bg
 
@@ -214,6 +226,7 @@
   "$cube_set_1592cc44": 0.75,// 设置Y轴大小 | settings y axis size
 
 "$cube_set_2abe3412": true,// 世界高级设置 | world advanced settings
+"$cube_set_238f26f9": true,// 笔记本按钮 | notebook button
 "$cube_set_c4c8702e": true,// 查看路径 | view path
 "$cube_set_84b37071": true,// 旧世界 | old world
 "$cube_set_e1ed717a": true,// 流畅度 | fluency
@@ -227,6 +240,7 @@
 "$cube_set_b3eb627d": false,// 开关过渡动画 | toggle transition animation
 "$cube_set_35c074c1": true,// [experiment] 控件悬停动画 | controls hover animation
 "$cube_set_262e4ae6": false,// [experiment] 控件边缘光泽 | controls edge gloss
+"$cube_set_9f7e5e4e": false,// [experiment] 增强下拉动画 | enhance dropdown animation
 
 // 无障碍 | accessibility //
 "$cube_set_7b00d0c8": false,// 开/关标签 | on/off label
@@ -247,6 +261,7 @@
 "$cube_set_9cdaa0d3": true,// 当前播放时长 | current duration
 "$cube_set_5d9e4f0e": false,// 倍速播放 | use pitch
 "$cube_set_9c9e051d": true,// 音量调节 | volume
+"$cube_set_a29ab0a9": true,// 音符盒 | note block
 
 // 暂停 | pause //
 "$cube_set_12fb5977": false,// [1.20.70+] 时停 | time stop
@@ -370,6 +385,7 @@
 
 "$cube_panel_position": true,// 位置 | position
 "$cube_panel_count_of_days": true,// 游玩天数 | count of days
+"$cube_panel_switcher": false,// 物品切换（触屏） | switcher (touch)
 "$cube_panel_scoreboard": true,// 计分板 | scoreboard
 "$cube_panel_progress_indicator": true,// 进度指示 (触屏圆圈) | progress indicator (touch circle)
 "$cube_panel_mob_effects": true,// 药水效果 | mob effects
@@ -427,10 +443,6 @@
 "$cube_animation_dialog_overlay_duration": 0.2,
 "$cube_animation_dialog_easing": "out_sine",
 "$cube_animation_dialog_duration": 0.3,
-
-// HUD 快捷栏选中 | HUD hotbar selected //
-"$cube_animation_hud_hotbar_selected_duration": 0.42,
-"$cube_animation_hud_hotbar_selected_easing": "out_sine",
 
 // 指示器 | indicator //
 "$cube_animation_indicator_unchecked_easing": "in_bounce",
@@ -995,19 +1007,19 @@
 "$cube_protocol_time_zone": "GMT+08:00",
 
 "$cube_core_name": "CubeVisage Core",
-"$cube_core_version": "1.0.56",
-"$cube_core_version_code": 10056,
+"$cube_core_version": "1.0.58",
+"$cube_core_version_code": 10058,
 "$cube_core_version_prefix": "release",
-"$cube_core_date": "2025/7/18",
+"$cube_core_date": "2025/7/26",
 "$cube_core_time_zone": "GMT+08:00",
 
 "$cube_design_name": "CubeVisage Design",
 "$cube_design_author": "breeze",
-"$cube_design_version": "1.0.16",
-"$cube_design_version_code": 10016,
-"$cube_design_version_target_code": 4130400,
-"$cube_design_version_min_code": 40600,
+"$cube_design_version": "1.0.18",
+"$cube_design_version_code": 10018,
+"$cube_design_version_target_code": 4150000,
+"$cube_design_version_min_code": 4150000,
 "$cube_design_version_prefix": "snapshot",
-"$cube_design_date": "2025/6/21",
+"$cube_design_date": "2025/7/26",
 "$cube_design_time_zone": "GMT+08:00"
 }

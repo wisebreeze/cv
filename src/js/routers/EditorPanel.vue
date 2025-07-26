@@ -175,7 +175,7 @@ const colorPreview = arr => ({
 })
 
 const saveColor = (option) => {
-  const value = typeof option.value === "object" ? option.value.map((v, i) => i < 3 ? parseFloat((v / 255).toFixed(3)) : v) : option
+  const value = typeof option.value === "object" ? option.value.map((v, i) => i < 3 ? parseFloat((v / 255).toFixed(3)) : v) : option.value
   saveOption(option, value)
 }
 
