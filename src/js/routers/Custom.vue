@@ -88,12 +88,19 @@ const handleAction = async (action) => {
   }
 }
 
+const uuid = () => {
+  var a = (new Date).getTime();
+  return window.performance && "function" == typeof window.performance.now && (a += performance.now()), "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(b) {
+    var c = 0 | (a + 16 * Math.random()) % 16;
+    return a = Math.floor(a / 16), ("x" == b ? c : 8 | 3 & c).toString(16)
+  })
+}
+
 const createCustomPack = async isNew => {
   if (isNew) {
     await fs.value.remove('/')
-    const getUUID = await import('../functions/uuid')
-    manifestJSON.header.uuid = getUUID.default()
-    manifestJSON.modules[0].uuid = getUUID.default()
+    manifestJSON.header.uuid = uuid()
+    manifestJSON.modules[0].uuid = uuid()
     await fs.value.write('manifest.json', manifestJSON)
   
     await fs.value.write('ui/_global_variables.json', {

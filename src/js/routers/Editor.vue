@@ -123,6 +123,14 @@ const handleResize = () => {
   isDesktop.value = window.innerWidth >= 768
 }
 
+const uuid = () => {
+  var a = (new Date).getTime();
+  return window.performance && "function" == typeof window.performance.now && (a += performance.now()), "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(b) {
+    var c = 0 | (a + 16 * Math.random()) % 16;
+    return a = Math.floor(a / 16), ("x" == b ? c : 8 | 3 & c).toString(16)
+  })
+}
+
 const handleDownload = async () => {
   downloadProgress.value = 0
 
@@ -132,9 +140,8 @@ const handleDownload = async () => {
     const packName = manifestJSON.header ? manifestJSON.header.name && manifestJSON.header.name.trim(" ") !== '' ? manifestJSON.header.name : 'export' : 'export'
     zipFileName = packName.length > 15 ? packName.substring(0, 15) + '....zip' : packName + '.zip';
   } else {
-    const getUUID = await import('../functions/uuid')
-    uuid1 = getUUID.default()
-    uuid2 = getUUID.default()
+    uuid1 = uuid()
+    uuid2 = uuid()
     await fs.value.write("manifest.json", {
       format_version: 2,
       header: {
