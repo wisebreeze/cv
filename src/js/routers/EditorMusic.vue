@@ -698,7 +698,7 @@ const deleteSong = async index => {
     settings = repairSettings(settings)
 
     const albumID = currentAlbum.value.id
-    const songDataTemp = settings[albumID + "Album@cn80b37451.f"].modifications[0].value[index]
+    const songDataTemp = settings[albumID + "Album@cn80b37451.f"].$listContent[index]
     const songData = songDataTemp[Object.keys(songDataTemp)[0]]
     const id = songData.$music_id.replace("cube.song.", "")
 
@@ -708,7 +708,7 @@ const deleteSong = async index => {
   
       delete settings[albumID + 'Album@cn80b37451.f'].$listContent[index]
       delete sounds['cube.song.' + id]
-      delete sounds['cube.music.' + id].sounds[index]
+      delete sounds['cube.music.' + albumID].sounds[index]
     }
 
     fs.value.write('ui/_setting.json', settings)
