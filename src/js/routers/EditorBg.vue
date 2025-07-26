@@ -5,24 +5,27 @@
       <mdui-dialog :open="infoDialogOpen" @close="infoDialogOpen = false">
         <div slot="headline">{{ t('bg$info') }}</div>
         <mdui-text-field 
-          v-model="delay"
+          :value="delay"
           :disabled="handleImage"
           :label="t('bg$interval')"
           inputmode="decimal"
           style="margin-bottom: 5px"
+          @change="delay = $event.target.value"
         />
         <mdui-text-field 
-          v-model="duration"
+          :value="duration"
           :disabled="handleImage"
           :label="t('bg$duration')"
           inputmode="decimal"
           style="margin-bottom: 5px"
+          @change="duration = $event.target.value"
         />
         <mdui-text-field 
-          v-model="blurRadius"
+          :value="blurRadius"
           :label="t('bg$blurRadius')"
           inputmode="decimal"
           style="margin-bottom: 5px"
+          @change="blurRadius = $event.target.value"
         />
         <div slot="action">
           <mdui-button variant="text" style="margin-right: 0.2rem" @click="cancelBtn">{{ t('gui$cancel') }}</mdui-button>
@@ -33,7 +36,6 @@
       <div class="editor-container">
         <input 
           type="file" 
-          accept="image/*, video/*" 
           ref="uploadFile" 
           @change="fileHandle" 
           class="file-input"
@@ -156,9 +158,9 @@ const infoDialogOpen = ref(false)
 const handleImage = ref(false)
 const isCompleted = ref(false)
 
-const delay = ref(0.3)
-const duration = ref(0.12)
-const blurRadius = ref(10)
+const delay = ref("0.3")
+const duration = ref("0.12")
+const blurRadius = ref("10")
 
 const progressText = ref(t('bg$progress'))
 const progressPercentage = ref('0%')
