@@ -447,7 +447,7 @@ const repairSettings = obj => {
     obj.music_album = {
       modifications: [
         {
-          array_name: "content",
+          array_name: "controls",
           operation: "insert_back",
           value: []
         }
@@ -457,7 +457,7 @@ const repairSettings = obj => {
     obj.music_sidebar_content = {
       modifications: [
         {
-          array_name: "content",
+          array_name: "controls",
           operation: "insert_back",
           value: []
         }
@@ -467,7 +467,7 @@ const repairSettings = obj => {
     obj.music_content = {
       modifications: [
         {
-          array_name: "content",
+          array_name: "controls",
           operation: "insert_back",
           value: []
         }
@@ -1215,7 +1215,7 @@ onMounted(async () => {
         settings.music_album = {
           modifications: [
             {
-              array_name: "content",
+              array_name: "controls",
               operation: "insert_back",
               value: []
             }
@@ -1224,7 +1224,7 @@ onMounted(async () => {
         settings.music_sidebar_content = {
           modifications: [
             {
-              array_name: "content",
+              array_name: "controls",
               operation: "insert_back",
               value: []
             }
@@ -1233,7 +1233,7 @@ onMounted(async () => {
         settings.music_content = {
           modifications: [
             {
-              array_name: "content",
+              array_name: "controls",
               operation: "insert_back",
               value: []
             }
