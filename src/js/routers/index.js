@@ -136,7 +136,7 @@ router.beforeEach(async (to, from, next) => {
   })
   targetMarkdown = targetMarkdown ? targetMarkdown.substring(1).replace('.md', '') : targetMarkdown
   if (targetMarkdown) {
-    return router.replace(targetMarkdown)
+    return router.push(targetMarkdown)
   }
   next()
 })
