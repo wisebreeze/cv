@@ -44,6 +44,10 @@ module.exports = {
     warnings: false
   },
   resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+      '@markdown': path.resolve(__dirname, 'src/markdown')
+    },
     extensions: ['.js', '.jsx', '.vue'],
     modules: ['node_modules', 'src']
   },
@@ -62,6 +66,23 @@ module.exports = {
             preserveWhitespace: false
           }
         }
+      },
+      {
+        test: /\.md$/,
+        use: [
+          {
+            loader: 'vue-loader',
+            options: {
+              compilerOptions: {
+                isCustomElement: tag => (tag.startsWith('mdui-') || tag.startsWith('ion-')),
+                preserveWhitespace: false
+              }
+            }
+          },
+          {
+            loader: path.resolve(__dirname, 'src/js/markdown-loader.js')
+          }
+        ]
       },
       {
         test: /\.(js|jsx)$/,
