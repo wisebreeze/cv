@@ -95,14 +95,20 @@ export default {
       }, 1500)
     },
     executeDebugScript() {
+      if (window.eruda && window.eruda._isInit) return
       const script = document.createElement('script')
       script.src = "https://cdn.jsdelivr.net/npm/eruda"
       document.body.appendChild(script)
       script.onload = () => {
-        if (typeof eruda !== 'undefined') {
+        if (typeof eruda !== 'undefined' && !eruda._isInit) {
           eruda.init()
+          eruda._isInit = true
         }
-      };
+      }
+      script.onerror = () => {
+        console.error('Eruda failed to load');
+        this.resetClickCounter();
+      }
     },
     resetClickCounter() {
       this.clickCount = 0
