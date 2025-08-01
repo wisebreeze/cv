@@ -676,26 +676,40 @@ onBeforeUnmount(() => {
   .footer-page {
     flex-direction: row;
     align-items: center;
+    justify-content: center;
   }
 
   .footer-top {
-    width: 40%;
+    position: static;
+    width: auto;
     height: auto;
-    padding-right: 48px;
+    padding-bottom: 0;
+    margin-right: 48px;
+    align-items: center;
   }
 
   .footer-sitemap {
-    width: 60%;
+    position: static;
+    width: auto;
     height: auto;
-    justify-content: flex-start;
+    padding: 0;
+    margin-bottom: 0;
+    flex-direction: row;
     gap: 48px;
+    justify-content: center;
   }
-  
+
+  .sitemap-column {
+    flex-direction: column;
+    gap: 12px;
+  }
+
   .footer-copyright {
     position: absolute;
-    bottom: 0;
+    bottom: 24px;
     left: 0;
     right: 0;
+    text-align: center;
   }
 }
 </style>

@@ -99,13 +99,26 @@ const updateDimensions = () => {
   windowWidth.value = window.innerWidth
 }
 
+let touchStartY = 0
+const preventPullToRefresh = (e) => {
+  if (window.scrollY <= 0 && e.touches[0].clientY > touchStartY) {
+    e.preventDefault()
+  }
+}
+
 onMounted(async () => {
   updateDimensions()
   window.addEventListener('resize', updateDimensions)
+  document.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY
+  }, { passive: true })
+  document.addEventListener('touchmove', preventPullToRefresh, { passive: false })
 })
 
 onUnmounted(() => {
   window.removeEventListener('resize', updateDimensions)
+  document.removeEventListener('touchmove', preventPullToRefresh)
+  document.removeEventListener('touchstart', () => {})
 })
 
 const contentStyle = computed(() => {
