@@ -110,6 +110,9 @@
 // ━━━━━━━━━━
 // 配置 | config
 // ━━━━━━━━━━
+// 无障碍 | accessibility //
+"$cube_set_7b00d0c8": false,// 开/关标签 | on/off label
+
 // HUD //
 "$cube_set_daf3c18e": false,// 快捷栏选定颜色动画 | hotbar selection color anim
 "$cube_set_f51d10b7": true,// 圆角快捷栏 | fillet hotbar
@@ -125,10 +128,11 @@
 "$cube_set_269a8a99": 1.5,// HUD 提示时长 | hide HUD prompts duration
 "$cube_set_f89237ba": false,// 隐藏Hud时，始终显示快捷栏 | always show hotbar
 
+"$cube_set_5226c632": false,// 底部消息 | bottom message
 "$cube_set_4a0d69b6": true,// 等长消息 | equal length message
 "$cube_set_706f8519": 8,// 聊天栏消息显示条数 | number of chat display
 
-"$cube_set_352b190b": true,// 环境渲染 | environment render
+"$cube_set_352b190b": true,// 氛围渲染 | atmospheric render
 "$cube_set_7b5039a2": true,// 触屏圆圈进度 | touch progress
 
 "$cube_set_83f6db8f": 1,// 信息显示位置 | information display position [0-顶部/top 1-底部/bottom]
@@ -141,9 +145,9 @@
 "$cube_set_b21e18db": true,// 辅助物品 | ancillary item
 
 "$cube_set_65717a9f": false,// 区块地图 | chunk map
-  "$cube_set_3198439e": true,// 史莱姆区块 | slime chunk
+  "$cube_set_3198439e": true,// 标记史莱姆区块 | marking the slime chunk
   "$cube_set_c70c72bb": false,// 坐标轴 | asix
-  "$cube_set_fe8e132d": false,// 资源高度距离 | resource height distance
+  "$cube_set_fe8e132d": false,// [experiment] 矿石分布 | ore distribution
 
 "$cube_set_ef309951": false,// 追溯指针 | recovery compass
   "$cube_set_30943146": 683,// 追溯指针 | recovery compass
@@ -160,20 +164,21 @@
 // 背包和容器 | inventory and container //
 "$cube_set_baf2497a": true,// 非触屏使用模式切换 | switching the non-touch screen mode
 "$cube_set_41120ebc": true,// 模式切换 | mode switch
-"$cube_set_264eb9cf": true,// 辅助按钮 | auxiliary button
+"$cube_set_264eb9cf": true,// 丢弃、移除物品按钮 | drop, remove items button
 "$cube_set_a4709548": false,// 始终快速移动 | always fast move
 "$cube_set_bf7db8a5": true,// 控制物品数量 | control the number
 "$cube_set_32686c12": true,// 搜索物品 | search items
 "$cube_set_e453c46f": true,// 操作全部 | operation all
+"$cube_set_78f78dea": false,// 对单排操作全部 | all for single row operation
 "$cube_set_e99063a4": true,// 是否双击操作全部 | double click operation all
 "$cube_set_e4dc138a": false,// 默认打开工具箱 | open the toolbox by default
 
 "$cube_set_f4f8111b": false,// 悬停文字 | hover text
 "$cube_set_5abe79bd": true,// 触屏选中显示 | touch select display
-"$cube_set_5b8cc68e": false,// 物品 AUX ID | item AUX ID
+"$cube_set_5b8cc68e": true,// 物品 AUX ID | item AUX ID
 "$cube_set_dd62b27d": 0,// 收纳袋位置 | bundle position [0-底部/bottom 1-左下角/bottomLeft 2-右下角/bottomRight]
 
-"$cube_set_894d44d5": true,// 显示飞行物品 | show flying item
+"$cube_set_894d44d5": true,// 物品移动动画 | flying item movement animation
 "$cube_set_ded3a8c5": true,// 选择数量 | select the number
 "$cube_set_40fac462": true,// 是否双击一键合成 | double click craft
 "$cube_set_7c333392": true,// 受伤时关闭容器 | auto close container
@@ -207,11 +212,13 @@
 
 "$cube_set_0a923b41": 2147483647,// 文本框最大字符长度 | text box max length
 "$cube_set_49b7e060": 20,// 最高低耐久 | maximum low durability
+"$cube_set_8a30c7d6": false,// 降低渲染频率 | reduce the rendering frequency
 "$cube_set_b0455ac5": false,// 文本框亵渎过滤器 | editbox profanity filter
 "$cube_set_1e2ff19a": true,// 测试版顶部调试文字 | beta debug text
 "$cube_set_20ccca31": true,// 进度百分比 | progress percentage
 "$cube_set_c99f06d0": true,// 始终显示滚动条 | always show scrollbar
-"$cube_set_9ec76f17": true,// 游戏内背景 | ingame bg
+"$cube_set_9ec76f17": true,// 游戏内屏幕背景 | ingame screen background
+"$cube_set_5ff43006": false,// 移除促销广告 | remove promotional ads
 
 // 设置 | setting //
 "$cube_set_c1f8e213": false,// 在HUD上快速访问 | quick access on hud screen
@@ -219,7 +226,7 @@
   "$cube_set_69f24ce6": true,// 退出旁观模式 | quit spectator mode
   "$cube_set_f1d095df": false,// 精美图像 | graphics
   "$cube_set_d5872399": false,// 强制操作 (疾跑) | forced operation (sprint)
-  "$cube_set_0ceb4d40": false,// 时停 | time stop
+  "$cube_set_0ceb4d40": false,// [1.20.70+] 快速暂停游戏 | quickly pause the game
   "$cube_set_d4545d73": 0,// 快捷按钮大小 | shortcut button size
   "$cube_set_0ded74fc": 0.7,// 更多设置面板宽度 | more setting panel width
   "$cube_set_a1de0189": 0.75,// 设置X轴大小 | settings x axis size
@@ -240,13 +247,6 @@
 "$cube_set_b3eb627d": false,// 开关过渡动画 | toggle transition animation
 "$cube_set_35c074c1": true,// [experiment] 控件悬停动画 | controls hover animation
 "$cube_set_262e4ae6": false,// [experiment] 控件边缘光泽 | controls edge gloss
-"$cube_set_9f7e5e4e": false,// [experiment] 增强下拉动画 | enhance dropdown animation
-
-// 无障碍 | accessibility //
-"$cube_set_7b00d0c8": false,// 开/关标签 | on/off label
-
-// 优化 | optimize //
-"$cube_set_8a30c7d6": false,// 低频渲染 | low frequency rendering
 
 // 开始 | start //
 "$cube_set_c1919f11": false,// 相片切片 | photp clip
@@ -264,7 +264,7 @@
 "$cube_set_a29ab0a9": true,// 音符盒 | note block
 
 // 暂停 | pause //
-"$cube_set_12fb5977": false,// [1.20.70+] 时停 | time stop
+"$cube_set_12fb5977": false,// [1.20.70+] 快速暂停游戏 | quickly pause the game
 "$cube_set_33c00efe": true,// 新布局 | new layout
 "$cube_set_5ef6853d": false,// 默认隐藏玩家列表 | hide player list by default
 "$cube_set_e4e1334d": true,// 二次确认保存并退出 | second confirm exit
@@ -277,7 +277,7 @@
 "$cube_set_9cbb46ee": true,// 受伤时关闭聊天屏幕 | auto close chat screen
 "$cube_set_fa7d1a3c": false,// 忽略设置字体 | ignore setting font
 "$cube_set_a6c0924f": true,// 自动滚动到底部 | automatically scroll to bottom
-"$cube_set_8edb9fbb": true,// 背景 | bg
+"$cube_set_8edb9fbb": true,// 屏幕背景 | screen background
 
 "$cube_set_b9a8724e": true,// 增强命令显示 | enhanced command display
 "$cube_set_77ff892c": true,// 命令补全时隐藏命令提示 | hide command prompts when command completion
@@ -291,12 +291,13 @@
 "$cube_set_9003f259": true,// 受伤时关闭药水效果屏幕 | auto close effect screen
 "$cube_set_f2234e31": true,// 受伤时关闭书与羽毛屏幕 | auto close book with feather screen
 "$cube_set_c9ab82f1": true,// 受伤时关闭告示牌屏幕 | auto close sign screen
-"$cube_set_9ed4aeaf": true,// 总是解锁未交易选项 | always unlock trade option
+"$cube_set_9ed4aeaf": true,// 解锁所有交易物品 | unlock all traded items
 "$cube_set_6a7a531e": false,// 交易列表网格布局 | grid layout of the transaction list
-"$cube_set_539b5cb4": true,// 命令实际延迟 | command actual delay
+"$cube_set_539b5cb4": true,// 命令实际延迟计算 | calculate the actual delay of the command
 "$cube_set_b04cb703": false,// 命令输入框可滚动 | command edit text box can be scrolled
-"$cube_set_4be847bd": false,// 无维度加载背景 | no dimension loading background
+"$cube_set_4be847bd": false,// 去除维度加载背景 | remove dimension loading background
 "$cube_set_d755287c": false,// 服务器表单强制内核 | server form forced core
+"$cube_set_f02b91c6": false,// 教育版离线登录 | education edition login offline
 
 "$cube_set_bc8b0fd2": true,// 彩蛋 | easter eggs
   // 大型内容沙盒 | large content sandbox
@@ -305,15 +306,11 @@
   //   游戏屏幕 play screen
   "$cube_set_ff9ae346": false,// 大型内容沙盒 | large content sandbox
 
-// 危险区 | danger zone //
-"$cube_set_5ff43006": false,// 移除促销 | remove promotion
-"$cube_set_f02b91c6": false,// 离线登录 | login offline
-
 // ━━━━━━━━━━
 // 立方面板 | cube panel
 // ━━━━━━━━━━
 //# 基本 | basic #//
-"$cube_panel": false,// 总开关 | total switch
+"$cube_panel": false,// 启用面板 | enable panel
 "$cube_panel_anims": true,// 进入/退出动画 | enter/exit animation
 "$cube_panel_centered_layout": false,// 居中布局 | centered layout
 "$cube_panel_only_functions": false,// 仅功能 (无面板模式，以下设置生效) | only functions (In the non-panel mode, the following settings take effect)
@@ -345,6 +342,13 @@
   "$cube_panel_map_live_update": true,// 实时更新 | live update
   "$cube_panel_map_live_update_interval": 3,// 实时更新间隔 | live update interval
 
+"$cube_panel_ore_distribution": false,// 矿石分布 | ore distribution
+  "$cube_panel_ore_distribution_background_alpha": 0.4,// 背景不透明度 | background alpha
+  "$cube_panel_ore_distribution_offset_x": 0.5,// X轴偏移 | offset x
+  "$cube_panel_ore_distribution_offset_y": 0.15,// Y轴偏移 | offset y
+  "$cube_panel_ore_distribution_size_x": 0.5,// X轴大小 | size x
+  "$cube_panel_ore_distribution_size_y": 0.5,// Y轴大小 | size y
+
 "$cube_panel_player_list": false,// 玩家列表 | player list
   "$cube_panel_player_list_background_alpha": 0.4,// 不透明度 | alpha
   "$cube_panel_player_list_offset_x": 0.5,// X轴偏移 | offset x
@@ -359,6 +363,7 @@
   "$cube_panel_title_actionbar": true,// 活动栏 | actionbar
 
 "$cube_panel_chat": true,// 聊天 | chat
+  "$cube_panel_chat_bottom": false,// 底部消息 | bottom message
   "$cube_panel_chat_alpha": 0.25,// 不透明度 | alpha
   "$cube_panel_chat_size_x": 0.8,// X轴大小 | size x
 
@@ -404,9 +409,9 @@
 //# 信息 | info #//
 "$cube_panel_name": "CubeVisage Panel",
 "$cube_panel_author": "wisebreeze",
-"$cube_panel_version": "9",
+"$cube_panel_version": "10",
 "$cube_panel_version_prefix": "snapshot",
-"$cube_panel_date": "2025/6/6",
+"$cube_panel_date": "2025/7/31",
 "$cube_panel_time_zone": "GMT+08:00",
 
 "$cube_panel_client_name": "",// 客户端名称 (必填, 留空则不显示以下信息) | client name (mandatory. If left blank, the following information will not be displayed)
@@ -995,11 +1000,11 @@
 "$cube_creator_xbox": "wiseBreeze2303",
 "$cube_uuid": "28e65475-dda7-46e6-9212-e6c90cd9bafc",
 "$cube_display_name": "§b§lCubeVisage UI§r§f",
-"$cube_version": "4.14",
+"$cube_version": "5",
 "$cube_version_patch": 0,
-"$cube_version_code": 4140100,
-"$cube_version_prefix": "snapshot",
-"$cube_version_date": "2025/7/6",
+"$cube_version_code": 5000000,
+"$cube_version_prefix": "release",
+"$cube_version_date": "2025/7/30",
 "$cube_version_time_zone": "GMT+08:00",
 
 "$cube_protocol_version": "3.5.3",
@@ -1007,19 +1012,19 @@
 "$cube_protocol_time_zone": "GMT+08:00",
 
 "$cube_core_name": "CubeVisage Core",
-"$cube_core_version": "1.0.58",
-"$cube_core_version_code": 10058,
+"$cube_core_version": "1.0.59",
+"$cube_core_version_code": 10059,
 "$cube_core_version_prefix": "release",
-"$cube_core_date": "2025/7/26",
+"$cube_core_date": "2025/7/30",
 "$cube_core_time_zone": "GMT+08:00",
 
 "$cube_design_name": "CubeVisage Design",
 "$cube_design_author": "breeze",
-"$cube_design_version": "1.0.18",
-"$cube_design_version_code": 10018,
-"$cube_design_version_target_code": 4150000,
+"$cube_design_version": "1.0.19",
+"$cube_design_version_code": 10019,
+"$cube_design_version_target_code": 5000000,
 "$cube_design_version_min_code": 4150000,
-"$cube_design_version_prefix": "snapshot",
-"$cube_design_date": "2025/7/26",
+"$cube_design_version_prefix": "release",
+"$cube_design_date": "2025/7/30",
 "$cube_design_time_zone": "GMT+08:00"
 }
