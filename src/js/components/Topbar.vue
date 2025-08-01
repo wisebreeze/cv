@@ -8,7 +8,7 @@
         <router-link v-if="!showBackBtn" to="/" :style="{color: 'inherit','text-decoration': 'none'}">
           {{ title || $t('gui$packName') }}
         </router-link>
-        <span v-if="showBackBtn">
+        <span @click.prevent="handleTitleClick" v-if="showBackBtn">
           {{ $t('e$back') }}
         </span>
       </mdui-top-app-bar-title>
@@ -72,12 +72,45 @@ export default {
   data() {
     return {
       showBackBtn: false,
+      clickCount: 0,
+      clickTimer: null,
       systemDarkTheme: window.matchMedia('(prefers-color-scheme: dark)').matches,
       theme: localStorage.getItem('themeType') || 'auto',
       language: this.getFormattedLanguage() || this.$i18n.locale || 'zh-CN'
     }
   },
   methods: {
+    handleTitleClick() {
+      if (this.clickTimer) {
+        clearTimeout(this.clickTimer)
+      }
+      this.clickCount++;
+      if (this.clickCount >= 3) {
+        this.executeDebugScript()
+        this.resetClickCounter()
+        return
+      }
+      this.clickTimer = setTimeout(() => {
+        this.resetClickCounter()
+      }, 1500)
+    },
+    executeDebugScript() {
+      const script = document.createElement('script')
+      script.src = "https://cdn.jsdelivr.net/npm/eruda"
+      document.body.appendChild(script)
+      script.onload = () => {
+        if (typeof eruda !== 'undefined') {
+          eruda.init()
+        }
+      };
+    },
+    resetClickCounter() {
+      this.clickCount = 0
+      if (this.clickTimer) {
+        clearTimeout(this.clickTimer)
+        this.clickTimer = null
+      }
+    },
     handleLanguageChange(lang) {
       this.language = lang
       localStorage.setItem('language', lang)
@@ -134,6 +167,11 @@ export default {
     })
 
     this.showBackBtn = this.$route.meta ? this.$route.meta.i > 1 : false
+  },
+  beforeDestroy() {
+    if (this.clickTimer) {
+      clearTimeout(this.clickTimer)
+    }
   }
 }
 </script>
