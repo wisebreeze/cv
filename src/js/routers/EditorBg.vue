@@ -310,7 +310,7 @@ const continueBtn = async () => {
 
         const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
 
-        const processor = optimizedGaussBlur(imgData, blurRadius)
+        const processor = optimizedGaussBlur(imgData, blurRadius.value)
         const generator = processor.process()
 
         async function nextChunk(deadline) {
