@@ -94,6 +94,8 @@
   editor: {
     empty_title: "Welcome to the CubeVisage Custom Package Editor",
     empty_subtitle: "Click the options on the left to edit layouts for each section",
+    backToLegacy: "Back to Legacy",
+    legacyConfirm: "Are you sure you want to go to the legacy version?\n\nSome features may not be available in the legacy version.",
     continue_tip: "You have created a customized package. Do you want to continue editing?\nClick New to create a customized package and overwrite the previous customized operation. This operation cannot be undone.",
     copy: "Copy",
     guide: {

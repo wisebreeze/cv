@@ -18,7 +18,7 @@
         >
           <div class="card-content">
             <ion-icon class="card-icon" :name="btn.icon"></ion-icon>
-            <span class="card-text">{{ btn.text }}</span>
+            <span class="card-text">{{ t(btn.text) }}</span>
           </div>
         </mdui-card>
       </div>
@@ -29,6 +29,23 @@
       style="display: none"
       @change="handleFileSelect"
     />
+    <div class="footer-actions">
+      <mdui-button variant="text" @click="$router.push('/privacy')">
+        {{ $t('main.privacyPolicy') }}
+      </mdui-button>
+      <mdui-button variant="text" @click="showLegacyDialog = true">
+        {{ $t('editor.backToLegacy') }}
+      </mdui-button>
+    </div>
+    <mdui-dialog :open="showLegacyDialog" @close="showLegacyDialog = false">
+      <div v-html="$t('editor.legacyConfirm').replace(/\n/g, '<br>')"/>
+      <mdui-button slot="action" variant="text" @click="showLegacyDialog = false">
+        {{ $t('gui$cancel') }}
+      </mdui-button>
+      <mdui-button slot="action" variant="filled" @click="goToLegacy">
+        {{ $t('gui$confirm') }}
+      </mdui-button>
+    </mdui-dialog>
     <mdui-dialog :open="showContinueDialog" @close="showContinueDialog = false">
       <div v-html="$t('editor.continue_tip').replace(/\n/g, '<br>')"/>
       <mdui-button slot="action" variant="text" @click="showContinueDialog = false">{{ t('gui$cancel') }}</mdui-button>
@@ -49,8 +66,14 @@ const { t } = useI18n()
 const router = useRouter()
 const fs = inject("fs")
 
+const showLegacyDialog = ref(false)
 const zipInput = ref(null)
 const showContinueDialog = ref(false)
+
+const goToLegacy = () => {
+  showLegacyDialog.value = false
+  window.location.href = 'https://d3a25a8c.cv-erd.pages.dev/custom/'
+}
 
 const manifestJSON = {
   format_version: 2,
@@ -71,8 +94,8 @@ const manifestJSON = {
 }
 
 const buttons = ref([
-  { text: t("gui$new"), action: 'create', icon: 'add-outline' },
-  { text: t('gui$edit'), action: 'edit', icon: 'create-outline' }
+  { text: "gui$new", action: 'create', icon: 'add-outline' },
+  { text: "gui$edit", action: 'edit', icon: 'create-outline' }
 ])
 
 const handleAction = async (action) => {
@@ -210,9 +233,45 @@ onMounted(() => {
   }
 }
 
+.footer-actions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+  
+  .footer-buttons {
+    display: flex;
+    gap: 1.5rem;
+    
+    .footer-btn {
+      color: rgb(var(--mdui-color-on-surface-variant)) !important;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      
+      &:hover {
+        color: rgb(var(--mdui-color-on-surface)) !important;
+      }
+    }
+  }
+}
+
 @media (min-width: 768px) {
   .content-container {
     width: 40% !important;
+  }
+  .footer-actions {
+    padding: 1.5rem 0;
+    
+    .footer-buttons {
+      gap: 2rem;
+      
+      .footer-btn {
+        font-size: 1rem;
+      }
+    }
   }
 }
 
