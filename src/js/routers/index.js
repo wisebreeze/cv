@@ -36,6 +36,12 @@ const routes = [
     meta: { i: 3 }
   },
   {
+    path: '/group',
+    name: 'Group',
+    component: () => import('./Group'),
+    meta: { i: 4 }
+  },
+  {
     path: '/toolbox/cps',
     name: 'CPS',
     component: () => import('./ToolboxCPS'),

@@ -88,6 +88,19 @@
     "userAgreement": "用户协议",
     "copyright": "智韵清风 版权所有"
   },
+  "discord": "Discord 社区",
+  "discord_desc": "官方推荐社区",
+  "qq_channel": "腾讯频道",
+  "qq_channel_desc": "官方推荐频道",
+  "qq_group4": "QQ群 ④群",
+  "qq_group4_desc": "1039970716（500人群）",
+  "qq_group3": "QQ群 ③群",
+  "qq_group3_desc": "200人群（已满）",
+  "qq_group2": "QQ群 ②群",
+  "qq_group2_desc": "200人群（已满）",
+  "qq_group1": "QQ群 ①群",
+  "qq_group1_desc": "500人群（已满）",
+  "full": "已满",
   editor: {
     empty_title: "欢迎使用 立方之窗 自定义包编辑器",
     empty_subtitle: "点击左侧选项进入相应版块的布局",
@@ -120,6 +133,7 @@
       pauseSong: "暂停播放",
       resumeSong: "继续播放",
       edit: "编辑",
+      fileNotFound: "音乐未找到",
       removeCover: {
         title: '移除封面',
         message: '确定要移除封面吗？',

@@ -91,6 +91,19 @@
     "userAgreement": "User Agreement",
     "copyright": "Copyright © wisebreeze"
   },
+  "discord": "Discord Community",
+  "discord_desc": "Officially recommended",
+  "qq_channel": "QQ Channel",
+  "qq_channel_desc": "Officially recommended",
+  "qq_group4": "QQ Group ④",
+  "qq_group4_desc": "1039970716 (500 members)",
+  "qq_group3": "QQ Group ③",
+  "qq_group3_desc": "200 members (Full)",
+  "qq_group2": "QQ Group ②",
+  "qq_group2_desc": "200 members (Full)",
+  "qq_group1": "QQ Group ①",
+  "qq_group1_desc": "500 members (Full)",
+  "full": "Full",
   editor: {
     empty_title: "Welcome to the CubeVisage Custom Package Editor",
     empty_subtitle: "Click the options on the left to edit layouts for each section",
@@ -123,6 +136,7 @@
       pauseSong: "Pause",
       resumeSong: "Resume",
       edit: "Edit",
+      fileNotFound: "File not found",
       removeCover: {
         title: 'Remove Cover',
         message: 'Are you sure you want to remove the cover?',
