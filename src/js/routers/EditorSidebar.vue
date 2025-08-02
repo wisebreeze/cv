@@ -111,7 +111,8 @@ const menuItems = ref([
   { text: 'editor.settings.title', icon: 'settings-outline', path: '/editor/settings' },
   { text: 'theme$title', icon: 'brush-outline', path: '/editor/theme' },
   { text: 'editor.panel.title', icon: 'briefcase-outline', path: '/editor/panel' },
-  { text: 'editor.word.screenTitle', icon: 'chatbox-outline', path: '/editor/word' }
+  { text: 'editor.word.screenTitle', icon: 'chatbox-outline', path: '/editor/word' },
+  { text: 'editor.guide.title', icon: 'help-outline', path: '/guide' }
 ])
 
 const menuOnClick = path => {

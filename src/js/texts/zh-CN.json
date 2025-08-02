@@ -93,6 +93,9 @@
     empty_subtitle: "点击左侧选项进入相应版块的布局",
     continue_tip: "您之前有制作自定义包，是否继续编辑？\n点击新建会创建自定义包，会覆盖之前的自定义操作，该操作无法撤销！",
     copy: "复制",
+    guide: {
+      title: "名词解释"
+    },
     music: {
       addAlbum: "添加专辑",
       albumArtist: "专辑作者",

@@ -247,12 +247,25 @@ const onTouchEnd = (e) => {
   }
 }
 
+let touchStartY = 0
+const preventPullToRefresh = (e) => {
+  if (window.scrollY <= 0 && e.touches[0].clientY > touchStartY) {
+    e.preventDefault()
+  }
+}
+
 onMounted(() => {
   setWindowHeight()
   window.addEventListener('resize', setWindowHeight)
+  document.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY
+  }, { passive: true })
+  document.addEventListener('touchmove', preventPullToRefresh, { passive: false })
 })
 
 onBeforeUnmount(() => {
+  document.removeEventListener('touchmove', preventPullToRefresh)
+  document.removeEventListener('touchstart', () => {})
   window.removeEventListener('resize', setWindowHeight)
   clearTimeout(wheelTimeout)
 })
