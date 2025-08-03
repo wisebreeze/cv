@@ -91,7 +91,7 @@
     "userAgreement": "User Agreement",
     "copyright": "Copyright © wisebreeze"
   },
-  "discord": "Discord Community",
+  "discord": "Discord",
   "discord_desc": "Officially recommended",
   "qq_channel": "QQ Channel",
   "qq_channel_desc": "Officially recommended",
@@ -181,6 +181,14 @@
     }
   },
   download: {
+    "bedrock": "Bedrock",
+    "java": "Java",
+    "curseforge": "CurseForge",
+    "mcpedl": "MCPEDL",
+    "modrinth": "Modrinth",
+    "oldVersionTitle": "Download old version?",
+    "oldVersionDesc": "Old versions are no longer maintained, suitable for nostalgic users",
+    "oldVersionButton": "Download",
     progress: 'Progress {0}%',
     help1: 'Overview of computer files',
     help1desc: 'A file is a data stream stored in a storage device. It consists of a file name, content, and attributes.',

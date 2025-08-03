@@ -56,7 +56,7 @@ const communities = ref([
     name: 'qq_group4',
     description: 'qq_group4_desc',
     icon: qqIcon,
-    link: 'https://qm.qq.com/q/1039970716',
+    link: 'https://qm.qq.com/q/Cd0EBeLZKw',
     full: false
   },
   {
@@ -64,7 +64,7 @@ const communities = ref([
     name: 'qq_group3',
     description: 'qq_group3_desc',
     icon: qqIcon,
-    link: '#',
+    link: 'https://qm.qq.com/q/XWZZwf0AsS',
     full: true
   },
   {
@@ -72,7 +72,7 @@ const communities = ref([
     name: 'qq_group2',
     description: 'qq_group2_desc',
     icon: qqIcon,
-    link: '#',
+    link: 'https://qm.qq.com/q/q1qTvFYoIE',
     full: true
   },
   {
@@ -80,7 +80,7 @@ const communities = ref([
     name: 'qq_group1',
     description: 'qq_group1_desc',
     icon: qqIcon,
-    link: '#',
+    link: 'https://qm.qq.com/q/NFkzjc8WYM',
     full: true
   }
 ])

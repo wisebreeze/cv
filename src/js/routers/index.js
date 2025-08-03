@@ -20,6 +20,12 @@ const routes = [
     meta: { i: 2 }
   },
   {
+    path: '/download',
+    name: 'Download',
+    component: () => import('./Download'),
+    meta: { i: 2 }
+  },
+  {
     path: '/editor',
     name: "Editor",
     redirect: "/editor/home",
