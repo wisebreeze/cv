@@ -1246,7 +1246,16 @@ onMounted(async () => {
         const { $album_id: id, $album_cover, $album_name: name } = obj
         const hasCover = $album_cover !== "($cube_path_icons+custom)"
         const { $listContent: songs, $album_describe: artist } = settings[id + "Album@cn80b37451.f"]
-        const cover = hasCover ? URL.createObjectURL(await fs.value.read('textures/cube/cover/album/' + id + '.png')) : false
+        let cover = false
+        if (hasCover) {
+          try {
+            const albumCoverData = await fs.value.read('textures/cube/cover/album/' + id + '.png')
+            const albumBlob = new Blob([albumCoverData], { type: 'image/png' })
+            cover = URL.createObjectURL(albumBlob)
+          } catch (e) {
+            console.error('Cover loading failed:', e)
+          }
+        }
 
         const songsArray = []
         for (const songControl of songs) {
@@ -1254,11 +1263,22 @@ onMounted(async () => {
           const songID = song.$music_id.replace("cube.song.", "")
           const songBlob = await fs.value.read('sounds/album/' + id + '/' + songID + '.ogg')
 
+          let coverURL = false
+          if (song.$music_cover) {
+            try {
+              const path = song.$music_cover.replace("($cube_path_base+'", "textures/cube/").replace("')", "")
+              const coverData = await fs.value.read(path)
+              const blob = new Blob([coverData], { type: 'image/png' })
+              coverURL = URL.createObjectURL(blob)
+            } catch (e) {
+              console.error('Cover loading failed:', e)
+            }
+          }
           const songObj = {
             title: song.$music_name,
             duration: song.$music_minute + ':' + song.$music_second,
             artist: song.$music_author,
-            cover: song.$music_cover ? URL.createObjectURL(await fs.value.read(song.$music_cover)) : false,
+            cover: coverURL,
             file: null,
             fileName: songID + ".ogg",
             id: songID
