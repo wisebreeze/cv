@@ -81,7 +81,7 @@
 // and so on…
 // ver: 1.12 int: 112
 "$mc_ver": 121,
-"$mc_sub_ver": 93,
+"$mc_sub_ver": 100,
 
 "$cube_compatible_bundle": true,// 收纳袋 | bundle
 "$cube_compatible_global_gradient": true,// 渐变效果 | gradient effect
@@ -115,7 +115,7 @@
 
 // HUD //
 "$cube_set_daf3c18e": false,// 快捷栏选定颜色动画 | hotbar selection color anim
-"$cube_set_f51d10b7": true,// 圆角快捷栏 | fillet hotbar
+"$cube_set_f51d10b7": true,// 快捷栏圆角背景 | hotbar round corner background
 "$cube_set_2b2c8eeb": true,// 快捷栏偏移动画 | hotbar offset animation
 "$cube_set_838534a8": true,// 侧边记分板分数 | scoreboard scores
 "$cube_set_bac1d62e": false,// 折叠附魔信息 | folding enchant information
@@ -125,7 +125,7 @@
 "$cube_set_9ae6a2ef": false,// 数据概览 | data overview
 "$cube_set_ecf4b741": true,// 隐藏 HUD | hide hud
 "$cube_set_13564f64": true,// 隐藏 HUD 提示 | hide HUD prompts
-"$cube_set_269a8a99": 1.5,// HUD 提示时长 | hide HUD prompts duration
+"$cube_set_269a8a99": 1.5,// 隐藏 HUD 提示时长 | hide HUD prompts duration
 "$cube_set_f89237ba": false,// 隐藏Hud时，始终显示快捷栏 | always show hotbar
 
 "$cube_set_5226c632": false,// 底部消息 | bottom message
@@ -147,7 +147,7 @@
 "$cube_set_65717a9f": false,// 区块地图 | chunk map
   "$cube_set_3198439e": true,// 标记史莱姆区块 | marking the slime chunk
   "$cube_set_c70c72bb": false,// 坐标轴 | asix
-  "$cube_set_fe8e132d": false,// [experiment] 矿石分布 | ore distribution
+"$cube_set_fe8e132d": false,// 矿石分布 | ore distribution
 
 "$cube_set_ef309951": false,// 追溯指针 | recovery compass
   "$cube_set_30943146": 683,// 追溯指针 | recovery compass
@@ -175,7 +175,7 @@
 
 "$cube_set_f4f8111b": false,// 悬停文字 | hover text
 "$cube_set_5abe79bd": true,// 触屏选中显示 | touch select display
-"$cube_set_5b8cc68e": true,// 物品 AUX ID | item AUX ID
+"$cube_set_5b8cc68e": false,// 物品 AUX ID | item AUX ID
 "$cube_set_dd62b27d": 0,// 收纳袋位置 | bundle position [0-底部/bottom 1-左下角/bottomLeft 2-右下角/bottomRight]
 
 "$cube_set_894d44d5": true,// 物品移动动画 | flying item movement animation
@@ -292,7 +292,7 @@
 "$cube_set_f2234e31": true,// 受伤时关闭书与羽毛屏幕 | auto close book with feather screen
 "$cube_set_c9ab82f1": true,// 受伤时关闭告示牌屏幕 | auto close sign screen
 "$cube_set_9ed4aeaf": true,// 解锁所有交易物品 | unlock all traded items
-"$cube_set_6a7a531e": false,// 交易列表网格布局 | grid layout of the transaction list
+"$cube_set_6a7a531e": 0,// 交易列表网格布局 | grid layout of the transaction list [0-列表/list 1-网格/grid 2-双列/doubleRow]
 "$cube_set_539b5cb4": true,// 命令实际延迟计算 | calculate the actual delay of the command
 "$cube_set_b04cb703": false,// 命令输入框可滚动 | command edit text box can be scrolled
 "$cube_set_4be847bd": false,// 去除维度加载背景 | remove dimension loading background
@@ -1001,10 +1001,10 @@
 "$cube_uuid": "28e65475-dda7-46e6-9212-e6c90cd9bafc",
 "$cube_display_name": "§b§lCubeVisage UI§r§f",
 "$cube_version": "5",
-"$cube_version_patch": 0,
-"$cube_version_code": 5000000,
+"$cube_version_patch": 2,
+"$cube_version_code": 5000200,
 "$cube_version_prefix": "release",
-"$cube_version_date": "2025/7/30",
+"$cube_version_date": "2025/8/9",
 "$cube_version_time_zone": "GMT+08:00",
 
 "$cube_protocol_version": "3.5.3",
@@ -1012,19 +1012,19 @@
 "$cube_protocol_time_zone": "GMT+08:00",
 
 "$cube_core_name": "CubeVisage Core",
-"$cube_core_version": "1.0.59",
-"$cube_core_version_code": 10059,
+"$cube_core_version": "1.0.62",
+"$cube_core_version_code": 10062,
 "$cube_core_version_prefix": "release",
-"$cube_core_date": "2025/7/30",
+"$cube_core_date": "2025/8/9",
 "$cube_core_time_zone": "GMT+08:00",
 
 "$cube_design_name": "CubeVisage Design",
 "$cube_design_author": "breeze",
-"$cube_design_version": "1.0.19",
-"$cube_design_version_code": 10019,
+"$cube_design_version": "1.0.20",
+"$cube_design_version_code": 10020,
 "$cube_design_version_target_code": 5000000,
-"$cube_design_version_min_code": 4150000,
+"$cube_design_version_min_code": 5000000,
 "$cube_design_version_prefix": "release",
-"$cube_design_date": "2025/7/30",
+"$cube_design_date": "2025/8/9",
 "$cube_design_time_zone": "GMT+08:00"
 }
