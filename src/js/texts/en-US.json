@@ -89,6 +89,13 @@
     "groupChat": "Group Chat",
     "privacyPolicy": "Privacy Policy",
     "userAgreement": "User Agreement",
+    "firstAgreementNotice": "Please agree to our Terms and Privacy Policy to continue",
+    "updateAgreementNotice": "We've updated our terms (Version {version}), please review",
+    "details": "Details",
+    "agree": "Agree",
+    "agreementTitle": "Terms and Privacy Policy",
+    "agreementContent": "Please read and agree to our Terms of Service and Privacy Policy to continue using this website. We use essential cookies to ensure the website functions properly.",
+    "cancel": "Cancel",
     "copyright": "Copyright © wisebreeze"
   },
   "discord": "Discord",

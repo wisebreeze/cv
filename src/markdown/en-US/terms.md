@@ -1,11 +1,12 @@
 # User Agreement
 
-**Last Updated**: July 29, 2025  
-**Effective Date**: July 29, 2025  
+**Last Updated**: August 10, 2025  
+**Effective Date**: August 10, 2025  
 
 ### 1. Scope & Acceptance  
 1.1 This Agreement is a legal contract between you ("**User**") and **WiseBreeze** ("**we**," "**Developer**"), governing your use of the **CubeVisage** website (the "**Site**").  
-1.2 **By accessing the Site, you irrevocably accept all terms herein and acknowledge that Chinese law governs this Agreement**. If you disagree, discontinue use immediately.  
+1.2 **By accessing the Site, you irrevocably accept all terms herein and acknowledge that Chinese law governs this Agreement**. If you disagree, discontinue use immediately.    
+1.3 **CubeVisage is not affiliated with Mojang Studio or Microsoft.**
 
 ### 2. Governing Law & Dispute Resolution
 2.1 **Applicable Law**:  

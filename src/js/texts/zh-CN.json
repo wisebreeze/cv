@@ -86,6 +86,13 @@
     "groupChat": "群聊",
     "privacyPolicy": "隐私政策",
     "userAgreement": "用户协议",
+    "firstAgreementNotice": "请同意我们的用户协议和隐私政策以继续使用服务",
+    "updateAgreementNotice": "我们更新了协议条款（版本{version}），请重新同意",
+    "details": "详情",
+    "agree": "同意",
+    "agreementTitle": "用户协议和隐私政策",
+    "agreementContent": "请阅读并同意我们的用户协议和隐私政策以继续使用本网站。我们使用必要的cookie来确保网站正常运行。",
+    "cancel": "取消",
     "copyright": "智韵清风 版权所有"
   },
   "discord": "Discord",
