@@ -125,7 +125,9 @@ const handleCommunityClick = (community) => {
 }
 
 .community-card {
+  background-color: rgba(var(--mdui-color-primary-container), 0.2);
   border-radius: 12px;
+  box-shadow: none;
   transition: all 0.3s var(--mdui-motion-easing-emphasized);
   transform: translateY(20px);
   opacity: 0;
@@ -133,8 +135,8 @@ const handleCommunityClick = (community) => {
   animation-delay: var(--delay);
   
   &:hover {
+    background-color: rgba(var(--mdui-color-primary-container), 0.32);
     transform: translateY(-4px);
-    box-shadow: var(--mdui-elevation-level3);
   }
   
   &:active {

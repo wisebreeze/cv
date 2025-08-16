@@ -42,6 +42,12 @@ const routes = [
     meta: { i: 3 }
   },
   {
+    path: '/faq',
+    name: 'FAQ',
+    component: () => import('./FAQ'),
+    meta: { i: 5 }
+  },
+  {
     path: '/group',
     name: 'Group',
     component: () => import('./Group'),
@@ -51,6 +57,12 @@ const routes = [
     path: '/toolbox/cps',
     name: 'CPS',
     component: () => import('./ToolboxCPS'),
+    meta: { i: 4 }
+  },
+  {
+    path: '/toolbox/editor',
+    name: 'TextEditor',
+    component: () => import('./ToolboxEditor'),
     meta: { i: 4 }
   },
   {

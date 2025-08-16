@@ -64,7 +64,8 @@ const categories = reactive([
   {
     label: "toolbox.text",
     tools: [
-      { icon: "id-card-outline", text: "UUID 生成", route: '/toolbox/uuid' }
+      { icon: "id-card-outline", text: "UUID 生成", route: '/toolbox/uuid' },
+      { icon: "create-outline", text: "文本编辑器", route: '/toolbox/editor' }
     ]
   },
   {
@@ -268,12 +269,11 @@ const touchEndHandler = (e) => {
   padding: 12px 16px;
   border-radius: 8px;
   margin-bottom: 8px;
-  cursor: pointer;
   transition: background-color 0.2s, transform 0.2s;
   transform: translateZ(0);
   
   &:hover {
-    background: rgb(var(--mdui-color-surface-container-light));
+    background: rgb(var(--mdui-color-surface-container));
   }
 }
 

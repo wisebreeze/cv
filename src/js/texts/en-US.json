@@ -190,6 +190,8 @@
   download: {
     "bedrock": "Bedrock",
     "java": "Java",
+    "faqTitle": "FAQ",
+    "faqDesc": "Having issues? Check common solutions",
     "curseforge": "CurseForge",
     "mcpedl": "MCPEDL",
     "modrinth": "Modrinth",
@@ -209,6 +211,33 @@
     help5desc: 'Go to the game settings, find the global resources, enable the downloaded resource package, and ensure that the order is higher than the cube window after enabling it.',
     help6: 'Delete the old custom package in the game settings',
     help6desc: 'Go to Game > Settings > Storage > Resource Package, select the old version of the resource package, and click the Delete button.\nAfter you click the delete button, a second confirmation window will pop up. Click the delete button again.'
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "searchPlaceholder": "Search questions...",
+    "noResults": "No results found",
+    "q1": "How to use CubeVisage in Minecraft Bedrock Edition",
+    "a1": "■ Method 1\n1. Locate the downloaded CubeVisage UI zip file\n2. Long press the file or right-click and select 'Open with' (or 'Share resource pack')\n3. Select Minecraft\n4. In-game, go to Settings > Global Resources > CubeVisage UI > Activate\n5. Exit settings screen to load the resource pack\n\n■ Method 2\n1. First, locate the downloaded CubeVisage UI zip file\n2. Place the file in the appropriate directory:\nWindows: %localappdata%\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang\\resource_packs\nAndroid/HarmonyOS: Android/data/com.mojang.minecraftpe/files/games/com.mojang/resource_packs\nThen in-game go to Settings > Global Resources > CubeVisage UI > Activate\nIOS: My Device > Minecraft > games > com.mojang > resource_packs\n\n* com.mojang.minecraftpe is the package name, if using different package please locate accordingly",
+    "q2": "How to import resource packs in Minecraft Java Edition?",
+    "a2": "1. Place the resource pack .zip file in .minecraft/resourcepacks folder\n2. Launch Minecraft\n3. Go to Options > Resource Packs\n4. Enable the desired resource pack",
+    "q3": "What versions does CubeVisage UI support?",
+    "a3": "- Bedrock Edition: 1.8 and above\n- Java Edition: 1.21.5 and above\n- Bedrock Ore UI Edition: Corresponding version (marked in downloaded filename)",
+    "q4": "How to use extensions?",
+    "a4": "Same import method as CubeVisage UI. After activation, pay attention to resource pack order:\nExtensions > CubeVisage UI",
+    "q5": "How to customize UI?",
+    "a5": "[Visit customization page](/custom)\nCustom packs should be ordered above CubeVisage UI",
+    "q6": "How to enable Cube Panel?",
+    "a6": "Load the Cube Panel extension pack. Two ways to access:\n1. In pause screen, double-click settings button at bottom left\n2. For touch users, click toolbox left of hotbar, then click settings button on right",
+    "q7": "Why are CubeVisage settings reset?",
+    "a7": "This is because switch states are stored temporarily. Switching worlds or dimensions will reset them. You can change default settings at [customization page](/custom)",
+    "q8": "How to enable chunk map?",
+    "a8": "Import and activate Chunk Map extension pack, then enter world to see it\n\nIf Cube Panel is enabled, you need to enable chunk map in panel settings, or set it to default on at Customize > Panel > Chunk Map\n\nAlso chunk map requires coordinate display, enable at Settings > World > Show Coordinates",
+    "q9": "Can I modify it?",
+    "a9": "Yes, but without author's permission, modified resource packs cannot be shared or published online",
+    "q10": "How to get permission?",
+    "a10": "For *free* works: Contact author for permission (no fee)\nFor *commercial* works (all commercial uses): Get authorization at [Aifadian](https://afdian.com/a/zybreeze)\n(Non-China users must contact author for commercial authorization)",
+    "q11": "What is a zip file?",
+    "a11": "A zip file is a compressed archive that contains one or more files combined into a single file for easier storage and distribution. It uses compression to reduce file size while preserving all the original data when extracted"
   },
   toolbox: {
     all: "All",
@@ -231,6 +260,19 @@
       testComplete: "Test Complete!",
       averageCPS: "Average CPS",
       restart: "Restart Test"
+    },
+    editor: {
+      untitled: 'Untitled',
+      download: 'Download',
+      new: 'New File',
+      import: 'Import File',
+      undo: 'Undo',
+      redo: 'Redo',
+      more: 'More',
+      file_description: 'UTF-8 Encoding',
+      confirm_new: 'Are you sure to create a new file? Current content will be lost.',
+      import_success: 'File imported successfully',
+      import_failed: 'Failed to import file'
     },
     "picture": {
       "untitled": "Untitled",
