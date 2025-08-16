@@ -228,7 +228,7 @@
     "a5": "[Visit customization page](/custom)\nCustom packs should be ordered above CubeVisage UI",
     "q6": "How to enable Cube Panel?",
     "a6": "Load the Cube Panel extension pack. Two ways to access:\n1. In pause screen, double-click settings button at bottom left\n2. For touch users, click toolbox left of hotbar, then click settings button on right",
-    "q7": "Why are CubeVisage settings reset?",
+    "q7": "Why are Cube Panel settings reset?",
     "a7": "This is because switch states are stored temporarily. Switching worlds or dimensions will reset them. You can change default settings at [customization page](/custom)",
     "q8": "How to enable chunk map?",
     "a8": "Import and activate Chunk Map extension pack, then enter world to see it\n\nIf Cube Panel is enabled, you need to enable chunk map in panel settings, or set it to default on at Customize > Panel > Chunk Map\n\nAlso chunk map requires coordinate display, enable at Settings > World > Show Coordinates",
