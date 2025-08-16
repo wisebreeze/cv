@@ -221,7 +221,7 @@
     "title": "常见问题解答",
     "searchPlaceholder": "搜索问题...",
     "noResults": "没有找到相关问题",
-    "q1": "我的世界基岩版如何使用立方之窗",
+    "q1": "我的世界基岩版如何使用立方之窗？",
     "a1": "■ 方法1\n1. 找到下载的立方之窗 UI 压缩包\n2. 长按该文件或者右键文件选择打开方式（或分享资源包）\n3. 选择 Minecraft\n4. 在游戏内通过设置 > 全局资源 > 立方之窗 UI > 激活\n5. 退出设置屏幕加载资源包\n\n■ 方法2\n1. 首先，找到下载的立方之窗 UI 压缩包\n2. 将文件放入对应的目录\nWindows：文件放入 %localappdata%\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang\\resource_packs\nAndroid/鸿蒙：文件放入 Android/data/com.mojang.minecraftpe/files/games/com.mojang/resource_packs\n之后游戏内通过设置 > 全局资源 > 立方之窗 UI > 激活\nIOS：文件放入 我的设备 > Minecraft > games > com.mojang > resource_packs 文件夹\n\n* com.mojang.minecraftpe 是安装包包名，如果是其他包名的安装包请自行查找",
     "q2": "我的世界JAVA版如何导入资源包？",
     "a2": "1. 将资源包.zip文件放入.minecraft/resourcepacks文件夹\n2. 启动 Minecraft\n3. 进入选项 > 资源包\n4. 启用所需的资源包",

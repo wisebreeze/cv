@@ -216,7 +216,7 @@
     "title": "Frequently Asked Questions",
     "searchPlaceholder": "Search questions...",
     "noResults": "No results found",
-    "q1": "How to use CubeVisage in Minecraft Bedrock Edition",
+    "q1": "How to use CubeVisage in Minecraft Bedrock Edition?",
     "a1": "■ Method 1\n1. Locate the downloaded CubeVisage UI zip file\n2. Long press the file or right-click and select 'Open with' (or 'Share resource pack')\n3. Select Minecraft\n4. In-game, go to Settings > Global Resources > CubeVisage UI > Activate\n5. Exit settings screen to load the resource pack\n\n■ Method 2\n1. First, locate the downloaded CubeVisage UI zip file\n2. Place the file in the appropriate directory:\nWindows: %localappdata%\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang\\resource_packs\nAndroid/HarmonyOS: Android/data/com.mojang.minecraftpe/files/games/com.mojang/resource_packs\nThen in-game go to Settings > Global Resources > CubeVisage UI > Activate\nIOS: My Device > Minecraft > games > com.mojang > resource_packs\n\n* com.mojang.minecraftpe is the package name, if using different package please locate accordingly",
     "q2": "How to import resource packs in Minecraft Java Edition?",
     "a2": "1. Place the resource pack .zip file in .minecraft/resourcepacks folder\n2. Launch Minecraft\n3. Go to Options > Resource Packs\n4. Enable the desired resource pack",
