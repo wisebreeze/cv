@@ -3,7 +3,7 @@
 
 [![English Version](https://img.shields.io/badge/Language-English-blue)](https://github.com/wisebreeze/cv)
 [![GitHub Stars](https://img.shields.io/github/stars/wisebreeze/cv)](https://github.com/wisebreeze/cv)
-[![Vue3](https://img.shields.io/badge/框架-Vue3-42b883)](https://vuejs.org/)
+[![Vue](https://img.shields.io/badge/框架-Vue3-42b883)](https://vuejs.org/)
 [![Webpack](https://img.shields.io/badge/打包工具-Webpack-8dd6f9)](https://webpack.js.org/)
 
 </p>
