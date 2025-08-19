@@ -86,7 +86,8 @@ const categories = reactive([
       { icon: "flash-outline", text: "每秒点击次数", route: '/toolbox/cps' },
       { icon: "stopwatch-outline", text: "秒表", route: '/toolbox/stopwatch' },
       { icon: "person-circle-outline", text: "浏览器 UA", route: '/toolbox/ua' },
-      { icon: "repeat-outline", text: "单位换算", route: '/toolbox/units' }
+      { icon: "repeat-outline", text: "单位换算", route: '/toolbox/units' },
+      { icon: "calculator-outline", text: "函数预览", route: '/toolbox/function' }
     ]
   }
 ])

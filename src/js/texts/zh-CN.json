@@ -277,7 +277,37 @@
       file_description: 'UTF-8 编码',
       confirm_new: '确定要新建文件吗？当前内容将丢失。',
       import_success: '文件导入成功',
-      import_failed: '文件导入失败'
+      import_failed: '文件导入失败',
+      "search": "搜索",
+      "searchPlaceholder": "搜索",
+      "replacePlaceholder": "替换",
+      "regexEnabled": "正则表达式已启用",
+      "regexDisabled": "正则表达式已禁用",
+      "noMatches": "未找到匹配项",
+      "invalidRegex": "无效的正则表达式",
+      stats: {
+        "title": "文本统计",
+        "characters": "字符数",
+        "words": "单词数", 
+        "lines": "行数",
+        "symbols": "符号数",
+        "close": "关闭",
+        "menu": "文本统计"
+      }
+    },
+    "function": {
+      "inputLabel": "输入LaTeX函数表达式",
+      "copy": "复制表达式",
+      "screenshot": "截图保存",
+      "examples": "函数示例",
+      "back": "返回",
+      "linear": "一次函数",
+      "quadratic": "二次函数",
+      "cubic": "三次函数",
+      "inverse": "反比例函数",
+      "exponential": "指数函数",
+      "logarithmic": "对数函数",
+      "rose": "玫瑰函数"
     },
     "picture": {
       "untitled": "未命名",
@@ -344,6 +374,7 @@
       engine: "浏览器内核",
       deviceType: "设备类型",
       currentUA: "当前浏览器UA",
+      fingerprint: "浏览器指纹",
       chrome: "Chrome",
       firefox: "Firefox",
       safari: "Safari",

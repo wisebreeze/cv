@@ -272,7 +272,37 @@
       file_description: 'UTF-8 Encoding',
       confirm_new: 'Are you sure to create a new file? Current content will be lost.',
       import_success: 'File imported successfully',
-      import_failed: 'Failed to import file'
+      import_failed: 'Failed to import file',
+      "search": "Search",
+      "searchPlaceholder": "Search",
+      "replacePlaceholder": "Replace",
+      "regexEnabled": "Regex enabled",
+      "regexDisabled": "Regex disabled",
+      "noMatches": "No matches found",
+      "invalidRegex": "Invalid regex pattern",
+      stats: {
+        "title": "Text Statistics",
+        "characters": "Characters",
+        "words": "Words",
+        "lines": "Lines",
+        "symbols": "Symbols",
+        "close": "Close",
+        "menu": "Text Stats"
+      }
+    },
+    "function": {
+      "inputLabel": "Enter LaTeX function expression",
+      "copy": "Copy expression",
+      "screenshot": "Save as screenshot",
+      "examples": "Examples",
+      "back": "Back",
+      "linear": "Linear function",
+      "quadratic": "Quadratic function",
+      "cubic": "Cubic function",
+      "inverse": "Inverse function",
+      "exponential": "Exponential function",
+      "logarithmic": "Logarithmic function",
+      "rose": "Rose function"
     },
     "picture": {
       "untitled": "Untitled",
@@ -339,6 +369,7 @@
       engine: "Engine",
       deviceType: "Device Type",
       currentUA: "Current UA",
+      fingerprint: "Browser Fingerprint",
       chrome: "Chrome",
       firefox: "Firefox",
       safari: "Safari",

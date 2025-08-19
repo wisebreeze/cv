@@ -66,6 +66,12 @@ const routes = [
     meta: { i: 4 }
   },
   {
+    path: '/toolbox/function',
+    name: 'Function',
+    component: () => import('./ToolboxFunction'),
+    meta: { i: 4 }
+  },
+  {
     path: '/toolbox/picture',
     name: 'PictureEditor',
     component: () => import('./ToolboxPicture'),

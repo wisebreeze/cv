@@ -274,7 +274,7 @@ onUnmounted(() => {
 }
 
 .test-card {
-  background: var(--mdui-color-surface-container-highest);
+  background: rgba(var(--mdui-color-surface-container-highest), 0.6);
   border-radius: 24px;
   height: 50vh;
   min-height: 300px;
@@ -291,7 +291,7 @@ onUnmounted(() => {
   
   &:active {
     transform: scale(0.98);
-    background: var(--mdui-color-surface-container-high);
+    background: rgba(var(--mdui-color-surface-container-high), 0.6);
   }
 }
 
