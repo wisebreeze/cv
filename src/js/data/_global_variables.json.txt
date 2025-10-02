@@ -79,7 +79,7 @@
 // $mc_ver = Minecraft version
 // ver: 1.21+ int: 121
 // and so on…
-// ver: 1.12 int: 112
+// ver: 1.8 int: 108
 "$mc_ver": 121,
 "$mc_sub_ver": 100,
 
@@ -232,6 +232,7 @@
   "$cube_set_a1de0189": 0.75,// 设置X轴大小 | settings x axis size
   "$cube_set_1592cc44": 0.75,// 设置Y轴大小 | settings y axis size
 
+"$cube_set_7b22f6b4": false,// 强制禁用 Ore UI | forced disable Ore UI
 "$cube_set_2abe3412": true,// 世界高级设置 | world advanced settings
 "$cube_set_238f26f9": true,// 笔记本按钮 | notebook button
 "$cube_set_c4c8702e": true,// 查看路径 | view path
@@ -255,6 +256,8 @@
 // 游戏 | play //
 "$cube_set_b0044162": 1,// 布局 | layout [0-顶部选项/headerTab 1-侧边选项/sideTab]
 "$cube_set_e5ccf1eb": true,// 最近游戏 | recent game
+"$cube_set_0bb4e2c0": false,// 双击进入世界 | double click to enter the world
+"$cube_set_0de84bac": true,// 精选服务器 | feature servers
 
 // 音乐 | music //
 "$cube_set_5fc8cf29": true,// 音乐 | music
@@ -314,6 +317,7 @@
 "$cube_panel_anims": true,// 进入/退出动画 | enter/exit animation
 "$cube_panel_centered_layout": false,// 居中布局 | centered layout
 "$cube_panel_only_functions": false,// 仅功能 (无面板模式，以下设置生效) | only functions (In the non-panel mode, the following settings take effect)
+"$cube_panel_alpha": 1.0,// 面板不透明度 | panel alpha
 
 //# 组件 | widget #//
 "$cube_panel_information": true,// 信息助手 | information assistant
@@ -333,12 +337,18 @@
   "$cube_panel_chunk_map_direction": true,// 方向 | direction
   "$cube_panel_chunk_map_offset_x": 1.0,// X轴偏移 | offset x
   "$cube_panel_chunk_map_offset_y": 1.0,// Y轴偏移 | offset y
+  "$cube_panel_chunk_map_background_alpha": 0.4,// 背景不透明度 | background alpha
+  "$cube_panel_chunk_map_border_alpha": 0.8,// 边框不透明度 | border alpha
+  "$cube_panel_chunk_map_grid_alpha": 0.6,// 网格不透明度 | grid alpha
+  "$cube_panel_chunk_map_point_alpha": 1.0,// 点不透明度 | point alpha
+  "$cube_panel_chunk_map_current_chunk_alpha": 0.8,// 当前区块不透明度 | current chunk alpha
 
 "$cube_panel_map": false,// [only china edition] 地图 | map
   "$cube_panel_map_size_x": 0.5,// X轴大小 | size x
   "$cube_panel_map_size_y": 0.5,// Y轴大小 | size y
   "$cube_panel_map_offset_x": 1.0,// X轴偏移 | offset x
   "$cube_panel_map_offset_y": 1.0,// Y轴偏移 | offset y
+  "$cube_panel_map_background_alpha": 0.4,// 背景不透明度 | background alpha
   "$cube_panel_map_live_update": true,// 实时更新 | live update
   "$cube_panel_map_live_update_interval": 3,// 实时更新间隔 | live update interval
 
@@ -409,8 +419,8 @@
 //# 信息 | info #//
 "$cube_panel_name": "CubeVisage Panel",
 "$cube_panel_author": "wisebreeze",
-"$cube_panel_version": "10",
-"$cube_panel_version_prefix": "snapshot",
+"$cube_panel_version": "5",
+"$cube_panel_version_prefix": "release",
 "$cube_panel_date": "2025/7/31",
 "$cube_panel_time_zone": "GMT+08:00",
 
@@ -1001,10 +1011,10 @@
 "$cube_uuid": "28e65475-dda7-46e6-9212-e6c90cd9bafc",
 "$cube_display_name": "§b§lCubeVisage UI§r§f",
 "$cube_version": "5",
-"$cube_version_patch": 2,
-"$cube_version_code": 5000200,
+"$cube_version_patch": 4,
+"$cube_version_code": 5000400,
 "$cube_version_prefix": "release",
-"$cube_version_date": "2025/8/9",
+"$cube_version_date": "2025/8/20",
 "$cube_version_time_zone": "GMT+08:00",
 
 "$cube_protocol_version": "3.5.3",
@@ -1012,19 +1022,19 @@
 "$cube_protocol_time_zone": "GMT+08:00",
 
 "$cube_core_name": "CubeVisage Core",
-"$cube_core_version": "1.0.62",
-"$cube_core_version_code": 10062,
+"$cube_core_version": "1.0.64",
+"$cube_core_version_code": 10064,
 "$cube_core_version_prefix": "release",
-"$cube_core_date": "2025/8/9",
+"$cube_core_date": "2025/9/5",
 "$cube_core_time_zone": "GMT+08:00",
 
 "$cube_design_name": "CubeVisage Design",
 "$cube_design_author": "breeze",
-"$cube_design_version": "1.0.20",
-"$cube_design_version_code": 10020,
+"$cube_design_version": "1.0.21",
+"$cube_design_version_code": 10021,
 "$cube_design_version_target_code": 5000000,
 "$cube_design_version_min_code": 5000000,
 "$cube_design_version_prefix": "release",
-"$cube_design_date": "2025/8/9",
+"$cube_design_date": "2025/10/2",
 "$cube_design_time_zone": "GMT+08:00"
 }
