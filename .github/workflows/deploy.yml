@@ -38,6 +38,7 @@ jobs:
           echo "PUBLIC_PATH=/${{ github.event.repository.name }}/" >> $GITHUB_ENV
       - name: Build Pages
         run: |
+          npm install
           npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v5
