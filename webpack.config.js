@@ -1,17 +1,18 @@
-const path = require("path");
-const { DefinePlugin } = require("webpack");
-const { VueLoaderPlugin } = require("vue-loader");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const TerserPlugin = require('terser-webpack-plugin');
-const distPath = path.resolve(__dirname, 'dist');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const path = require("path")
+const { DefinePlugin } = require("webpack")
+const { VueLoaderPlugin } = require("vue-loader")
+const HtmlWebpackPlugin = require("html-webpack-plugin")
+const { EsbuildPlugin } = require('esbuild-loader')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const distPath = path.resolve(__dirname, 'dist')
 
-const pages = ['index','404'];
+// const TerserPlugin = require('terser-webpack-plugin')
+const pages = ['index','404']
 function SPA(pages) {
-  let htmlPath='index.html';
+  let htmlPath='index.html'
   return pages.map(page => {
-    if (page.endsWith('/'))htmlPath = page+"index.html";
-    else htmlPath=page.endsWith(".html")?page:page+".html";
+    if (page.endsWith('/'))htmlPath = page+"index.html"
+    else htmlPath=page.endsWith(".html")?page:page+".html"
     return new HtmlWebpackPlugin({
       filename: path.resolve(__dirname, "dist", htmlPath),
       template: path.resolve(__dirname, "src", "index.html"),
@@ -24,13 +25,15 @@ function SPA(pages) {
         useShortDoctype: true
       },
       chunks: [page]
-    });
-  });
+    })
+  })
 }
 
 module.exports = {
   mode: "production",// development
-  devtool: "eval-cheap-module-source-map",
+  devtool: process.env.NODE_ENV === 'production' 
+    ? false 
+    : 'source-map',
   entry: {
     index: path.resolve(__dirname, "src", "js/index.js")
   },
@@ -49,17 +52,25 @@ module.exports = {
       '@markdown': path.resolve(__dirname, 'src/markdown')
     },
     extensions: ['.js', '.jsx', '.vue'],
-    modules: ['node_modules', 'src']
+    modules: ['node_modules', 'plugins']
   },
   module: {
     rules: [
       {
         test: /\.(sa|sc|c)ss$/,
-        use: ["style-loader", "css-loader", "sass-loader"]
+        use: ["style-loader", "css-loader",
+        {
+          loader: "sass-loader",
+          options: {
+            implementation: require('sass-embedded')
+          }
+        }]
       },
       {
         test: /\.vue$/,
         loader: "vue-loader",
+        include: path.resolve(__dirname, './src/js'),
+        exclude: /node_modules/,
         options: {
           compilerOptions: {
             isCustomElement: tag => (tag.startsWith('mdui-') || tag.startsWith('ion-')),
@@ -69,6 +80,8 @@ module.exports = {
       },
       {
         test: /\.md$/,
+        include: path.resolve(__dirname, './src/markdown'),
+        exclude: /node_modules/,
         use: [
           {
             loader: 'vue-loader',
@@ -85,14 +98,14 @@ module.exports = {
         ]
       },
       {
-        test: /\.(js|jsx)$/,
+        test: /\.[jt]sx?$/,
         exclude: /node_modules/,
         use: [
-          'thread-loader',
           {
-            loader: 'babel-loader',
+            loader: 'esbuild-loader',
             options: {
-              presets: ['@babel/preset-env', '@babel/preset-react']
+              loader: 'jsx',
+              target: 'es2020'
             }
           }
         ]
@@ -107,6 +120,7 @@ module.exports = {
       {
         test: /\.json$/,
         loader: 'json5-loader',
+        exclude: /node_modules/,
         type: 'javascript/auto'
       },
       {
@@ -129,14 +143,18 @@ module.exports = {
     }),
     new VueLoaderPlugin(),
     ...SPA(pages),
-    new TerserPlugin({
+    new EsbuildPlugin({
+      css: true
+    })
+    /*new TerserPlugin({
+      parallel: true,
       extractComments: false,
       terserOptions: {
         format: {
           comments: false
         }
       }
-    }),
+    }),*/
   ],
   devServer: {
     historyApiFallback: true,
@@ -152,4 +170,4 @@ module.exports = {
     host: "localhost",
     port: 8080,
   }
-};
+}
