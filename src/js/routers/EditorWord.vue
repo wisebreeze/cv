@@ -148,9 +148,10 @@ async function syncSettingFile(){
   items.value.forEach((item,idx)=>{
     const id=item.id
     controls.push({[`p${idx+1}@ct.v2`]:{}})
-    controls.push({[`word_${id}@cube_chat.filling_toggle`]:{
+    controls.push({[`word_${id}@$fc`]:{
       $control_text:item.title,
       $control_view_name:`word_${id}`,
+      $filler: item.description,
       $toggle_group_index:id
     }})
     bag[`#item_name_${id}`]=item.description
@@ -204,7 +205,7 @@ async function loadItemsFromSettings(){
   if(settings.cmd_custom_panel?.modifications?.[0]?.value){
     settings.cmd_custom_panel.modifications[0].value.forEach(obj=>{
       const key=Object.keys(obj)[0]
-      if(key.includes('@cube_chat.filling_toggle')){
+      if(key.includes('@$fc')){
         const id=parseInt(key.split('_')[1].split('@')[0])
         const title=obj[key]?.['$control_text']||''
         const desc=settings.command_filling?.$text_edit_box_content_property_bag?.[`#item_name_${id}`]||''

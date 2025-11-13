@@ -257,7 +257,7 @@ onMounted(async () => {
           value: variables[key.slice(1, -1)] === undefined ? valueContent : variables[key.slice(1, -1)],
           id: key.slice(1, -1),
           text: {
-            'zh-cn': commentText[0].replace('[!] ', '').replace('[experiment] ', '').replace('[discarded] ', '').replace('[only china edition] ', ''),
+            'zh-cn': commentText[0].replace('[!] ', '').replace('[experiment] ', '').replace('[discarded] ', '').replace('[Only China Edition] ', ''),
             'en-us': commentText[1]
           }
         }
@@ -265,7 +265,7 @@ onMounted(async () => {
         if (commentPart.includes('[!')) optionEntry.desc = '.unfinished'
         if (commentPart.includes('[experiment')) optionEntry.desc = '.experiment'
         if (commentPart.includes('[discarded')) optionEntry.desc = '.discarded'
-        if (commentPart.includes('[only china edition')) optionEntry.desc = '.chinaEdition'
+        if (commentPart.includes('[Only China Edition')) optionEntry.desc = '.chinaEdition'
 
         currentOptions.push(optionEntry)
       }
