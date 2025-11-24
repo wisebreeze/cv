@@ -93,7 +93,7 @@ module.exports = {
             }
           },
           {
-            loader: path.resolve(__dirname, 'src/js/markdown-loader.js')
+            loader: path.resolve(__dirname, 'src/js/markdownLoader.js')
           }
         ]
       },
