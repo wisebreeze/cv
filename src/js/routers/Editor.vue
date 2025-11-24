@@ -39,6 +39,15 @@
                 <div class="ns download-progress">
                   <div>{{ t("download.progress", [parseFloat(downloadProgress.toFixed(2))]) }}</div>
                   <mdui-linear-progress :value="downloadProgress" max="100" />
+                  <mdui-button
+                    class="download-button-firefox"
+                    variant="filled"
+                    full-width
+                    v-if="isFirefox"
+                    @click="handleDownload"
+                  >
+                    {{ t('gui$download') }}
+                  </mdui-button>
                 </div>
                 <div
                   v-for="(item, index) in [1,2,3,4,5,6]"
@@ -50,7 +59,7 @@
                 </div>
               </div>
             </div>
-            <div class="download-dialog-footer">
+            <div class="download-dialog-footer" v-if="!isFirefox">
               <mdui-button
                 variant="filled"
                 full-width
@@ -76,6 +85,7 @@ import EditorSidebar from './EditorSidebar.vue'
 const { t } = useI18n()
 const router = useRouter()
 const route = useRoute()
+const error = inject("error")
 const fs = inject("fs")
 
 const transitionName = ref('')
@@ -132,40 +142,56 @@ const uuid = () => {
 }
 
 const handleDownload = async () => {
-  downloadProgress.value = 0
-
-  let zipFileName = 'export.zip'
-  if (await fs.value.exist("manifest.json")) {
-    const manifestJSON = await fs.value.read("manifest.json")
-    const packName = manifestJSON.header ? manifestJSON.header.name && manifestJSON.header.name.trim(" ") !== '' ? manifestJSON.header.name : 'export' : 'export'
-    zipFileName = packName.length > 15 ? packName.substring(0, 15) + '....zip' : packName + '.zip';
-  } else {
-    uuid1 = uuid()
-    uuid2 = uuid()
-    await fs.value.write("manifest.json", {
-      format_version: 2,
-      header: {
-        name: "",
-        description: "",
-        uuid: uuid1,
-        version: [1,0,0],
-        min_engine_version: [1,18,0]
-      },
-      modules: [
-        {
-          type: "resources",
-          uuid: uuid2,
-          version: [1,0,0]
-        }
-      ]
+  try {
+    downloadProgress.value = 0
+  
+    let zipFileName = 'export.zip'
+    if (await fs.value.exist("manifest.json")) {
+      const manifestJSON = await fs.value.read("manifest.json")
+      const packName = manifestJSON.header ? manifestJSON.header.name && manifestJSON.header.name.trim(" ") !== '' ? manifestJSON.header.name : 'export' : 'export'
+      zipFileName = packName.length > 15 ? packName.substring(0, 15) + '....zip' : packName + '.zip';
+    } else {
+      const uuid1 = uuid()
+      const uuid2 = uuid()
+      await fs.value.write("manifest.json", {
+        format_version: 2,
+        header: {
+          name: "",
+          description: "",
+          uuid: uuid1,
+          version: [1,0,0],
+          min_engine_version: [1,18,0]
+        },
+        modules: [
+          {
+            type: "resources",
+            uuid: uuid2,
+            version: [1,0,0]
+          }
+        ]
+      })
+    }
+  
+    await fs.value.exportToZip(zipFileName, ({ percent }) => {
+      downloadProgress.value = percent
     })
+    showDownloadDialog.value = false
+  } catch (e) {
+    error.value(e)
+    console.error(e)
   }
-
-  await fs.value.exportToZip(zipFileName, ({ percent }) => {
-    downloadProgress.value = percent
-  })
-  showDownloadDialog.value = false
 }
+
+const isFirefox = computed(() => {
+  if (typeof InstallTrigger !== 'undefined') {
+    return true
+  }
+  const ua = navigator.userAgent.toLowerCase()
+  if (ua.includes('firefox') && !ua.includes('seamonkey')) {
+    return true
+  }
+  return false
+})
 
 onMounted(() => {
   window.addEventListener('resize', handleResize)
@@ -323,6 +349,9 @@ $leave-easing: ease-in;
     margin-bottom: 6.5rem;
     > .download-progress {
       margin-bottom: 1.5rem;
+      > .download-button-firefox {
+        margin-top: 0.5rem;
+      }
     }
     > .download-help {
       margin-bottom: 1.5rem;
