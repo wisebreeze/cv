@@ -110,13 +110,8 @@ const expandedItems = ref([])
 
 const bedrockItems = [
   {
-    title: 'download.123pan',
-    link: 'https://www.123865.com/s/IxTuVv-TkjVv',
-    onlyZH: true
-  },
-  {
     title: 'download.feijipan',
-    link: 'https://share.feijipan.com/s/g9OCAZTD',
+    link: 'https://share.feijipan.com/s/5RVuwjho',
     onlyZH: true
   },
   {
@@ -135,12 +130,6 @@ const bedrockItems = [
   {
     title: 'download.klpbbs',
     link: 'https://klpbbs.com',
-    onlyZH: true
-  },
-  {
-    title: 'download.netease',
-    link: null,
-    instructions: 'download.netease_instructions',
     onlyZH: true
   },
   {

@@ -35,20 +35,28 @@ const { t } = useI18n()
 const router = useRouter()
 
 const communities = ref([
-  {
+  /*{
     id: 'discord',
     name: 'discord',
     description: 'discord_desc',
     icon: discordIcon,
     link: 'https://discord.gg/zYWvyhXsAq',
     full: false
-  },
+  },*/
   {
     id: 'qq_channel',
     name: 'qq_channel',
     description: 'qq_channel_desc',
     icon: qqChannelIcon,
     link: 'https://pd.qq.com/s/233egiixi',
+    full: false
+  },
+  {
+    id: 'qq_group5',
+    name: 'qq_group5',
+    description: 'qq_group5_desc',
+    icon: qqIcon,
+    link: 'https://qm.qq.com/q/qnRRqJOxFe',
     full: false
   },
   {
