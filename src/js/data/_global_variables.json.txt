@@ -1,20 +1,19 @@
 {
 // 中文
-// 欢迎来到立方之窗的全局变量文件，在这里编辑设置，提升立方之窗的使用体验！
-// 现在访问下方链接即可快速自定义变量
+// 您好！欢迎来到方窗的全局变量文件，在这里编辑设置，提升方窗的使用体验。
+// 访问下方链接轻松修改变量。
 //
 // 修改须知：
-//  1. 请不要删除此文件！
-//  2. 检查 json 格式是否正确！
-//  3. 建议关闭编辑器自动换行编辑
-//  4. 不要删除任何一个键、注释 (即 "//") 和逗号！
-//  5. 该文件不受协议中关于修改的条例限制，并且可以分发该文件
-//  6. 建议某个变量到自定义包修改（整行复制）
+//   1. 请不要删除此文件！
+//   2. 检查 json 格式是否正确！
+//   3. 建议关闭编辑器自动换行编辑
+//   4. 不要删除任何一个键、注释 (即 "//") 和逗号！
+//   5. 该文件不受协议中关于修改的条例限制，并且可以分发该文件
+//   6. 建议某个变量复制到自定义包修改（整行复制）
 //
 // 自定义网站：
-//  1. https://cv-erd.pages.dev/custom/
-//  2. https://cubevisage.netlify.app/custom/
-//  3. https://wisebreeze.github.io/cv/custom/
+//   1. https://cubevisage.top/custom/
+//   2. https://cv-erd.pages.dev/custom/
 //
 // 变量标记：
 //  [!] 未完成标记
@@ -22,52 +21,51 @@
 //  [discarded] 弃用标记
 //
 // 修改提示：
-//  color 是rgb数组，数组由rgb的每个数值除于 255 得出（数值归一化），精度建议保留小数点后三位。
-//  示例 [1,1,1] [0,0,0] [0.3,0.3,0.3]  rgb(114,114,114,0.5) ÷ 255 => [0.447,0.447,0.447]
+//   color 是rgb数组，数组由rgb的每个数值除于 255 得出（数值归一化），精度建议保留小数点后三位。
+//   示例 [1,1,1] [0,0,0] [0.3,0.3,0.3]  rgb(114,114,114,0.5) ÷ 255 => [0.447,0.447,0.447]
 //
-//  alpha 是不透明值，由0~1之间的浮点数组成，精度建议保留小数点后三位。
-//  示例 1 0 0.4
+//   alpha 是不透明值，由0~1之间的浮点数组成，精度建议保留小数点后三位。
+//   示例 1 0 0.4
 //
-//  number 是数字，由整数（-2147483647 ~ 2147483647）组成。
-//  示例 1 2 3
+//   number 是数字，由整数（-2147483647 ~ 2147483647）组成。
+//   示例 1 2 3
 //
-//  bool 是布尔值，由 true(启用) 和 false(禁用) 组成，在本文件中可以控制某些功能的启用。
-//  示例 true false
+//   bool 是布尔值，由 true(启用) 和 false(禁用) 组成，在本文件中可以控制某些功能的启用。
+//   示例 true false
 
 // English
-// Welcome to the global variables file for CubeVisage, Improve the user experience of CubeVisage by editing these settings!
-// Now visit the link below to quickly customize variables
+// Hello! Welcome to the global variables file for CubeVisage, Improve the user experience of CubeVisage by editing these settings.
+// Easily modify variables by visiting the link below.
 //
 // Modification notice:
-//  1. Please do not delete this file!
-//  2. Check if the json format is correct!
-//  3. It is recommended to turn off editor wrap editing
-//  4. Do not Redacted any keys, comments (e.g. "//") and commas!
-//  5. The file is not subject to the provisions of the User Agreement on modification and can be distributed
-//  6. Suggest a variable to be modified in the custom package (copy the entire line)
+//   1. Please do not delete this file!
+//   2. Check if the json format is correct!
+//   3. It is recommended to turn off editor wrap editing
+//   4. Do not Redacted any keys, comments (e.g. "//") and commas!
+//   5. The file is not subject to the provisions of the User Agreement on modification and can be distributed
+//   6. It is recommended that a variable be copied to the custom package for modification (copy the entire line)
 //
 // Custom website:
-//  1. https://cv-erd.pages.dev/custom/
-//  2. https://cubevisage.netlify.app/custom/
-//  3. https://wisebreeze.github.io/cv/custom/
+//   1. https://cubevisage.top/custom/
+//   2. https://cv-erd.pages.dev/custom/
 //
 // Variable flags:
-//  [!] Incomplete flag
-//  [experiment] Experimental flag
-//  [discarded] Discarded flag
+//   [!] Incomplete flag
+//   [experiment] Experimental flag
+//   [discarded] Discarded flag
 //
 // Modification prompt:
-//  color is an array of RGB values, obtained by dividing each value by 255 (value normalization), with a recommended precision of three decimal places.
-//  Example: [1,1,1] [0,0,0] [0.3,0.3,0.3]  rgb(114,114,114,0.5) ÷ 255 => [0.447,0.447,0.447]
+//   color is an array of RGB values, obtained by dividing each value by 255 (value normalization), with a recommended precision of three decimal places.
+//   Example: [1,1,1] [0,0,0] [0.3,0.3,0.3]  rgb(114,114,114,0.5) ÷ 255 => [0.447,0.447,0.447]
 //
-//  alpha is opacity, consisting of floating-point numbers between 0 and 1, with a recommended precision of three decimal places.
-//  Example: 1 0 0.4
+//   alpha is opacity, consisting of floating-point numbers between 0 and 1, with a recommended precision of three decimal places.
+//   Example: 1 0 0.4
 //
-//  number is a number (-2147483647 ~ 2147483647) composed of integers.
-//  Example: 1 2 3
+//   number is a number (-2147483647 ~ 2147483647) composed of integers.
+//   Example: 1 2 3
 //
-//  bool is a boolean value, composed of true (enabled) and false (disabled), used to control the enablement of certain functions in this file.
-//  Example: true false
+//   bool is a boolean value, composed of true (enabled) and false (disabled), used to control the enablement of certain functions in this file.
+//   Example: true false
 
 // ━━━━━━━━━━
 // 兼容 | compatible
@@ -81,18 +79,14 @@
 // and so on…
 // ver: 1.8 int: 108
 "$mc_ver": 121,
-"$mc_sub_ver": 120,
+"$mc_sub_ver": 130,
 
 "$cube_compatible_bundle": true,// 收纳袋 | bundle
 "$cube_compatible_global_gradient": true,// 渐变效果 | gradient effect
 "$cube_compatible_hud_chunk_map_use_slider_offset": false,// 区块地图使用滑块移动 | chunk map moves with slider
-// 不启用循环获取位置的方法仅支持 1.21 版本以及 1.21 以上版本
-// The method that does not enable the cyclic obtaining of the location is supported only in version 1.21 and later
-"$cube_compatible_hud_get_position_cycle": true,// [!] 使用循环获取位置 | use loop to get position
-"$cube_compatible_hud_structure_preview": false,// [experiment] 结构预览 | structure preview
 
 //$ 屏幕 | screens $//
-// 启用后将允许其他资源包修改并丢失立方之窗功能
+// 启用后将允许其他资源包修改并丢失方窗功能
 // When enabled, other resource packages are allowed to be modified and the CubeVisage function is lost
 "$cube_compatible_screens_anvil": false,// 铁砧 | anvil
 "$cube_compatible_screens_bencon": false,// 信标 | bencon
@@ -121,7 +115,7 @@
 "$cube_set_2b2c8eeb": true,// 快捷栏偏移动画 | hotbar offset animation
 "$cube_set_838534a8": true,// 侧边记分板分数 | scoreboard scores
 "$cube_set_bac1d62e": false,// 折叠附魔信息 | folding enchant information
-"$cube_set_ddff0632": false,// [Only China Edition] 新触控自定义 | new touch customization
+"$cube_set_ec875b4d": true,// 文本阴影 | text shadow
 
 "$cube_set_abe4bb75": true,// 工具箱 | toolbox
 "$cube_set_8989cd21": true,// 允许 Tab 打开工具箱 | allow tab to open toolbox
@@ -150,17 +144,19 @@
 "$cube_set_65717a9f": false,// 区块地图 | chunk map
   "$cube_set_3198439e": true,// 标记史莱姆区块 | marking the slime chunk
   "$cube_set_c70c72bb": false,// 坐标轴 | asix
+"$cube_set_8b88022e": false,// [experiment] 结构预览 | structure preview
 "$cube_set_fe8e132d": false,// 矿石分布 | ore distribution
 
 "$cube_set_ef309951": false,// 追溯指针 | recovery compass
-  "$cube_set_30943146": 682,// 追溯指针 | recovery compass
+  "$cube_set_30943146": 688,// 追溯指针 | recovery compass
 
 // 弓 弩
-"$cube_set_85785fce": "_324_608_",// 发射武器 | launch weapons
-"$cube_set_e8e87095": 325,// 箭 | arrow
+"$cube_set_85785fce": "_331_614_",// 发射武器 | launch weapons
+"$cube_set_e8e87095": 332,// 箭 | arrow
 
 // 喷溅药水 滞留药水 附魔之瓶 雪球 风弹 末影珍珠 鸡蛋 棕色蛋 蓝色蛋 钓鱼竿
-"$cube_set_d13aee79": "_594_595_542_399_277_448_416_749_748_418_",// 显示目标 | show target
+// 铜长矛 钻石长矛 金长矛 铁长矛 下界合金长矛 石长矛 木长矛
+"$cube_set_d13aee79": "_600_601_548_406_284_454_422_754_753_424_257_258_259_260_261_262_262_263_",// 显示目标 | show target
 "$cube_set_089fd192": true,// 辅助准心 | assist crosshair
 "$cube_set_78743dd4": false,// 无条件显示 | unconditional display
 
@@ -179,7 +175,7 @@
 
 "$cube_set_f4f8111b": false,// 悬停文字 | hover text
   "$cube_set_b6bb8a0e": false,// [!] 悬停文字增强 | hover text enhancement
-  "$cube_set_5abe79bd": true,// 触屏选中显示 | touch select display
+  "$cube_set_5abe79bd": false,// 触屏选中显示 | touch select display
   "$cube_set_5b8cc68e": false,// 物品 AUX ID | item AUX ID
 "$cube_set_dd62b27d": 0,// 收纳袋位置 | bundle position [0-底部/bottom 1-左下角/bottomLeft 2-右下角/bottomRight]
 "$cube_set_c809c91a": 7,// 触屏悬停文字位置 | touch hover text position [0-左上角/topLeft 1-正上方/top 2-右上角/topRight 3-左侧/left 4-中间/center 5-右侧/right 6-左下角/bottomLeft 7-正下方/bottom 8-右下角/bottomRight]
@@ -264,8 +260,10 @@
 "$cube_set_0fec1154": false,// [!] 聊天增强 | chat enhancements
 "$cube_set_41ee3e72": true,// 工具箱 | toolbox
 "$cube_set_04119c6c": true,// 快速输入 | fast input
+"$cube_set_a7c7c9b6": true,// TAB 按钮 | tab button
 
 // 美化 | beautify //
+"$cube_set_f3c82728": false,// 使用原版背景 | use original background
 "$cube_set_594c4eb2": true,// 局部模糊 | partially blurred
 "$cube_set_e6786154": false,// 屏幕边框 | screen border
 "$cube_set_0a57c067": false,// 动态壁纸 | dynamic wallpaper
@@ -325,6 +323,24 @@
   //   编辑世界屏幕 edit world screen
   //   游戏屏幕 play screen
   "$cube_set_ff9ae346": false,// 大型内容沙盒 | large content sandbox
+
+// ━━━━━━━━━━
+// 信息 | information
+// ━━━━━━━━━━
+// 第三方作品水印
+// third-party works watermark
+"$cube_information_third_party_works_watermark": "",// 水印内容 | watermark content$
+"$cube_information_third_party_works_watermark_alpha": 0.75,// 水印不透明度 | watermark alpha
+"$cube_information_third_party_works_watermark_font_size": 1,// 水印字体大小 | watermark font size
+"$cube_information_third_party_works_watermark_anchor_from": "bottom_left",// 水印锚点来自 | watermark anchor from
+"$cube_information_third_party_works_watermark_anchor_to": "bottom_left",// 水印锚点到 | watermark anchor to
+"$cube_information_third_party_works_watermark_offset": [2,-22],// 水印偏移 | watermark offset
+
+"$cube_information_third_party_works_name": "",// 第三方作品名称 (必填, 留空则不显示以下信息) | third-party works name (mandatory. If left blank, the following information will not be displayed)
+"$cube_information_third_party_works_author": "",// 第三方作品作者 | third-party works author
+"$cube_information_third_party_works_version": "",// 第三方作品版本 (参考格式: prefix + version_code) | third-party works version (reference format: Prefix + version_code)
+"$cube_information_third_party_works_date": "",// 第三方作品该版本的发布时间 (参考格式: yyyy/mm/dd) | release time of the third-party works version (reference format: yyyy/mm/dd)
+"$cube_information_third_party_works_time_zone": "GMT+08:00",// 第三方作品该版本的时区 (默认为北京时间) | time zone of the third-party works version (the default value is Beijing time)
 
 // ━━━━━━━━━━
 // 立方面板 | cube panel
@@ -454,13 +470,6 @@
 "$cube_panel_date": "2025/7/31",
 "$cube_panel_time_zone": "GMT+08:00",
 
-"$cube_panel_client_name": "",// 客户端名称 (必填, 留空则不显示以下信息) | client name (mandatory. If left blank, the following information will not be displayed)
-"$cube_panel_client_author": "",// 客户端作者 | client author
-"$cube_panel_client_key": "",// 客户端密钥 (商用授权必填，个人使用或免费提供留空) | client key (mandatory for commercial authorization, left blank for personal use or free)
-"$cube_panel_client_version": "",// 客户端版本 (参考格式: prefix + version_code) | client version (reference format: Prefix + version_code)
-"$cube_panel_client_date": "",// 客户端该版本的发布时间 (参考格式: yyyy/mm/dd) | release time of the client version (reference format: yyyy/mm/dd)
-"$cube_panel_client_time_zone": "GMT+08:00",// 客户端该版本的时区 (默认为北京时间) | time zone of the client version (the default value is Beijing time)
-
 // ━━━━━━━━━━
 // 动画 | animation
 // ━━━━━━━━━━
@@ -536,45 +545,50 @@
 // 主题 | theme
 // ━━━━━━━━━━
 //$ 基本 | basic $//
-"$cube_theme_bg_photographer": "开朗的满级雪人",// 摄影者
-"$cube_theme_bg_seed": "seed: -9103460155717766965",// 种子
-"$cube_theme_bg_coordinate": "coordinate: -1993 63 -500",// 坐标
+"$cube_theme_bg_photographer": "狗头橙黄君",// 摄影者
+"$cube_theme_bg_seed": "seed: -6919880836637625703",// 种子
+"$cube_theme_bg_coordinate": "coordinate: -263 114 -412",// 坐标
 "$cube_theme_bg_addon": "",// 模组
 
 //$ 全局 | global $//
-// 主题色 #0099ff | Theme color #0099ff
+// 原色 #2979FF | Primary color #2979FF
+// 次要色 #C9DEFF | Secondary color #C9DEFF
+// 禁用色 #BCC6D4 | Disable color #BCC6D4
+// 表面色 #171717 | Surface color #171717
+// 在表面色 #ebebeb | On surface color #ebebeb
+// 选中色 #2F2F2F | Selected color #2F2F2F
+// 悬停色 #373737 | Selected color #373737
 "$cube_success_color": [0,0.78,0],// 成功颜色
 "$cube_error_color": [1,0.353,0.353],// 错误颜色
 "$cube_warning_color": [1,0.647,0],// 警告颜色
-"$cube_main_color": [0,0.6,1],// 主要颜色
+"$cube_main_color": [0.161,0.475,1],// 主要颜色
 
-"$cube_icon_base_color": [1,1,1],// 图标基本颜色
-"$cube_icon_color": [0.8,0.8,0.8],// 图标双色颜色
-"$cube_text_color": [1,1,1],// 文本颜色
+"$cube_icon_base_color": [0.922,0.922,0.922],// 图标基本颜色
+"$cube_icon_color": [0.922,0.922,0.922],// 图标双色颜色
+"$cube_text_color": [0.922,0.922,0.922],// 文本颜色
 "$cube_text_desc_color": [0.8,0.8,0.8],// 描述颜色
 "$cube_text_title_color": [1,0.839,0],// 标题颜色
 "$cube_text_font": "smooth",// 文本字体
 "$cube_text_backup_font": "default",// 文本备用字体
 
-"$cube_border_color": [1,1,1],// 边框颜色
+"$cube_border_color": [0.922,0.922,0.922],// 边框颜色
 "$cube_border_alpha": 0.55,// 边框不透明度
-"$cube_gloss_color": [1,1,1],// 光泽颜色
+"$cube_gloss_color": [0.922,0.922,0.922],// 光泽颜色
 "$cube_gloss_alpha": 0.3,// 光泽不透明度
-"$cube_gloss_netease_alpha": 0.008,// 光泽不透明度（中国版）
-"$cube_gloss_inside_color": [1,1,1],// 控件内部的光泽颜色
+"$cube_gloss_inside_color": [0.922,0.922,0.922],// 控件内部的光泽颜色
 "$cube_gloss_inside_alpha": 0.1,// 控件内部的光泽不透明度
 
 //$ 屏幕 | screens $//
 //# 书 | book #//
 "$cube_theme_book_page_text_color": [0,0,0],// 文本颜色
 "$cube_theme_book_page_place_holder_text_color": [0,0,0],// 占位符颜色
-"$cube_theme_book_title_text_color": [1,1,1],// 标题颜色
-"$cube_theme_book_title_place_holder_text_color": [1,1,1],// 标题占位符颜色
-"$cube_theme_book_author_text_color": [1,1,1],// 作者文本颜色
-"$cube_theme_book_author_text_place_holder_color": [1,1,1],// 作者文本颜色
+"$cube_theme_book_title_text_color": [0.922,0.922,0.922],// 标题颜色
+"$cube_theme_book_title_place_holder_text_color": [0.922,0.922,0.922],// 标题占位符颜色
+"$cube_theme_book_author_text_color": [0.922,0.922,0.922],// 作者文本颜色
+"$cube_theme_book_author_text_place_holder_color": [0.922,0.922,0.922],// 作者文本颜色
 
 //# 进度 | progress #//
-"$cube_theme_progress_gradient_top": [0,0,0,0],// 渐变颜色（顶部）
+"$cube_theme_progress_gradient_top": [0,0,0,0.1],// 渐变颜色（顶部）
 "$cube_theme_progress_gradient_bottom": [0,0,0,0.8],// 渐变颜色（底部）
 "$cube_theme_progress_gradient_safezone_alpha": 0.8,// 渐变安全区不透明度
 
@@ -582,19 +596,19 @@
 //# 背景 | background #//
 "$cube_bg": "textures/cube/bg/bg",// 背景路径
 "$cube_blur_bg": "textures/cube/bg/blur",// 模糊背景路径
-"$cube_bg_color": [0,0,0],// 纯色背景颜色
-"$cube_bg_alpha": 0.25,// 纯色背景不透明度
-"$cube_ingame_bg_color": [0,0,0],// 游戏内背景颜色
-"$cube_ingame_bg_alpha": 0.18,// 游戏内背景不透明度
+"$cube_bg_color": [0.09,0.09,0.09],// 纯色背景颜色
+"$cube_bg_alpha": 0.15,// 纯色背景不透明度
+"$cube_ingame_bg_color": [0.09,0.09,0.09],// 游戏内背景颜色
+"$cube_ingame_bg_alpha": 0.12,// 游戏内背景不透明度
 "$cube_control_bg_color": [0,0,0],// 控件背景颜色
 "$cube_control_bg_alpha": 0.45,// 控件背景不透明度
-"$cube_light_bg_color": [0.35,0.35,0.35],// 浅色背景颜色
-"$cube_light_bg_alpha": 0.45,// 浅色背景不透明度
+"$cube_light_bg_color": [0.184,0.184,0.184],// 浅色背景颜色
+"$cube_light_bg_alpha": 0.35,// 浅色背景不透明度
 
 "$cube_start_bg_color": [0,0,0],// 开始屏幕背景颜色
-"$cube_start_bg_alpha": 0.49,// 开始屏幕背景不透明度
+"$cube_start_bg_alpha": 0.3,// 开始屏幕背景不透明度
 "$cube_chat_bg_color": [0,0,0],// 聊天屏幕背景颜色
-"$cube_chat_bg_alpha": 0.28,// 聊天屏幕背景不透明度
+"$cube_chat_bg_alpha": 0.24,// 聊天屏幕背景不透明度
 
 "$cube_progress_background_custom": false,
 "$cube_progress_background_texture": "textures/cube/bg/progress",// custom = true
@@ -604,48 +618,49 @@
 "$cube_container_background_texture": "textures/cube/bg/container",// custom = true
 "$cube_container_background_fill": true,
 "$cube_container_background_alpha": 0.4,
-"$cube_container_background_color": [0.105,0.105,0.105],// custom = false
+"$cube_container_background_color": [0.09,0.09,0.09],// custom = false
 
 "$cube_container_pocket_background_custom": false,
 "$cube_container_pocket_background_texture": "textures/cube/bg/container_pocket",// custom = true
 "$cube_container_pocket_background_fill": true,
 "$cube_container_pocket_background_alpha": 0.4,
-"$cube_container_pocket_background_color": [0.105,0.105,0.105],// custom = false
+"$cube_container_pocket_background_color": [0.09,0.09,0.09],// custom = false
 
-"$cube_selector_area_bg_color": [0.105,0.105,0.105],// 选择区域背景颜色
+"$cube_selector_area_bg_color": [0.09,0.09,0.09],// 选择区域背景颜色
 "$cube_selector_area_bg_alpha": 0.2,// 选择区域背景不透明度
 "$cube_dressroom_bg_color": [0,0,0],// 更衣室背景颜色
 "$cube_dressroom_bg_alpha": 0.45,// 更衣室背景不透明度
 
 //# 按钮 | button #//
-"$cube_button_alpha": 0.65,// 不透明度
-"$cube_button_main_alpha": 0.45,// 主要不透明度
-"$cube_button_light_alpha": 0.55,// 浅色不透明度
+"$cube_button_alpha": 0.3,// 不透明度
+"$cube_button_main_alpha": 0.3,// 主要不透明度
+"$cube_button_light_alpha": 0.45,// 浅色不透明度
+"$cube_button_locked_alpha": 0.3,// 锁定状态不透明度
 
-"$cube_button_default_color": [0.188,0.188,0.188],// 默认颜色
-"$cube_button_hover_color": [0.453,0.492,0.519],// 悬停颜色
-"$cube_button_pressed_color": [0.453,0.492,0.519],// 按下颜色
-"$cube_button_locked_color": [0.625,0.712,0.798],// 锁定颜色
-"$cube_button_main_default_color": [0.259,0.522,0.957],// 主要默认颜色
-"$cube_button_main_hover_color": [0.098,0.404,0.824],// 主要悬停颜色
-"$cube_button_main_pressed_color": [0.051,0.278,0.631],// 主要按下颜色
+"$cube_button_default_color": [0.09,0.09,0.09],// 默认颜色
+"$cube_button_hover_color": [0.082,0.396,0.753],// 悬停颜色
+"$cube_button_pressed_color": [0.082,0.396,0.753],// 按下颜色
+"$cube_button_locked_color": [0.737,0.776,0.831],// 锁定颜色
+"$cube_button_main_default_color": [0.161,0.475,1],// 主要默认颜色
+"$cube_button_main_hover_color": [0.267,0.541,1],// 主要悬停颜色
+"$cube_button_main_pressed_color": [0.161,0.384,1],// 主要按下颜色
 "$cube_button_main_locked_color": [0.6445,0.0507,0.0507],// 主要锁定颜色
 "$cube_button_destructive_default_color": [0.69,0,0.125],// 破坏性默认颜色
 "$cube_button_destructive_hover_color": [0.776,0.157,0.157],// 破坏性悬停颜色
 "$cube_button_destructive_pressed_color": [0.498,0,0],// 破坏性按下颜色
-"$cube_button_destructive_locked_color": [0.453,0.492,0.519],// 破坏性锁定颜色
+"$cube_button_destructive_locked_color": [0.737,0.776,0.831],// 破坏性锁定颜色
 "$cube_button_light_default_color": [0.8,0.8,0.8],// 浅色默认颜色
 "$cube_button_light_hover_color": [0.7,0.7,0.7],// 浅色悬停颜色
 "$cube_button_light_pressed_color": [0.7,0.7,0.7],// 浅色按下颜色
-"$cube_button_light_locked_color": [0.625,0.712,0.798],// [!] 浅色锁定颜色
+"$cube_button_light_locked_color": [0.737,0.776,0.831],// [!] 浅色锁定颜色
 
 "$cube_button_transparent_default_alpha": 0,// 透明默认不透明度
 "$cube_button_transparent_hover_alpha": 0.25,// 透明悬停不透明度
 "$cube_button_transparent_pressed_alpha": 0.15,// 透明按下不透明度
-"$cube_button_transparent_default_color": [1,1,1],// 透明默认颜色
+"$cube_button_transparent_default_color": [0.922,0.922,0.922],// 透明默认颜色
 "$cube_button_transparent_hover_color": [0.8,0.8,0.8],// 透明悬停颜色
 "$cube_button_transparent_pressed_color": [0.8,0.8,0.8],// 透明按下颜色
-"$cube_button_transparent_icon_default_color": [1,1,1],// 透明图标默认颜色
+"$cube_button_transparent_icon_default_color": [0.922,0.922,0.922],// 透明图标默认颜色
 "$cube_button_transparent_icon_hover_color": [1,0.85,0.85],// 透明图标悬停颜色
 "$cube_button_transparent_icon_pressed_color": [0.8,0.8,0.8],// 透明图标按下颜色
 
@@ -653,11 +668,11 @@
 "$cube_button_sound_volume": 1.0,// 音效音量
 "$cube_button_sound_pitch": 1.0,// 音效音高
 
-"$cube_button_text_color": [1,1,1],// 文本颜色
-"$cube_button_text_default_color": [1,1,1],// 文本默认颜色
-"$cube_button_text_hover_color": [1,1,1],// 文本悬停颜色
-"$cube_button_text_pressed_color": [1,1,1],// 文本按下颜色
-"$cube_button_text_locked_color": [1,1,1],// 文本锁定颜色
+"$cube_button_text_color": [0.922,0.922,0.922],// 文本颜色
+"$cube_button_text_default_color": [0.922,0.922,0.922],// 文本默认颜色
+"$cube_button_text_hover_color": [0.922,0.922,0.922],// 文本悬停颜色
+"$cube_button_text_pressed_color": [0.922,0.922,0.922],// 文本按下颜色
+"$cube_button_text_locked_color": [0.922,0.922,0.922],// 文本锁定颜色
 "$cube_button_text_font": "smooth",// 文本字体
 "$cube_button_text_backup_font": "default",// 文本备份字体
 
@@ -666,31 +681,31 @@
 "$cube_button_secondary_text_pressed_color": [0.9,0.9,0.9],// 次要文本按下颜色
 "$cube_button_secondary_text_locked_color": [0.8,0.8,0.8],// 次要文本锁定颜色
 
-"$cube_button_glyph_default_color": [1,1,1],// 图标默认颜色
-"$cube_button_glyph_hover_color": [1,1,1],// 图标悬停颜色
-"$cube_button_glyph_pressed_color": [1,1,1],// 图标按下颜色
-"$cube_button_glyph_locked_color": [1,1,1],// 图标锁定颜色
+"$cube_button_glyph_default_color": [0.922,0.922,0.922],// 图标默认颜色
+"$cube_button_glyph_hover_color": [0.922,0.922,0.922],// 图标悬停颜色
+"$cube_button_glyph_pressed_color": [0.922,0.922,0.922],// 图标按下颜色
+"$cube_button_glyph_locked_color": [0.922,0.922,0.922],// 图标锁定颜色
 
 //# 开关 | toggle #//
-"$cube_toggle_alpha": 0.65,// 整体背景不透明度
-"$cube_toggle_unchecked_alpha": 0.65,// 未选中状态背景不透明度
-"$cube_toggle_checked_alpha": 0.65,// 选中状态背景不透明度
+"$cube_toggle_alpha": 0.3,// 整体背景不透明度
+"$cube_toggle_unchecked_alpha": 0.3,// 未选中状态背景不透明度
+"$cube_toggle_checked_alpha": 0.5,// 选中状态背景不透明度
 "$cube_toggle_switch_alpha": 0.65,// 开关滑块不透明度
-"$cube_toggle_locked_alpha": 0.4,// 锁定状态不透明度
+"$cube_toggle_locked_alpha": 0.2,// 锁定状态不透明度
 
-"$cube_toggle_checked_default_color": [0.35,0.35,0.35],// 选中状态默认背景颜色
-"$cube_toggle_checked_hover_color": [0.553,0.592,0.619],// 选中状态悬停背景颜色
-"$cube_toggle_unchecked_default_color": [0.188,0.188,0.188],// 未选中状态默认背景颜色
-"$cube_toggle_unchecked_hover_color": [0.453,0.492,0.519],// 未选中状态悬停背景颜色
+"$cube_toggle_checked_default_color": [0.184,0.184,0.184],// 选中状态默认背景颜色
+"$cube_toggle_checked_hover_color": [0.082,0.396,0.753],// 选中状态悬停背景颜色
+"$cube_toggle_unchecked_default_color": [0.09,0.09,0.09],// 未选中状态默认背景颜色
+"$cube_toggle_unchecked_hover_color": [0.082,0.396,0.753],// 未选中状态悬停背景颜色
 "$cube_toggle_locked_color": [0.675,0.788,0.902],// 锁定状态背景颜色
 
-"$cube_toggle_switch_checked_default_color": [0,0.6,1],// 选中状态滑块默认颜色
-"$cube_toggle_switch_checked_hover_color": [0.2,0.8,1],// 选中状态滑块悬停颜色
-"$cube_toggle_switch_unchecked_default_color": [0.18,0.18,0.18],// 未选中状态滑块默认颜色
-"$cube_toggle_switch_unchecked_hover_color": [0.5,0.5,0.5],// 未选中状态滑块悬停颜色
-"$cube_toggle_switch_locked_color": [0.625,0.712,0.798],// 锁定状态滑块颜色
-"$cube_toggle_switch_point_checked_color": [1,1,1],// 选中状态开关点颜色
-"$cube_toggle_switch_point_unchecked_color": [0.95,0.95,0.95],// 未选中状态开关点颜色
+"$cube_toggle_switch_checked_default_color": [0.161,0.475,1],// 选中状态开关默认颜色
+"$cube_toggle_switch_checked_hover_color": [0.082,0.396,0.753],// 选中状态开关悬停颜色
+"$cube_toggle_switch_unchecked_default_color": [0.09,0.09,0.09],// 未选中状态开关默认颜色
+"$cube_toggle_switch_unchecked_hover_color": [0.284,0.284,0.284],// 未选中状态开关悬停颜色
+"$cube_toggle_switch_locked_color": [0.737,0.776,0.831],// 锁定状态开关颜色
+"$cube_toggle_switch_point_checked_color": [0.922,0.922,0.922],// 选中状态开关把柄颜色
+"$cube_toggle_switch_point_unchecked_color": [0.95,0.95,0.95],// 未选中状态开关把柄颜色
 
 "$cube_toggle_state_checked_default_color": [0.9,0.9,0.9],// 选中状态默认图标颜色
 "$cube_toggle_state_checked_hover_color": [0.9,0.9,0.9],// 选中状态悬停图标颜色
@@ -705,8 +720,8 @@
 "$cube_toggle_state_unchecked_hover_alpha": 0.65,// 未选中状态悬停图标不透明度
 "$cube_toggle_state_unchecked_locked_alpha": 0.5,// 未选中状态锁定图标不透明度
 
-"$cube_toggle_indicator_checked_color": [0,0.6,1],// 选中状态指示器颜色
-"$cube_toggle_indicator_unchecked_color": [0,0.6,1],// 未选中状态指示器颜色
+"$cube_toggle_indicator_checked_color": [0.161,0.475,1],// 选中状态指示器颜色
+"$cube_toggle_indicator_unchecked_color": [0.161,0.475,1],// 未选中状态指示器颜色
 "$cube_toggle_indicator_checked_alpha": 1,// 选中状态指示器不透明度
 "$cube_toggle_indicator_unchecked_alpha": 1,// 未选中状态指示器不透明度
 
@@ -716,64 +731,64 @@
 
 "$cube_toggle_text_font": "smooth",// 文本字体
 "$cube_toggle_text_backup_font": "default",// 备用文本字体
-"$cube_toggle_text_unchecked_color": [1,1,1],// 未选中状态文本颜色
-"$cube_toggle_text_checked_color": [1,1,1],// 选中状态文本颜色
-"$cube_toggle_text_unchecked_hover_color": [1,1,1],// 未选中状态悬停文本颜色
-"$cube_toggle_text_checked_hover_color": [1,1,1],// 选中状态悬停文本颜色
+"$cube_toggle_text_unchecked_color": [0.922,0.922,0.922],// 未选中状态文本颜色
+"$cube_toggle_text_checked_color": [0.922,0.922,0.922],// 选中状态文本颜色
+"$cube_toggle_text_unchecked_hover_color": [0.922,0.922,0.922],// 未选中状态悬停文本颜色
+"$cube_toggle_text_checked_hover_color": [0.922,0.922,0.922],// 选中状态悬停文本颜色
 
 //# 滑块 | slider #//
-"$cube_slider_background_alpha": 0.6,// 背景不透明度
-"$cube_slider_background_color": [0.105,0.105,0.105],// 背景颜色
+"$cube_slider_background_alpha": 0.3,// 背景不透明度
+"$cube_slider_background_color": [0.09,0.09,0.09],// 背景颜色
 "$cube_slider_background_hover_color": [0.5,0.5,0.5],// 悬停背景颜色
 
 "$cube_slider_button_alpha": 0.95,// 按钮不透明度
-"$cube_slider_button_default_color": [1,1,1],// 按钮默认颜色
+"$cube_slider_button_default_color": [0.922,0.922,0.922],// 按钮默认颜色
 "$cube_slider_button_hover_color": [0.8,0.8,0.8],// 按钮悬停颜色
-"$cube_slider_button_indent_color": [1,1,1],// 按钮凹槽颜色
-"$cube_slider_button_locked_color": [0.625,0.712,0.798],// 按钮锁定颜色
+"$cube_slider_button_indent_color": [0.922,0.922,0.922],// 按钮凹槽颜色
+"$cube_slider_button_locked_color": [0.737,0.776,0.831],// 按钮锁定颜色
 
-"$cube_slider_progress_alpha": 0.45,// 进度条不透明度
-"$cube_slider_progress_default_color": [0,0.6,1],// 进度条默认颜色
+"$cube_slider_progress_alpha": 0.6,// 进度条不透明度
+"$cube_slider_progress_default_color": [0.161,0.475,1],// 进度条默认颜色
 "$cube_slider_progress_hover_color": [0.2,0.8,1],// 进度条悬停颜色
 
 "$cube_slider_border_alpha": 0.4,// 边框不透明度
-"$cube_slider_border_default_color": [0.105,0.105,0.105],// 边框默认颜色
+"$cube_slider_border_default_color": [0.09,0.09,0.09],// 边框默认颜色
 "$cube_slider_border_hover_color": [0.5,0.5,0.5],// 边框悬停颜色
 
-"$cube_slider_step_alpha": 0.8,// 步进标记不透明度
+"$cube_slider_step_alpha": 0.6,// 步进标记不透明度
 "$cube_slider_step_default_color": [0.9,0.9,0.9],// 步进标记默认颜色
-"$cube_slider_step_hover_color": [1,1,1],// 步进标记悬停颜色
+"$cube_slider_step_hover_color": [0.922,0.922,0.922],// 步进标记悬停颜色
 "$cube_slider_step_progress_default_color": [0.5,0.5,0.5],// 进度条步进标记默认颜色
-"$cube_slider_step_progress_hover_color": [1,1,1],// 进度条步进标记悬停颜色
+"$cube_slider_step_progress_hover_color": [0.922,0.922,0.922],// 进度条步进标记悬停颜色
 
 //# 顶栏 | topbar #//
-"$cube_headbar_color": [0.105,0.105,0.105],// 背景颜色
-"$cube_headbar_alpha": 0.75,// 不透明度
+"$cube_headbar_color": [0.09,0.09,0.09],// 背景颜色
+"$cube_headbar_alpha": 0.4,// 不透明度
 
 "$cube_headbar_gradient_color": [0,0,0],// 渐变颜色
-"$cube_headbar_gradient_alpha": 0.35,// 渐变不透明度
+"$cube_headbar_gradient_alpha": 0.3,// 渐变不透明度
 
-"$cube_headbar_title_color": [1,1,1],// 标题颜色
+"$cube_headbar_title_color": [0.922,0.922,0.922],// 标题颜色
 "$cube_headbar_title_font": "smooth",// 标题字体
 "$cube_headbar_title_backup_font": "default",// 标题备用字体
 
 //# 分段栏 | header #//
-"$cube_header_alpha": 0.6,// 不透明度
-"$cube_header_color": [0.105,0.105,0.105],// 背景颜色
-"$cube_header_label_color": [1,1,1],// 标签颜色
+"$cube_header_alpha": 0.3,// 不透明度
+"$cube_header_color": [0.09,0.09,0.09],// 背景颜色
+"$cube_header_label_color": [0.922,0.922,0.922],// 标签颜色
 "$cube_header_label_font": "smooth",// 标签字体
 "$cube_header_label_backup_font": "default",// 标签备用字体
 
 //# 输入框 | text box #//
-"$cube_text_box_alpha": 0.65,// 不透明度
+"$cube_text_box_alpha": 0.3,// 不透明度
 
-"$cube_text_box_default_color": [0.188,0.188,0.188],// 默认背景颜色
-"$cube_text_box_hover_color": [0.453,0.492,0.519],// 悬停背景颜色
-"$cube_text_box_pressed_color": [0.453,0.492,0.519],// 按下背景颜色
-"$cube_text_box_locked_color": [0.625,0.712,0.798],// 锁定背景颜色
+"$cube_text_box_default_color": [0.09,0.09,0.09],// 默认背景颜色
+"$cube_text_box_hover_color": [0.082,0.396,0.753],// 悬停背景颜色
+"$cube_text_box_pressed_color": [0.082,0.396,0.753],// 按下背景颜色
+"$cube_text_box_locked_color": [0.737,0.776,0.831],// 锁定背景颜色
 
-"$cube_text_box_text_color": [1,1,1],// 文本颜色
-"$cube_text_box_locked_text_color": [1,1,1],// 锁定文本颜色
+"$cube_text_box_text_color": [0.922,0.922,0.922],// 文本颜色
+"$cube_text_box_locked_text_color": [0.922,0.922,0.922],// 锁定文本颜色
 "$cube_text_box_place_holder_text_color": [0.85,0.85,0.85],// 占位符文本颜色
 
 "$cube_text_box_font": "default",// 文本字体
@@ -782,60 +797,60 @@
 "$cube_text_box_place_holder_backup_font": "default",// 占位符备用字体
 
 //# 物品格子 | cell #//
-"$cube_cell_alpha": 0.4,// 不透明度
+"$cube_cell_alpha": 0.3,// 不透明度
 "$cube_cell_color": [0.61,0.61,0.61],// 背景颜色
-"$cube_cell_selected_color": [0.453,0.492,0.519],// 选中颜色
-"$cube_cell_red_color": [0.625,0.712,0.798],// 红色状态颜色
-"$cube_cell_highlight_color": [0.553,0.592,0.619],// 高亮颜色
-"$cube_cell_highlight_alpha": 0.35,// 高亮不透明度
+"$cube_cell_selected_color": [0.082,0.396,0.753],// 选中颜色
+"$cube_cell_red_color": [0.737,0.776,0.831],// 红色状态颜色
+"$cube_cell_highlight_color": [0.082,0.396,0.753],// 高亮颜色
+"$cube_cell_highlight_alpha": 0.3,// 高亮不透明度
 "$cube_cell_hotbar_color": [0.1,0.1,0.1],// 快捷栏颜色
 
 //# 容器组件 | container components #//
-"$cube_container_components_alpha": 0.55,// 不透明度
-"$cube_container_components_color": [1,1,1],// 颜色
+"$cube_container_components_alpha": 0.4,// 不透明度
+"$cube_container_components_color": [0.922,0.922,0.922],// 颜色
 "$cube_container_components_full_alpha": 1,// 满状态不透明度
-"$cube_container_components_full_color": [0,0.6,1],// 满状态颜色
+"$cube_container_components_full_color": [0.161,0.475,1],// 满状态颜色
 
 //# 滚动面板 | scroll panel #//
-"$cube_scroll_track_color": [0.188,0.188,0.188],// 滚动条轨道颜色
-"$cube_scroll_track_alpha": 0.4,// 滚动条轨道不透明度
+"$cube_scroll_track_color": [0.09,0.09,0.09],// 滚动条轨道颜色
+"$cube_scroll_track_alpha": 0.3,// 滚动条轨道不透明度
 
 "$cube_scroll_box_color": [0.85,0.85,0.9],// 滚动条滑块颜色
-"$cube_scroll_box_alpha": 0.7,// 滚动条滑块不透明度
+"$cube_scroll_box_alpha": 0.6,// 滚动条滑块不透明度
 
 //# 进度 | progress #//
-"$cube_progress_empty_color": [0.105,0.105,0.105],// 空状态颜色
-"$cube_progress_empty_alpha": 0.6,// 空状态不透明度
-"$cube_progress_full_color": [0.333,0.8,0.8],// 满状态颜色
-"$cube_progress_full_alpha": 0.85,// 满状态不透明度
+"$cube_progress_empty_color": [0.09,0.09,0.09],// 空状态颜色
+"$cube_progress_empty_alpha": 0.3,// 空状态不透明度
+"$cube_progress_full_color": [0.161,0.475,1],// 满状态颜色
+"$cube_progress_full_alpha": 0.6,// 满状态不透明度
 "$cube_progress_expected_color": [0.333,0.65,0.65],// 预期状态颜色
-"$cube_progress_expected_alpha": 0.85,// 预期状态不透明度
-"$cube_progress_number_color": [0.333,0.8,0.8],// 进度数字颜色
+"$cube_progress_expected_alpha": 0.6,// 预期状态不透明度
+"$cube_progress_number_color": [0.161,0.475,1],// 进度数字颜色
 "$cube_progress_number_font": "default",// 进度数字字体
 
 //# 下拉面板 | dropdown #//
-"$cube_dropdown_background_color": [0.105,0.105,0.105],// 背景颜色
-"$cube_dropdown_background_alpha": 0.55,// 背景不透明度
+"$cube_dropdown_background_color": [0.09,0.09,0.09],// 背景颜色
+"$cube_dropdown_background_alpha": 0.3,// 背景不透明度
 
 "$cube_dropdown_sound_name": "random.click",// 音效名称
 "$cube_dropdown_sound_volume": 1.0,// 音效音量
 "$cube_dropdown_sound_pitch": 1.0,// 音效音高
 
 //# 单选框 | radio #//
-"$cube_radio_background_alpha": 0.55,// 背景不透明度
+"$cube_radio_background_alpha": 0.3,// 背景不透明度
 "$cube_radio_background_selected_color": [0,0,0],// 选中背景颜色
 "$cube_radio_background_hover_color": [0.5,0.5,0.5],// 悬停背景颜色
 
-"$cube_radio_filled_color": [1,1,1],// 填充颜色
-"$cube_radio_filled_alpha": 0.55,// 填充不透明度
+"$cube_radio_filled_color": [0.922,0.922,0.922],// 填充颜色
+"$cube_radio_filled_alpha": 0.6,// 填充不透明度
 
 "$cube_radio_on_texture": "textures/cube/radio/radio_on",// 开启默认颜色
 "$cube_radio_on_hover_texture": "textures/cube/radio/radio_on_hover",// 开启悬停颜色
 "$cube_radio_off_texture": "textures/cube/radio/radio_off",// 关闭默认颜色
 "$cube_radio_off_hover_texture": "textures/cube/radio/radio_off_hover",// 关闭悬停颜色
 
-"$cube_radio_text_color": [1,1,1],// 文本颜色
-"$cube_radio_text_hover_color": [1,1,1],// 文本悬停颜色
+"$cube_radio_text_color": [0.922,0.922,0.922],// 文本颜色
+"$cube_radio_text_hover_color": [0.922,0.922,0.922],// 文本悬停颜色
 "$cube_radio_text_font": "smooth",// 字体
 "$cube_radio_text_backup_font": "default",// 备份字体
 
@@ -857,62 +872,62 @@
 
 //# 侧边栏 | sidebar #//
 "$cube_sidebar_bg_color": [0,0,0],// 颜色
-"$cube_sidebar_alpha": 0.75,// 不透明度
+"$cube_sidebar_alpha": 0.3,// 不透明度
 
 //# 工具提示 | tooltip #//
 "$cube_tooltip_background_color": [0,0,0],// 背景颜色
-"$cube_tooltip_background_alpha": 0.65,// 背景不透明度
+"$cube_tooltip_background_alpha": 0.6,// 背景不透明度
 "$cube_tooltip_chevron_color": [0,0,0],// 箭头颜色
-"$cube_tooltip_chevron_alpha": 0.65,// 箭头不透明度
+"$cube_tooltip_chevron_alpha": 0.6,// 箭头不透明度
 
 //# 下划线 | underline #//
-"$cube_underline_color": [0.105,0.105,0.105],// 颜色
-"$cube_underline_alpha": 0.4,// 不透明度
+"$cube_underline_color": [0.09,0.09,0.09],// 颜色
+"$cube_underline_alpha": 0.3,// 不透明度
 
 //# 分割线 | divider #//
 "$cube_divider_color": [0.9,0.9,0.9],// 颜色
-"$cube_divider_alpha": 0.33,// 不透明度
+"$cube_divider_alpha": 0.3,// 不透明度
 
 //# 弹出窗口 | dialog #//
 "$cube_dialog_overlay_color": [0,0,0],// 遮罩颜色
 "$cube_dialog_overlay_alpha": 0.15,// 遮罩不透明度
-"$cube_dialog_background_color": [0.105,0.105,0.105],// 背景颜色
+"$cube_dialog_background_color": [0.09,0.09,0.09],// 背景颜色
 "$cube_dialog_background_alpha": 0.6,// 背景不透明度
-"$cube_dialog_headbar_color": [0.35,0.35,0.35],// 顶栏颜色
-"$cube_dialog_headbar_alpha": 0.4,// 顶栏不透明度
+"$cube_dialog_headbar_color": [0.184,0.184,0.184],// 顶栏颜色
+"$cube_dialog_headbar_alpha": 0.3,// 顶栏不透明度
 
-"$cube_dialog_title_text_color": [1,1,1],// 标题颜色
+"$cube_dialog_title_text_color": [0.922,0.922,0.922],// 标题颜色
 "$cube_dialog_title_font": "smooth",// 字体
 "$cube_dialog_title_backup_font": "default",// 备份字体
 
-"$cube_dialog_message_text_color": [1,1,1],// 消息颜色
+"$cube_dialog_message_text_color": [0.922,0.922,0.922],// 消息颜色
 "$cube_dialog_message_font": "smooth",// 字体
 "$cube_dialog_message_backup_font": "default",// 备份字体
 
 //# 吐司 | toast #//
 "$cube_toast_background_color": [0,0,0],// 颜色
-"$cube_toast_background_alpha": 0.65,// 不透明度
+"$cube_toast_background_alpha": 0.6,// 不透明度
 
 //# 角标 | corner marker #//
 "$cube_corner_master_color": [0,0,0],// 颜色
-"$cube_corner_master_alpha": 0.7,// 不透明度
+"$cube_corner_master_alpha": 0.6,// 不透明度
 "$cube_red_dot_color": [1,0,0],// 红点颜色
 "$cube_red_dot_alpha": 0.8,// 红点不透明度
 
 //# 调试 | debug #//
 "$cube_dev_color": [0,0,0],// 颜色
-"$cube_dev_alpha": 0.75,// 不透明度
+"$cube_dev_alpha": 0.7,// 不透明度
 "$cube_dev_tool_color": [0,0,0],// 工具背景颜色
-"$cube_dev_tool_alpha": 0.65,// 工具背景不透明度
+"$cube_dev_tool_alpha": 0.6,// 工具背景不透明度
 
 //# 记分板 | scoreboard #//
 "$cube_scoreboard_player_score_font": "smooth",// 字体
 "$cube_scoreboard_player_score_backup_font": "default",// 备份字体
-"$cube_scoreboard_player_name_color": [1,1,1],// 玩家名颜色
-"$cube_scoreboard_objective_title_color": [1,1,1],// 目标标题颜色
+"$cube_scoreboard_player_name_color": [0.922,0.922,0.922],// 玩家名颜色
+"$cube_scoreboard_objective_title_color": [0.922,0.922,0.922],// 目标标题颜色
 "$cube_scoreboard_player_score_color": [0.2,0.6,1],// 分数颜色
-"$cube_scoreboard_player_list_score_color": [1,1,1],// 玩家列表分数颜色
-"$cube_scoreboard_player_list_rank_color": [1,1,1],// 玩家列表文字颜色
+"$cube_scoreboard_player_list_score_color": [0.922,0.922,0.922],// 玩家列表分数颜色
+"$cube_scoreboard_player_list_rank_color": [0.922,0.922,0.922],// 玩家列表文字颜色
 
 //# 选轮 | selection wheel #//
 "$cube_selection_wheel_sound_name": "random.click",// 音效
@@ -920,7 +935,7 @@
 "$cube_selection_wheel_sound_pitch": 1.0,// 音高
 
 //# 其他 | other #//
-"$cube_bar_color": [0,0.6,1],// 栏颜色
+"$cube_bar_color": [0.161,0.475,1],// 栏颜色
 "$cube_bar_alpha": 1,// 栏不透明度
 
 // ━━━━━━━━━━
@@ -970,13 +985,12 @@
 // ! The following text is modified with caution
 // ━━━━━━━━━━
 //# 状态 | status #//
-"$cube_status": true,// 立方之窗 | CubeVisage UI
+"$cube_status": true,// 方窗 | CubeVisage UI
 "$cube_status_cloud_texture": false,// 云材质 | cloud texture
 "$cube_status_education": false,// 教育版 | education
 "$cube_status_extends": false,// 扩展 | extends
 "$cube_status_global_variables": true,// 全局变量 | global variables
 "$cube_status_life": false,// 精简版 | Lite
-"$cube_status_store": false,// 资源中心 | store
 
 //# 主题 | theme #//
 "$cube_theme_type": "dark",
@@ -1021,7 +1035,6 @@
 "$cube_website": "cubevisage.top",
 "$cube_website_custom": "cubevisage.top/custom",
 "$cube_website_channels": "pd.qq.com/s/233egiixi",
-"$cube_website_discord": "discord.gg/zYWvyhXsAq",
 "$cube_website_donation": "afdian.com/a/zybreeze",
 
 //# 自定义信息 | custom info #//
@@ -1032,39 +1045,39 @@
 "$cube_custom_desc": "",
 "$cube_custom_uuid": "",
 "$cube_custom_version": 0,
-"$cube_custom_target_api": 40000,
+"$cube_custom_target_api": 600000,
 
-//# 信息 | info #//
+//# 信息 | information #//
 "$cube_name": "CubeVisage",
 "$cube_creator": "breeze",
 "$cube_creator_xbox": "wiseBreeze2303",
 "$cube_uuid": "9b8fecf4-8b25-4d78-9c15-ab8440653346",
 "$cube_display_name": "§b§lCubeVisage UI§r§f",
-"$cube_version": "5.0",
-"$cube_version_patch": 9,
-"$cube_version_code": 5000900,
+"$cube_version": "6.1",
+"$cube_version_patch": 0,
+"$cube_version_code": 601000,
 "$cube_version_prefix": "release",
-"$cube_version_date": "2025/10/19",
+"$cube_version_date": "2026/1/1",
 "$cube_version_time_zone": "GMT+08:00",
 
-"$cube_protocol_version": "3.6",
-"$cube_protocol_date": "2025/10/15",
+"$cube_protocol_version": "3.7",
+"$cube_protocol_date": "2026/1/1",
 "$cube_protocol_time_zone": "GMT+08:00",
 
 "$cube_core_name": "CubeVisage Core",
-"$cube_core_version": "1.0.65",
-"$cube_core_version_code": 10065,
+"$cube_core_version": "1.0.68",
+"$cube_core_version_code": 10068,
 "$cube_core_version_prefix": "release",
-"$cube_core_date": "2025/10/12",
+"$cube_core_date": "2026/1/1",
 "$cube_core_time_zone": "GMT+08:00",
 
 "$cube_design_name": "CubeVisage Design",
 "$cube_design_author": "breeze",
-"$cube_design_version": "1.0.22",
-"$cube_design_version_code": 10022,
-"$cube_design_version_target_code": 5000000,
-"$cube_design_version_min_code": 5000000,
+"$cube_design_version": "6.0.0",
+"$cube_design_version_code": 60000,
+"$cube_design_version_target_code": 601000,
+"$cube_design_version_min_code": 601000,
 "$cube_design_version_prefix": "release",
-"$cube_design_date": "2025/10/12",
+"$cube_design_date": "2026/1/1",
 "$cube_design_time_zone": "GMT+08:00"
 }
