@@ -1,4 +1,4 @@
-<h1 align="center">CubeVisage 网站</h1>
+<h1 align="center">方窗网站</h1>
 <p align="center">
 
 [![English Version](https://img.shields.io/badge/Language-English-blue)](https://github.com/wisebreeze/cv)
@@ -10,7 +10,7 @@
 
 ## 功能特性
 
-- 定制化立方之窗用户界面
+- 定制化方窗用户界面
 - 提供 UI 下载渠道
 
 ## 技术栈
