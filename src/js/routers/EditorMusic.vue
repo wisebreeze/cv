@@ -256,7 +256,6 @@
             >
               <input
                 type="file"
-                accept="audio/*"
                 ref="audioFileInput"
                 style="display: none"
                 @change="handleAudioFileChange"
@@ -933,6 +932,13 @@ const triggerAudioFileInput = () => {
 const handleAudioFileChange = e => {
   const file = e.target.files[0]
   if (file) {
+    const isAudioFile = file.type.startsWith('audio/') || 
+      ['audio/mpeg', 'audio/wav', 'audio/ogg'].includes(file.type)
+    if (!isAudioFile) {
+      error.value(t('editor.music.fileInvalid'))
+      e.target.value = ''
+      return
+    }
     audioFileNamePreview.value = file.name
     const reader = new FileReader()
     reader.onload = event => {
