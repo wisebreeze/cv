@@ -102,6 +102,8 @@
   "discord_desc": "Officially recommended",
   "qq_channel": "QQ Channel",
   "qq_channel_desc": "Officially recommended",
+  "qq_group5": "QQ Group ⑤",
+  "qq_group5_desc": "594359138 (500 members)",
   "qq_group4": "QQ Group ④",
   "qq_group4_desc": "1039970716 (500 members)",
   "qq_group3": "QQ Group ③",
@@ -234,10 +236,8 @@
     "a8": "Import and activate Chunk Map extension pack, then enter world to see it\n\nIf Cube Panel is enabled, you need to enable chunk map in panel settings, or set it to default on at Customize > Panel > Chunk Map\n\nAlso chunk map requires coordinate display, enable at Settings > World > Show Coordinates",
     "q9": "Can I modify it?",
     "a9": "Yes, but without author's permission, modified resource packs cannot be shared or published online",
-    "q10": "How to get permission?",
-    "a10": "For *free* works: Contact author for permission (no fee)\nFor *commercial* works (all commercial uses): Get authorization at [Aifadian](https://afdian.com/a/zybreeze)\n(Non-China users must contact author for commercial authorization)",
-    "q11": "What is a zip file?",
-    "a11": "A zip file is a compressed archive that contains one or more files combined into a single file for easier storage and distribution. It uses compression to reduce file size while preserving all the original data when extracted"
+    "q10": "What is a zip file?",
+    "a10": "A zip file is a compressed archive that contains one or more files combined into a single file for easier storage and distribution. It uses compression to reduce file size while preserving all the original data when extracted"
   },
   toolbox: {
     all: "All",
