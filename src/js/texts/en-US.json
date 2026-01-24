@@ -146,6 +146,7 @@
       resumeSong: "Resume",
       edit: "Edit",
       fileNotFound: "File not found",
+      fileInvalid: "Please select a valid audio file!",
       removeCover: {
         title: 'Remove Cover',
         message: 'Are you sure you want to remove the cover?',

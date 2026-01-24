@@ -143,6 +143,7 @@
       resumeSong: "继续播放",
       edit: "编辑",
       fileNotFound: "音乐未找到",
+      fileInvalid: "请选择有效的音频文件！",
       removeCover: {
         title: '移除封面',
         message: '确定要移除封面吗？',
