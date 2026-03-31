@@ -195,6 +195,7 @@
     "java": "Java",
     "faqTitle": "FAQ",
     "faqDesc": "Having issues? Check common solutions",
+    "mediafire": "Mediafire",
     "curseforge": "CurseForge",
     "mcpedl": "MCPEDL",
     "modrinth": "Modrinth",
@@ -505,4 +506,4 @@
       generationError: "Error generating UUIDs"
     }
   }
-}
+  }
