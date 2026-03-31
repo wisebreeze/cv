@@ -115,6 +115,10 @@ const bedrockItems = [
     onlyZH: true
   },
   {
+    title: 'download.mediafire',
+    link: 'https://www.mediafire.com/folder/gfnv21hd4yzzs/CubeVisage+UI'
+  },
+  {
     title: 'download.curseforge',
     link: 'https://www.curseforge.com'
   },
