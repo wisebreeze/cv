@@ -193,7 +193,7 @@ onMounted(async () => {
   let variables = await fs.value.read("ui/_global_variables.json")
   variables = variables || {}
 
-  const startMarker = '// ━━━━━━━━━━\n// 立方面板 | cube panel\n// ━━━━━━━━━━'
+  const startMarker = '// ━━━━━━━━━━\n// 方窗面板 | cubevisage panel\n// ━━━━━━━━━━'
   const endMarker = '// ━━━━━━━━━━'
   const startIndex = configData.indexOf(startMarker)
   if (startIndex === -1) {
