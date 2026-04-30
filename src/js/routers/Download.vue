@@ -135,13 +135,13 @@ const bedrockItems = [
     title: 'download.klpbbs',
     link: 'https://klpbbs.com',
     onlyZH: true
-  },
-  {
-    title: 'download.cloud',
-    link: null,
-    instructions: 'download.cloud_instructions',
-    onlyZH: true
   }
+  /*{
+    title: 'title',
+    link: null,
+    instructions: 'description',
+    onlyZH: true
+  }*/
 ]
 
 const javaItems = [
