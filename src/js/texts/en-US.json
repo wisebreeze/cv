@@ -47,6 +47,12 @@
   bg$interval: "How many milliseconds does it take? [integer]",
   bg$duration: "Duration of each wallpaper [float]",
   bg$blurRadius: "Blurred radius",
+  bg$invalidDuration: "Invalid video duration, please try another video file",
+  bg$invalidFrames: "Unable to calculate video frames, please try another video file",
+  bg$invalidTotalImages: "Frame calculation error, please adjust the interval parameter",
+  bg$invalidVideoDuration: "Failed to read video duration, please try again",
+  bg$videoLoadTimeout: "Video loading timeout, please check the file format",
+  bg$progress$error: "An error occurred during processing, please try again",
   bg$progress: "Please upload your video or picture",
   bg$progress$delayError: "Error: The value of the delay must be a floating point number",
   bg$progress$durationError: "Error: The value of the play duration must be a floating-point number",
@@ -506,4 +512,4 @@
       generationError: "Error generating UUIDs"
     }
   }
-  }
+}
