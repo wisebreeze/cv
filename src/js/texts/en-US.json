@@ -74,7 +74,7 @@
   bg$invalid: "Please upload a valid picture or video",
   "main": {
     "heroTitle": "CubeVisage",
-    "heroSubtitle": "A simple, intuitive and cross-platform Minecraft UI",
+    "heroSubtitle": "A more concise, user-friendly and cross-platform Minecraft UI",
     "getStarted": "Get Started",
     "customize": "Customize",
     "whyTitle": "Why CubeVisage?",
