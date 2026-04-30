@@ -90,6 +90,14 @@ const questions = ref([
   {
     q: t('faq.q10'),
     a: t('faq.a10')
+  },
+  {
+    q: t('faq.q11'),
+    a: t('faq.a11')
+  },
+  {
+    q: t('faq.q12'),
+    a: t('faq.a12')
   }
 ])
 
