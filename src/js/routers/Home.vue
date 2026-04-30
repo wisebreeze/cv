@@ -75,10 +75,10 @@
                 <ion-icon name="sparkles-outline"></ion-icon>
                 <span>{{ $t('main.newFeature') }}</span>
               </div>
-              <h2 class="feature-title">{{ $t('main.panelTitle') }}</h2>
-              <p class="feature-desc">{{ $t('main.panelDesc') }}</p>
+              <h2 class="feature-title">{{ $t('main.moreTitle') }}</h2>
+              <p class="feature-desc">{{ $t('main.moreDesc') }}</p>
             </div>
-            <img src="../../image/panel.jpg" class="feature-image">
+            <img src="../../image/more.jpg" class="feature-image">
           </div>
         </section>
       </Transition>
