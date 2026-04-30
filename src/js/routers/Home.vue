@@ -18,7 +18,7 @@
           key="page1"
         >
           <div class="hero">
-            <h1 class="title gradient-text">{{ $t('main.heroTitle') 26 }}</h1>
+            <h1 class="title gradient-text">{{ $t('main.heroTitle') }} 26</h1>
             <p class="subtitle">{{ $t('main.heroSubtitle') }}</p>
           </div>
           <div class="actions">
