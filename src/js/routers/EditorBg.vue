@@ -178,10 +178,17 @@ let frameArr = []
 
 // 进度更新
 const updateProgress = (current, total) => {
-  const progress = total === 0 ? 0 : current / total
+  if (!isFinite(total) || total <= 0) {
+    progressValue.value = 0
+    progressPercentage.value = '0%'
+    progressText.value = t("bg$progress$error")
+    return
+  }
+  const safeCurrent = Math.min(current, total)
+  const progress = total === 0 ? 0 : safeCurrent / total
   progressValue.value = progress
   progressPercentage.value = `${(progress * 100).toFixed(1)}%`
-  progressText.value = t("bg$progress$videoProcessing", [`${current}`, `${total}`])
+  progressText.value = t("bg$progress$videoProcessing", [`${safeCurrent}`, `${total}`])
 }
 
 // 视频循环处理
@@ -260,23 +267,22 @@ const cancelBtn = () => {
 }
 
 const continueBtn = async () => {
-  delay.value = Math.max(0, Math.min(parseFloat(delay.value), 80))
-  duration.value = Math.max(0, Math.min(parseFloat(duration.value), 20))
+  delay.value = Math.max(0.1, Math.min(parseFloat(delay.value), 80))
+  duration.value = Math.max(0.01, Math.min(parseFloat(duration.value), 20))
   blurRadius.value = Math.max(1, Math.min(parseInt(blurRadius.value), 50))
   if (delay.value <= 0) delay.value = 0.3
   if (duration.value <= 0) duration.value = 0.12
   infoDialogOpen.value = false
-  setVariables({ $cube_custom_bg: true })
 
-  if (isNaN(delay.value)) {
+  if (delay.value <= 0 || isNaN(delay.value)) {
     progressText.value = t("bg$progress$delayError")
     cancelBtn()
   }
-  if (isNaN(duration.value)) {
+  if (duration.value <= 0 || isNaN(duration.value)) {
     progressText.value = t("bg$progress$durationError")
     cancelBtn()
   }
-  if (isNaN(blurRadius.value)) {
+  if (blurRadius.value <= 0 || isNaN(blurRadius.value)) {
     progressText.value = t("bg$progress$blurRadiusError")
     cancelBtn()
   }
@@ -285,7 +291,7 @@ const continueBtn = async () => {
     progressValue.value = 0
     progressPercentage.value = `0%`
     progressText.value = t("bg$progress$load")
-    setVariables({ $cube_set_0a57c067: false })
+    setVariables({ $cube_set_0a57c067: false, $cube_custom_bg: true })
 
     var reader = new FileReader()
     reader.onload = function(event) {
@@ -348,13 +354,13 @@ const continueBtn = async () => {
     }
     reader.readAsDataURL(uploadFile.value.files[0])
   } else {
-    setVariables({ $cube_set_0a57c067: true })
+    setVariables({ $cube_set_0a57c067: true, $cube_custom_bg: true })
     if (await fs.value.exist("textures/cube/frame")) {
       await fs.value.remove("textures/cube/frame")
       await fs.value.remove("textures/cube/frameBlur")
     }
     progressText.value = t("bg$progress$videoLoading")
-
+  
     const file = uploadFile.value.files[0]
     const video = document.createElement('video')
     video.muted = true
@@ -362,45 +368,137 @@ const continueBtn = async () => {
     video.style.display = 'none'
     document.body.appendChild(video)
     await fs.value.write("assets/cube/preview.txt", URL.createObjectURL(file))
-
-    video.addEventListener('loadedmetadata', () => {
+  
+    // 等待视频元数据加载完成
+    let metadataLoaded = false
+    
+    video.addEventListener('loadedmetadata', async () => {
+      if (metadataLoaded) return
+      metadataLoaded = true
+      
+      // 二次确认视频时长有效
+      if (!isFinite(video.duration) || video.duration <= 0) {
+        mdui.snackbar({
+          message: t("bg$invalidVideoDuration"),
+          placement: "top",
+          autoCloseDelay: 3000,
+          closeable: true
+        })
+        cancelBtn()
+        return
+      }
+      
       startVideoLoop()
       video.play().catch(console.error)
       detectFrameRate(video)
     })
+    
+    // 添加超时保护
+    setTimeout(() => {
+      if (!metadataLoaded && video.readyState < 1) {
+        mdui.snackbar({
+          message: t("bg$videoLoadTimeout"),
+          placement: "top",
+          autoCloseDelay: 3000,
+          closeable: true
+        })
+        cancelBtn()
+      }
+    }, 5000)
   }
 }
 
 const detectFrameRate = video => {
-  let frameRate = 30;
+  let frameRate = 30
   if (typeof video.requestVideoFrameCallback === "function") {
-    let lastTime = performance.now();
-    let frameCount = 0;
+    let lastTime = performance.now()
+    let frameCount = 0
     const checkFrameRate = () => {
-      const now = performance.now();
-      frameCount++;
-      if (now - lastTime >= 1000) {
-        frameRate = Math.round((frameCount * 1000) / (now - lastTime));
-        extractFrames(video, frameRate);
-      } else {
-        video.requestVideoFrameCallback(checkFrameRate);
+      const now = performance.now()
+      const delta = now - lastTime
+      frameCount++
+      // 确保 delta 大于 0，避免除以零
+      if (delta >= 1000 && delta > 0) {
+        frameRate = Math.round((frameCount * 1000) / delta)
+        // 检查计算结果是否有效
+        if (!isFinite(frameRate) || frameRate <= 0) {
+          frameRate = 30
+        }
+        extractFrames(video, frameRate)
+      } 
+      else if (delta === 0) {
+        // 时间戳相同则跳过，等待下一帧
+        video.requestVideoFrameCallback(checkFrameRate)
+      } 
+      else {
+        video.requestVideoFrameCallback(checkFrameRate)
       }
     }
-    video.requestVideoFrameCallback(checkFrameRate);
-  } else {
-    extractFrames(video, frameRate);
+    video.requestVideoFrameCallback(checkFrameRate)
+  } 
+  else {
+    extractFrames(video, frameRate)
   }
 }
 
 const extractFrames = (video, frameRate) => {
-  const frameInterval = Math.round(delay.value * frameRate)
-  const totalFrames = Math.floor(video.duration * frameRate)
+  // 修复：确保帧率有效
+  if (!isFinite(frameRate) || frameRate <= 0) {
+    frameRate = 30
+  }
+  
+  // 修复：检查视频时长是否有效
+  const videoDuration = video.duration
+  if (!isFinite(videoDuration) || videoDuration <= 0) {
+    mdui.snackbar({
+      message: t("bg$invalidDuration"),
+      placement: "top",
+      autoCloseDelay: 3000,
+      closeable: true
+    })
+    cancelBtn()
+    return
+  }
+  
+  // 修复：确保帧间隔大于 0
+  let frameInterval = Math.round(delay.value * frameRate)
+  if (frameInterval <= 0) {
+    frameInterval = 1
+  }
+  
+  // 修复：检查总帧数是否有效
+  const totalFrames = Math.floor(videoDuration * frameRate)
+  if (!isFinite(totalFrames) || totalFrames <= 0) {
+    mdui.snackbar({
+      message: t("bg$invalidFrames"),
+      placement: "top",
+      autoCloseDelay: 3000,
+      closeable: true
+    })
+    cancelBtn()
+    return
+  }
+  
   const totalImages = Math.ceil(totalFrames / frameInterval)
+  
+  // 修复：检查总图片数是否有效
+  if (!isFinite(totalImages) || totalImages <= 0) {
+    mdui.snackbar({
+      message: t("bg$invalidTotalImages"),
+      placement: "top",
+      autoCloseDelay: 3000,
+      closeable: true
+    })
+    cancelBtn()
+    return
+  }
 
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
   let currentImage = 0
-  progressText.value = t("bg$progress$videoProcessing", "0", `${totalImages}`)
+  
+  // 修复：使用模板字符串正确处理参数
+  progressText.value = t("bg$progress$videoProcessing", [`${currentImage}`, `${totalImages}`])
 
   video.addEventListener("seeked", function onSeeked() {
     canvas.width = video.videoWidth
@@ -412,10 +510,12 @@ const extractFrames = (video, frameRate) => {
       img.src = URL.createObjectURL(blob)
       img.onload = () => {
         frameArr.push(img)
-        fs.value.write("textures/cube/frame/" + (currentImage===0?"frame.jpg":`frame_${currentImage}.jpg`), blob)
+        fs.value.write("textures/cube/frame/" + (currentImage===0 ? "frame.jpg" : `frame_${currentImage}.jpg`), blob)
         currentImage++
         updateProgress(currentImage, totalImages)
-        if (currentImage < totalImages) video.currentTime = (currentImage * frameInterval) / frameRate
+        if (currentImage < totalImages) {
+          video.currentTime = (currentImage * frameInterval) / frameRate
+        }
         else {
           completeProcessing(video, totalImages)
         }
@@ -659,7 +759,7 @@ var editFrameFile = async () => {
 
 const liveSwitchFn = () => {
   bgData.live = !bgData.live
-  setVariables({ $cube_custom_bg: bgData.live })
+  setVariables({ $cube_set_0a57c067: bgData.live })
 }
 
 const resetStatic = () => {
