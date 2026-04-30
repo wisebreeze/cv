@@ -31,9 +31,7 @@ function SPA(pages) {
 
 module.exports = {
   mode: "production",// development
-  devtool: process.env.NODE_ENV === 'production' 
-    ? false 
-    : 'source-map',
+  devtool: false,
   entry: {
     index: path.resolve(__dirname, "src", "js/index.js")
   },
@@ -135,7 +133,7 @@ module.exports = {
     }
   },
   plugins: [
-    new CleanWebpackPlugin(),
+    ...(process.env.NODE_ENV === 'production' ? [new CleanWebpackPlugin()] : []),
     new DefinePlugin({
       __VUE_OPTIONS_API__: JSON.stringify(true),
       __VUE_PROD_DEVTOOLS__: JSON.stringify(false),
