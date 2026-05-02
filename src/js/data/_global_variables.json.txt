@@ -144,7 +144,7 @@
 "$cube_set_27e719b2": true,// 剩余可用槽位 | remaining available slots
 "$cube_set_b21e18db": true,// 辅助物品 | ancillary item
 
-"$cube_set_65717a9f": false,// 区块地图 | chunk map
+"$cube_set_c3323b3d": false,// 区块地图 | chunk map
   "$cube_set_3198439e": true,// 标记史莱姆区块 | marking the slime chunk
   "$cube_set_c70c72bb": false,// 坐标轴 | asix
 "$cube_set_8b88022e": false,// [experiment] 结构预览 | structure preview
@@ -180,7 +180,7 @@
 "$cube_set_f4f8111b": true,// 悬停文字 | hover text
   "$cube_set_b6bb8a0e": false,// [!] 悬停文字增强 | hover text enhancement
   "$cube_set_5abe79bd": true,// 触屏选中显示 | touch select display
-  "$cube_set_5b8cc68e": false,// 物品 AUX ID | item AUX ID
+  "$cube_set_5b8cc68e": false,// 物品调试信息 (AUX ID) | item debug information (AUX ID)
 "$cube_set_dd62b27d": 0,// 收纳袋位置 | bundle position [0-底部/bottom 1-左下角/bottomLeft 2-右下角/bottomRight]
 "$cube_set_c809c91a": 7,// 触屏悬停文字位置 | touch hover text position [0-左上角/topLeft 1-正上方/top 2-右上角/topRight 3-左侧/left 4-中间/center 5-右侧/right 6-左下角/bottomLeft 7-正下方/bottom 8-右下角/bottomRight]
 
@@ -337,7 +337,7 @@
 // 方窗面板 | cubevisage panel
 // ━━━━━━━━━━
 //# 基本 | basic #//
-"$cube_panel": false,// 启用面板 | enable panel
+"$cube_panel_enabled": false,// 启用面板 | enable panel
 "$cube_panel_anims": true,// 进入/退出动画 | enter/exit animation
 "$cube_panel_centered_layout": false,// 居中布局 | centered layout
 "$cube_panel_rtl": false,// 从右到左布局 | right to left layout
@@ -557,7 +557,8 @@
 "$cube_icon_color": [0.922,0.922,0.922],// 图标双色颜色
 "$cube_text_color": [0.922,0.922,0.922],// 文本颜色
 "$cube_text_desc_color": [0.8,0.8,0.8],// 描述颜色
-"$cube_text_title_color": [1,0.839,0],// 标题颜色
+"$cube_text_title_color": [0.922,0.922,0.922],// 标题颜色
+"$cube_text_title_font_scale_factor": 1.2,// 标题字体大小
 "$cube_text_font": "default",// 文本字体
 "$cube_text_backup_font": "default",// 文本备用字体
 
@@ -1034,6 +1035,7 @@
 "$cube_website": "cubevisage.top",
 "$cube_website_custom": "cubevisage.top/custom",
 "$cube_website_channels": "pd.qq.com/s/233egiixi",
+"$cube_website_discord": "https://discord.gg/VG5ADCPUKq",
 "$cube_website_donation": "afdian.com/a/zybreeze",
 
 //# 自定义信息 | custom info #//
