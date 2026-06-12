@@ -76,7 +76,7 @@ export default {
       clickTimer: null,
       systemDarkTheme: window.matchMedia('(prefers-color-scheme: dark)').matches,
       theme: localStorage.getItem('themeType') || 'auto',
-      language: this.getFormattedLanguage() || this.$i18n.locale || 'zh-CN'
+      language: this.getFormattedLanguage() || this.$i18n.locale || 'en-US'
     }
   },
   methods: {
@@ -128,7 +128,9 @@ export default {
       mdui.setTheme(themeType)
     },
     getFormattedLanguage() {
-      const langCode = localStorage.getItem('language') || 'zh-CN'
+      const langCode = localStorage.getItem('language')
+      if (!langCode) return null
+      
       const parts = langCode.split('-')
       if (parts.length === 2) {
         parts[1] = parts[1].toUpperCase()
