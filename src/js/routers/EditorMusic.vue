@@ -101,7 +101,7 @@
                   @mouseleave="handleSongMouseLeave(index)"
                   @touchstart="handleSongTouchStart(index, $event)"
                   @touchmove="handleSongTouchMove(index, $event)"
-                  @touchend="handleSongTouchEnd(index)"
+                  @touchend="handleSongTouchEnd(index, $event)"
                 >
                   <img
                     v-if="song.cover"
@@ -1187,14 +1187,16 @@ const handleSongTouchStart = (index, event) => {
   longPressTimer.value = setTimeout(() => {
     player.value.isDragging = true
     player.value.dragProgress = player.value.progress
-    event.preventDefault()
   }, 500)
 }
 const handleSongTouchMove = (index, event) => {
   if (!player.value.isDragging || player.value.index !== index) return
   if (!player.value.audio || !player.value.audio.duration) return
   
+  // 阻止浏览器默认行为（滑动返回、页面滚动）
   event.preventDefault()
+  event.stopPropagation()
+  
   const touch = event.touches[0]
   const element = dragSongElement.value
   if (!element) return
@@ -1212,7 +1214,12 @@ const handleSongTouchMove = (index, event) => {
   const newTime = (newProgress / 100) * player.value.audio.duration
   player.value.dragProgressText = formatDuration(newTime) + ' / '
 }
-const handleSongTouchEnd = (index) => {
+const handleSongTouchEnd = (index, event) => {
+  // 拖动结束时也阻止默认行为，防止触发浏览器返回手势
+  if (player.value.isDragging && event) {
+    event.preventDefault()
+    event.stopPropagation()
+  }
   handleSongMouseUp(index)
 }
 
