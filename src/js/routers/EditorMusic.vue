@@ -1068,6 +1068,8 @@ const playSong = async index => {
 }
 const togglePlaySong = (index, event) => {
   if (event.target.nodeName === "MDUI-MENU-ITEM") return
+  // 如果正在拖动，不触发点击播放/暂停
+  if (player.value.isDragging) return
   if (player.value.index === index) {
     if (player.value.pause) resumeSong()
     else pauseSong()
