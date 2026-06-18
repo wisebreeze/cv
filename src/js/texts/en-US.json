@@ -153,6 +153,8 @@
       edit: "Edit",
       fileNotFound: "File not found",
       fileInvalid: "Please select a valid audio file!",
+      loading: "Loading",
+      loadFailed: "Failed to load audio file",
       removeCover: {
         title: 'Remove Cover',
         message: 'Are you sure you want to remove the cover?',

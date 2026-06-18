@@ -103,7 +103,7 @@
                     class="song-cover"
                   />
                   <div class="song-title">{{ song.title }}</div>
-                  <div class="song-info">{{ (player.progressText && player && player.index === index ? player.progressText : '') + song.duration + (song.artist ? ' | ' + song.artist : '') }}</div>
+                  <div class="song-info">{{ (player.loading && player.index === index ? t('editor.music.loading') + '... ' : (player.progressText && player.index === index ? player.progressText : '')) + song.duration + (song.artist ? ' | ' + song.artist : '') }}</div>
                   <mdui-dropdown slot="end-icon" style="line-height:normal;">
                     <mdui-button-icon slot="trigger" @click.stop>
                       <ion-icon name="ellipsis-vertical" />
@@ -140,7 +140,7 @@
                   </mdui-dropdown>
                   <div
                     :style="{ width: player.progress + '%' }"
-                    v-if="player && player.index === index"
+                    v-if="player && player.index === index && !player.loading"
                     class="song-progress"
                   />
                 </mdui-list-item>
@@ -428,7 +428,8 @@ const player = ref({
   interval: null,
   pause: false,
   progress: 0,
-  progressText: ''
+  progressText: '',
+  loading: false
 })
 const fileConversion = ref({
   dialog: false,
@@ -822,17 +823,29 @@ const editAlbum = index => {
   currentEditAlbumIndex.value = index;
   showAddAlbumDialog.value = true;
 }
-const editSong = index => {
-  const song = currentAlbum.value.songs[index];
-  audioFile.value = song.file;
-  audioFileNamePreview.value = song.fileName;
-  newSongTitle.value = song.title;
-  newSongDuration.value = song.duration;
-  newSongArtist.value = song.artist;
-  newSongCoverPreview.value = song.cover;
-  currentEditSongIndex.value = index;
-  audioFileInputEmpty.value = false;
-  showAddSongDialog.value = true;
+const editSong = async index => {
+  const song = currentAlbum.value.songs[index]
+  
+  // 如果文件还没加载，先加载以便编辑
+  if (!song.file) {
+    try {
+      const albumId = currentAlbum.value.id
+      const songBlob = await fs.value.read('sounds/album/' + albumId + '/' + song.id + '.ogg')
+      song.file = songBlob
+    } catch (e) {
+      console.error('Failed to load audio file for editing:', e)
+    }
+  }
+  
+  audioFile.value = song.file
+  audioFileNamePreview.value = song.fileName
+  newSongTitle.value = song.title
+  newSongDuration.value = song.duration
+  newSongArtist.value = song.artist
+  newSongCoverPreview.value = song.cover
+  currentEditSongIndex.value = index
+  audioFileInputEmpty.value = false
+  showAddSongDialog.value = true
 }
 
 const showRemoveCover = (type, index) => {
@@ -986,13 +999,37 @@ const formatDuration = duration => {
   const seconds = Math.floor(duration % 60)
   return `${minutes}:${seconds.toString().padStart(2, '0')}`
 }
-const playSong = index => {
+const playSong = async index => {
   const song = currentAlbum.value.songs[index]
+  
+  // 如果文件还没加载，先从文件系统加载
+  if (!song.file) {
+    if (player.value.audio) stopSong()
+    player.value.loading = true
+    player.value.index = index
+    
+    try {
+      // 找到当前专辑ID
+      const albumId = currentAlbum.value.id
+      const songBlob = await fs.value.read('sounds/album/' + albumId + '/' + song.id + '.ogg')
+      song.file = songBlob
+    } catch (e) {
+      console.error('Failed to load audio file:', e)
+      player.value.loading = false
+      player.value.index = -1
+      error.value(t('editor.music.loadFailed'))
+      return
+    }
+  }
+  
   if (song.file) {
     if (player.value.audio) stopSong()
+    player.value.loading = false
+    
     const audio = new Audio()
     audio.src = URL.createObjectURL(new Blob([song.file]))
     audio.play()
+    
     const playingInterval = setInterval(() => {
       if (audio.duration) {
         player.value.pause = audio.paused
@@ -1003,7 +1040,16 @@ const playSong = index => {
         stopSong()
       }
     }, 1000)
-    player.value = {index, audio, interval: playingInterval}
+    
+    player.value = {
+      index,
+      audio,
+      interval: playingInterval,
+      pause: false,
+      progress: 0,
+      progressText: '',
+      loading: false
+    }
   }
 }
 const togglePlaySong = (index, event) => {
@@ -1032,6 +1078,7 @@ const stopSong = () => {
     player.value.pause = false
     player.value.progress = 0
     player.value.progressText = ''
+    player.value.loading = false
     player.value.audio.pause()
     player.value.audio.src = ''
     player.value.audio = null
@@ -1267,7 +1314,6 @@ onMounted(async () => {
         for (const songControl of songs) {
           const song = songControl[Object.keys(songControl)[0]]
           const songID = song.$music_id.replace("cube.song.", "")
-          const songBlob = await fs.value.read('sounds/album/' + id + '/' + songID + '.ogg')
 
           let coverURL = false
           if (song.$music_cover) {
@@ -1290,12 +1336,6 @@ onMounted(async () => {
             id: songID
           }
           songsArray.push(songObj)
-
-          const reader = new FileReader()
-          reader.onload = event => {
-            songObj.file = event.target.result
-          }
-          reader.readAsArrayBuffer(songBlob)
         }
 
         albums.value.push({ cover, name, artist, id, songs: songsArray })

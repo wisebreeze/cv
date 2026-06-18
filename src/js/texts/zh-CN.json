@@ -150,6 +150,8 @@
       edit: "编辑",
       fileNotFound: "音乐未找到",
       fileInvalid: "请选择有效的音频文件！",
+      loading: "加载中",
+      loadFailed: "音频文件加载失败",
       removeCover: {
         title: '移除封面',
         message: '确定要移除封面吗？',
