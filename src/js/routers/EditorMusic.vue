@@ -95,6 +95,13 @@
                   v-for="(song, index) in currentAlbum.songs"
                   :key="index"
                   @click="togglePlaySong(index, $event)"
+                  @mousedown="handleSongMouseDown(index, $event)"
+                  @mousemove="handleSongMouseMove(index, $event)"
+                  @mouseup="handleSongMouseUp(index)"
+                  @mouseleave="handleSongMouseLeave(index)"
+                  @touchstart="handleSongTouchStart(index, $event)"
+                  @touchmove="handleSongTouchMove(index, $event)"
+                  @touchend="handleSongTouchEnd(index)"
                 >
                   <img
                     v-if="song.cover"
@@ -103,7 +110,7 @@
                     class="song-cover"
                   />
                   <div class="song-title">{{ song.title }}</div>
-                  <div class="song-info">{{ (player.loading && player.index === index ? t('editor.music.loading') + '... ' : (player.progressText && player.index === index ? player.progressText : '')) + song.duration + (song.artist ? ' | ' + song.artist : '') }}</div>
+                  <div class="song-info">{{ (player.loading && player.index === index ? t('editor.music.loading') + '... ' : ((player.isDragging && player.index === index ? player.dragProgressText : (player.progressText && player.index === index ? player.progressText : '')))) + song.duration + (song.artist ? ' | ' + song.artist : '') }}</div>
                   <mdui-dropdown slot="end-icon" style="line-height:normal;">
                     <mdui-button-icon slot="trigger" @click.stop>
                       <ion-icon name="ellipsis-vertical" />
@@ -139,7 +146,7 @@
                     </mdui-menu>
                   </mdui-dropdown>
                   <div
-                    :style="{ width: player.progress + '%' }"
+                    :style="{ width: (player.isDragging && player.index === index ? player.dragProgress : player.progress) + '%' }"
                     v-if="player && player.index === index && !player.loading"
                     class="song-progress"
                   />
@@ -429,8 +436,15 @@ const player = ref({
   pause: false,
   progress: 0,
   progressText: '',
-  loading: false
+  loading: false,
+  isDragging: false,
+  dragProgress: 0,
+  dragProgressText: ''
 })
+// 拖动相关状态
+const longPressTimer = ref(null)
+const dragStartX = ref(0)
+const dragSongElement = ref(null)
 const fileConversion = ref({
   dialog: false,
   currentFileName: '',
@@ -1079,12 +1093,125 @@ const stopSong = () => {
     player.value.progress = 0
     player.value.progressText = ''
     player.value.loading = false
+    player.value.isDragging = false
+    player.value.dragProgress = 0
+    player.value.dragProgressText = ''
     player.value.audio.pause()
     player.value.audio.src = ''
     player.value.audio = null
     player.value.index = -1
     clearInterval(player.value.interval)
   }
+}
+// 拖动进度相关函数
+const handleSongMouseDown = (index, event) => {
+  // 只对正在播放的歌曲启用拖动
+  if (player.value.index !== index || player.value.loading) return
+  if (event.target.nodeName === 'MDUI-BUTTON-ICON' || event.target.closest('mdui-dropdown')) return
+  
+  dragSongElement.value = event.currentTarget
+  dragStartX.value = event.clientX
+  
+  // 设置长按定时器（500ms后进入拖动模式）
+  longPressTimer.value = setTimeout(() => {
+    player.value.isDragging = true
+    player.value.dragProgress = player.value.progress
+  }, 500)
+}
+const handleSongMouseMove = (index, event) => {
+  if (!player.value.isDragging || player.value.index !== index) return
+  if (!player.value.audio || !player.value.audio.duration) return
+  
+  const element = dragSongElement.value
+  if (!element) return
+  
+  const rect = element.getBoundingClientRect()
+  const elementWidth = rect.width
+  
+  // 计算拖动的偏移量和进度百分比
+  const deltaX = event.clientX - dragStartX.value
+  const progressDelta = (deltaX / elementWidth) * 100
+  
+  // 计算新进度并限制在0-100范围内
+  let newProgress = player.value.progress + progressDelta
+  newProgress = Math.max(0, Math.min(100, newProgress))
+  
+  // 更新拖动进度显示（只更新显示，不改变实际播放位置）
+  player.value.dragProgress = newProgress
+  const newTime = (newProgress / 100) * player.value.audio.duration
+  player.value.dragProgressText = formatDuration(newTime) + ' / '
+}
+const handleSongMouseUp = (index) => {
+  // 清除长按定时器
+  if (longPressTimer.value) {
+    clearTimeout(longPressTimer.value)
+    longPressTimer.value = null
+  }
+  
+  // 如果正在拖动，应用最终进度
+  if (player.value.isDragging && player.value.index === index && player.value.audio) {
+    const newTime = (player.value.dragProgress / 100) * player.value.audio.duration
+    player.value.audio.currentTime = newTime
+    player.value.progress = player.value.dragProgress
+    player.value.progressText = formatDuration(newTime) + ' / '
+  }
+  
+  // 重置拖动状态
+  player.value.isDragging = false
+  player.value.dragProgress = 0
+  player.value.dragProgressText = ''
+  dragSongElement.value = null
+}
+const handleSongMouseLeave = (index) => {
+  // 鼠标离开时如果正在拖动则结束拖动
+  if (player.value.isDragging) {
+    handleSongMouseUp(index)
+  }
+  // 清除长按定时器
+  if (longPressTimer.value) {
+    clearTimeout(longPressTimer.value)
+    longPressTimer.value = null
+  }
+}
+// 触摸事件处理（移动端）
+const handleSongTouchStart = (index, event) => {
+  if (player.value.index !== index || player.value.loading) return
+  if (event.target.nodeName === 'MDUI-BUTTON-ICON' || event.target.closest('mdui-dropdown')) return
+  
+  const touch = event.touches[0]
+  dragSongElement.value = event.currentTarget
+  dragStartX.value = touch.clientX
+  
+  longPressTimer.value = setTimeout(() => {
+    player.value.isDragging = true
+    player.value.dragProgress = player.value.progress
+    event.preventDefault()
+  }, 500)
+}
+const handleSongTouchMove = (index, event) => {
+  if (!player.value.isDragging || player.value.index !== index) return
+  if (!player.value.audio || !player.value.audio.duration) return
+  
+  event.preventDefault()
+  const touch = event.touches[0]
+  const element = dragSongElement.value
+  if (!element) return
+  
+  const rect = element.getBoundingClientRect()
+  const elementWidth = rect.width
+  
+  const deltaX = touch.clientX - dragStartX.value
+  const progressDelta = (deltaX / elementWidth) * 100
+  
+  let newProgress = player.value.progress + progressDelta
+  newProgress = Math.max(0, Math.min(100, newProgress))
+  
+  player.value.dragProgress = newProgress
+  const newTime = (newProgress / 100) * player.value.audio.duration
+  player.value.dragProgressText = formatDuration(newTime) + ' / '
+}
+const handleSongTouchEnd = (index) => {
+  handleSongMouseUp(index)
 }
 
 // 批量添加
