@@ -1047,8 +1047,11 @@ const playSong = async index => {
     const playingInterval = setInterval(() => {
       if (audio.duration) {
         player.value.pause = audio.paused
-        player.value.progress = (audio.currentTime / audio.duration) * 100
-        player.value.progressText = formatDuration(audio.currentTime) + ' / '
+        // 拖动模式下暂停进度条自动更新，避免与手动拖动冲突
+        if (!player.value.isDragging) {
+          player.value.progress = (audio.currentTime / audio.duration) * 100
+          player.value.progressText = formatDuration(audio.currentTime) + ' / '
+        }
       }
       if (audio.ended) {
         stopSong()
