@@ -33,19 +33,7 @@
       <mdui-button variant="text" @click="$router.push('/privacy')">
         {{ $t('main.privacyPolicy') }}
       </mdui-button>
-      <mdui-button variant="text" @click="showLegacyDialog = true">
-        {{ $t('editor.backToLegacy') }}
-      </mdui-button>
     </div>
-    <mdui-dialog :open="showLegacyDialog" @close="showLegacyDialog = false">
-      <div v-html="$t('editor.legacyConfirm').replace(/\n/g, '<br>')"/>
-      <mdui-button slot="action" variant="text" @click="showLegacyDialog = false">
-        {{ $t('gui$cancel') }}
-      </mdui-button>
-      <mdui-button slot="action" variant="filled" @click="goToLegacy">
-        {{ $t('gui$confirm') }}
-      </mdui-button>
-    </mdui-dialog>
     <mdui-dialog :open="showContinueDialog" @close="showContinueDialog = false">
       <div v-html="$t('editor.continue_tip').replace(/\n/g, '<br>')"/>
       <mdui-button slot="action" variant="text" @click="showContinueDialog = false">{{ t('gui$cancel') }}</mdui-button>
@@ -66,14 +54,8 @@ const { t } = useI18n()
 const router = useRouter()
 const fs = inject("fs")
 
-const showLegacyDialog = ref(false)
 const zipInput = ref(null)
 const showContinueDialog = ref(false)
-
-const goToLegacy = () => {
-  showLegacyDialog.value = false
-  window.location.href = 'https://d3a25a8c.cv-erd.pages.dev/custom/'
-}
 
 const manifestJSON = {
   format_version: 2,
