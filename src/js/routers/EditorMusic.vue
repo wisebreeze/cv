@@ -341,7 +341,64 @@ const props = defineProps({
 })
 
 const { t } = useI18n()
-const ffmpeg = new FFmpeg()
+const CORE_VERSION = '0.12.10'
+const SINGLE_CORE_BASE = `https://cdn.jsdelivr.net/npm/@ffmpeg/core@${CORE_VERSION}/dist/umd`
+const MT_CORE_BASE = `https://cdn.jsdelivr.net/npm/@ffmpeg/core-mt@${CORE_VERSION}/dist/umd`
+let ffmpeg = null
+// 'mt' = multi-threaded core, 'st' = single-threaded
+let ffmpegMode = null
+let ffmpegLoadPromise = null
+
+const isHttps = () => typeof window !== 'undefined' && window.location && window.location.protocol === 'https:'
+
+const buildFfmpegInstance = () => new FFmpeg()
+
+const attachProgress = instance => {
+  instance.on('progress', ({ progress, time }) => {
+    fileConversion.value.progressText = t('editor.music.fileConversion.progressSingle', [parseFloat((progress * 100).toFixed(2)), parseFloat((time / 1000000).toFixed(2))])
+    fileConversion.value.progressCurrent = parseFloat((progress * 100).toFixed(2)) / 100
+  })
+}
+
+const loadFfmpeg = async () => {
+  if (ffmpeg && ffmpegMode) return ffmpeg
+  if (ffmpegLoadPromise) return ffmpegLoadPromise
+
+  ffmpegLoadPromise = (async () => {
+    const wantsMt = isHttps()
+    if (wantsMt) {
+      try {
+        const [coreURL, wasmURL, workerURL] = await Promise.all([
+          toBlobURL(`${MT_CORE_BASE}/ffmpeg-core.js`, 'text/javascript'),
+          toBlobURL(`${MT_CORE_BASE}/ffmpeg-core.wasm`, 'application/wasm'),
+          toBlobURL(`${MT_CORE_BASE}/ffmpeg-core.worker.js`, 'text/javascript')
+        ])
+        const instance = buildFfmpegInstance()
+        await instance.load({ coreURL, wasmURL, workerURL })
+        attachProgress(instance)
+        ffmpeg = instance
+        ffmpegMode = 'mt'
+        return ffmpeg
+      } catch (e) {
+        console.warn('Multi-threaded FFmpeg failed, falling back to single-threaded:', e)
+      }
+    }
+    // single-threaded: also used directly on http:// and as MT fallback
+    const instance = buildFfmpegInstance()
+    await instance.load()
+    attachProgress(instance)
+    ffmpeg = instance
+    ffmpegMode = 'st'
+    return ffmpeg
+  })()
+
+  try {
+    return await ffmpegLoadPromise
+  } finally {
+    ffmpegLoadPromise = null
+  }
+}
+
 const error = inject("error")
 const fs = inject("fs")
 
@@ -1324,22 +1381,23 @@ const handleBatchAddFilesChange = async e => {
 
 // 格式转换
 const initFFmpeg = async () => {
-  if (!fileConversion.value.isReady) {
-    fileConversion.value.dialog = true
-    fileConversion.value.progressText = t('editor.music.fileConversion.init')
-    try {
-      await ffmpeg.load()
-      ffmpeg.on('progress', ({ progress, time }) => {
-        fileConversion.value.progressText = t('editor.music.fileConversion.progressSingle', [parseFloat((progress * 100).toFixed(2)), parseFloat((time / 1000000).toFixed(2))])
-        fileConversion.value.progressCurrent = parseFloat((progress * 100).toFixed(2)) / 100
-      });
-      fileConversion.value.isReady = true
-      fileConversion.value.progressText = t('editor.music.fileConversion.initCompleted')
-    } catch (e) {
-      fileConversion.value.progressText = t('editor.music.fileConversion.error') + e
-    }
+  if (fileConversion.value.isReady && ffmpeg) return
+  fileConversion.value.dialog = true
+  fileConversion.value.progressText = t('editor.music.fileConversion.init')
+  try {
+    await loadFfmpeg()
+    fileConversion.value.isReady = true
+    fileConversion.value.progressText = t('editor.music.fileConversion.initCompleted')
+  } catch (e) {
+    fileConversion.value.progressText = t('editor.music.fileConversion.error') + e
   }
 }
+
+const convertOneWithThreads = async (ext, threads) => {
+  const args = ['-threads', String(threads), '-i', `input.${ext}`, '-c:a', 'libvorbis', '-q:a', '5', 'output.ogg']
+  await ffmpeg.exec(args)
+}
+
 const batchConvertFile = async files => {
   if (!files) return
   await initFFmpeg()
@@ -1358,10 +1416,25 @@ const batchConvertFile = async files => {
     }
 
     fileConversion.value.currentFileName = file.fileName
+    const ext = file.fileName.split('.').pop()
+    const inputName = `input.${ext}`
+    const inputBaseName = `input-${index}`
     try {
-      const uint8Array = new Uint8Array(file.buffer);
-      await ffmpeg.writeFile(`input.${file.fileName.split('.').pop()}`, uint8Array)
-      await ffmpeg.exec(['-i', `input.${file.fileName.split('.').pop()}`, 'output.ogg'])
+      const uint8Array = new Uint8Array(file.buffer)
+      const scopedInput = `${inputBaseName}.${ext}`
+      await ffmpeg.writeFile(scopedInput, uint8Array)
+      await ffmpeg.writeFile('output.ogg', new Uint8Array())
+      // Try multi-thread (-threads 0 = auto/n) first if MT mode loaded
+      let usedThreads = 0
+      try {
+        await convertOneWithThreads(ext, ffmpegMode === 'mt' ? 0 : 1)
+      } catch (convertErr) {
+        console.warn('Multi-thread/primary conversion failed, retrying single-thread:', convertErr)
+        await ffmpeg.deleteFile(scopedInput)
+        await ffmpeg.writeFile(scopedInput, uint8Array)
+        usedThreads = 1
+        await convertOneWithThreads(ext, 1)
+      }
       const data = await ffmpeg.readFile('output.ogg')
 
       fileConversion.value.details = t('editor.music.fileConversion.details', [index + 1, files.length])
@@ -1372,6 +1445,11 @@ const batchConvertFile = async files => {
       details.fileName = details.fileName.substring(0, details.fileName.lastIndexOf('.')) + '.ogg'
 
       await fs.value.write('sounds/album/'+currentAlbum.value.id+'/'+file.id+'.ogg', new Blob([data], { type: 'audio/ogg' }))
+
+      // best-effort cleanup; ignore errors
+      try { await ffmpeg.deleteFile(scopedInput) } catch {}
+      try { await ffmpeg.deleteFile('output.ogg') } catch {}
+      void usedThreads
     } catch (e) {
       console.error(t('editor.music.fileConversion.error') + e)
     }
@@ -1381,14 +1459,12 @@ const batchConvertFile = async files => {
 
 onMounted(async () => {
   try {
-    await ffmpeg.load()
-    ffmpeg.on('progress', ({ progress, time }) => {
-      fileConversion.value.progressText = t('editor.music.fileConversion.progressSingle', [parseFloat((progress * 100).toFixed(2)), parseFloat((time / 1000000).toFixed(2))])
-      fileConversion.value.progressCurrent = parseFloat((progress * 100).toFixed(2)) / 100
-    })
+    // Eagerly initialize FFmpeg (multi-thread under https, single-thread otherwise).
+    // Errors here are non-fatal: file conversion paths in batchConvertFile will retry.
+    await loadFfmpeg()
     fileConversion.value.isReady = true
   } catch (e) {
-    console.log('Initialization failed:', e)
+    console.log('FFmpeg preload failed (will fall back to single-thread on demand):', e)
   }
 
   try {
