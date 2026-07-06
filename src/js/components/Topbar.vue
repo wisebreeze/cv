@@ -22,7 +22,12 @@
         </mdui-button-icon>
         
         <mdui-menu ref="language" selects="single">
-          <mdui-menu-item 
+          <mdui-menu-item
+            value="system"
+            @click="handleLanguageChange('system')"
+          >{{ $t('gui$system') }}</mdui-menu-item>
+          <mdui-divider />
+          <mdui-menu-item
             value="en-US"
             @click="handleLanguageChange('en-US')"
           >English</mdui-menu-item>
@@ -76,7 +81,7 @@ export default {
       clickTimer: null,
       systemDarkTheme: window.matchMedia('(prefers-color-scheme: dark)').matches,
       theme: localStorage.getItem('themeType') || 'auto',
-      language: this.getFormattedLanguage() || this.$i18n.locale || 'en-US'
+      language: this.getFormattedLanguage() || this.$i18n.locale || 'system'
     }
   },
   methods: {
@@ -119,8 +124,35 @@ export default {
     },
     handleLanguageChange(lang) {
       this.language = lang
-      localStorage.setItem('language', lang)
-      this.$i18n.locale = lang
+      if (lang === 'system') {
+        localStorage.removeItem('language')
+        this.$i18n.locale = this.resolveSystemLocale()
+        if ('addEventListener' in window) {
+          window.addEventListener('languagechange', this.onSystemLanguageChange)
+        }
+      } else {
+        localStorage.setItem('language', lang)
+        this.$i18n.locale = lang
+        if ('removeEventListener' in window) {
+          window.removeEventListener('languagechange', this.onSystemLanguageChange)
+        }
+      }
+    },
+    resolveSystemLocale() {
+      const supported = ['zh-CN', 'en-US']
+      const raw = (navigator.languages && navigator.languages.length
+        ? navigator.languages
+        : [navigator.language || 'en-US']
+      ).map(s => String(s).replace('_', '-'))
+      for (const candidate of raw) {
+        if (supported.includes(candidate)) return candidate
+      }
+      for (const candidate of raw) {
+        const lang = candidate.split('-')[0].toLowerCase()
+        const exact = supported.find(s => s.toLowerCase().startsWith(lang + '-'))
+        if (exact) return exact
+      }
+      return 'en-US'
     },
     handleThemeChange(themeType) {
       this.theme = themeType
@@ -159,6 +191,11 @@ export default {
       } else {
         this.$router.push('/')
       }
+    },
+    onSystemLanguageChange() {
+      if (this.language === 'system') {
+        this.$i18n.locale = this.resolveSystemLocale()
+      }
     }
   },
   mounted() {
@@ -167,18 +204,28 @@ export default {
     languageMenu.value = this.language
     themeMenu.value = this.theme
     mdui.setTheme(this.theme)
-    this.$i18n.locale = this.language
-    
-    var mqList = window.matchMedia('(prefers-color-scheme: dark)');
-    this.observeMediaChange(mqList, e => {
+    if (this.language === 'system') {
+      this.$i18n.locale = this.resolveSystemLocale()
+    } else {
+      this.$i18n.locale = this.language
+    }
+
+    this.observeMediaChange(window.matchMedia('(prefers-color-scheme: dark)'), e => {
       this.systemDarkTheme = e.matches
     })
+
+    if (this.language === 'system' && 'addEventListener' in window) {
+      window.addEventListener('languagechange', this.onSystemLanguageChange)
+    }
 
     this.showBackBtn = this.$route.meta ? this.$route.meta.i > 1 : false
   },
   beforeDestroy() {
     if (this.clickTimer) {
       clearTimeout(this.clickTimer)
+    }
+    if (this.language === 'system' && 'removeEventListener' in window) {
+      window.removeEventListener('languagechange', this.onSystemLanguageChange)
     }
   }
 }
