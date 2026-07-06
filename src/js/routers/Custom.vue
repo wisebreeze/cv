@@ -119,16 +119,62 @@ const createCustomPack = async isNew => {
   router.push(window.innerWidth <= 768 ? '/editor' : '/editor/music')
 }
 
+const resetZipInput = () => {
+  if (zipInput.value) zipInput.value.value = ''
+}
+
 const handleFileSelect = event => {
   const file = event.target.files[0]
   if (!file) return
   const reader = new FileReader()
   reader.readAsArrayBuffer(file)
   reader.onload = async e => {
-    const arrayBuffer = e.target.result;
+    const arrayBuffer = e.target.result
+    let zip
+    try {
+      const { default: JSZip } = await import('jszip')
+      zip = new JSZip()
+      await zip.loadAsync(arrayBuffer)
+    } catch (err) {
+      console.error('Failed to read zip:', err)
+      mdui.snackbar({
+        message: t('custom$import$cannotParse'),
+        placement: 'top'
+      })
+      resetZipInput()
+      return
+    }
+    let isCustomPack = false
+    try {
+      const entry = zip.file('ui/_global_variables.json')
+      if (entry) {
+        const text = await entry.async('string')
+        const data = JSON.parse(text)
+        if (data && data.$cube_custom_boolean === true) {
+          isCustomPack = true
+        }
+      }
+    } catch (err) {
+      console.error('Invalid custom pack metadata:', err)
+    }
+    if (!isCustomPack) {
+      mdui.snackbar({
+        message: t('custom$import$notCustomPack'),
+        placement: 'top'
+      })
+      resetZipInput()
+      return
+    }
     await fs.value.remove('/')
     await fs.value.importFromZip(arrayBuffer)
     router.push(window.innerWidth <= 768 ? '/editor' : '/editor/music')
+  }
+  reader.onerror = () => {
+    mdui.snackbar({
+      message: t('custom$import$cannotParse'),
+      placement: 'top'
+    })
+    resetZipInput()
   }
 }
 

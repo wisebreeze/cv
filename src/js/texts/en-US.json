@@ -32,6 +32,8 @@
   custom$download$desc: "After the download is complete, some browsers need to be compressed.The mcpack.zip suffix is changed to.mcpack，Open later with Minecraft",
   custom$exit$title: "Are you sure you want to quit?",
   custom$exit$desc: "Data for custom actions will be reset after page refresh",
+  custom$import$cannotParse: "Cannot parse this file",
+  custom$import$notCustomPack: "This is not a custom resource pack",
   setting$title: "Setting",
   setting$search: "Search options",
   setting$empty: "Empty",

@@ -32,6 +32,8 @@
   custom$download$desc: "下载完成后，部分浏览器需要将压缩包的.mcpack.zip后缀后缀改为.mcpack，之后使用 Minecraft 打开",
   custom$exit$title: "你确定要退出吗？",
   custom$exit$desc: "刷新网页后，自定义操作的数据将会重置",
+  custom$import$cannotParse: "无法解析此文件",
+  custom$import$notCustomPack: "该压缩包不是自定义包",
   theme$title: "主题",
   theme$search: "搜索样式",
   bg$title: "背景",
