@@ -128,12 +128,12 @@ const bedrockItems = [
   },
   {
     title: 'download.minebbs',
-    link: 'https://www.minebbs.com',
+    link: 'https://www.minebbs.com/resources/ui.17313',
     onlyZH: true
   },
   {
     title: 'download.klpbbs',
-    link: 'https://klpbbs.com',
+    link: 'https://klpbbs.com/forum.php?mod=viewthread&tid=18896&page=1',
     onlyZH: true
   }
   /*{
