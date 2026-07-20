@@ -76,22 +76,6 @@
           </mdui-list-item>
         </mdui-list>
       </transition>
-      
-      <transition name="card-fade">
-        <mdui-card class="old-version-card" v-if="selectedVersion === 'bedrock'">
-          <div class="card-content">
-            <div class="text-content">
-              <h3 variant="title-large">{{ t('download.oldVersionTitle') }}</h3>
-              <p variant="body-medium" class="description">
-                {{ t('download.oldVersionDesc') }}
-              </p>
-            </div>
-            <mdui-button variant="tonal" @click="openOldVersion">
-              {{ t('download.oldVersionButton') }}
-            </mdui-button>
-          </div>
-        </mdui-card>
-      </transition>
     </div>
   </div>
 </div>
@@ -120,11 +104,11 @@ const bedrockItems = [
   },
   {
     title: 'download.curseforge',
-    link: 'https://www.curseforge.com'
+    link: 'https://www.curseforge.com/minecraft-bedrock/texture-packs/cubevisage-ui'
   },
   {
     title: 'download.mcpedl',
-    link: 'https://mcpedl.com'
+    link: 'https://mcpedl.com/cubevisage-ui/'
   },
   {
     title: 'download.minebbs',
@@ -179,10 +163,6 @@ const toggleExpand = (item) => {
       expandedItems.value.push(item.title)
     }
   }
-}
-
-const openOldVersion = () => {
-  window.open('https://pan.huang1111.cn/s/5XPkgIl', '_blank')
 }
 </script>
 
@@ -288,45 +268,6 @@ const openOldVersion = () => {
   }
 }
 
-.old-version-card {
-  background-color: rgba(var(--mdui-color-primary-container), 0.2);
-  border-radius: 12px;
-  box-shadow: none;
-  overflow: hidden;
-  transition: all 0.3s var(--mdui-motion-easing-emphasized);
-  width: 100%;
-  
-  &:hover {
-    background-color: rgba(var(--mdui-color-primary-container), 0.32);
-  }
-  
-  .card-content {
-    display: flex;
-    flex-direction: column;
-    padding: 24px;
-    gap: 16px;
-    
-    @media (min-width: 600px) {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-    }
-    
-    .text-content {
-      flex: 1;
-      
-      .description {
-        color: var(--mdui-color-on-surface-variant);
-        margin-top: 8px;
-      }
-    }
-    
-    .mdui-button {
-      min-width: 120px;
-    }
-  }
-}
-
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s ease;
@@ -353,26 +294,5 @@ const openOldVersion = () => {
 .expand-leave-from {
   max-height: 200px;
   opacity: 1;
-}
-
-.card-fade-enter-active,
-.card-fade-leave-active {
-  transition: all 0.3s ease;
-}
-
-.card-fade-enter-from {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.card-fade-leave-to {
-  opacity: 0;
-  transform: translateY(-20px);
-}
-
-.card-fade-enter-to,
-.card-fade-leave-from {
-  opacity: 1;
-  transform: translateY(0);
 }
 </style>
