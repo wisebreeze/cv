@@ -35,6 +35,10 @@
             value="zh-CN"
             @click="handleLanguageChange('zh-CN')"
           >简体中文</mdui-menu-item>
+          <mdui-menu-item
+            value="ko-KR"
+            @click="handleLanguageChange('ko-KR')"
+          >한국어</mdui-menu-item>
         </mdui-menu>
       </mdui-dropdown>
 
@@ -139,7 +143,7 @@ export default {
       }
     },
     resolveSystemLocale() {
-      const supported = ['zh-CN', 'en-US']
+      const supported = ['zh-CN', 'en-US', 'ko-KR']
       const raw = (navigator.languages && navigator.languages.length
         ? navigator.languages
         : [navigator.language || 'en-US']
