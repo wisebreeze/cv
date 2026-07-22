@@ -1,6 +1,7 @@
 import { createI18n } from 'vue-i18n'
 import en from './texts/en-US.json'
 import zh from './texts/zh-CN.json'
+import zhTW from './texts/zh-TW.json'
 import ko from './texts/ko-KR.json'
 
 const normalizeLocale = (lang) => {
@@ -9,7 +10,7 @@ const normalizeLocale = (lang) => {
 
 const getExactLocale = () => {
   const browserLocales = navigator.languages || [navigator.language || 'en-US']
-  const supportedLocales = ['zh-CN', 'en-US', 'ko-KR']
+  const supportedLocales = ['zh-CN', 'zh-TW', 'en-US', 'ko-KR']
   const normalizedBrowserLocales = browserLocales.map(normalizeLocale)
   for (const locale of supportedLocales) {
     const normalizedLocale = normalizeLocale(locale)
@@ -17,10 +18,16 @@ const getExactLocale = () => {
       return locale
     }
   }
-  const hasChinese = normalizedBrowserLocales.some(lang => lang.startsWith('zh'))
-  const hasKorean = normalizedBrowserLocales.some(lang => lang.startsWith('ko'))
-  if (hasChinese) return 'zh-CN'
-  if (hasKorean) return 'ko-KR'
+  for (const lang of normalizedBrowserLocales) {
+    if (lang.startsWith('zh')) {
+      const region = lang.split('-')[1]
+      if (region === 'tw' || region === 'hk' || region === 'mo' || region === 'hant') {
+        return 'zh-TW'
+      }
+      return 'zh-CN'
+    }
+    if (lang.startsWith('ko')) return 'ko-KR'
+  }
   return 'en-US'
 }
 
@@ -31,6 +38,7 @@ const i18n = createI18n({
   messages: {
     'en-US': en,
     'zh-CN': zh,
+    'zh-TW': zhTW,
     'ko-KR': ko
   }
 })

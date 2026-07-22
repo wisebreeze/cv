@@ -36,6 +36,10 @@
             @click="handleLanguageChange('zh-CN')"
           >简体中文</mdui-menu-item>
           <mdui-menu-item
+            value="zh-TW"
+            @click="handleLanguageChange('zh-TW')"
+          >繁體中文</mdui-menu-item>
+          <mdui-menu-item
             value="ko-KR"
             @click="handleLanguageChange('ko-KR')"
           >한국어</mdui-menu-item>
@@ -143,7 +147,7 @@ export default {
       }
     },
     resolveSystemLocale() {
-      const supported = ['zh-CN', 'en-US', 'ko-KR']
+      const supported = ['zh-CN', 'zh-TW', 'en-US', 'ko-KR']
       const raw = (navigator.languages && navigator.languages.length
         ? navigator.languages
         : [navigator.language || 'en-US']
@@ -153,6 +157,13 @@ export default {
       }
       for (const candidate of raw) {
         const lang = candidate.split('-')[0].toLowerCase()
+        if (lang === 'zh') {
+          const region = candidate.split('-')[1]?.toUpperCase()
+          if (region === 'TW' || region === 'HK' || region === 'MO' || region === 'HANT') {
+            return 'zh-TW'
+          }
+          return 'zh-CN'
+        }
         const exact = supported.find(s => s.toLowerCase().startsWith(lang + '-'))
         if (exact) return exact
       }
