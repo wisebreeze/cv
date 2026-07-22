@@ -149,6 +149,12 @@ router.beforeEach(async (to, from, next) => {
     parts[1] = parts[1].toUpperCase()
     currentLocale = parts.join('-')
   }
+  // Map locales without dedicated markdown to an available markdown locale
+  const markdownLocaleMap = {
+    'zh-TW': 'zh-CN',
+    'ko-KR': 'en-US'
+  }
+  const markdownLocale = markdownLocaleMap[currentLocale] || currentLocale
   const pathLangMatch = to.path.match(/^\/([a-z]{2}-[A-Z]{2})(\/|$)/)
   const pathLang = pathLangMatch ? pathLangMatch[1] : null
   const rawPath = pathLang ? to.path.replace(`/${pathLang}`, '') : to.path
@@ -162,7 +168,7 @@ router.beforeEach(async (to, from, next) => {
   let targetMarkdown = markdownFiles.keys().find(e => {
     const mdPath = e.substring(1).replace('.md', '')
     const filePath = path.replace(/^\/[a-z]{2}-[A-Z]{2}\//, '')
-    return currentLocale ? mdPath === '/'+currentLocale+'/'+filePath : mdPath === '/'+fallbackLocale+'/'+filePath
+    return markdownLocale ? mdPath === '/'+markdownLocale+'/'+filePath : mdPath === '/'+fallbackLocale+'/'+filePath
   })
   targetMarkdown = targetMarkdown ? targetMarkdown.substring(1).replace('.md', '') : targetMarkdown
   if (targetMarkdown) {
