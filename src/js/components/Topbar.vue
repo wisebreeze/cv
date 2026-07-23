@@ -43,6 +43,10 @@
             value="ko-KR"
             @click="handleLanguageChange('ko-KR')"
           >한국어</mdui-menu-item>
+          <mdui-menu-item
+            value="ja-JP"
+            @click="handleLanguageChange('ja-JP')"
+          >日本語</mdui-menu-item>
         </mdui-menu>
       </mdui-dropdown>
 
@@ -147,7 +151,7 @@ export default {
       }
     },
     resolveSystemLocale() {
-      const supported = ['zh-CN', 'zh-TW', 'en-US', 'ko-KR']
+      const supported = ['zh-CN', 'zh-TW', 'en-US', 'ko-KR', 'ja-JP']
       const raw = (navigator.languages && navigator.languages.length
         ? navigator.languages
         : [navigator.language || 'en-US']

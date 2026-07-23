@@ -152,7 +152,8 @@ router.beforeEach(async (to, from, next) => {
   // Map locales without dedicated markdown to an available markdown locale
   const markdownLocaleMap = {
     'zh-TW': 'zh-CN',
-    'ko-KR': 'en-US'
+    'ko-KR': 'en-US',
+    'ja-JP': 'en-US'
   }
   const markdownLocale = markdownLocaleMap[currentLocale] || currentLocale
   const pathLangMatch = to.path.match(/^\/([a-z]{2}-[A-Z]{2})(\/|$)/)

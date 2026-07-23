@@ -3,6 +3,7 @@ import en from './texts/en-US.json'
 import zh from './texts/zh-CN.json'
 import zhTW from './texts/zh-TW.json'
 import ko from './texts/ko-KR.json'
+import ja from './texts/ja-JP.json'
 
 const normalizeLocale = (lang) => {
   return lang.toLowerCase().replace(/_/g, '-')
@@ -10,7 +11,7 @@ const normalizeLocale = (lang) => {
 
 const getExactLocale = () => {
   const browserLocales = navigator.languages || [navigator.language || 'en-US']
-  const supportedLocales = ['zh-CN', 'zh-TW', 'en-US', 'ko-KR']
+  const supportedLocales = ['zh-CN', 'zh-TW', 'en-US', 'ko-KR', 'ja-JP']
   const normalizedBrowserLocales = browserLocales.map(normalizeLocale)
   for (const locale of supportedLocales) {
     const normalizedLocale = normalizeLocale(locale)
@@ -27,6 +28,7 @@ const getExactLocale = () => {
       return 'zh-CN'
     }
     if (lang.startsWith('ko')) return 'ko-KR'
+    if (lang.startsWith('ja')) return 'ja-JP'
   }
   return 'en-US'
 }
@@ -39,7 +41,8 @@ const i18n = createI18n({
     'en-US': en,
     'zh-CN': zh,
     'zh-TW': zhTW,
-    'ko-KR': ko
+    'ko-KR': ko,
+    'ja-JP': ja
   }
 })
 
