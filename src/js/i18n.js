@@ -1,9 +1,9 @@
 import { createI18n } from 'vue-i18n'
-import en from './texts/en-US.json'
-import zh from './texts/zh-CN.json'
-import zhTW from './texts/zh-TW.json'
-import ko from './texts/ko-KR.json'
-import ja from './texts/ja-JP.json'
+import en from './texts/en-US.json5'
+import zh from './texts/zh-CN.json5'
+import zhTW from './texts/zh-TW.json5'
+import ko from './texts/ko-KR.json5'
+import ja from './texts/ja-JP.json5'
 
 const normalizeLocale = (lang) => {
   return lang.toLowerCase().replace(/_/g, '-')
