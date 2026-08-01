@@ -122,10 +122,6 @@
     empty_title: "歡迎使用 方窗 自訂包編輯器",
     nameRequiredTitle: "請輸入資源包名稱",
     nameRequiredDesc: "下載前需要為自訂包命名，請輸入名稱後再繼續",
-    textShadowTitle: "文字陰影",
-    textShadowDesc: "顯示標題、副標題的文字陰影",
-    textShadowsLabel: "已開啟陰影",
-    textNoShadowsLabel: "已關閉陰影",
     empty_subtitle: "點擊左側選項進入相應版塊的佈局",
     backToLegacy: "返回舊版",
     legacyConfirm: "確定要返回舊版介面嗎？\n\n舊版介面可能不包含所有最新功能。",
@@ -186,7 +182,11 @@
       experiment: "實驗性內容",
       discarded: "棄用內容",
       chinaEdition: "僅中國版可用",
-      debug: "除錯"
+      debug: "除錯",
+      textShadowTitle: "文字陰影",
+      textShadowDesc: "顯示標題、副標題的文字陰影",
+      textShadowsLabel: "已開啟陰影",
+      textNoShadowsLabel: "已關閉陰影"
     },
     word: {
       screenTitle: "快捷短語",

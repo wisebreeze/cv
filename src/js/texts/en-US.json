@@ -125,10 +125,6 @@
     empty_title: "Welcome to the CubeVisage Custom Package Editor",
     nameRequiredTitle: "Please enter a resource pack name",
     nameRequiredDesc: "A name is required before downloading. Please enter a name to continue.",
-    textShadowTitle: "Text Shadow",
-    textShadowDesc: "Show text shadows for titles and subtitles",
-    textShadowsLabel: "Shadow enabled",
-    textNoShadowsLabel: "Shadow disabled",
     empty_subtitle: "Click the options on the left to edit layouts for each section",
     backToLegacy: "Back to Legacy",
     legacyConfirm: "Are you sure you want to go to the legacy version?\n\nSome features may not be available in the legacy version.",
@@ -189,7 +185,11 @@
       experiment: "Experimental content",
       discarded: "Deprecated content",
       chinaEdition: "China edition only",
-      debug: "debug"
+      debug: "debug",
+      textShadowTitle: "Text Shadow",
+      textShadowDesc: "Show text shadows for titles and subtitles",
+      textShadowsLabel: "Shadow enabled",
+      textNoShadowsLabel: "Shadow disabled"
     },
     word: {
       screenTitle: "Quick phrases",
