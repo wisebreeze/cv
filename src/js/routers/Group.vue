@@ -73,7 +73,7 @@ const communities = ref([
     description: 'qq_group3_desc',
     icon: qqIcon,
     link: 'https://qm.qq.com/q/XWZZwf0AsS',
-    full: true
+    full: false
   },
   {
     id: 'qq_group2',
@@ -81,7 +81,7 @@ const communities = ref([
     description: 'qq_group2_desc',
     icon: qqIcon,
     link: 'https://qm.qq.com/q/q1qTvFYoIE',
-    full: true
+    full: false
   },
   {
     id: 'qq_group1',
@@ -89,7 +89,7 @@ const communities = ref([
     description: 'qq_group1_desc',
     icon: qqIcon,
     link: 'https://qm.qq.com/q/NFkzjc8WYM',
-    full: true
+    full: false
   }
 ])
 
