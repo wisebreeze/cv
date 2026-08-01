@@ -872,17 +872,21 @@ const applyGlobalColor = async () => {
   fs.value.write("ui/_global_variables.json", file)
 
   // Update parsedConfig option values to reflect changes
-  parsedConfig.value.forEach(section => {
-    section.options.forEach(option => {
-      const updateKey = '$' + option.id
-      if (updates[updateKey]) {
-        option.value = [...updates[updateKey]]
-        if (option.previewValue) {
-          option.previewValue = [...updates[updateKey].map((v, i) => i < 3 ? Math.round(v * 255) : v)]
+  // option.id already includes the $ prefix (from key.slice(1, -1) which only strips quotes)
+  parsedConfig.value = parsedConfig.value.map(section => ({
+    ...section,
+    options: section.options.map(option => {
+      if (updates[option.id]) {
+        const newVal = [...updates[option.id]]
+        return {
+          ...option,
+          value: newVal,
+          previewValue: option.previewValue ? [...newVal.map((v, i) => i < 3 ? Math.round(v * 255) : v)] : option.previewValue
         }
       }
+      return option
     })
-  })
+  }))
 
   // Store applied colors so preview reflects ALL changes (including vars not in parsedConfig)
   appliedColors.value = { ...updates }
