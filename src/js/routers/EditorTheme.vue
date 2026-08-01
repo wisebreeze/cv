@@ -29,18 +29,11 @@
         </mdui-list-item>
         <transition name="expanded">
           <div v-if="showGlobalColor" class="global-color-content">
-            <div class="color-picker-row">
-              <span class="color-label">{{ t('editor.theme.primaryColor') }}</span>
-              <div class="color-preview" :style="primaryColorPreviewStyle" @click="expandedGlobalPicker = expandedGlobalPicker === 'primary' ? '' : 'primary'" />
-            </div>
-            <Transition name="expanded">
-              <Palette
-                v-if="expandedGlobalPicker === 'primary'"
-                v-model="globalPrimaryPreview"
-                :use-alpha="true"
-                @change="onPrimaryPaletteChange"
-              />
-            </Transition>
+            <Palette
+              v-model="globalPrimaryPreview"
+              :use-alpha="true"
+              @change="onPrimaryPaletteChange"
+            />
             <mdui-button variant="filled" full-width @click="applyGlobalColor" style="margin-top: 12px">
               <ion-icon slot="icon" name="color-wand-outline" />
               {{ t('editor.theme.apply') }}
@@ -420,21 +413,8 @@ const showCategoryDrawer = ref(false)
 const showResetDialog = ref(false)
 const showGlobalColor = ref(false)
 const showPreview = ref(false)
-const expandedGlobalPicker = ref('')
 const globalPrimaryPreview = ref([83, 109, 254, 1])
-
-const primaryColorPreviewStyle = computed(() => {
-  const v = globalPrimaryPreview.value
-  const r = Math.round(v[0] || 0)
-  const g = Math.round(v[1] || 0)
-  const b = Math.round(v[2] || 0)
-  const a = v[3] !== undefined ? v[3] : 1
-  return {
-    background: `linear-gradient(rgba(${r},${g},${b},${a}), rgba(${r},${g},${b},${a})) 0 0 / cover,
-      linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 0 0 / 12px 12px,
-      linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 6px 6px / 12px 12px`
-  }
-})
+const appliedColors = ref({})
 
 const onPrimaryPaletteChange = (rgba) => {
   globalPrimaryPreview.value = rgba
@@ -548,6 +528,11 @@ const themeVars = computed(() => {
       }
     })
   })
+
+  // Merge applied colors (from global color apply) - overrides parsedConfig
+  for (const [key, value] of Object.entries(appliedColors.value)) {
+    vars[key] = value
+  }
 
   // Merge with defaults
   for (const [key, value] of Object.entries(defaults)) {
@@ -870,6 +855,9 @@ const applyGlobalColor = async () => {
     })
   })
 
+  // Store applied colors so preview reflects ALL changes (including vars not in parsedConfig)
+  appliedColors.value = { ...updates }
+
   showGlobalColor.value = false
 }
 
@@ -886,6 +874,7 @@ const resetToDefaults = async () => {
   if (allIds.length > 0) {
     await removeVariables(allIds.join(','))
   }
+  appliedColors.value = {}
   showResetDialog.value = false
 }
 
@@ -1404,33 +1393,6 @@ onBeforeUnmount(() => {
   padding: 1rem;
   background-color: rgba(var(--mdui-color-primary), 0.06);
   border-radius: 12px;
-
-  .color-picker-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 8px;
-
-    .color-label {
-      font-size: 14px;
-      color: var(--mdui-color-on-surface-variant);
-      min-width: 80px;
-    }
-
-    .color-preview {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      cursor: pointer;
-      border: 2px solid rgba(var(--mdui-color-outline-variant), 1);
-      flex-shrink: 0;
-      transition: transform 0.2s;
-
-      &:hover {
-        transform: scale(1.1);
-      }
-    }
-  }
 }
 
 .preview-section {
