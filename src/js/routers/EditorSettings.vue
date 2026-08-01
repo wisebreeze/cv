@@ -131,7 +131,6 @@
               :active="expandedSection === index"
               @click="jumpToSection(index)"
             >
-              <ion-icon slot="icon" name="folder-outline"></ion-icon>
               {{ getText(section.text) }}
             </mdui-list-item>
           </div>
@@ -494,10 +493,15 @@ const jumpToSection = (index) => {
   searchQuery.value = ''
   expandedSection.value = index
   nextTick(() => {
-    const el = scrollContainer.value?.querySelector(`[data-section-index="${index}"]`)
-    if (el && el.scrollIntoView) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
+    setTimeout(() => {
+      const el = scrollContainer.value?.querySelector(`[data-section-index="${index}"]`)
+      if (el && scrollContainer.value) {
+        const rect = el.getBoundingClientRect()
+        const containerRect = scrollContainer.value.getBoundingClientRect()
+        const scrollOffset = rect.top - containerRect.top + scrollContainer.value.scrollTop - 70
+        scrollContainer.value.scrollTo({ top: scrollOffset, behavior: 'smooth' })
+      }
+    }, 50)
   })
 }
 
@@ -859,9 +863,9 @@ onBeforeUnmount(() => {
   }
 }
 .drawer-leave-active {
-  animation: drawer-overlay-fade 0.25s cubic-bezier(0.3, 0, 0.8, 0.15) reverse;
+  animation: drawer-overlay-fade-leave 0.25s cubic-bezier(0.3, 0, 0.8, 0.15);
   .category-drawer {
-    animation: drawer-slide-out 0.25s cubic-bezier(0.3, 0, 0.8, 0.15) reverse;
+    animation: drawer-slide-out 0.25s cubic-bezier(0.3, 0, 0.8, 0.15);
   }
 }
 
@@ -876,6 +880,10 @@ onBeforeUnmount(() => {
 @keyframes drawer-overlay-fade {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+@keyframes drawer-overlay-fade-leave {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
 .list-container {
