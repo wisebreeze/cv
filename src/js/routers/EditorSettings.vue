@@ -595,7 +595,7 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 2002;
   padding: 1rem;
 }
 
@@ -608,6 +608,8 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  transform-origin: center;
+  will-change: transform, opacity;
 }
 
 .help-dialog-header {
@@ -668,28 +670,46 @@ onBeforeUnmount(() => {
 }
 
 .dialog-enter-active {
-  animation: dialog-overlay-alpha 0.3s ease-out;
+  animation: dialog-overlay-alpha 0.3s cubic-bezier(0.05, 0.7, 0.1, 1);
   .help-dialog {
-    animation: dialog-enter 0.3s ease-out;
+    animation: dialog-enter 0.3s cubic-bezier(0.05, 0.7, 0.1, 1);
   }
 }
 .dialog-leave-active {
-  animation: dialog-overlay-alpha 0.3s ease-in reverse;
+  animation: dialog-overlay-alpha 0.2s cubic-bezier(0.3, 0, 0.8, 0.15) reverse;
   .help-dialog {
-    animation: dialog-leave 0.3s ease-in reverse;
+    animation: dialog-leave 0.2s cubic-bezier(0.3, 0, 0.8, 0.15) reverse;
   }
 }
 
 @keyframes dialog-enter {
-  from { transform: translateY(100%); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
+
 @keyframes dialog-leave {
-  from { transform: translateY(0); opacity: 1; }
-  to { transform: translateY(100%); opacity: 0; }
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.95);
+    opacity: 0;
+  }
 }
+
 @keyframes dialog-overlay-alpha {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 </style>
