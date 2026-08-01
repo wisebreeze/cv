@@ -18,6 +18,233 @@
           <ion-icon slot="prefix" name="search-outline" />
         </mdui-text-field>
       </div>
+
+      <div class="global-color-section">
+        <mdui-list-item rounded @click="showGlobalColor = !showGlobalColor">
+          <span>{{ t('editor.theme.globalColor') }}</span>
+          <div slot="description">{{ t('editor.theme.globalColorDesc') }}</div>
+          <div slot="end-icon" style="font-size: 1rem">
+            <ion-icon v-if="showGlobalColor" name="chevron-up-outline" />
+            <ion-icon v-else name="chevron-down-outline" />
+          </div>
+        </mdui-list-item>
+        <transition name="expanded">
+          <div v-if="showGlobalColor" class="global-color-content">
+            <div class="color-picker-row">
+              <span class="color-label">{{ t('editor.theme.primaryColor') }}</span>
+              <div class="color-swatch" :style="primaryColorStyle" @click="openGlobalPicker('primary')" />
+            </div>
+            <div class="color-picker-row">
+              <span class="color-label">{{ t('editor.theme.secondaryColor') }}</span>
+              <div class="color-swatch" :style="secondaryColorStyle" @click="openGlobalPicker('secondary')" />
+            </div>
+            <div class="color-picker-row">
+              <span class="color-label">{{ t('editor.theme.alpha') }}</span>
+              <mdui-slider :value="globalAlpha" min="0" max="1" step="0.05" @input="globalAlpha = parseFloat($event.target.value)" />
+            </div>
+            <mdui-button variant="filled" full-width @click="applyGlobalColor" style="margin-top: 12px">
+              <ion-icon slot="icon" name="color-wand-outline" />
+              {{ t('editor.theme.apply') }}
+            </mdui-button>
+          </div>
+        </transition>
+      </div>
+
+      <div class="preview-section">
+        <div class="preview-section-title">{{ t('editor.theme.preview') }}</div>
+        <div class="preview-card">
+          <div class="preview-group">
+            <div class="preview-group-title">{{ t('editor.theme.previewButton') }}</div>
+            <div class="preview-row">
+              <div class="preview-btn preview-btn-default">{{ t('editor.theme.stateDefault') }}</div>
+              <div class="preview-btn preview-btn-hover">{{ t('editor.theme.stateHover') }}</div>
+              <div class="preview-btn preview-btn-pressed">{{ t('editor.theme.statePressed') }}</div>
+            </div>
+          </div>
+          <div class="preview-group">
+            <div class="preview-group-title">{{ t('editor.theme.previewMainButton') }}</div>
+            <div class="preview-row">
+              <div class="preview-btn-main preview-btn-main-default">
+                <ion-icon name="add-outline" />
+                <span>{{ t('editor.theme.stateDefault') }}</span>
+              </div>
+              <div class="preview-btn-main preview-btn-main-hover">
+                <ion-icon name="add-outline" />
+                <span>{{ t('editor.theme.stateHover') }}</span>
+              </div>
+              <div class="preview-btn-main preview-btn-main-pressed">
+                <ion-icon name="add-outline" />
+                <span>{{ t('editor.theme.statePressed') }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="preview-group">
+            <div class="preview-group-title">{{ t('editor.theme.previewDestructiveButton') }}</div>
+            <div class="preview-row">
+              <div class="preview-btn-destructive preview-btn-destructive-default">
+                <ion-icon name="trash-outline" />
+                <span>{{ t('editor.theme.stateDefault') }}</span>
+              </div>
+              <div class="preview-btn-destructive preview-btn-destructive-hover">
+                <ion-icon name="trash-outline" />
+                <span>{{ t('editor.theme.stateHover') }}</span>
+              </div>
+              <div class="preview-btn-destructive preview-btn-destructive-pressed">
+                <ion-icon name="trash-outline" />
+                <span>{{ t('editor.theme.statePressed') }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="preview-group">
+            <div class="preview-group-title">{{ t('editor.theme.previewLightButton') }}</div>
+            <div class="preview-row">
+              <div class="preview-btn-light preview-btn-light-default">
+                <ion-icon name="settings-outline" />
+                <span>{{ t('editor.theme.stateDefault') }}</span>
+              </div>
+              <div class="preview-btn-light preview-btn-light-hover">
+                <ion-icon name="settings-outline" />
+                <span>{{ t('editor.theme.stateHover') }}</span>
+              </div>
+              <div class="preview-btn-light preview-btn-light-pressed">
+                <ion-icon name="settings-outline" />
+                <span>{{ t('editor.theme.statePressed') }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="preview-group">
+            <div class="preview-group-title">{{ t('editor.theme.previewSwitch') }}</div>
+            <div class="preview-row">
+              <div class="preview-switch preview-switch-on"><div class="preview-switch-knob" /></div>
+              <div class="preview-switch preview-switch-off"><div class="preview-switch-knob" /></div>
+            </div>
+          </div>
+          <div class="preview-group">
+            <div class="preview-group-title">{{ t('editor.theme.previewSlider') }}</div>
+            <div class="preview-slider">
+              <div class="preview-slider-track" />
+              <div class="preview-slider-fill" />
+              <div class="preview-slider-thumb" />
+            </div>
+          </div>
+          <div class="preview-group">
+            <div class="preview-group-title">{{ t('editor.theme.previewTopbar') }}</div>
+            <div class="preview-topbar">
+              <ion-icon name="chevron-back-outline" />
+              <span>{{ t('editor.theme.previewTopbarTitle') }}</span>
+              <div style="flex-grow:1" />
+              <ion-icon name="language-outline" />
+            </div>
+          </div>
+          <div class="preview-group">
+            <div class="preview-group-title">{{ t('editor.theme.previewSegmented') }}</div>
+            <div class="preview-segmented">
+              <div class="preview-segment preview-segment-active">{{ t('editor.theme.segmentTab1') }}</div>
+              <div class="preview-segment">{{ t('editor.theme.segmentTab2') }}</div>
+              <div class="preview-segment">{{ t('editor.theme.segmentTab3') }}</div>
+            </div>
+          </div>
+          <div class="preview-group">
+            <div class="preview-group-title">{{ t('editor.theme.previewInput') }}</div>
+            <div class="preview-input">
+              <span class="preview-input-placeholder">{{ t('editor.theme.previewInputPlaceholder') }}</span>
+            </div>
+          </div>
+          <div class="preview-group">
+            <div class="preview-group-title">{{ t('editor.theme.previewCell') }}</div>
+            <div class="preview-cell-row">
+              <div class="preview-cell" />
+              <div class="preview-cell preview-cell-selected" />
+              <div class="preview-cell preview-cell-highlight" />
+              <div class="preview-cell" />
+              <div class="preview-cell" />
+            </div>
+          </div>
+          <div class="preview-group">
+            <div class="preview-group-title">{{ t('editor.theme.previewContainer') }}</div>
+            <div class="preview-container">
+              <div class="preview-container-item" />
+              <div class="preview-container-item" />
+              <div class="preview-container-item preview-container-item-full" />
+            </div>
+          </div>
+          <div class="preview-group">
+            <div class="preview-group-title">{{ t('editor.theme.previewScroll') }}</div>
+            <div class="preview-scroll">
+              <div class="preview-scroll-track" />
+              <div class="preview-scroll-thumb" />
+            </div>
+          </div>
+          <div class="preview-group">
+            <div class="preview-group-title">{{ t('editor.theme.previewProgress') }}</div>
+            <div class="preview-progress">
+              <div class="preview-progress-track" />
+              <div class="preview-progress-fill" />
+            </div>
+          </div>
+          <div class="preview-group">
+            <div class="preview-group-title">{{ t('editor.theme.previewDropdown') }}</div>
+            <div class="preview-dropdown">
+              <span>{{ t('editor.theme.previewDropdownLabel') }}</span>
+              <ion-icon name="chevron-down-outline" />
+            </div>
+          </div>
+          <div class="preview-group">
+            <div class="preview-group-title">{{ t('editor.theme.previewRadio') }}</div>
+            <div class="preview-row">
+              <div class="preview-radio preview-radio-on"><div class="preview-radio-dot" /></div>
+              <span>{{ t('editor.theme.previewRadioOn') }}</span>
+              <div class="preview-radio preview-radio-off" />
+              <span>{{ t('editor.theme.previewRadioOff') }}</span>
+            </div>
+          </div>
+          <div class="preview-group">
+            <div class="preview-group-title">{{ t('editor.theme.previewSidebar') }}</div>
+            <div class="preview-sidebar">
+              <div class="preview-sidebar-item preview-sidebar-item-active">{{ t('editor.theme.previewSidebarItem1') }}</div>
+              <div class="preview-sidebar-item">{{ t('editor.theme.previewSidebarItem2') }}</div>
+              <div class="preview-sidebar-item">{{ t('editor.theme.previewSidebarItem3') }}</div>
+            </div>
+          </div>
+          <div class="preview-group">
+            <div class="preview-group-title">{{ t('editor.theme.previewUnderline') }}</div>
+            <div class="preview-underline" />
+          </div>
+          <div class="preview-group">
+            <div class="preview-group-title">{{ t('editor.theme.previewDivider') }}</div>
+            <div class="preview-divider" />
+          </div>
+          <div class="preview-group">
+            <div class="preview-group-title">{{ t('editor.theme.previewTooltip') }}</div>
+            <div class="preview-tooltip">{{ t('editor.theme.previewTooltipText') }}</div>
+          </div>
+          <div class="preview-group">
+            <div class="preview-group-title">{{ t('editor.theme.previewDialog') }}</div>
+            <div class="preview-dialog">
+              <div class="preview-dialog-header">{{ t('editor.theme.previewDialogTitle') }}</div>
+              <div class="preview-dialog-body">{{ t('editor.theme.previewDialogBody') }}</div>
+              <div class="preview-dialog-actions">
+                <span>{{ t('gui$cancel') }}</span>
+                <span class="preview-dialog-confirm">{{ t('gui$confirm') }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="preview-group">
+            <div class="preview-group-title">{{ t('editor.theme.previewToast') }}</div>
+            <div class="preview-toast">{{ t('editor.theme.previewToastText') }}</div>
+          </div>
+          <div class="preview-group">
+            <div class="preview-group-title">{{ t('editor.theme.previewBadge') }}</div>
+            <div class="preview-badge-row">
+              <div class="preview-badge">{{ t('editor.theme.previewBadgeText') }}</div>
+              <div class="preview-corner">
+                <div class="preview-corner-dot" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="list-container">
         <div v-if="showEmptyState" class="empty-state">
           <ion-icon name="search-outline" class="empty-icon" />
@@ -184,6 +411,119 @@ const parsedConfig = ref([])
 const expandedSection = ref(-1)
 const showCategoryDrawer = ref(false)
 const showResetDialog = ref(false)
+const showGlobalColor = ref(false)
+const globalPrimaryColor = ref([0.325, 0.427, 0.996])
+const globalSecondaryColor = ref([0.549, 0.62, 1])
+const globalAlpha = ref(1)
+const showGlobalPicker = ref(false)
+const globalPickerTarget = ref('primary')
+
+const primaryColorStyle = computed(() => ({
+  background: `rgb(${Math.round(globalPrimaryColor.value[0] * 255)}, ${Math.round(globalPrimaryColor.value[1] * 255)}, ${Math.round(globalPrimaryColor.value[2] * 255)})`
+}))
+
+const secondaryColorStyle = computed(() => ({
+  background: `rgb(${Math.round(globalSecondaryColor.value[0] * 255)}, ${Math.round(globalSecondaryColor.value[1] * 255)}, ${Math.round(globalSecondaryColor.value[2] * 255)})`
+}))
+
+const openGlobalPicker = (target) => {
+  globalPickerTarget.value = target
+  showGlobalPicker.value = true
+}
+
+const applyGlobalColor = async () => {
+  const primary = globalPrimaryColor.value
+  const secondary = globalSecondaryColor.value
+  const alpha = globalAlpha.value
+
+  // Derive hover (lighter) and pressed (darker) variants
+  const hover = primary.map(c => Math.min(1, c + 0.1))
+  const pressed = primary.map(c => Math.max(0, c - 0.1))
+  const secHover = secondary.map(c => Math.min(1, c + 0.1))
+
+  const updates = {
+    '$cube_main_color': primary,
+    '$cube_button_main_default_color': primary,
+    '$cube_button_main_hover_color': hover,
+    '$cube_button_main_pressed_color': pressed,
+    '$cube_button_main_locked_color': [0.91, 0.918, 0.965],
+    '$cube_button_destructive_default_color': [0.69, 0, 0.125],
+    '$cube_button_destructive_hover_color': [0.776, 0.157, 0.157],
+    '$cube_button_destructive_pressed_color': [0.498, 0, 0],
+    '$cube_button_light_default_color': [0.8, 0.8, 0.8],
+    '$cube_button_light_hover_color': [0.7, 0.7, 0.7],
+    '$cube_button_light_pressed_color': [0.7, 0.7, 0.7],
+    '$cube_button_transparent_default_color': [0.922, 0.922, 0.922],
+    '$cube_button_transparent_hover_color': secHover,
+    '$cube_button_transparent_pressed_color': secHover,
+    '$cube_toggle_indicator_checked_color': primary,
+    '$cube_toggle_indicator_unchecked_color': primary,
+    '$cube_slider_progress_default_color': primary,
+    '$cube_slider_progress_hover_color': secHover,
+    '$cube_cell_selected_color': secHover,
+    '$cube_cell_highlight_color': secHover,
+    '$cube_container_components_full_color': primary,
+    '$cube_progress_full_color': [0.91, 0.918, 0.965],
+    '$cube_bar_color': primary,
+    '$cube_icon_color': [0.922, 0.922, 0.922],
+    '$cube_text_color': [0.922, 0.922, 0.922],
+    '$cube_text_title_color': [0.922, 0.922, 0.922],
+    '$cube_button_text_color': [0.922, 0.922, 0.922],
+    '$cube_button_glyph_default_color': [0.922, 0.922, 0.922],
+    '$cube_slider_button_default_color': [0.922, 0.922, 0.922],
+    '$cube_corner_master_color': primary,
+  }
+
+  // Apply alpha to relevant alpha variables
+  const alphaUpdates = {
+    '$cube_control_bg_alpha': alpha * 0.45,
+    '$cube_light_bg_alpha': alpha * 0.35,
+    '$cube_slider_background_alpha': alpha * 0.3,
+    '$cube_cell_alpha': alpha * 0.3,
+    '$cube_container_components_alpha': alpha * 0.4,
+    '$cube_scroll_track_alpha': alpha * 0.3,
+    '$cube_scroll_box_alpha': alpha * 0.6,
+    '$cube_progress_empty_alpha': alpha * 0.3,
+    '$cube_progress_full_alpha': alpha * 0.6,
+    '$cube_dropdown_background_alpha': alpha * 0.3,
+    '$cube_radio_background_alpha': alpha * 0.3,
+    '$cube_sidebar_alpha': alpha * 0.3,
+    '$cube_tooltip_background_alpha': alpha * 0.6,
+    '$cube_underline_alpha': alpha * 0.3,
+    '$cube_divider_alpha': alpha * 0.3,
+    '$cube_dialog_overlay_alpha': alpha * 0.15,
+    '$cube_dialog_background_alpha': alpha * 0.6,
+    '$cube_toast_background_alpha': alpha * 0.6,
+    '$cube_corner_master_alpha': alpha * 0.6,
+  }
+
+  let file = await fs.value.read("ui/_global_variables.json")
+  file = file || {}
+
+  // Apply color updates
+  for (const [key, value] of Object.entries(updates)) {
+    file[key] = value
+  }
+  // Apply alpha updates
+  for (const [key, value] of Object.entries(alphaUpdates)) {
+    file[key] = value
+  }
+
+  fs.value.write("ui/_global_variables.json", file)
+
+  // Update parsedConfig option values to reflect changes
+  parsedConfig.value.forEach(section => {
+    section.options.forEach(option => {
+      if (updates[option.id]) {
+        option.value = [...updates[option.id]]
+      } else if (alphaUpdates[option.id] !== undefined) {
+        option.value = alphaUpdates[option.id]
+      }
+    })
+  })
+
+  showGlobalColor.value = false
+}
 
 const resetToDefaults = async () => {
   const allIds = []
@@ -702,6 +1042,487 @@ onBeforeUnmount(() => {
 
 .list-container {
   padding: 0.5rem;
+}
+
+.global-color-section {
+  padding: 0 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.global-color-content {
+  padding: 1rem;
+  background-color: rgba(var(--mdui-color-primary), 0.06);
+  border-radius: 12px;
+  margin-top: 0.2rem;
+
+  .color-picker-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+
+    .color-label {
+      font-size: 14px;
+      color: var(--mdui-color-on-surface-variant);
+      min-width: 80px;
+    }
+
+    .color-swatch {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid rgba(var(--mdui-color-outline-variant), 1);
+      flex-shrink: 0;
+      transition: transform 0.2s;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    mdui-slider {
+      flex: 1;
+    }
+  }
+}
+
+.preview-section {
+  padding: 0 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.preview-section-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--mdui-color-on-surface);
+  padding: 0.5rem 0;
+}
+
+.preview-card {
+  background-color: rgba(var(--mdui-color-surface-container), 0.6);
+  border-radius: 16px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.preview-group {
+  .preview-group-title {
+    font-size: 12px;
+    color: var(--mdui-color-on-surface-variant);
+    margin-bottom: 8px;
+  }
+}
+
+.preview-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.preview-btn {
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: rgb(0.922, 0.922, 0.922);
+  border: 1px solid rgba(0.922, 0.922, 0.922, 0.2);
+
+  &.preview-btn-default { background-color: rgba(0, 0, 0, 0.3); }
+  &.preview-btn-hover { background-color: rgba(0.5, 0.5, 0.5, 0.3); }
+  &.preview-btn-pressed { background-color: rgba(0, 0, 0, 0.5); }
+}
+
+.preview-btn-main {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: rgb(0.922, 0.922, 0.922);
+
+  ion-icon { font-size: 16px; }
+
+  &.preview-btn-main-default { background-color: rgb(0.325, 0.427, 0.996); }
+  &.preview-btn-main-hover { background-color: rgb(0.425, 0.527, 1); }
+  &.preview-btn-main-pressed { background-color: rgb(0.225, 0.327, 0.896); }
+}
+
+.preview-btn-destructive {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: rgb(0.922, 0.922, 0.922);
+
+  ion-icon { font-size: 16px; }
+
+  &.preview-btn-destructive-default { background-color: rgb(0.69, 0, 0.125); }
+  &.preview-btn-destructive-hover { background-color: rgb(0.776, 0.157, 0.157); }
+  &.preview-btn-destructive-pressed { background-color: rgb(0.498, 0, 0); }
+}
+
+.preview-btn-light {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: rgb(0.922, 0.922, 0.922);
+
+  ion-icon { font-size: 16px; }
+
+  &.preview-btn-light-default { background-color: rgb(0.8, 0.8, 0.8); color: #222; }
+  &.preview-btn-light-hover { background-color: rgb(0.7, 0.7, 0.7); color: #222; }
+  &.preview-btn-light-pressed { background-color: rgb(0.7, 0.7, 0.7); color: #222; }
+}
+
+.preview-switch {
+  width: 44px;
+  height: 24px;
+  border-radius: 12px;
+  position: relative;
+  transition: background-color 0.2s;
+
+  &.preview-switch-on { background-color: rgb(0.325, 0.427, 0.996); }
+  &.preview-switch-off { background-color: rgba(0.922, 0.922, 0.922, 0.3); }
+
+  .preview-switch-knob {
+    position: absolute;
+    top: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: rgb(0.922, 0.922, 0.922);
+    transition: left 0.2s;
+  }
+
+  &.preview-switch-on .preview-switch-knob { left: 23px; }
+  &.preview-switch-off .preview-switch-knob { left: 3px; }
+}
+
+.preview-slider {
+  position: relative;
+  height: 24px;
+  width: 100%;
+  max-width: 200px;
+
+  .preview-slider-track {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    border-radius: 2px;
+    background-color: rgba(0.09, 0.09, 0.09, 0.3);
+  }
+
+  .preview-slider-fill {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 60%;
+    height: 4px;
+    border-radius: 2px;
+    background-color: rgb(0.325, 0.427, 0.996);
+  }
+
+  .preview-slider-thumb {
+    position: absolute;
+    top: 4px;
+    left: calc(60% - 10px);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: rgb(0.922, 0.922, 0.922);
+  }
+}
+
+.preview-topbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: rgba(0.09, 0.09, 0.09, 0.4);
+  border-radius: 8px;
+  color: rgb(0.922, 0.922, 0.922);
+  font-size: 14px;
+
+  ion-icon { font-size: 20px; }
+}
+
+.preview-segmented {
+  display: flex;
+  background-color: rgba(0.09, 0.09, 0.09, 0.3);
+  border-radius: 8px;
+  overflow: hidden;
+
+  .preview-segment {
+    flex: 1;
+    padding: 6px 12px;
+    text-align: center;
+    font-size: 13px;
+    color: rgb(0.922, 0.922, 0.922);
+    cursor: pointer;
+
+    &.preview-segment-active {
+      background-color: rgb(0.325, 0.427, 0.996);
+    }
+  }
+}
+
+.preview-input {
+  padding: 10px 12px;
+  background-color: rgba(0.09, 0.09, 0.09, 0.3);
+  border-radius: 8px;
+  border-bottom: 2px solid rgb(0.325, 0.427, 0.996);
+
+  .preview-input-placeholder {
+    color: rgba(0.922, 0.922, 0.922, 0.5);
+    font-size: 14px;
+  }
+}
+
+.preview-cell-row {
+  display: flex;
+  gap: 4px;
+
+  .preview-cell {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    background-color: rgba(0.61, 0.61, 0.61, 0.3);
+
+    &.preview-cell-selected { background-color: rgb(0.549, 0.62, 1); }
+    &.preview-cell-highlight { background-color: rgba(0.549, 0.62, 1, 0.3); }
+  }
+}
+
+.preview-container {
+  display: flex;
+  gap: 4px;
+
+  .preview-container-item {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    background-color: rgba(0.922, 0.922, 0.922, 0.4);
+
+    &.preview-container-item-full { background-color: rgb(0.325, 0.427, 0.996); }
+  }
+}
+
+.preview-scroll {
+  width: 100%;
+  max-width: 200px;
+  height: 80px;
+  background-color: rgba(0.09, 0.09, 0.09, 0.3);
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+
+  .preview-scroll-track {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    bottom: 4px;
+    width: 4px;
+    border-radius: 2px;
+    background-color: rgba(0.09, 0.09, 0.09, 0.3);
+  }
+
+  .preview-scroll-thumb {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    width: 4px;
+    height: 30px;
+    border-radius: 2px;
+    background-color: rgba(0.85, 0.85, 0.9, 0.6);
+  }
+}
+
+.preview-progress {
+  width: 100%;
+  max-width: 200px;
+  height: 8px;
+  border-radius: 4px;
+  background-color: rgba(0.09, 0.09, 0.09, 0.3);
+  overflow: hidden;
+
+  .preview-progress-fill {
+    width: 60%;
+    height: 100%;
+    background-color: rgba(0.91, 0.918, 0.965, 0.6);
+  }
+}
+
+.preview-dropdown {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background-color: rgba(0.09, 0.09, 0.09, 0.3);
+  border-radius: 8px;
+  color: rgb(0.922, 0.922, 0.922);
+  font-size: 14px;
+  max-width: 200px;
+
+  ion-icon { font-size: 18px; }
+}
+
+.preview-radio {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid rgb(0.325, 0.427, 0.996);
+  position: relative;
+  flex-shrink: 0;
+
+  &.preview-radio-on {
+    .preview-radio-dot {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: rgb(0.325, 0.427, 0.996);
+    }
+  }
+
+  &.preview-radio-off {
+    border-color: rgba(0.922, 0.922, 0.922, 0.5);
+  }
+}
+
+.preview-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  max-width: 200px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 8px;
+
+  .preview-sidebar-item {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: rgb(0.922, 0.922, 0.922);
+
+    &.preview-sidebar-item-active {
+      background-color: rgba(0.325, 0.427, 0.996, 0.2);
+      color: rgb(0.549, 0.62, 1);
+    }
+  }
+}
+
+.preview-underline {
+  width: 100%;
+  max-width: 200px;
+  height: 2px;
+  background-color: rgba(0.09, 0.09, 0.09, 0.3);
+}
+
+.preview-divider {
+  width: 100%;
+  max-width: 200px;
+  height: 1px;
+  background-color: rgba(0.9, 0.9, 0.9, 0.3);
+}
+
+.preview-tooltip {
+  display: inline-block;
+  padding: 6px 12px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 6px;
+  color: rgb(0.922, 0.922, 0.922);
+  font-size: 13px;
+}
+
+.preview-dialog {
+  width: 100%;
+  max-width: 280px;
+  background-color: rgba(0.09, 0.09, 0.09, 0.6);
+  border-radius: 16px;
+  overflow: hidden;
+
+  .preview-dialog-header {
+    padding: 16px 16px 8px;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgb(0.922, 0.922, 0.922);
+  }
+
+  .preview-dialog-body {
+    padding: 0 16px 16px;
+    font-size: 14px;
+    color: rgba(0.922, 0.922, 0.922, 0.7);
+  }
+
+  .preview-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 8px 16px 12px;
+
+    span {
+      font-size: 14px;
+      color: rgb(0.549, 0.62, 1);
+      cursor: pointer;
+    }
+  }
+}
+
+.preview-toast {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 8px;
+  color: rgb(0.922, 0.922, 0.922);
+  font-size: 14px;
+}
+
+.preview-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .preview-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    background-color: rgba(0.325, 0.427, 0.996, 0.6);
+    border-radius: 8px;
+    color: rgb(0.922, 0.922, 0.922);
+    font-size: 12px;
+  }
+
+  .preview-corner {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    background-color: rgba(0.325, 0.427, 0.996, 0.6);
+    border-radius: 50%;
+
+    .preview-corner-dot {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: rgba(1, 0, 0, 0.8);
+    }
+  }
 }
 
 .color-preview {
