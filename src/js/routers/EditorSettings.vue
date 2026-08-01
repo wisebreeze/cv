@@ -374,6 +374,51 @@ const helpConfig = {
     title: 'editor.settings.moreDropdownTitle',
     desc: 'editor.settings.moreDropdownDesc',
     images: []
+  },
+  '$cube_set_b9a8724e': {
+    title: 'editor.settings.enhancedCmdTitle',
+    desc: 'editor.settings.enhancedCmdDesc',
+    images: []
+  },
+  '$cube_set_f3c82728': {
+    title: 'editor.settings.vanillaBgTitle',
+    desc: 'editor.settings.vanillaBgDesc',
+    images: []
+  },
+  '$cube_set_c1919f11': {
+    title: 'editor.settings.imageSliceTitle',
+    desc: 'editor.settings.imageSliceDesc',
+    images: []
+  },
+  '$cube_set_0de84bac': {
+    title: 'editor.settings.featuredServersTitle',
+    desc: 'editor.settings.featuredServersDesc',
+    images: []
+  },
+  '$cube_set_c9107c08': {
+    title: 'editor.settings.enchantedOnlyTitle',
+    desc: 'editor.settings.enchantedOnlyDesc',
+    images: []
+  },
+  '$cube_set_b04cb703': {
+    title: 'editor.settings.scrollableCmdTitle',
+    desc: 'editor.settings.scrollableCmdDesc',
+    images: []
+  },
+  '$cube_set_557fbdd9': {
+    title: 'editor.settings.noteblockOnLoadTitle',
+    desc: 'editor.settings.noteblockOnLoadDesc',
+    images: []
+  },
+  '$cube_set_d755287c': {
+    title: 'editor.settings.serverFormCoreTitle',
+    desc: 'editor.settings.serverFormCoreDesc',
+    images: []
+  },
+  '$cube_set_ff9ae346': {
+    title: 'editor.settings.largeSandboxTitle',
+    desc: 'editor.settings.largeSandboxDesc',
+    images: []
   }
 }
 
