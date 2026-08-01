@@ -559,16 +559,14 @@ const themeVars = computed(() => {
     })
   })
 
-  // Merge applied colors (from global color apply) - overrides parsedConfig
-  for (const [key, value] of Object.entries(appliedColors.value)) {
+  // Dynamic defaults OVERRIDE parsedConfig values (global color takes priority)
+  for (const [key, value] of Object.entries(defaults)) {
     vars[key] = value
   }
 
-  // Merge with dynamically computed defaults
-  for (const [key, value] of Object.entries(defaults)) {
-    if (vars[key] === undefined) {
-      vars[key] = value
-    }
+  // Applied colors override everything (from Apply button)
+  for (const [key, value] of Object.entries(appliedColors.value)) {
+    vars[key] = value
   }
 
   return vars
