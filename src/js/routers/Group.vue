@@ -37,7 +37,7 @@ const router = useRouter()
 const communities = ref([
   {
     id: 'discord',
-    name: 'CubeVisage UI',
+    name: 'discord',
     description: 'discord_desc',
     icon: discordIcon,
     link: 'https://discord.gg/VG5ADCPUKq',
