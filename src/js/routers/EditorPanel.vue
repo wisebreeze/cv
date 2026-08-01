@@ -134,21 +134,16 @@
 
     <Transition name="dialog">
       <div v-if="showResetDialog" class="help-dialog-overlay" @click.self="showResetDialog = false">
-        <div class="help-dialog" style="max-width: 400px;">
-          <div class="help-dialog-header">
-            <h2 class="help-dialog-title">{{ t('editor.resetPanelTitle') }}</h2>
-            <mdui-button-icon @click="showResetDialog = false">
-              <ion-icon name="close-outline"></ion-icon>
-            </mdui-button-icon>
-          </div>
+        <div class="help-dialog reset-dialog">
           <div class="help-dialog-content">
+            <h2 class="reset-dialog-title">{{ t('editor.resetPanelTitle') }}</h2>
             <p class="help-dialog-desc">{{ t('editor.resetPanelConfirm') }}</p>
           </div>
-          <div class="help-dialog-footer" style="display: flex; gap: 8px;">
-            <mdui-button variant="text" full-width @click="showResetDialog = false">
+          <div class="reset-dialog-actions">
+            <mdui-button variant="text" @click="showResetDialog = false">
               {{ t('gui$cancel') }}
             </mdui-button>
-            <mdui-button variant="filled" full-width @click="resetToDefaults">
+            <mdui-button variant="filled" @click="resetToDefaults">
               {{ t('gui$confirm') }}
             </mdui-button>
           </div>
@@ -679,6 +674,93 @@ onBeforeUnmount(() => {
   to { opacity: 1; }
 }
 @keyframes drawer-overlay-fade-leave {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.help-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2002;
+  padding: 1rem;
+}
+
+.help-dialog {
+  background-color: rgb(var(--mdui-color-surface));
+  border-radius: 16px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.help-dialog-content {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+
+  .help-dialog-desc {
+    color: rgb(var(--mdui-color-on-surface-variant));
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+.reset-dialog {
+  max-width: 400px;
+  border-radius: 28px;
+}
+
+.reset-dialog-title {
+  margin: 0 0 12px 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: rgb(var(--mdui-color-on-surface));
+  line-height: 1.5;
+}
+
+.reset-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 0 1.5rem 1.5rem;
+}
+
+.dialog-enter-active {
+  animation: dialog-overlay-alpha 0.3s cubic-bezier(0.05, 0.7, 0.1, 1);
+  .help-dialog {
+    animation: dialog-enter 0.3s cubic-bezier(0.05, 0.7, 0.1, 1);
+  }
+}
+.dialog-leave-active {
+  animation: dialog-overlay-alpha-leave 0.2s cubic-bezier(0.3, 0, 0.8, 0.15);
+  .help-dialog {
+    animation: dialog-leave 0.2s cubic-bezier(0.3, 0, 0.8, 0.15);
+  }
+}
+
+@keyframes dialog-enter {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes dialog-leave {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(0.95); opacity: 0; }
+}
+@keyframes dialog-overlay-alpha {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes dialog-overlay-alpha-leave {
   from { opacity: 1; }
   to { opacity: 0; }
 }

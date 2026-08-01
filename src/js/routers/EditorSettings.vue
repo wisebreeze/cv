@@ -172,21 +172,16 @@
 
     <Transition name="dialog">
       <div v-if="showResetDialog" class="help-dialog-overlay" @click.self="showResetDialog = false">
-        <div class="help-dialog" style="max-width: 400px;">
-          <div class="help-dialog-header">
-            <h2 class="help-dialog-title">{{ t('editor.resetSettingsTitle') }}</h2>
-            <mdui-button-icon @click="showResetDialog = false">
-              <ion-icon name="close-outline"></ion-icon>
-            </mdui-button-icon>
-          </div>
+        <div class="help-dialog reset-dialog">
           <div class="help-dialog-content">
+            <h2 class="reset-dialog-title">{{ t('editor.resetSettingsTitle') }}</h2>
             <p class="help-dialog-desc">{{ t('editor.resetSettingsConfirm') }}</p>
           </div>
-          <div class="help-dialog-footer" style="display: flex; gap: 8px;">
-            <mdui-button variant="text" full-width @click="showResetDialog = false">
+          <div class="reset-dialog-actions">
+            <mdui-button variant="text" @click="showResetDialog = false">
               {{ t('gui$cancel') }}
             </mdui-button>
-            <mdui-button variant="filled" full-width @click="resetToDefaults">
+            <mdui-button variant="filled" @click="resetToDefaults">
               {{ t('gui$confirm') }}
             </mdui-button>
           </div>
@@ -1120,6 +1115,26 @@ onBeforeUnmount(() => {
 .help-dialog-footer {
   padding: 1rem 1.5rem;
   border-top: 1px solid rgba(var(--mdui-color-outline-variant), 1);
+}
+
+.reset-dialog {
+  max-width: 400px;
+  border-radius: 28px;
+}
+
+.reset-dialog-title {
+  margin: 0 0 12px 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: rgb(var(--mdui-color-on-surface));
+  line-height: 1.5;
+}
+
+.reset-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 0 1.5rem 1.5rem;
 }
 
 .dialog-enter-active {
