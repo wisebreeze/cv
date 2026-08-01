@@ -144,6 +144,14 @@ const helpConfig = {
       { src: require('../../image/text_shadows.jpg'), label: 'editor.settings.textShadowsLabel' },
       { src: require('../../image/text_no_shadows.jpg'), label: 'editor.settings.textNoShadowsLabel' }
     ]
+  },
+  '$cube_set_bac1d62e': {
+    title: 'editor.settings.foldEnchantTitle',
+    desc: 'editor.settings.foldEnchantDesc',
+    images: [
+      { src: require('../../image/enchant_default.jpg'), label: 'editor.settings.enchantDefaultLabel' },
+      { src: require('../../image/enchant_no_text.jpg'), label: 'editor.settings.enchantNoTextLabel' }
+    ]
   }
 }
 

@@ -186,7 +186,11 @@
       textShadowTitle: "文本阴影",
       textShadowDesc: "显示标题、副标题的文本阴影",
       textShadowsLabel: "已开启阴影",
-      textNoShadowsLabel: "已关闭阴影"
+      textNoShadowsLabel: "已关闭阴影",
+      foldEnchantTitle: "折叠附魔信息",
+      foldEnchantDesc: "折叠物品信息中的附魔文本，避免附魔列表过长遮挡游戏视野",
+      enchantDefaultLabel: "显示附魔",
+      enchantNoTextLabel: "隐藏附魔"
     },
     word: {
       screenTitle: "快捷短语",

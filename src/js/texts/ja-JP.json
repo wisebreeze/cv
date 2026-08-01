@@ -186,7 +186,11 @@
       textShadowTitle: "テキストシャドウ",
       textShadowDesc: "タイトルとサブタイトルのテキストシャドウを表示",
       textShadowsLabel: "シャドウ有効",
-      textNoShadowsLabel: "シャドウ無効"
+      textNoShadowsLabel: "シャドウ無効",
+      foldEnchantTitle: "エンチャント情報を折りたたむ",
+      foldEnchantDesc: "アイテム情報のエンチャントテキストを折りたたみ、長いエンチャントリストが視界を遮るのを防ぎます",
+      enchantDefaultLabel: "エンチャント表示",
+      enchantNoTextLabel: "エンチャント非表示"
     },
     word: {
       screenTitle: "ショートフレーズ",

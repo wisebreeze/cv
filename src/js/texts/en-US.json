@@ -189,7 +189,11 @@
       textShadowTitle: "Text Shadow",
       textShadowDesc: "Show text shadows for titles and subtitles",
       textShadowsLabel: "Shadow enabled",
-      textNoShadowsLabel: "Shadow disabled"
+      textNoShadowsLabel: "Shadow disabled",
+      foldEnchantTitle: "Fold Enchantment Info",
+      foldEnchantDesc: "Collapse enchantment text in item info to prevent long enchant lists from blocking the view",
+      enchantDefaultLabel: "Enchantments shown",
+      enchantNoTextLabel: "Enchantments hidden"
     },
     word: {
       screenTitle: "Quick phrases",
