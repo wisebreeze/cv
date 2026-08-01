@@ -112,7 +112,19 @@ export default {
     },
     pageTitle() {
       const titleKey = this.routeTitleMap[this.$route.name]
-      return titleKey ? this.$t(titleKey) : ''
+      if (titleKey) return this.$t(titleKey)
+      // Handle markdown routes (name like "xx-XX-pagename")
+      const mdMatch = this.$route.name && this.$route.name.match(/^[a-z]{2}-[A-Z]{2}-(.+)$/)
+      if (mdMatch) {
+        const mdTitleMap = {
+          guide: 'editor.guide.title',
+          privacy: 'main.privacyPolicy',
+          terms: 'main.agreementTitle'
+        }
+        const mdKey = mdTitleMap[mdMatch[1]]
+        if (mdKey) return this.$t(mdKey)
+      }
+      return ''
     }
   },
   data() {

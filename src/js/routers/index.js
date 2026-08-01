@@ -153,23 +153,37 @@ router.beforeEach(async (to, from, next) => {
     'ja-JP': 'en-US'
   }
   const markdownLocale = markdownLocaleMap[currentLocale] || currentLocale
-  const pathLangMatch = to.path.match(/^\/([a-z]{2}-[A-Z]{2})(\/|$)/)
+
+  // Strip a leading /editor (or other non-locale prefix) so locale-prefixed
+  // markdown paths like /editor/zh-CN/guide resolve to /zh-CN/guide.
+  let workingPath = to.path
+  const editorMatch = workingPath.match(/^\/editor\/([a-z]{2}-[A-Z]{2})(\/|$)/)
+  if (editorMatch) {
+    workingPath = workingPath.replace(/^\/editor/, '')
+  }
+
+  const pathLangMatch = workingPath.match(/^\/([a-z]{2}-[A-Z]{2})(\/|$)/)
   const pathLang = pathLangMatch ? pathLangMatch[1] : null
-  const rawPath = pathLang ? to.path.replace(`/${pathLang}`, '') : to.path
+  const rawPath = pathLang ? workingPath.replace(`/${pathLang}`, '') : workingPath
   if (pathLang && pathLang !== currentLocale) {
     const newPath = `/${currentLocale}${rawPath}`
     console.log(`Redirecting from ${to.path} to ${newPath}`)
     return next(newPath)
   }
+
   const fallbackLocale = i18n.global.fallbackLocale.value
-  const path = to.path.slice(1)
+  // workingPath is like "/zh-CN/guide"; strip leading "/" then strip locale prefix
+  const pathNoLocale = workingPath.replace(/^\//, '').replace(/^[a-z]{2}-[A-Z]{2}\//, '')
   let targetMarkdown = markdownKeys.find(e => {
     const mdPath = e.replace(/^.*\/markdown\//, '/').replace(/\.md$/, '')
-    const filePath = path.replace(/^\/[a-z]{2}-[A-Z]{2}\//, '')
-    return markdownLocale ? mdPath === '/'+markdownLocale+'/'+filePath : mdPath === '/'+fallbackLocale+'/'+filePath
+    return markdownLocale
+      ? mdPath === '/' + markdownLocale + '/' + pathNoLocale
+      : mdPath === '/' + fallbackLocale + '/' + pathNoLocale
   })
-  targetMarkdown = targetMarkdown ? targetMarkdown.replace(/^.*\/markdown\//, '').replace(/\.md$/, '') : targetMarkdown
-  if (targetMarkdown) {
+  targetMarkdown = targetMarkdown
+    ? '/' + targetMarkdown.replace(/^.*\/markdown\//, '').replace(/\.md$/, '')
+    : targetMarkdown
+  if (targetMarkdown && targetMarkdown !== to.path) {
     return router.push(targetMarkdown)
   }
   next()
