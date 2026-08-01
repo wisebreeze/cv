@@ -3,11 +3,14 @@
     <Topbar v-if="!isDesktop" />
     <div ref="scrollContainer" :id="!isDesktop ? 'content' : ''" class="ns" style="width: 100%;height: var(--window-height);box-sizing: border-box; overflow-y: auto;">
       <div class="search-container" :class="{ 'scrolled': hasScrolled }">
-        <mdui-text-field 
-          :label="t('editor.settings.search')" 
-          :value="searchQuery" 
-          @change="searchQuery = $event.target.value" 
-          variant="filled" 
+        <mdui-button-icon class="category-menu-btn" @click="showCategoryDrawer = true">
+          <ion-icon name="menu-outline"></ion-icon>
+        </mdui-button-icon>
+        <mdui-text-field
+          :label="t('editor.settings.search')"
+          :value="searchQuery"
+          @change="searchQuery = $event.target.value"
+          variant="filled"
           clearable
           class="search-field"
           name="search"
@@ -20,7 +23,7 @@
           <ion-icon name="search-outline" class="empty-icon" />
           <p>{{ t('editor.settings.empty') }}</p>
         </div>
-        <div v-for="(section, sectionIndex) in filteredConfig" :key="sectionIndex">
+        <div v-for="(section, sectionIndex) in filteredConfig" :key="sectionIndex" :data-section-index="sectionIndex">
           <mdui-list-item rounded @click="toggleSection(sectionIndex)">
             <span>{{ getText(section.text) }}</span>
             <span v-if="section.desc" slot="description">{{ getText({ 'zh-cn': section.desc, 'en-us': section.desc }) }}</span>
@@ -111,6 +114,31 @@
       </div>
     </div>
 
+    <Transition name="drawer">
+      <div v-if="showCategoryDrawer" class="category-drawer-overlay" @click.self="showCategoryDrawer = false">
+        <div class="category-drawer">
+          <div class="category-drawer-header">
+            <h2>{{ t('editor.settings.title') }}</h2>
+            <mdui-button-icon @click="showCategoryDrawer = false">
+              <ion-icon name="close-outline"></ion-icon>
+            </mdui-button-icon>
+          </div>
+          <div class="category-drawer-content">
+            <mdui-list-item
+              v-for="(section, index) in parsedConfig"
+              :key="index"
+              rounded
+              :active="expandedSection === index"
+              @click="jumpToSection(index)"
+            >
+              <ion-icon slot="icon" name="folder-outline"></ion-icon>
+              {{ getText(section.text) }}
+            </mdui-list-item>
+          </div>
+        </div>
+      </div>
+    </Transition>
+
     <Transition name="dialog">
       <div v-if="showHelpDialog" class="help-dialog-overlay" @click.self="closeHelp">
         <div class="help-dialog">
@@ -142,7 +170,7 @@
 
 <script setup>
 import Topbar from '../components/Topbar.vue'
-import { inject, ref, onBeforeUnmount, onMounted, computed, watch } from 'vue'
+import { inject, ref, onBeforeUnmount, onMounted, computed, watch, nextTick } from 'vue'
 import configData from '../data/_global_variables.json.txt'
 import { useI18n } from 'vue-i18n'
 
@@ -459,6 +487,19 @@ const processedConfig = ref('')
 const parsedConfig = ref([])
 const expandedSection = ref(-1)
 const showDebug = ref(false)
+const showCategoryDrawer = ref(false)
+
+const jumpToSection = (index) => {
+  showCategoryDrawer.value = false
+  searchQuery.value = ''
+  expandedSection.value = index
+  nextTick(() => {
+    const el = scrollContainer.value?.querySelector(`[data-section-index="${index}"]`)
+    if (el && el.scrollIntoView) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  })
+}
 
 // 文件
 const setVariables = async (key, value) => {
@@ -753,13 +794,88 @@ onBeforeUnmount(() => {
   border-bottom: 1px none rgb(var(--mdui-color-surface));
   box-shadow: none;
   transition: all 0.3s ease-out;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   &.scrolled {
     border-bottom: 1px solid rgba(var(--mdui-color-outline-variant), 0.5);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   }
+  .category-menu-btn {
+    flex-shrink: 0;
+    --mdui-color-on-surface: var(--mdui-color-on-surface-variant);
+  }
   .search-field {
+    flex: 1;
     width: 100%;
   }
+}
+
+.category-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  z-index: 2002;
+}
+
+.category-drawer {
+  background-color: rgb(var(--mdui-color-surface));
+  width: 300px;
+  max-width: 85vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform-origin: left center;
+  will-change: transform, opacity;
+}
+
+.category-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(var(--mdui-color-outline-variant), 1);
+
+  h2 {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: rgb(var(--mdui-color-on-surface));
+  }
+}
+
+.category-drawer-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+
+.drawer-enter-active {
+  animation: drawer-overlay-fade 0.3s cubic-bezier(0.05, 0.7, 0.1, 1);
+  .category-drawer {
+    animation: drawer-slide-in 0.3s cubic-bezier(0.05, 0.7, 0.1, 1);
+  }
+}
+.drawer-leave-active {
+  animation: drawer-overlay-fade 0.25s cubic-bezier(0.3, 0, 0.8, 0.15) reverse;
+  .category-drawer {
+    animation: drawer-slide-out 0.25s cubic-bezier(0.3, 0, 0.8, 0.15) reverse;
+  }
+}
+
+@keyframes drawer-slide-in {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+@keyframes drawer-slide-out {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+@keyframes drawer-overlay-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .list-container {
