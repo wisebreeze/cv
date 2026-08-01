@@ -35,14 +35,14 @@ const { t } = useI18n()
 const router = useRouter()
 
 const communities = ref([
-  /*{
+  {
     id: 'discord',
-    name: 'discord',
+    name: 'CubeVisage UI',
     description: 'discord_desc',
     icon: discordIcon,
-    link: 'https://discord.gg/zYWvyhXsAq',
+    link: 'https://discord.gg/VG5ADCPUKq',
     full: false
-  },*/
+  },
   {
     id: 'qq_channel',
     name: 'qq_channel',
