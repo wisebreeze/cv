@@ -71,12 +71,45 @@
           </div>
         </div>
       </Transition>
+      <Transition name="dialog">
+        <div v-if="showNameDialog" class="download-dialog-overlay" @click.self="showNameDialog = false">
+          <div class="download-dialog">
+            <div class="ns download-dialog-header">
+              <h2 class="download-dialog-title">{{ t('editor.nameRequiredTitle') }}</h2>
+              <mdui-button-icon @click="showNameDialog = false">
+                <ion-icon name="close-outline"></ion-icon>
+              </mdui-button-icon>
+            </div>
+            <div class="download-dialog-content">
+              <p class="name-dialog-desc">{{ t('editor.nameRequiredDesc') }}</p>
+              <mdui-text-field
+                :label="t('custom$new$name')"
+                :value="tempPackName"
+                variant="filled"
+                class="name-input-field"
+                ref="nameInputRef"
+                @change="tempPackName = $event.target.value"
+                @keydown.enter="confirmNameAndDownload"
+              />
+            </div>
+            <div class="download-dialog-footer">
+              <mdui-button
+                variant="filled"
+                full-width
+                @click="confirmNameAndDownload"
+              >
+                {{ t('gui$confirm') }}
+              </mdui-button>
+            </div>
+          </div>
+        </div>
+      </Transition>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, inject, provide, watch, onMounted, onUnmounted } from 'vue'
+import { ref, computed, inject, provide, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter, useRoute } from 'vue-router'
 import Topbar from '../components/Topbar'
@@ -97,6 +130,10 @@ const isDesktop = ref(window.innerWidth >= 768)
 const showDownloadDialog = ref(false)
 const downloadProgress = ref(0)
 provide('showDownloadDialog', showDownloadDialog)
+
+const showNameDialog = ref(false)
+const tempPackName = ref('')
+const nameInputRef = ref(null)
 
 const CurrentComponent = computed(() => {
   return route.matched[1]?.components?.default
@@ -143,17 +180,39 @@ const uuid = () => {
 
 const handleDownload = async () => {
   try {
-    downloadProgress.value = 0
-  
-    let zipFileName = 'export.zip'
+    // Check if pack name has been entered
+    let currentName = ''
     if (await fs.value.exist("manifest.json")) {
       const manifestJSON = await fs.value.read("manifest.json")
-      const packName = manifestJSON.header ? manifestJSON.header.name && manifestJSON.header.name.trim(" ") !== '' ? manifestJSON.header.name : 'export' : 'export'
-      zipFileName = packName.length > 15 ? packName.substring(0, 15) + '....zip' : packName + '.zip';
+      currentName = (manifestJSON.header && manifestJSON.header.name || '').trim()
+    }
+    if (!currentName) {
+      tempPackName.value = ''
+      showNameDialog.value = true
+      nextTick(() => {
+        nameInputRef.value && nameInputRef.value.focus && nameInputRef.value.focus()
+      })
+      return
+    }
+    await doDownload()
+  } catch (e) {
+    error.value(e)
+    console.error(e)
+  }
+}
+
+const confirmNameAndDownload = async () => {
+  const name = (tempPackName.value || '').trim()
+  if (!name) return
+
+  try {
+    let manifestJSON
+    if (await fs.value.exist("manifest.json")) {
+      manifestJSON = await fs.value.read("manifest.json")
     } else {
       const uuid1 = uuid()
       const uuid2 = uuid()
-      await fs.value.write("manifest.json", {
+      manifestJSON = {
         format_version: 2,
         header: {
           name: "",
@@ -162,24 +221,64 @@ const handleDownload = async () => {
           version: [1,0,0],
           min_engine_version: [1,18,0]
         },
-        modules: [
-          {
-            type: "resources",
-            uuid: uuid2,
-            version: [1,0,0]
-          }
-        ]
-      })
+        modules: [{
+          type: "resources",
+          uuid: uuid2,
+          version: [1,0,0]
+        }]
+      }
     }
-  
-    await fs.value.exportToZip(zipFileName, ({ percent }) => {
-      downloadProgress.value = percent
-    })
-    showDownloadDialog.value = false
+    manifestJSON.header.name = name
+
+    let globalVariablesJSON = await fs.value.read("ui/_global_variables.json")
+    globalVariablesJSON = globalVariablesJSON || {}
+    globalVariablesJSON["$cube_custom_name"] = name
+
+    await fs.value.write("manifest.json", manifestJSON)
+    await fs.value.write("ui/_global_variables.json", globalVariablesJSON)
+
+    showNameDialog.value = false
+    await doDownload()
   } catch (e) {
     error.value(e)
     console.error(e)
   }
+}
+
+const doDownload = async () => {
+  downloadProgress.value = 0
+
+  let zipFileName = 'export.zip'
+  if (await fs.value.exist("manifest.json")) {
+    const manifestJSON = await fs.value.read("manifest.json")
+    const packName = manifestJSON.header ? manifestJSON.header.name && manifestJSON.header.name.trim(" ") !== '' ? manifestJSON.header.name : 'export' : 'export'
+    zipFileName = packName.length > 15 ? packName.substring(0, 15) + '....zip' : packName + '.zip';
+  } else {
+    const uuid1 = uuid()
+    const uuid2 = uuid()
+    await fs.value.write("manifest.json", {
+      format_version: 2,
+      header: {
+        name: "",
+        description: "",
+        uuid: uuid1,
+        version: [1,0,0],
+        min_engine_version: [1,18,0]
+      },
+      modules: [
+        {
+          type: "resources",
+          uuid: uuid2,
+          version: [1,0,0]
+        }
+      ]
+    })
+  }
+
+  await fs.value.exportToZip(zipFileName, ({ percent }) => {
+    downloadProgress.value = percent
+  })
+  showDownloadDialog.value = false
 }
 
 const isFirefox = computed(() => {
@@ -374,6 +473,17 @@ $leave-easing: ease-in;
   bottom: 0;
   background-color: rgb(var(--mdui-color-surface));
   border-top: 1px solid rgba(var(--mdui-color-outline-variant), 1);
+}
+
+.name-dialog-desc {
+  color: rgb(var(--mdui-color-on-surface-variant));
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 1rem 0;
+}
+
+.name-input-field {
+  width: 100%;
 }
 
 .dialog-enter-active {

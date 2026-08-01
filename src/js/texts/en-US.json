@@ -123,6 +123,8 @@
   "full": "Full",
   editor: {
     empty_title: "Welcome to the CubeVisage Custom Package Editor",
+    nameRequiredTitle: "Please enter a resource pack name",
+    nameRequiredDesc: "A name is required before downloading. Please enter a name to continue.",
     empty_subtitle: "Click the options on the left to edit layouts for each section",
     backToLegacy: "Back to Legacy",
     legacyConfirm: "Are you sure you want to go to the legacy version?\n\nSome features may not be available in the legacy version.",
