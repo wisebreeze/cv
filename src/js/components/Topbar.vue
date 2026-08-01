@@ -89,7 +89,7 @@ export default {
       return {
         'Custom': 'custom$title',
         'Download': 'gui$download',
-        'EditorHome': 'editor.empty_title',
+        'EditorHome': 'custom$title',
         'MusicEditor': 'editor.music.music',
         'BgEditor': 'bg$title',
         'SettingsEditor': 'editor.settings.title',
