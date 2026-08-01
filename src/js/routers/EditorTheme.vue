@@ -19,7 +19,7 @@
         </mdui-text-field>
       </div>
 
-      <div class="global-color-section">
+      <div class="global-color-section" v-if="false">
         <mdui-list-item rounded @click="showGlobalColor = !showGlobalColor">
           <span>{{ t('editor.theme.globalColor') }}</span>
           <div slot="end-icon" style="font-size: 1rem">
@@ -42,7 +42,7 @@
         </transition>
       </div>
 
-      <div class="preview-section">
+      <div class="preview-section" v-if="false">
         <mdui-list-item rounded @click="showPreview = !showPreview">
           <span>{{ t('editor.theme.preview') }}</span>
           <div slot="end-icon" style="font-size: 1rem">
