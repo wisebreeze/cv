@@ -176,9 +176,11 @@ const jumpToSection = (index) => {
     setTimeout(() => {
       const el = scrollContainer.value?.querySelector(`[data-section-index="${index}"]`)
       if (el && scrollContainer.value) {
+        const searchEl = scrollContainer.value.querySelector('.search-container')
+        const headerHeight = searchEl ? searchEl.getBoundingClientRect().height : 80
         const rect = el.getBoundingClientRect()
         const containerRect = scrollContainer.value.getBoundingClientRect()
-        const scrollOffset = rect.top - containerRect.top + scrollContainer.value.scrollTop - 70
+        const scrollOffset = rect.top - containerRect.top + scrollContainer.value.scrollTop - headerHeight - 8
         scrollContainer.value.scrollTo({ top: scrollOffset, behavior: 'smooth' })
       }
     }, 350)
