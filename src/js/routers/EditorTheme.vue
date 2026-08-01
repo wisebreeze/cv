@@ -1394,6 +1394,10 @@ onBeforeUnmount(() => {
 
 .global-color-section {
   padding: 0 0.5rem;
+
+  mdui-list-item {
+    margin: 0;
+  }
 }
 
 .global-color-content {
@@ -1431,6 +1435,10 @@ onBeforeUnmount(() => {
 
 .preview-section {
   padding: 0 0.5rem;
+
+  mdui-list-item {
+    margin: 0;
+  }
 }
 
 .preview-card {
