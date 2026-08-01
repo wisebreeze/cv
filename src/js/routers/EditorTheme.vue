@@ -874,10 +874,11 @@ const applyGlobalColor = async () => {
   // Update parsedConfig option values to reflect changes
   parsedConfig.value.forEach(section => {
     section.options.forEach(option => {
-      if (updates[option.id]) {
-        option.value = [...updates[option.id]]
+      const updateKey = '$' + option.id
+      if (updates[updateKey]) {
+        option.value = [...updates[updateKey]]
         if (option.previewValue) {
-          option.previewValue = [...updates[option.id].map((v, i) => i < 3 ? Math.round(v * 255) : v)]
+          option.previewValue = [...updates[updateKey].map((v, i) => i < 3 ? Math.round(v * 255) : v)]
         }
       }
     })
