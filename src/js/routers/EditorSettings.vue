@@ -72,7 +72,20 @@
                   <mdui-text-field slot="end-icon" name="input" class="list-end-element" :value="option.value" type="number" @input="fixedFloatInput($event)" @change="toggleFloat($event, option)" />
                 </mdui-list-item>
                 <mdui-list-item rounded v-else-if="option.type === 'group'" @click="toggleGroup(option)">
-                  <div>{{ getText(option.text) }}</div>
+                  <div class="option-content">
+                    <div class="option-title-row">
+                      <span>{{ getText(option.text) }}</span>
+                      <ion-icon
+                        v-if="getHelpConfig(option.id)"
+                        name="help-circle-outline"
+                        class="help-icon"
+                        @click.stop="openHelp(option.id)"
+                      ></ion-icon>
+                    </div>
+                    <div class="option-help-desc" v-if="getHelpConfig(option.id)">
+                      {{ t(getHelpConfig(option.id).desc) }}
+                    </div>
+                  </div>
                   <div slot="description" v-if="option.desc">{{ option.desc.startsWith(".") ? t("editor.settings" + option.desc) : option.desc }}</div>
                   <mdui-select slot="end-icon" class="list-end-element" :value="'item-' + option.value" @change="changeGroupValue($event, option)">
                     <mdui-menu-item v-for="(item, i) in option.options" :value="'item-' + i" :key="i">{{ getText(item) }}</mdui-menu-item>
@@ -151,6 +164,55 @@ const helpConfig = {
     images: [
       { src: require('../../image/enchant_default.jpg'), label: 'editor.settings.enchantDefaultLabel' },
       { src: require('../../image/enchant_no_text.jpg'), label: 'editor.settings.enchantNoTextLabel' }
+    ]
+  },
+  '$cube_set_abe4bb75': {
+    title: 'editor.settings.hudToolboxTitle',
+    desc: 'editor.settings.hudToolboxDesc',
+    images: [
+      { src: require('../../image/hud_toolbox.jpg'), label: 'editor.settings.hudToolboxLabel' }
+    ]
+  },
+  '$cube_set_262e4ae6': {
+    title: 'editor.settings.edgeGlossTitle',
+    desc: 'editor.settings.edgeGlossDesc',
+    images: [
+      { src: require('../../image/gloss.jpg'), label: 'editor.settings.edgeGlossLabel' }
+    ]
+  },
+  '$cube_set_e615756d': {
+    title: 'editor.settings.gridHoverTitle',
+    desc: 'editor.settings.gridHoverDesc',
+    images: [
+      { src: require('../../image/gloss.jpg'), label: 'editor.settings.gridHoverLabel' }
+    ]
+  },
+  '$cube_set_a29ab0a9': {
+    title: 'editor.settings.noteblockTitle',
+    desc: 'editor.settings.noteblockDesc',
+    images: [
+      { src: require('../../image/noteblock.jpg'), label: 'editor.settings.noteblockLabel' }
+    ]
+  },
+  '$cube_set_6a7a531e': {
+    title: 'editor.settings.tradeLayoutTitle',
+    desc: 'editor.settings.tradeLayoutDesc',
+    images: [
+      { src: require('../../image/trade.jpg'), label: 'editor.settings.tradeLayoutLabel' }
+    ]
+  },
+  '$cube_set_41ee3e72': {
+    title: 'editor.settings.chatToolboxTitle',
+    desc: 'editor.settings.chatToolboxDesc',
+    images: [
+      { src: require('../../image/chat.jpg'), label: 'editor.settings.chatToolboxLabel' }
+    ]
+  },
+  '$cube_set_78f78dea': {
+    title: 'editor.settings.chestToolboxTitle',
+    desc: 'editor.settings.chestToolboxDesc',
+    images: [
+      { src: require('../../image/chest.jpg'), label: 'editor.settings.chestToolboxLabel' }
     ]
   }
 }
