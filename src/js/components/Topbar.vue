@@ -273,10 +273,13 @@ export default {
     }
   },
   mounted() {
+    this.showBackBtn = this.$route.meta ? this.$route.meta.i > 1 : false
+    this.updateDocumentTitle()
+
     const languageMenu = this.$refs.language
     const themeMenu = this.$refs.theme
-    languageMenu.value = this.language
-    themeMenu.value = this.theme
+    if (languageMenu) languageMenu.value = this.language
+    if (themeMenu) themeMenu.value = this.theme
     mdui.setTheme(this.theme)
     if (this.language === 'system') {
       this.$i18n.locale = this.resolveSystemLocale()
@@ -291,9 +294,6 @@ export default {
     if (this.language === 'system' && 'addEventListener' in window) {
       window.addEventListener('languagechange', this.onSystemLanguageChange)
     }
-
-    this.showBackBtn = this.$route.meta ? this.$route.meta.i > 1 : false
-    this.updateDocumentTitle()
   },
   beforeDestroy() {
     if (this.clickTimer) {

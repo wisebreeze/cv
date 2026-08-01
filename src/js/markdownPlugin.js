@@ -45,7 +45,7 @@ function generateSFC(source) {
     '    const text = heading.textContent.trim()',
     '    if (text) { heading.id = generateGitHubHeadingId(text) }',
     '  })',
-    '  const links = doc.querySelectorAll(\'a[href^="#"]\')',
+    '  const links = doc.querySelectorAll(`a[href^="#"]`)',
     '  links.forEach(link => {',
     '    const href = link.getAttribute("href").substring(1)',
     '    if (href) { link.href = "#" + generateGitHubHeadingId(href) }',
@@ -310,6 +310,10 @@ export default function markdownPlugin() {
     async transform(source, id) {
       if (!id.endsWith('.md')) return null
       const sfc = generateSFC(source)
+      if (process.env.DEBUG_MD) {
+        console.error('=== SFC for', id, '===')
+        console.error(sfc)
+      }
       const result = await vueTransformHandler?.call(this, sfc, `${id}.vue`)
       return result
     }
