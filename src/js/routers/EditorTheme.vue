@@ -1235,14 +1235,12 @@ onBeforeUnmount(() => {
 
 .global-color-section {
   padding: 0 0.5rem;
-  margin-bottom: 0.5rem;
 }
 
 .global-color-content {
   padding: 1rem;
   background-color: rgba(var(--mdui-color-primary), 0.06);
   border-radius: 12px;
-  margin-top: 0.2rem;
 
   .color-picker-row {
     display: flex;
@@ -1274,7 +1272,6 @@ onBeforeUnmount(() => {
 
 .preview-section {
   padding: 0 0.5rem;
-  margin-bottom: 1rem;
 }
 
 .preview-card {
