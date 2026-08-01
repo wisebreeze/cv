@@ -194,8 +194,21 @@
 <script setup>
 import Topbar from '../components/Topbar.vue'
 import { inject, ref, onBeforeUnmount, onMounted, computed, watch, nextTick } from 'vue'
-import configData from '../data/_global_variables.json.txt'
+import configRaw from '../data/_global_variables.json.txt?raw'
+import JSON5 from 'json5'
+const configData = JSON5.parse(configRaw)
 import { useI18n } from 'vue-i18n'
+
+import imgTextShadows from '../../image/text_shadows.jpg'
+import imgTextNoShadows from '../../image/text_no_shadows.jpg'
+import imgEnchantDefault from '../../image/enchant_default.jpg'
+import imgEnchantNoText from '../../image/enchant_no_text.jpg'
+import imgHudToolbox from '../../image/hud_toolbox.jpg'
+import imgGloss from '../../image/gloss.jpg'
+import imgNoteblock from '../../image/noteblock.jpg'
+import imgTrade from '../../image/trade.jpg'
+import imgChat from '../../image/chat.jpg'
+import imgChest from '../../image/chest.jpg'
 
 const { t, locale } = useI18n()
 const fs = inject("fs")
@@ -205,65 +218,65 @@ const helpConfig = {
     title: 'editor.settings.textShadowTitle',
     desc: 'editor.settings.textShadowDesc',
     images: [
-      { src: require('../../image/text_shadows.jpg'), label: 'editor.settings.textShadowsLabel' },
-      { src: require('../../image/text_no_shadows.jpg'), label: 'editor.settings.textNoShadowsLabel' }
+      { src: imgTextShadows, label: 'editor.settings.textShadowsLabel' },
+      { src: imgTextNoShadows, label: 'editor.settings.textNoShadowsLabel' }
     ]
   },
   '$cube_set_bac1d62e': {
     title: 'editor.settings.foldEnchantTitle',
     desc: 'editor.settings.foldEnchantDesc',
     images: [
-      { src: require('../../image/enchant_default.jpg'), label: 'editor.settings.enchantDefaultLabel' },
-      { src: require('../../image/enchant_no_text.jpg'), label: 'editor.settings.enchantNoTextLabel' }
+      { src: imgEnchantDefault, label: 'editor.settings.enchantDefaultLabel' },
+      { src: imgEnchantNoText, label: 'editor.settings.enchantNoTextLabel' }
     ]
   },
   '$cube_set_abe4bb75': {
     title: 'editor.settings.hudToolboxTitle',
     desc: 'editor.settings.hudToolboxDesc',
     images: [
-      { src: require('../../image/hud_toolbox.jpg'), label: 'editor.settings.hudToolboxLabel' }
+      { src: imgHudToolbox, label: 'editor.settings.hudToolboxLabel' }
     ]
   },
   '$cube_set_262e4ae6': {
     title: 'editor.settings.edgeGlossTitle',
     desc: 'editor.settings.edgeGlossDesc',
     images: [
-      { src: require('../../image/gloss.jpg'), label: 'editor.settings.edgeGlossLabel' }
+      { src: imgGloss, label: 'editor.settings.edgeGlossLabel' }
     ]
   },
   '$cube_set_e615756d': {
     title: 'editor.settings.gridHoverTitle',
     desc: 'editor.settings.gridHoverDesc',
     images: [
-      { src: require('../../image/gloss.jpg'), label: 'editor.settings.gridHoverLabel' }
+      { src: imgGloss, label: 'editor.settings.gridHoverLabel' }
     ]
   },
   '$cube_set_a29ab0a9': {
     title: 'editor.settings.noteblockTitle',
     desc: 'editor.settings.noteblockDesc',
     images: [
-      { src: require('../../image/noteblock.jpg'), label: 'editor.settings.noteblockLabel' }
+      { src: imgNoteblock, label: 'editor.settings.noteblockLabel' }
     ]
   },
   '$cube_set_6a7a531e': {
     title: 'editor.settings.tradeLayoutTitle',
     desc: 'editor.settings.tradeLayoutDesc',
     images: [
-      { src: require('../../image/trade.jpg'), label: 'editor.settings.tradeLayoutLabel' }
+      { src: imgTrade, label: 'editor.settings.tradeLayoutLabel' }
     ]
   },
   '$cube_set_41ee3e72': {
     title: 'editor.settings.chatToolboxTitle',
     desc: 'editor.settings.chatToolboxDesc',
     images: [
-      { src: require('../../image/chat.jpg'), label: 'editor.settings.chatToolboxLabel' }
+      { src: imgChat, label: 'editor.settings.chatToolboxLabel' }
     ]
   },
   '$cube_set_78f78dea': {
     title: 'editor.settings.chestToolboxTitle',
     desc: 'editor.settings.chestToolboxDesc',
     images: [
-      { src: require('../../image/chest.jpg'), label: 'editor.settings.chestToolboxLabel' }
+      { src: imgChest, label: 'editor.settings.chestToolboxLabel' }
     ]
   },
   '$cube_set_7b00d0c8': {

@@ -1,45 +1,20 @@
-module.exports = async function(source) {
-  const { marked } = await import('marked')
-  const frontmatter = await import('front-matter')
-  
-  const { attributes, body } = frontmatter.default(source)
-  
-  function generateGitHubHeadingId(text) {
-    return text
-      .toLowerCase()
-      .replace(/[^\w\u4e00-\u9fa5\s-]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .replace(/^-+|-+$/g, '')
-  }
-  
-  function processHtmlContent(html) {
-    const parser = new DOMParser()
-    const doc = parser.parseFromString(html, 'text/html')
-    
-    const headings = doc.querySelectorAll('h1, h2, h3, h4, h5, h6')
-    headings.forEach(heading => {
-      const text = heading.textContent.trim()
-      if (text) {
-        heading.id = generateGitHubHeadingId(text)
-      }
-    })
-    
-    const links = doc.querySelectorAll('a[href^="#"]')
-    links.forEach(link => {
-      const href = link.getAttribute('href').substring(1)
-      if (href) {
-        link.href = `#${generateGitHubHeadingId(href)}`
-      }
-    })
-    
-    return doc.body.innerHTML
-  }
-  
+import { marked } from 'marked'
+import frontmatter from 'front-matter'
+
+function generateGitHubHeadingId(text) {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\u4e00-\u9fa5\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
+
+function generateSFC(source) {
+  const { body } = frontmatter(source)
   const initialHtml = marked.parse(body)
-  
-  const template = `
-<template>
+
+  const template = `<template>
   <div>
     <Topbar />
     <div id="content">
@@ -62,8 +37,8 @@ const processedContent = ref('')
 function generateGitHubHeadingId(text) {
   return text
     .toLowerCase()
-    .replace(/[^\w\u4e00-\u9fa5\s-]/g, '')
-    .replace(/\s+/g, '-')
+    .replace(/[^\\w\\u4e00-\\u9fa5\\s-]/g, '')
+    .replace(/\\s+/g, '-')
     .replace(/-+/g, '-')
     .replace(/^-+|-+$/g, '')
 }
@@ -71,7 +46,7 @@ function generateGitHubHeadingId(text) {
 function processHtmlContent(html) {
   const parser = new DOMParser()
   const doc = parser.parseFromString(html, 'text/html')
-  
+
   const headings = doc.querySelectorAll('h1, h2, h3, h4, h5, h6')
   headings.forEach(heading => {
     const text = heading.textContent.trim()
@@ -79,7 +54,7 @@ function processHtmlContent(html) {
       heading.id = generateGitHubHeadingId(text)
     }
   })
-  
+
   const links = doc.querySelectorAll('a[href^="#"]')
   links.forEach(link => {
     const href = link.getAttribute('href').substring(1)
@@ -87,16 +62,16 @@ function processHtmlContent(html) {
       link.href = \`#\${generateGitHubHeadingId(href)}\`
     }
   })
-  
+
   return doc.body.innerHTML
 }
 
 function smoothScrollToElement(element) {
   if (!element) return
-  
+
   const topbarHeight = document.querySelector('topbar')?.offsetHeight || 64
   const targetPosition = element.getBoundingClientRect().top + window.pageYOffset - topbarHeight
-  
+
   window.scrollTo({
     top: targetPosition,
     behavior: 'smooth'
@@ -108,13 +83,13 @@ const handleAnchorClick = (e) => {
     e.preventDefault()
     const id = e.target.getAttribute('href').substring(1)
     if (!id) return
-    
+
     const selector = \`[id="\${id}"]\`
     const targets = contentRef.value?.querySelectorAll(selector) || []
-    
+
     let closestTarget = null
     let minDistance = Infinity
-    
+
     targets.forEach(target => {
       const rect = target.getBoundingClientRect()
       if (rect.height > 0) {
@@ -125,7 +100,7 @@ const handleAnchorClick = (e) => {
         }
       }
     })
-    
+
     if (closestTarget) {
       smoothScrollToElement(closestTarget)
       history.pushState(null, null, \`#\${id}\`)
@@ -136,11 +111,11 @@ const handleAnchorClick = (e) => {
 function initContent() {
   const html = ${JSON.stringify(initialHtml)}
   processedContent.value = processHtmlContent(html)
-  
+
   if (contentRef.value) {
     contentRef.value.addEventListener('click', handleAnchorClick)
   }
-  
+
   if (window.location.hash) {
     const id = window.location.hash.substring(1)
     if (id) {
@@ -184,7 +159,7 @@ onUnmounted(() => {
 @mixin heading-base {
   position: relative;
   scroll-margin-top: 80px;
-  
+
   &:hover::after {
     content: '#';
     position: absolute;
@@ -403,8 +378,31 @@ onUnmounted(() => {
     display: inline-block;
   }
 }
-</style>
-`
-  
+</style>`
+
   return template
+}
+
+export default function markdownPlugin() {
+  let vueTransformHandler = null
+
+  return {
+    name: 'cubevisage-markdown',
+    enforce: 'pre',
+    configResolved(config) {
+      const vuePlugin = config.plugins.find(p => p.name === 'vite:vue')
+      const t = vuePlugin?.transform
+      if (t && typeof t === 'object' && typeof t.handler === 'function') {
+        vueTransformHandler = t.handler
+      } else if (typeof t === 'function') {
+        vueTransformHandler = t
+      }
+    },
+    async transform(source, id) {
+      if (!id.endsWith('.md')) return null
+      const sfc = generateSFC(source)
+      const result = await vueTransformHandler?.call(this, sfc, `${id}.vue`)
+      return result
+    }
+  }
 }

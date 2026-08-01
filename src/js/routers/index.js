@@ -109,18 +109,15 @@ const routes = [
   }
 ]
 
-const markdownFiles = require.context(
-  '@markdown',
-  true,
-  /\.md$/
-)
+const markdownModules = import.meta.glob('@markdown/**/*.md')
+const markdownKeys = Object.keys(markdownModules)
 
-markdownFiles.keys().forEach(filePath => {
-  const fileName = filePath.replace(/^\.\/(.*)\.md$/, '$1')
+markdownKeys.forEach(filePath => {
+  const fileName = filePath.replace(/^.*\/markdown\/(.*)\.md$/, '$1')
   routes.push({
     path: `/${fileName}`,
     name: fileName.replace(/\//g, '-'),
-    component: () => import(`@markdown/${fileName}.md`),
+    component: markdownModules[filePath],
     meta: { i: 5 }
   })
 })
@@ -166,12 +163,12 @@ router.beforeEach(async (to, from, next) => {
   }
   const fallbackLocale = i18n.global.fallbackLocale.value
   const path = to.path.slice(1)
-  let targetMarkdown = markdownFiles.keys().find(e => {
-    const mdPath = e.substring(1).replace('.md', '')
+  let targetMarkdown = markdownKeys.find(e => {
+    const mdPath = e.replace(/^.*\/markdown\//, '/').replace(/\.md$/, '')
     const filePath = path.replace(/^\/[a-z]{2}-[A-Z]{2}\//, '')
     return markdownLocale ? mdPath === '/'+markdownLocale+'/'+filePath : mdPath === '/'+fallbackLocale+'/'+filePath
   })
-  targetMarkdown = targetMarkdown ? targetMarkdown.substring(1).replace('.md', '') : targetMarkdown
+  targetMarkdown = targetMarkdown ? targetMarkdown.replace(/^.*\/markdown\//, '').replace(/\.md$/, '') : targetMarkdown
   if (targetMarkdown) {
     return router.push(targetMarkdown)
   }
