@@ -583,7 +583,8 @@ const addSong = async () => {
   try {
     if (newSongTitle.value && newSongDuration.value) {
       const settings = await fs.value.read('ui/_setting.json')
-      const sounds = await fs.value.read('sounds/sound_definitions.json')
+      let sounds = await fs.value.read('sounds/sound_definitions.json')
+      if (!sounds) sounds = {}
   
       if (currentEditSongIndex.value >= 0 && currentAlbum.value) {
         // 编辑音乐
