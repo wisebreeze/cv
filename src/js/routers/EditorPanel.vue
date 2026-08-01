@@ -181,7 +181,7 @@ const jumpToSection = (index) => {
         const scrollOffset = rect.top - containerRect.top + scrollContainer.value.scrollTop - 70
         scrollContainer.value.scrollTo({ top: scrollOffset, behavior: 'smooth' })
       }
-    }, 50)
+    }, 350)
   })
 }
 const expandedColorPicker = ref('')
