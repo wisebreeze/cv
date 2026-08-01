@@ -640,54 +640,213 @@ const previewStyles = computed(() => {
   }
 })
 
+// MD3 dynamic color algorithm helpers
+const rgbToHsl = (r, g, b) => {
+  const max = Math.max(r, g, b), min = Math.min(r, g, b)
+  let h = 0, s = 0
+  const l = (max + min) / 2
+  if (max !== min) {
+    const d = max - min
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min)
+    switch (max) {
+      case r: h = ((g - b) / d + (g < b ? 6 : 0)) * 60; break
+      case g: h = ((b - r) / d + 2) * 60; break
+      case b: h = ((r - g) / d + 4) * 60; break
+    }
+  }
+  return [h, s, l]
+}
+
+const hslToRgb = (h, s, l) => {
+  h = h / 360
+  let r, g, b
+  if (s === 0) {
+    r = g = b = l
+  } else {
+    const hue2rgb = (p, q, t) => {
+      if (t < 0) t += 1
+      if (t > 1) t -= 1
+      if (t < 1/6) return p + (q - p) * 6 * t
+      if (t < 1/2) return q
+      if (t < 2/3) return p + (q - p) * (2/3 - t) * 6
+      return p
+    }
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s
+    const p = 2 * l - q
+    r = hue2rgb(p, q, h + 1/3)
+    g = hue2rgb(p, q, h)
+    b = hue2rgb(p, q, h - 1/3)
+  }
+  return [parseFloat(r.toFixed(3)), parseFloat(g.toFixed(3)), parseFloat(b.toFixed(3))]
+}
+
+// Derive a color at a specific tone (lightness) from the primary hue
+const tone = (h, s, l) => hslToRgb(h, s, Math.max(0, Math.min(1, l)))
+
 const applyGlobalColor = async () => {
   // Convert from 0-255 to 0-1 range
   const to01 = (arr) => arr.slice(0, 3).map(c => parseFloat((c / 255).toFixed(3)))
   const primary = to01(globalPrimaryPreview.value)
 
-  // Derive hover (lighter) and pressed (darker) variants
-  const hover = primary.map(c => Math.min(1, c + 0.1))
-  const pressed = primary.map(c => Math.max(0, c - 0.1))
+  // MD3 dynamic color algorithm: derive tonal palette from primary
+  const [h, s, l] = rgbToHsl(primary[0], primary[1], primary[2])
 
-  // All theme color variables that should be unified by the primary color
-  // This covers: main color, all button states, toggle, slider, cell, container,
-  // progress, bar, corner, text box hover, scoreboard score, etc.
+  // Derive all color roles from the primary hue
+  const primaryColor = primary                                    // Primary (seed)
+  const secondaryColor = tone(h, s * 0.5, Math.min(1, l + 0.12)) // Secondary: less saturated, lighter
+  const tertiaryColor = tone(h + 30 > 360 ? h - 330 : h + 30, s * 0.6, l) // Tertiary: hue shifted
+  const hoverColor = tone(h, s, Math.min(1, l + 0.08))           // Hover: lighter
+  const pressedColor = tone(h, s, Math.max(0, l - 0.08))        // Pressed: darker
+  const surfaceColor = tone(h, s * 0.08, 0.05)                   // Surface: very dark, near-neutral
+  const onSurfaceColor = tone(h, s * 0.08, 0.92)                 // On-surface: very light
+  const surfaceVariant = tone(h, s * 0.1, 0.12)                 // Surface variant
+  const outlineColor = tone(h, s * 0.15, 0.5)                    // Outline: mid neutral
+  const disabledColor = tone(h, s * 0.1, 0.9)                    // Disabled/locked: very light
+
   const updates = {
     // Global
-    '$cube_main_color': primary,
+    '$cube_main_color': primaryColor,
     // Button - main
-    '$cube_button_main_default_color': primary,
-    '$cube_button_main_hover_color': hover,
-    '$cube_button_main_pressed_color': pressed,
-    '$cube_button_main_locked_color': [0.91, 0.918, 0.965],
-    // Button - transparent (hover/pressed use primary-derived)
-    '$cube_button_transparent_default_color': [0.922, 0.922, 0.922],
-    '$cube_button_transparent_hover_color': hover,
-    '$cube_button_transparent_pressed_color': pressed,
+    '$cube_button_main_default_color': primaryColor,
+    '$cube_button_main_hover_color': hoverColor,
+    '$cube_button_main_pressed_color': pressedColor,
+    '$cube_button_main_locked_color': disabledColor,
+    // Button - transparent
+    '$cube_button_transparent_default_color': onSurfaceColor,
+    '$cube_button_transparent_hover_color': secondaryColor,
+    '$cube_button_transparent_pressed_color': secondaryColor,
+    '$cube_button_transparent_icon_default_color': onSurfaceColor,
+    '$cube_button_transparent_icon_hover_color': hoverColor,
+    '$cube_button_transparent_icon_pressed_color': pressedColor,
+    // Button - text
+    '$cube_button_text_color': onSurfaceColor,
+    '$cube_button_text_default_color': onSurfaceColor,
+    '$cube_button_text_hover_color': onSurfaceColor,
+    '$cube_button_text_pressed_color': onSurfaceColor,
+    '$cube_button_text_locked_color': disabledColor,
+    // Button - secondary text
+    '$cube_button_secondary_text_default_color': tone(h, s * 0.05, 0.8),
+    '$cube_button_secondary_text_hover_color': onSurfaceColor,
+    '$cube_button_secondary_text_pressed_color': onSurfaceColor,
+    '$cube_button_secondary_text_locked_color': disabledColor,
+    // Button - glyph
+    '$cube_button_glyph_default_color': onSurfaceColor,
+    '$cube_button_glyph_hover_color': onSurfaceColor,
+    '$cube_button_glyph_pressed_color': onSurfaceColor,
+    '$cube_button_glyph_locked_color': disabledColor,
     // Toggle
-    '$cube_toggle_indicator_checked_color': primary,
-    '$cube_toggle_indicator_unchecked_color': primary,
-    '$cube_toggle_checked_hover_color': primary,
+    '$cube_toggle_indicator_checked_color': primaryColor,
+    '$cube_toggle_indicator_unchecked_color': primaryColor,
+    '$cube_toggle_checked_hover_color': hoverColor,
     // Slider
-    '$cube_slider_progress_default_color': primary,
-    '$cube_slider_progress_hover_color': hover,
+    '$cube_slider_progress_default_color': primaryColor,
+    '$cube_slider_progress_hover_color': hoverColor,
+    '$cube_slider_button_default_color': onSurfaceColor,
+    '$cube_slider_button_hover_color': hoverColor,
     // Cell
-    '$cube_cell_selected_color': hover,
-    '$cube_cell_highlight_color': hover,
+    '$cube_cell_selected_color': secondaryColor,
+    '$cube_cell_highlight_color': secondaryColor,
+    '$cube_cell_color': tone(h, s * 0.05, 0.6),
     // Container
-    '$cube_container_components_full_color': primary,
+    '$cube_container_components_color': onSurfaceColor,
+    '$cube_container_components_full_color': primaryColor,
     // Progress
-    '$cube_progress_full_color': [0.91, 0.918, 0.965],
-    '$cube_progress_expected_color': [0.333, 0.65, 0.65],
+    '$cube_progress_full_color': disabledColor,
+    '$cube_progress_number_color': disabledColor,
     // Text box
-    '$cube_text_box_hover_color': hover,
-    '$cube_text_box_pressed_color': pressed,
+    '$cube_text_box_default_color': surfaceColor,
+    '$cube_text_box_hover_color': secondaryColor,
+    '$cube_text_box_pressed_color': secondaryColor,
+    '$cube_text_box_locked_color': disabledColor,
+    '$cube_text_box_text_color': onSurfaceColor,
+    '$cube_text_box_place_holder_text_color': tone(h, s * 0.05, 0.85),
     // Bar
-    '$cube_bar_color': primary,
+    '$cube_bar_color': primaryColor,
     // Corner marker
-    '$cube_corner_master_color': primary,
+    '$cube_corner_master_color': primaryColor,
     // Scoreboard
-    '$cube_scoreboard_player_score_color': primary,
+    '$cube_scoreboard_player_score_color': primaryColor,
+    '$cube_scoreboard_player_name_color': onSurfaceColor,
+    '$cube_scoreboard_objective_title_color': onSurfaceColor,
+    '$cube_scoreboard_player_list_score_color': onSurfaceColor,
+    '$cube_scoreboard_player_list_rank_color': onSurfaceColor,
+    // Text & icon
+    '$cube_text_color': onSurfaceColor,
+    '$cube_text_desc_color': tone(h, s * 0.05, 0.8),
+    '$cube_text_title_color': onSurfaceColor,
+    '$cube_icon_base_color': onSurfaceColor,
+    '$cube_icon_color': onSurfaceColor,
+    // Border & outline
+    '$cube_border_color': outlineColor,
+    '$cube_gloss_color': onSurfaceColor,
+    '$cube_gloss_inside_color': onSurfaceColor,
+    // Background
+    '$cube_bg_color': surfaceColor,
+    '$cube_ingame_bg_color': surfaceColor,
+    '$cube_control_bg_color': surfaceColor,
+    '$cube_light_bg_color': surfaceVariant,
+    '$cube_start_bg_color': surfaceColor,
+    '$cube_chat_bg_color': surfaceColor,
+    '$cube_selector_area_bg_color': surfaceColor,
+    '$cube_headbar_color': surfaceColor,
+    '$cube_headbar_gradient_color': surfaceColor,
+    '$cube_header_color': surfaceColor,
+    '$cube_header_label_color': onSurfaceColor,
+    '$cube_headbar_title_color': onSurfaceColor,
+    '$cube_dropdown_background_color': surfaceColor,
+    '$cube_radio_background_selected_color': surfaceColor,
+    '$cube_radio_background_hover_color': outlineColor,
+    '$cube_radio_filled_color': onSurfaceColor,
+    '$cube_sidebar_bg_color': surfaceColor,
+    '$cube_tooltip_background_color': surfaceColor,
+    '$cube_tooltip_chevron_color': surfaceColor,
+    '$cube_underline_color': surfaceColor,
+    '$cube_divider_color': outlineColor,
+    '$cube_dialog_overlay_color': surfaceColor,
+    '$cube_dialog_background_color': surfaceColor,
+    '$cube_dialog_headbar_color': surfaceVariant,
+    '$cube_dialog_title_text_color': onSurfaceColor,
+    '$cube_dialog_message_text_color': onSurfaceColor,
+    '$cube_toast_background_color': surfaceColor,
+    '$cube_dev_color': surfaceColor,
+    '$cube_dev_tool_color': surfaceColor,
+    '$cube_cell_hotbar_color': surfaceColor,
+    '$cube_cell_searched_color': surfaceColor,
+    '$cube_scroll_track_color': surfaceColor,
+    '$cube_scroll_box_color': tone(h, s * 0.1, 0.85),
+    '$cube_progress_empty_color': surfaceColor,
+    '$cube_cell_red_color': disabledColor,
+    '$cube_button_destructive_default_color': [0.69, 0, 0.125],
+    '$cube_button_destructive_hover_color': [0.776, 0.157, 0.157],
+    '$cube_button_destructive_pressed_color': [0.498, 0, 0],
+    '$cube_button_destructive_locked_color': disabledColor,
+    '$cube_button_light_default_color': tone(h, s * 0.05, 0.8),
+    '$cube_button_light_hover_color': tone(h, s * 0.05, 0.7),
+    '$cube_button_light_pressed_color': tone(h, s * 0.05, 0.7),
+    '$cube_button_light_locked_color': disabledColor,
+    '$cube_toggle_checked_default_color': surfaceVariant,
+    '$cube_slider_background_color': surfaceColor,
+    '$cube_slider_background_hover_color': outlineColor,
+    '$cube_slider_button_indent_color': onSurfaceColor,
+    '$cube_slider_button_locked_color': disabledColor,
+    '$cube_slider_border_default_color': surfaceColor,
+    '$cube_slider_border_hover_color': outlineColor,
+    '$cube_slider_step_default_color': tone(h, s * 0.05, 0.9),
+    '$cube_slider_step_hover_color': hoverColor,
+    '$cube_slider_step_progress_default_color': outlineColor,
+    '$cube_slider_step_progress_hover_color': hoverColor,
+    '$cube_toggle_text_unchecked_color': onSurfaceColor,
+    '$cube_toggle_text_checked_color': onSurfaceColor,
+    '$cube_toggle_text_unchecked_hover_color': onSurfaceColor,
+    '$cube_toggle_text_checked_hover_color': onSurfaceColor,
+    '$cube_theme_book_page_text_color': surfaceColor,
+    '$cube_theme_book_page_place_holder_text_color': surfaceColor,
+    '$cube_theme_book_title_text_color': onSurfaceColor,
+    '$cube_theme_book_title_place_holder_text_color': onSurfaceColor,
+    '$cube_theme_book_author_text_color': onSurfaceColor,
+    '$cube_theme_book_author_text_place_holder_color': onSurfaceColor,
+    '$cube_theme_progress_gradient_top': [0, 0, 0, 0],
+    '$cube_theme_progress_gradient_bottom': [0, 0, 0, 0.8],
   }
 
   let file = await fs.value.read("ui/_global_variables.json")
@@ -1510,12 +1669,14 @@ onBeforeUnmount(() => {
   border: 2px solid;
   position: relative;
   flex-shrink: 0;
+  box-sizing: border-box;
 
   &.preview-radio-on {
     .preview-radio-dot {
       position: absolute;
-      top: 3px;
-      left: 3px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       width: 10px;
       height: 10px;
       border-radius: 50%;
