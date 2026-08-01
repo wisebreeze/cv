@@ -37,7 +37,20 @@
                   <div class="comment-text">{{ option.text }}</div>
                 </div>
                 <mdui-list-item rounded v-else-if="option.type === 'boolean'" @click="toggleBoolean(option)">
-                  <div>{{ getText(option.text) }}</div>
+                  <div class="option-content">
+                    <div class="option-title-row">
+                      <span>{{ getText(option.text) }}</span>
+                      <ion-icon
+                        v-if="getHelpConfig(option.id)"
+                        name="help-circle-outline"
+                        class="help-icon"
+                        @click.stop="openHelp(option.id)"
+                      ></ion-icon>
+                    </div>
+                    <div class="option-help-desc" v-if="getHelpConfig(option.id)">
+                      {{ t(getHelpConfig(option.id).desc) }}
+                    </div>
+                  </div>
                   <div slot="description" v-if="option.desc">{{ option.desc.startsWith(".") ? t("editor.settings" + option.desc) : option.desc }}</div>
                   <mdui-switch slot="end-icon" name="switch" :checked="option.value" @change="toggleBoolean(option)">
                     <span slot="checked-icon"/>
@@ -84,6 +97,33 @@
         </transition>
       </div>
     </div>
+
+    <Transition name="dialog">
+      <div v-if="showHelpDialog" class="help-dialog-overlay" @click.self="closeHelp">
+        <div class="help-dialog">
+          <div class="help-dialog-header">
+            <h2 class="help-dialog-title">{{ t(currentHelp.title) }}</h2>
+            <mdui-button-icon @click="closeHelp">
+              <ion-icon name="close-outline"></ion-icon>
+            </mdui-button-icon>
+          </div>
+          <div class="help-dialog-content">
+            <p class="help-dialog-desc">{{ t(currentHelp.desc) }}</p>
+            <div class="help-images">
+              <div class="help-image-item" v-for="(img, i) in currentHelp.images" :key="i">
+                <img :src="img.src" :alt="t(img.label)" class="help-image" />
+                <span class="help-image-label">{{ t(img.label) }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="help-dialog-footer">
+            <mdui-button variant="filled" full-width @click="closeHelp">
+              {{ t('gui$know') }}
+            </mdui-button>
+          </div>
+        </div>
+      </div>
+    </Transition>
   </div>
 </template>
 
@@ -95,6 +135,33 @@ import { useI18n } from 'vue-i18n'
 
 const { t, locale } = useI18n()
 const fs = inject("fs")
+
+const helpConfig = {
+  '$cube_set_ec875b4d': {
+    title: 'editor.settings.textShadowTitle',
+    desc: 'editor.settings.textShadowDesc',
+    images: [
+      { src: require('../../image/text_shadows.jpg'), label: 'editor.settings.textShadowsLabel' },
+      { src: require('../../image/text_no_shadows.jpg'), label: 'editor.settings.textNoShadowsLabel' }
+    ]
+  }
+}
+
+const showHelpDialog = ref(false)
+const currentHelp = ref({ title: '', desc: '', images: [] })
+
+const getHelpConfig = (id) => helpConfig[id] || null
+
+const openHelp = (id) => {
+  const config = helpConfig[id]
+  if (!config) return
+  currentHelp.value = config
+  showHelpDialog.value = true
+}
+
+const closeHelp = () => {
+  showHelpDialog.value = false
+}
 
 const props = defineProps({
   isDesktop: {
@@ -490,5 +557,139 @@ onBeforeUnmount(() => {
 .expanded-enter-to,
 .expanded-leave-from {
   max-height: 1000px;
+}
+
+.option-content {
+  flex: 1;
+  min-width: 0;
+
+  .option-title-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    .help-icon {
+      font-size: 18px;
+      color: var(--mdui-color-on-surface-variant);
+      cursor: pointer;
+      flex-shrink: 0;
+
+      &:hover {
+        color: var(--mdui-color-primary);
+      }
+    }
+  }
+
+  .option-help-desc {
+    font-size: 12px;
+    color: var(--mdui-color-on-surface-variant);
+    margin-top: 2px;
+    line-height: 1.4;
+  }
+}
+
+.help-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.help-dialog {
+  background-color: rgb(var(--mdui-color-surface));
+  border-radius: 16px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.help-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(var(--mdui-color-outline-variant), 1);
+
+  .help-dialog-title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: rgb(var(--mdui-color-on-surface));
+  }
+}
+
+.help-dialog-content {
+  padding: 1.25rem 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+
+  .help-dialog-desc {
+    color: rgb(var(--mdui-color-on-surface-variant));
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin: 0 0 1rem 0;
+  }
+
+  .help-images {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .help-image-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .help-image {
+        width: 100%;
+        border-radius: 8px;
+        border: 1px solid rgba(var(--mdui-color-outline-variant), 1);
+      }
+
+      .help-image-label {
+        text-align: center;
+        font-size: 0.8125rem;
+        color: rgb(var(--mdui-color-on-surface-variant));
+      }
+    }
+  }
+}
+
+.help-dialog-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid rgba(var(--mdui-color-outline-variant), 1);
+}
+
+.dialog-enter-active {
+  animation: dialog-overlay-alpha 0.3s ease-out;
+  .help-dialog {
+    animation: dialog-enter 0.3s ease-out;
+  }
+}
+.dialog-leave-active {
+  animation: dialog-overlay-alpha 0.3s ease-in reverse;
+  .help-dialog {
+    animation: dialog-leave 0.3s ease-in reverse;
+  }
+}
+
+@keyframes dialog-enter {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes dialog-leave {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(100%); opacity: 0; }
+}
+@keyframes dialog-overlay-alpha {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 </style>
