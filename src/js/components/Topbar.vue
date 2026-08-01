@@ -9,7 +9,7 @@
           {{ title || $t('gui$packName') }}
         </router-link>
         <span @click.prevent="handleTitleClick" v-if="showBackBtn">
-          {{ $t('e$back') }}
+          {{ pageTitle || $t('e$back') }}
         </span>
       </mdui-top-app-bar-title>
       
@@ -84,6 +84,35 @@ export default {
   computed: {
     themeIcon() {
       return this.theme === 'dark' || this.theme === 'auto' && this.systemDarkTheme ? 'moon-outline' : 'sunny-outline'
+    },
+    routeTitleMap() {
+      return {
+        'Custom': 'custom$title',
+        'Download': 'gui$download',
+        'EditorHome': 'editor.empty_title',
+        'MusicEditor': 'editor.music.music',
+        'BgEditor': 'bg$title',
+        'SettingsEditor': 'editor.settings.title',
+        'PanelEditor': 'editor.panel.title',
+        'ThemeEditor': 'theme$title',
+        'WordEditor': 'editor.word.screenTitle',
+        'FAQ': 'main.faqTitle',
+        'Group': 'main.groupChat',
+        'Toolbox': 'toolbox.all',
+        'CPS': 'toolbox.cps.cpsTest',
+        'TextEditor': 'toolbox.editor.untitled',
+        'Function': 'toolbox.all',
+        'PictureEditor': 'toolbox.image',
+        'StopWatch': 'toolbox.all',
+        'UA': 'toolbox.all',
+        'UintsConversion': 'toolbox.all',
+        'UUID': 'uuid.output',
+        'NotFound': 'e$title'
+      }
+    },
+    pageTitle() {
+      const titleKey = this.routeTitleMap[this.$route.name]
+      return titleKey ? this.$t(titleKey) : ''
     }
   },
   data() {
@@ -215,6 +244,20 @@ export default {
       if (this.language === 'system') {
         this.$i18n.locale = this.resolveSystemLocale()
       }
+    },
+    updateDocumentTitle() {
+      const packName = this.$t('gui$packName')
+      const pageTitle = this.pageTitle
+      document.title = pageTitle ? `${pageTitle} - ${packName}` : packName
+    }
+  },
+  watch: {
+    '$route'() {
+      this.showBackBtn = this.$route.meta ? this.$route.meta.i > 1 : false
+      this.updateDocumentTitle()
+    },
+    language() {
+      this.updateDocumentTitle()
     }
   },
   mounted() {
@@ -238,6 +281,7 @@ export default {
     }
 
     this.showBackBtn = this.$route.meta ? this.$route.meta.i > 1 : false
+    this.updateDocumentTitle()
   },
   beforeDestroy() {
     if (this.clickTimer) {
