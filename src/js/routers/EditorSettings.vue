@@ -214,6 +214,51 @@ const helpConfig = {
     images: [
       { src: require('../../image/chest.jpg'), label: 'editor.settings.chestToolboxLabel' }
     ]
+  },
+  '$cube_set_7b00d0c8': {
+    title: 'editor.settings.switchLabelTitle',
+    desc: 'editor.settings.switchLabelDesc',
+    images: []
+  },
+  '$cube_set_f51d10b7': {
+    title: 'editor.settings.hotbarRoundTitle',
+    desc: 'editor.settings.hotbarRoundDesc',
+    images: []
+  },
+  '$cube_set_2b2c8eeb': {
+    title: 'editor.settings.hotbarOffsetTitle',
+    desc: 'editor.settings.hotbarOffsetDesc',
+    images: []
+  },
+  '$cube_set_8989cd21': {
+    title: 'editor.settings.tabToolboxTitle',
+    desc: 'editor.settings.tabToolboxDesc',
+    images: []
+  },
+  '$cube_set_9ae6a2ef': {
+    title: 'editor.settings.dataOverviewTitle',
+    desc: 'editor.settings.dataOverviewDesc',
+    images: []
+  },
+  '$cube_set_5226c632': {
+    title: 'editor.settings.bottomMessageTitle',
+    desc: 'editor.settings.bottomMessageDesc',
+    images: []
+  },
+  '$cube_set_4a0d69b6': {
+    title: 'editor.settings.equalMessageTitle',
+    desc: 'editor.settings.equalMessageDesc',
+    images: []
+  },
+  '$cube_set_83f6db8f': {
+    title: 'editor.settings.infoPositionTitle',
+    desc: 'editor.settings.infoPositionDesc',
+    images: []
+  },
+  '$cube_set_fb27fdf6': {
+    title: 'editor.settings.durabilityStyleTitle',
+    desc: 'editor.settings.durabilityStyleDesc',
+    images: []
   }
 }
 
