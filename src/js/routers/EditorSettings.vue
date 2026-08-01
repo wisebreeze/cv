@@ -259,6 +259,121 @@ const helpConfig = {
     title: 'editor.settings.durabilityStyleTitle',
     desc: 'editor.settings.durabilityStyleDesc',
     images: []
+  },
+  '$cube_set_fe8e132d': {
+    title: 'editor.settings.oreDistTitle',
+    desc: 'editor.settings.oreDistDesc',
+    images: []
+  },
+  '$cube_set_c70c72bb': {
+    title: 'editor.settings.axisTitle',
+    desc: 'editor.settings.axisDesc',
+    images: []
+  },
+  '$cube_set_8b88022e': {
+    title: 'editor.settings.structurePreviewTitle',
+    desc: 'editor.settings.structurePreviewDesc',
+    images: []
+  },
+  '$cube_set_089fd192': {
+    title: 'editor.settings.assistCrosshairTitle',
+    desc: 'editor.settings.assistCrosshairDesc',
+    images: []
+  },
+  '$cube_set_78743dd4': {
+    title: 'editor.settings.unconditionalDisplayTitle',
+    desc: 'editor.settings.unconditionalDisplayDesc',
+    images: []
+  },
+  '$cube_set_baf2497a': {
+    title: 'editor.settings.nonTouchModeTitle',
+    desc: 'editor.settings.nonTouchModeDesc',
+    images: []
+  },
+  '$cube_set_e453c46f': {
+    title: 'editor.settings.operationAllTitle',
+    desc: 'editor.settings.operationAllDesc',
+    images: []
+  },
+  '$cube_set_da5b81f2': {
+    title: 'editor.settings.toolboxSidebarTitle',
+    desc: 'editor.settings.toolboxSidebarDesc',
+    images: []
+  },
+  '$cube_set_f4f8111b': {
+    title: 'editor.settings.hoverTextTitle',
+    desc: 'editor.settings.hoverTextDesc',
+    images: []
+  },
+  '$cube_set_c809c91a': {
+    title: 'editor.settings.touchHoverPosTitle',
+    desc: 'editor.settings.touchHoverPosDesc',
+    images: []
+  },
+  '$cube_set_bedae7de': {
+    title: 'editor.settings.gridSpacingTitle',
+    desc: 'editor.settings.gridSpacingDesc',
+    images: []
+  },
+  '$cube_set_6959b919': {
+    title: 'editor.settings.scaleTitle',
+    desc: 'editor.settings.scaleDesc',
+    images: []
+  },
+  '$cube_set_70a9fab5': {
+    title: 'editor.settings.chainMoveTitle',
+    desc: 'editor.settings.chainMoveDesc',
+    images: []
+  },
+  '$cube_set_2a0f5a84': {
+    title: 'editor.settings.redstoneEnergyTitle',
+    desc: 'editor.settings.redstoneEnergyDesc',
+    images: []
+  },
+  '$cube_set_1e2ff19a': {
+    title: 'editor.settings.betaDebugTextTitle',
+    desc: 'editor.settings.betaDebugTextDesc',
+    images: []
+  },
+  '$cube_set_20ccca31': {
+    title: 'editor.settings.progressPercentTitle',
+    desc: 'editor.settings.progressPercentDesc',
+    images: []
+  },
+  '$cube_set_c1f8e213': {
+    title: 'editor.settings.quickAccessTitle',
+    desc: 'editor.settings.quickAccessDesc',
+    images: []
+  },
+  '$cube_set_2abe3412': {
+    title: 'editor.settings.worldAdvancedTitle',
+    desc: 'editor.settings.worldAdvancedDesc',
+    images: []
+  },
+  '$cube_set_7431c828': {
+    title: 'editor.settings.forceSpectatorTitle',
+    desc: 'editor.settings.forceSpectatorDesc',
+    images: []
+  },
+  '$cube_set_c4c8702e': {
+    title: 'editor.settings.viewPathTitle',
+    desc: 'editor.settings.viewPathDesc',
+    images: []
+  },
+  '$cube_set_84b37071': {
+    title: 'editor.settings.oldWorldTitle',
+    desc: 'editor.settings.oldWorldDesc',
+    images: []
+  },
+  '$cube_set_e1ed717a': {
+    title: 'editor.settings.fluencyTitle',
+    desc: 'editor.settings.fluencyDesc',
+    images: []
+  },
+  '$cube_set_567cb601': {
+    title: 'editor.settings.moreDropdownTitle',
+    desc: 'editor.settings.moreDropdownDesc',
+    images: []
   }
 }
 
