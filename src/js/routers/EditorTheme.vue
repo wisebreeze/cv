@@ -31,17 +31,28 @@
           <div v-if="showGlobalColor" class="global-color-content">
             <div class="color-picker-row">
               <span class="color-label">{{ t('editor.theme.primaryColor') }}</span>
-              <input type="color" class="color-input" :value="primaryHex" @input="onPrimaryColorInput($event)" />
+              <div class="color-preview" :style="primaryColorPreviewStyle" @click="expandedGlobalPicker = expandedGlobalPicker === 'primary' ? '' : 'primary'" />
             </div>
+            <Transition name="expanded">
+              <Palette
+                v-if="expandedGlobalPicker === 'primary'"
+                v-model="globalPrimaryPreview"
+                :use-alpha="true"
+                @change="onPrimaryPaletteChange"
+              />
+            </Transition>
             <div class="color-picker-row">
               <span class="color-label">{{ t('editor.theme.secondaryColor') }}</span>
-              <input type="color" class="color-input" :value="secondaryHex" @input="onSecondaryColorInput($event)" />
+              <div class="color-preview" :style="secondaryColorPreviewStyle" @click="expandedGlobalPicker = expandedGlobalPicker === 'secondary' ? '' : 'secondary'" />
             </div>
-            <div class="color-picker-row">
-              <span class="color-label">{{ t('editor.theme.alpha') }}</span>
-              <input type="range" class="alpha-input" min="0" max="1" step="0.05" :value="globalAlpha" @input="globalAlpha = parseFloat($event.target.value)" />
-              <span class="alpha-value">{{ Math.round(globalAlpha * 100) }}%</span>
-            </div>
+            <Transition name="expanded">
+              <Palette
+                v-if="expandedGlobalPicker === 'secondary'"
+                v-model="globalSecondaryPreview"
+                :use-alpha="true"
+                @change="onSecondaryPaletteChange"
+              />
+            </Transition>
             <mdui-button variant="filled" full-width @click="applyGlobalColor" style="margin-top: 12px">
               <ion-icon slot="icon" name="color-wand-outline" />
               {{ t('editor.theme.apply') }}
@@ -422,33 +433,42 @@ const showCategoryDrawer = ref(false)
 const showResetDialog = ref(false)
 const showGlobalColor = ref(false)
 const showPreview = ref(false)
-const globalPrimaryColor = ref([0.325, 0.427, 0.996])
-const globalSecondaryColor = ref([0.549, 0.62, 1])
-const globalAlpha = ref(1)
+const expandedGlobalPicker = ref('')
+const globalPrimaryPreview = ref([83, 109, 254, 1])
+const globalSecondaryPreview = ref([140, 158, 255, 1])
 
-const rgbToHex = (rgb) => {
-  if (!rgb || !Array.isArray(rgb)) return '#536dfe'
-  const r = Math.round((rgb[0] || 0) * 255)
-  const g = Math.round((rgb[1] || 0) * 255)
-  const b = Math.round((rgb[2] || 0) * 255)
-  return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('')
+const primaryColorPreviewStyle = computed(() => {
+  const v = globalPrimaryPreview.value
+  const r = Math.round(v[0] || 0)
+  const g = Math.round(v[1] || 0)
+  const b = Math.round(v[2] || 0)
+  const a = v[3] !== undefined ? v[3] : 1
+  return {
+    background: `linear-gradient(rgba(${r},${g},${b},${a}), rgba(${r},${g},${b},${a})) 0 0 / cover,
+      linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 0 0 / 12px 12px,
+      linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 6px 6px / 12px 12px`
+  }
+})
+
+const secondaryColorPreviewStyle = computed(() => {
+  const v = globalSecondaryPreview.value
+  const r = Math.round(v[0] || 0)
+  const g = Math.round(v[1] || 0)
+  const b = Math.round(v[2] || 0)
+  const a = v[3] !== undefined ? v[3] : 1
+  return {
+    background: `linear-gradient(rgba(${r},${g},${b},${a}), rgba(${r},${g},${b},${a})) 0 0 / cover,
+      linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 0 0 / 12px 12px,
+      linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 6px 6px / 12px 12px`
+  }
+})
+
+const onPrimaryPaletteChange = (rgba) => {
+  globalPrimaryPreview.value = rgba
 }
 
-const hexToRgb = (hex) => {
-  const r = parseInt(hex.slice(1, 3), 16) / 255
-  const g = parseInt(hex.slice(3, 5), 16) / 255
-  const b = parseInt(hex.slice(5, 7), 16) / 255
-  return [r, g, b]
-}
-
-const primaryHex = computed(() => rgbToHex(globalPrimaryColor.value))
-const secondaryHex = computed(() => rgbToHex(globalSecondaryColor.value))
-
-const onPrimaryColorInput = (event) => {
-  globalPrimaryColor.value = hexToRgb(event.target.value)
-}
-const onSecondaryColorInput = (event) => {
-  globalSecondaryColor.value = hexToRgb(event.target.value)
+const onSecondaryPaletteChange = (rgba) => {
+  globalSecondaryPreview.value = rgba
 }
 
 // Read theme variable values from parsedConfig for live preview
@@ -633,9 +653,10 @@ const previewStyles = computed(() => {
 })
 
 const applyGlobalColor = async () => {
-  const primary = globalPrimaryColor.value
-  const secondary = globalSecondaryColor.value
-  const alpha = globalAlpha.value
+  // Convert from 0-255 to 0-1 range
+  const to01 = (arr) => arr.slice(0, 3).map(c => parseFloat((c / 255).toFixed(3)))
+  const primary = to01(globalPrimaryPreview.value)
+  const secondary = to01(globalSecondaryPreview.value)
 
   // Derive hover (lighter) and pressed (darker) variants
   const hover = primary.map(c => Math.min(1, c + 0.1))
@@ -666,47 +687,13 @@ const applyGlobalColor = async () => {
     '$cube_container_components_full_color': primary,
     '$cube_progress_full_color': [0.91, 0.918, 0.965],
     '$cube_bar_color': primary,
-    '$cube_icon_color': [0.922, 0.922, 0.922],
-    '$cube_text_color': [0.922, 0.922, 0.922],
-    '$cube_text_title_color': [0.922, 0.922, 0.922],
-    '$cube_button_text_color': [0.922, 0.922, 0.922],
-    '$cube_button_glyph_default_color': [0.922, 0.922, 0.922],
-    '$cube_slider_button_default_color': [0.922, 0.922, 0.922],
     '$cube_corner_master_color': primary,
-  }
-
-  // Apply alpha to relevant alpha variables
-  const alphaUpdates = {
-    '$cube_control_bg_alpha': alpha * 0.45,
-    '$cube_light_bg_alpha': alpha * 0.35,
-    '$cube_slider_background_alpha': alpha * 0.3,
-    '$cube_cell_alpha': alpha * 0.3,
-    '$cube_container_components_alpha': alpha * 0.4,
-    '$cube_scroll_track_alpha': alpha * 0.3,
-    '$cube_scroll_box_alpha': alpha * 0.6,
-    '$cube_progress_empty_alpha': alpha * 0.3,
-    '$cube_progress_full_alpha': alpha * 0.6,
-    '$cube_dropdown_background_alpha': alpha * 0.3,
-    '$cube_radio_background_alpha': alpha * 0.3,
-    '$cube_sidebar_alpha': alpha * 0.3,
-    '$cube_tooltip_background_alpha': alpha * 0.6,
-    '$cube_underline_alpha': alpha * 0.3,
-    '$cube_divider_alpha': alpha * 0.3,
-    '$cube_dialog_overlay_alpha': alpha * 0.15,
-    '$cube_dialog_background_alpha': alpha * 0.6,
-    '$cube_toast_background_alpha': alpha * 0.6,
-    '$cube_corner_master_alpha': alpha * 0.6,
   }
 
   let file = await fs.value.read("ui/_global_variables.json")
   file = file || {}
 
-  // Apply color updates
   for (const [key, value] of Object.entries(updates)) {
-    file[key] = value
-  }
-  // Apply alpha updates
-  for (const [key, value] of Object.entries(alphaUpdates)) {
     file[key] = value
   }
 
@@ -717,8 +704,9 @@ const applyGlobalColor = async () => {
     section.options.forEach(option => {
       if (updates[option.id]) {
         option.value = [...updates[option.id]]
-      } else if (alphaUpdates[option.id] !== undefined) {
-        option.value = alphaUpdates[option.id]
+        if (option.previewValue) {
+          option.previewValue = [...updates[option.id].map((v, i) => i < 3 ? Math.round(v * 255) : v)]
+        }
       }
     })
   })
@@ -1260,7 +1248,7 @@ onBeforeUnmount(() => {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 
     .color-label {
       font-size: 14px;
@@ -1268,34 +1256,18 @@ onBeforeUnmount(() => {
       min-width: 80px;
     }
 
-    .color-input {
-      width: 48px;
-      height: 36px;
-      border: none;
+    .color-preview {
+      width: 32px;
+      height: 32px;
       border-radius: 8px;
       cursor: pointer;
-      background: none;
-      padding: 0;
+      border: 2px solid rgba(var(--mdui-color-outline-variant), 1);
+      flex-shrink: 0;
+      transition: transform 0.2s;
 
-      &::-webkit-color-swatch-wrapper {
-        padding: 0;
+      &:hover {
+        transform: scale(1.1);
       }
-      &::-webkit-color-swatch {
-        border: 2px solid rgba(var(--mdui-color-outline-variant), 1);
-        border-radius: 8px;
-      }
-    }
-
-    .alpha-input {
-      flex: 1;
-      accent-color: rgb(var(--mdui-color-primary));
-    }
-
-    .alpha-value {
-      font-size: 13px;
-      color: var(--mdui-color-on-surface-variant);
-      min-width: 40px;
-      text-align: right;
     }
   }
 }
