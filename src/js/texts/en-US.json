@@ -123,6 +123,12 @@
   "full": "Full",
   editor: {
     empty_title: "Welcome to the CubeVisage Custom Package Editor",
+    resetSettingsTitle: "Reset Settings",
+    resetSettingsConfirm: "Are you sure you want to reset the current settings to defaults?",
+    resetPanelTitle: "Reset Panel",
+    resetPanelConfirm: "Are you sure you want to reset the current panel settings to defaults?",
+    resetThemeTitle: "Reset Theme",
+    resetThemeConfirm: "Are you sure you want to reset the current theme settings to defaults?",
     nameRequiredTitle: "Please enter a resource pack name",
     nameRequiredDesc: "A name is required before downloading. Please enter a name to continue.",
     empty_subtitle: "Click the options on the left to edit layouts for each section",

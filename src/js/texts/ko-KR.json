@@ -120,6 +120,12 @@
   "full": "가득 참",
   editor: {
     empty_title: "CubeVisage 사용자 정의 팩 편집기에 오신 것을 환영합니다",
+    resetSettingsTitle: "설정 초기화",
+    resetSettingsConfirm: "현재 설정을 기본값으로 초기화하시겠습니까?",
+    resetPanelTitle: "패널 초기화",
+    resetPanelConfirm: "현재 패널 설정을 기본값으로 초기화하시겠습니까?",
+    resetThemeTitle: "테마 초기화",
+    resetThemeConfirm: "현재 테마 설정을 기본값으로 초기화하시겠습니까?",
     nameRequiredTitle: "리소스 팩 이름을 입력해 주세요",
     nameRequiredDesc: "다운로드 전에 이름이 필요합니다. 계속하려면 이름을 입력해 주세요.",
     empty_subtitle: "왼쪽 옵션을 클릭하여 각 섹션의 레이아웃을 편집하세요",

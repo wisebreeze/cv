@@ -100,9 +100,14 @@
         <div class="category-drawer">
           <div class="category-drawer-header">
             <h2>{{ t('theme$title') }}</h2>
-            <mdui-button-icon @click="showCategoryDrawer = false">
-              <ion-icon name="close-outline"></ion-icon>
-            </mdui-button-icon>
+            <div class="drawer-header-actions">
+              <mdui-button-icon @click="showResetDialog = true">
+                <ion-icon name="refresh-outline"></ion-icon>
+              </mdui-button-icon>
+              <mdui-button-icon @click="showCategoryDrawer = false">
+                <ion-icon name="close-outline"></ion-icon>
+              </mdui-button-icon>
+            </div>
           </div>
           <div class="category-drawer-content">
             <mdui-list-item
@@ -114,6 +119,30 @@
             >
               {{ getText(section.text) }}
             </mdui-list-item>
+          </div>
+        </div>
+      </div>
+    </Transition>
+
+    <Transition name="dialog">
+      <div v-if="showResetDialog" class="help-dialog-overlay" @click.self="showResetDialog = false">
+        <div class="help-dialog" style="max-width: 400px;">
+          <div class="help-dialog-header">
+            <h2 class="help-dialog-title">{{ t('editor.resetThemeTitle') }}</h2>
+            <mdui-button-icon @click="showResetDialog = false">
+              <ion-icon name="close-outline"></ion-icon>
+            </mdui-button-icon>
+          </div>
+          <div class="help-dialog-content">
+            <p class="help-dialog-desc">{{ t('editor.resetThemeConfirm') }}</p>
+          </div>
+          <div class="help-dialog-footer" style="display: flex; gap: 8px;">
+            <mdui-button variant="text" full-width @click="showResetDialog = false">
+              {{ t('gui$cancel') }}
+            </mdui-button>
+            <mdui-button variant="filled" full-width @click="resetToDefaults">
+              {{ t('gui$confirm') }}
+            </mdui-button>
           </div>
         </div>
       </div>
@@ -159,6 +188,23 @@ const processedConfig = ref('')
 const parsedConfig = ref([])
 const expandedSection = ref(-1)
 const showCategoryDrawer = ref(false)
+const showResetDialog = ref(false)
+
+const resetToDefaults = async () => {
+  const allIds = []
+  parsedConfig.value.forEach(section => {
+    section.options.forEach(option => {
+      if (option.id && option.default !== undefined) {
+        option.value = option.default
+        allIds.push(option.id)
+      }
+    })
+  })
+  if (allIds.length > 0) {
+    await removeVariables(allIds.join(','))
+  }
+  showResetDialog.value = false
+}
 
 const jumpToSection = (index) => {
   showCategoryDrawer.value = false
@@ -527,6 +573,12 @@ onBeforeUnmount(() => {
     font-size: 1.125rem;
     font-weight: 500;
     color: rgb(var(--mdui-color-on-surface));
+  }
+
+  .drawer-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
 }
 

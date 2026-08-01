@@ -120,6 +120,12 @@
   "full": "已滿",
   editor: {
     empty_title: "歡迎使用 方窗 自訂包編輯器",
+    resetSettingsTitle: "重置設定",
+    resetSettingsConfirm: "確定將目前的設定恢復為預設設定嗎？",
+    resetPanelTitle: "重置面板",
+    resetPanelConfirm: "確定將目前的面板設定恢復為預設設定嗎？",
+    resetThemeTitle: "重置主題",
+    resetThemeConfirm: "確定將目前的主題設定恢復為預設設定嗎？",
     nameRequiredTitle: "請輸入資源包名稱",
     nameRequiredDesc: "下載前需要為自訂包命名，請輸入名稱後再繼續",
     empty_subtitle: "點擊左側選項進入相應版塊的佈局",

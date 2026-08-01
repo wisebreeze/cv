@@ -120,6 +120,12 @@
   "full": "満員",
   editor: {
     empty_title: "キューブビサージュ カスタムパックエディタへようこそ",
+    resetSettingsTitle: "設定をリセット",
+    resetSettingsConfirm: "現在の設定をデフォルトにリセットしますか？",
+    resetPanelTitle: "パネルをリセット",
+    resetPanelConfirm: "現在のパネル設定をデフォルトにリセットしますか？",
+    resetThemeTitle: "テーマをリセット",
+    resetThemeConfirm: "現在のテーマ設定をデフォルトにリセットしますか？",
     nameRequiredTitle: "リソースパック名を入力してください",
     nameRequiredDesc: "ダウンロード前に名前が必要です。続行するには名前を入力してください。",
     empty_subtitle: "左側のオプションをクリックして各セクションのレイアウトに入ります",
