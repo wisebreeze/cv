@@ -676,9 +676,9 @@ onBeforeUnmount(() => {
   }
 }
 .dialog-leave-active {
-  animation: dialog-overlay-alpha 0.2s cubic-bezier(0.3, 0, 0.8, 0.15) reverse;
+  animation: dialog-overlay-alpha-leave 0.2s cubic-bezier(0.3, 0, 0.8, 0.15);
   .help-dialog {
-    animation: dialog-leave 0.2s cubic-bezier(0.3, 0, 0.8, 0.15) reverse;
+    animation: dialog-leave 0.2s cubic-bezier(0.3, 0, 0.8, 0.15);
   }
 }
 
@@ -710,6 +710,15 @@ onBeforeUnmount(() => {
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes dialog-overlay-alpha-leave {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }
 </style>

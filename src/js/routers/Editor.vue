@@ -88,7 +88,7 @@
                 variant="filled"
                 class="name-input-field"
                 ref="nameInputRef"
-                @change="tempPackName = $event.target.value"
+                @input="tempPackName = $event.target.value"
                 @keydown.enter="confirmNameAndDownload"
               />
             </div>
@@ -96,6 +96,7 @@
               <mdui-button
                 variant="filled"
                 full-width
+                :disabled="!tempPackName.trim()"
                 @click="confirmNameAndDownload"
               >
                 {{ t('gui$confirm') }}
