@@ -124,7 +124,6 @@
   editor: {
     theme: {
       globalColor: "Global Color",
-      globalColorDesc: "Unify the color tone of all controls, similar to MD3 dynamic color",
       primaryColor: "Primary",
       secondaryColor: "Secondary",
       alpha: "Opacity",

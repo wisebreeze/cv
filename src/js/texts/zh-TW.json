@@ -121,7 +121,6 @@
   editor: {
     theme: {
       globalColor: "全域顏色",
-      globalColorDesc: "統一設定所有控制項的色調，類似 MD3 動態配色",
       primaryColor: "主色",
       secondaryColor: "次要色",
       alpha: "不透明度",

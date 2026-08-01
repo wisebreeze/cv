@@ -22,7 +22,6 @@
       <div class="global-color-section">
         <mdui-list-item rounded @click="showGlobalColor = !showGlobalColor">
           <span>{{ t('editor.theme.globalColor') }}</span>
-          <div slot="description">{{ t('editor.theme.globalColorDesc') }}</div>
           <div slot="end-icon" style="font-size: 1rem">
             <ion-icon v-if="showGlobalColor" name="chevron-up-outline" />
             <ion-icon v-else name="chevron-down-outline" />
@@ -32,15 +31,16 @@
           <div v-if="showGlobalColor" class="global-color-content">
             <div class="color-picker-row">
               <span class="color-label">{{ t('editor.theme.primaryColor') }}</span>
-              <div class="color-swatch" :style="primaryColorStyle" @click="openGlobalPicker('primary')" />
+              <input type="color" class="color-input" :value="primaryHex" @input="onPrimaryColorInput($event)" />
             </div>
             <div class="color-picker-row">
               <span class="color-label">{{ t('editor.theme.secondaryColor') }}</span>
-              <div class="color-swatch" :style="secondaryColorStyle" @click="openGlobalPicker('secondary')" />
+              <input type="color" class="color-input" :value="secondaryHex" @input="onSecondaryColorInput($event)" />
             </div>
             <div class="color-picker-row">
               <span class="color-label">{{ t('editor.theme.alpha') }}</span>
-              <mdui-slider :value="globalAlpha" min="0" max="1" step="0.05" @input="globalAlpha = parseFloat($event.target.value)" />
+              <input type="range" class="alpha-input" min="0" max="1" step="0.05" :value="globalAlpha" @input="globalAlpha = parseFloat($event.target.value)" />
+              <span class="alpha-value">{{ Math.round(globalAlpha * 100) }}%</span>
             </div>
             <mdui-button variant="filled" full-width @click="applyGlobalColor" style="margin-top: 12px">
               <ion-icon slot="icon" name="color-wand-outline" />
@@ -51,28 +51,35 @@
       </div>
 
       <div class="preview-section">
-        <div class="preview-section-title">{{ t('editor.theme.preview') }}</div>
-        <div class="preview-card">
+        <mdui-list-item rounded @click="showPreview = !showPreview">
+          <span>{{ t('editor.theme.preview') }}</span>
+          <div slot="end-icon" style="font-size: 1rem">
+            <ion-icon v-if="showPreview" name="chevron-up-outline" />
+            <ion-icon v-else name="chevron-down-outline" />
+          </div>
+        </mdui-list-item>
+        <transition name="expanded">
+          <div v-if="showPreview" class="preview-card">
           <div class="preview-group">
             <div class="preview-group-title">{{ t('editor.theme.previewButton') }}</div>
             <div class="preview-row">
-              <div class="preview-btn preview-btn-default">{{ t('editor.theme.stateDefault') }}</div>
-              <div class="preview-btn preview-btn-hover">{{ t('editor.theme.stateHover') }}</div>
-              <div class="preview-btn preview-btn-pressed">{{ t('editor.theme.statePressed') }}</div>
+              <div class="preview-btn" :style="previewStyles.btnDefault">{{ t('editor.theme.stateDefault') }}</div>
+              <div class="preview-btn" :style="previewStyles.btnHover">{{ t('editor.theme.stateHover') }}</div>
+              <div class="preview-btn" :style="previewStyles.btnPressed">{{ t('editor.theme.statePressed') }}</div>
             </div>
           </div>
           <div class="preview-group">
             <div class="preview-group-title">{{ t('editor.theme.previewMainButton') }}</div>
             <div class="preview-row">
-              <div class="preview-btn-main preview-btn-main-default">
+              <div class="preview-btn-main" :style="previewStyles.btnMainDefault">
                 <ion-icon name="add-outline" />
                 <span>{{ t('editor.theme.stateDefault') }}</span>
               </div>
-              <div class="preview-btn-main preview-btn-main-hover">
+              <div class="preview-btn-main" :style="previewStyles.btnMainHover">
                 <ion-icon name="add-outline" />
                 <span>{{ t('editor.theme.stateHover') }}</span>
               </div>
-              <div class="preview-btn-main preview-btn-main-pressed">
+              <div class="preview-btn-main" :style="previewStyles.btnMainPressed">
                 <ion-icon name="add-outline" />
                 <span>{{ t('editor.theme.statePressed') }}</span>
               </div>
@@ -81,15 +88,15 @@
           <div class="preview-group">
             <div class="preview-group-title">{{ t('editor.theme.previewDestructiveButton') }}</div>
             <div class="preview-row">
-              <div class="preview-btn-destructive preview-btn-destructive-default">
+              <div class="preview-btn-destructive" :style="previewStyles.btnDestructiveDefault">
                 <ion-icon name="trash-outline" />
                 <span>{{ t('editor.theme.stateDefault') }}</span>
               </div>
-              <div class="preview-btn-destructive preview-btn-destructive-hover">
+              <div class="preview-btn-destructive" :style="previewStyles.btnDestructiveHover">
                 <ion-icon name="trash-outline" />
                 <span>{{ t('editor.theme.stateHover') }}</span>
               </div>
-              <div class="preview-btn-destructive preview-btn-destructive-pressed">
+              <div class="preview-btn-destructive" :style="previewStyles.btnDestructivePressed">
                 <ion-icon name="trash-outline" />
                 <span>{{ t('editor.theme.statePressed') }}</span>
               </div>
@@ -98,15 +105,15 @@
           <div class="preview-group">
             <div class="preview-group-title">{{ t('editor.theme.previewLightButton') }}</div>
             <div class="preview-row">
-              <div class="preview-btn-light preview-btn-light-default">
+              <div class="preview-btn-light" :style="previewStyles.btnLightDefault">
                 <ion-icon name="settings-outline" />
                 <span>{{ t('editor.theme.stateDefault') }}</span>
               </div>
-              <div class="preview-btn-light preview-btn-light-hover">
+              <div class="preview-btn-light" :style="previewStyles.btnLightHover">
                 <ion-icon name="settings-outline" />
                 <span>{{ t('editor.theme.stateHover') }}</span>
               </div>
-              <div class="preview-btn-light preview-btn-light-pressed">
+              <div class="preview-btn-light" :style="previewStyles.btnLightPressed">
                 <ion-icon name="settings-outline" />
                 <span>{{ t('editor.theme.statePressed') }}</span>
               </div>
@@ -115,21 +122,21 @@
           <div class="preview-group">
             <div class="preview-group-title">{{ t('editor.theme.previewSwitch') }}</div>
             <div class="preview-row">
-              <div class="preview-switch preview-switch-on"><div class="preview-switch-knob" /></div>
-              <div class="preview-switch preview-switch-off"><div class="preview-switch-knob" /></div>
+              <div class="preview-switch preview-switch-on" :style="previewStyles.switchOn"><div class="preview-switch-knob" :style="previewStyles.switchKnob" /></div>
+              <div class="preview-switch preview-switch-off" :style="previewStyles.switchOff"><div class="preview-switch-knob" :style="previewStyles.switchKnob" /></div>
             </div>
           </div>
           <div class="preview-group">
             <div class="preview-group-title">{{ t('editor.theme.previewSlider') }}</div>
             <div class="preview-slider">
-              <div class="preview-slider-track" />
-              <div class="preview-slider-fill" />
-              <div class="preview-slider-thumb" />
+              <div class="preview-slider-track" :style="previewStyles.sliderTrack" />
+              <div class="preview-slider-fill" :style="previewStyles.sliderFill" />
+              <div class="preview-slider-thumb" :style="previewStyles.sliderThumb" />
             </div>
           </div>
           <div class="preview-group">
             <div class="preview-group-title">{{ t('editor.theme.previewTopbar') }}</div>
-            <div class="preview-topbar">
+            <div class="preview-topbar" :style="previewStyles.topbar">
               <ion-icon name="chevron-back-outline" />
               <span>{{ t('editor.theme.previewTopbarTitle') }}</span>
               <div style="flex-grow:1" />
@@ -138,53 +145,53 @@
           </div>
           <div class="preview-group">
             <div class="preview-group-title">{{ t('editor.theme.previewSegmented') }}</div>
-            <div class="preview-segmented">
-              <div class="preview-segment preview-segment-active">{{ t('editor.theme.segmentTab1') }}</div>
-              <div class="preview-segment">{{ t('editor.theme.segmentTab2') }}</div>
-              <div class="preview-segment">{{ t('editor.theme.segmentTab3') }}</div>
+            <div class="preview-segmented" :style="previewStyles.segmented">
+              <div class="preview-segment preview-segment-active" :style="previewStyles.segmentActive">{{ t('editor.theme.segmentTab1') }}</div>
+              <div class="preview-segment" :style="previewStyles.segment">{{ t('editor.theme.segmentTab2') }}</div>
+              <div class="preview-segment" :style="previewStyles.segment">{{ t('editor.theme.segmentTab3') }}</div>
             </div>
           </div>
           <div class="preview-group">
             <div class="preview-group-title">{{ t('editor.theme.previewInput') }}</div>
-            <div class="preview-input">
-              <span class="preview-input-placeholder">{{ t('editor.theme.previewInputPlaceholder') }}</span>
+            <div class="preview-input" :style="previewStyles.input">
+              <span class="preview-input-placeholder" :style="previewStyles.inputPlaceholder">{{ t('editor.theme.previewInputPlaceholder') }}</span>
             </div>
           </div>
           <div class="preview-group">
             <div class="preview-group-title">{{ t('editor.theme.previewCell') }}</div>
             <div class="preview-cell-row">
-              <div class="preview-cell" />
-              <div class="preview-cell preview-cell-selected" />
-              <div class="preview-cell preview-cell-highlight" />
-              <div class="preview-cell" />
-              <div class="preview-cell" />
+              <div class="preview-cell" :style="previewStyles.cell" />
+              <div class="preview-cell" :style="previewStyles.cellSelected" />
+              <div class="preview-cell" :style="previewStyles.cellHighlight" />
+              <div class="preview-cell" :style="previewStyles.cell" />
+              <div class="preview-cell" :style="previewStyles.cell" />
             </div>
           </div>
           <div class="preview-group">
             <div class="preview-group-title">{{ t('editor.theme.previewContainer') }}</div>
             <div class="preview-container">
-              <div class="preview-container-item" />
-              <div class="preview-container-item" />
-              <div class="preview-container-item preview-container-item-full" />
+              <div class="preview-container-item" :style="previewStyles.containerItem" />
+              <div class="preview-container-item" :style="previewStyles.containerItem" />
+              <div class="preview-container-item" :style="previewStyles.containerItemFull" />
             </div>
           </div>
           <div class="preview-group">
             <div class="preview-group-title">{{ t('editor.theme.previewScroll') }}</div>
             <div class="preview-scroll">
-              <div class="preview-scroll-track" />
-              <div class="preview-scroll-thumb" />
+              <div class="preview-scroll-track" :style="previewStyles.scrollTrack" />
+              <div class="preview-scroll-thumb" :style="previewStyles.scrollThumb" />
             </div>
           </div>
           <div class="preview-group">
             <div class="preview-group-title">{{ t('editor.theme.previewProgress') }}</div>
             <div class="preview-progress">
-              <div class="preview-progress-track" />
-              <div class="preview-progress-fill" />
+              <div class="preview-progress-track" :style="previewStyles.progressTrack" />
+              <div class="preview-progress-fill" :style="previewStyles.progressFill" />
             </div>
           </div>
           <div class="preview-group">
             <div class="preview-group-title">{{ t('editor.theme.previewDropdown') }}</div>
-            <div class="preview-dropdown">
+            <div class="preview-dropdown" :style="previewStyles.dropdown">
               <span>{{ t('editor.theme.previewDropdownLabel') }}</span>
               <ion-icon name="chevron-down-outline" />
             </div>
@@ -192,57 +199,59 @@
           <div class="preview-group">
             <div class="preview-group-title">{{ t('editor.theme.previewRadio') }}</div>
             <div class="preview-row">
-              <div class="preview-radio preview-radio-on"><div class="preview-radio-dot" /></div>
-              <span>{{ t('editor.theme.previewRadioOn') }}</span>
-              <div class="preview-radio preview-radio-off" />
-              <span>{{ t('editor.theme.previewRadioOff') }}</span>
+              <div class="preview-radio preview-radio-on" :style="previewStyles.radioOn"><div class="preview-radio-dot" :style="previewStyles.radioDot" /></div>
+              <span :style="previewStyles.segment">{{ t('editor.theme.previewRadioOn') }}</span>
+              <div class="preview-radio preview-radio-off" :style="previewStyles.radioOff" />
+              <span :style="previewStyles.segment">{{ t('editor.theme.previewRadioOff') }}</span>
             </div>
           </div>
           <div class="preview-group">
             <div class="preview-group-title">{{ t('editor.theme.previewSidebar') }}</div>
-            <div class="preview-sidebar">
-              <div class="preview-sidebar-item preview-sidebar-item-active">{{ t('editor.theme.previewSidebarItem1') }}</div>
-              <div class="preview-sidebar-item">{{ t('editor.theme.previewSidebarItem2') }}</div>
-              <div class="preview-sidebar-item">{{ t('editor.theme.previewSidebarItem3') }}</div>
+            <div class="preview-sidebar" :style="previewStyles.sidebar">
+              <div class="preview-sidebar-item preview-sidebar-item-active" :style="previewStyles.sidebarItemActive">{{ t('editor.theme.previewSidebarItem1') }}</div>
+              <div class="preview-sidebar-item" :style="previewStyles.sidebarItem">{{ t('editor.theme.previewSidebarItem2') }}</div>
+              <div class="preview-sidebar-item" :style="previewStyles.sidebarItem">{{ t('editor.theme.previewSidebarItem3') }}</div>
             </div>
           </div>
           <div class="preview-group">
             <div class="preview-group-title">{{ t('editor.theme.previewUnderline') }}</div>
-            <div class="preview-underline" />
+            <div class="preview-underline" :style="previewStyles.underline" />
           </div>
           <div class="preview-group">
             <div class="preview-group-title">{{ t('editor.theme.previewDivider') }}</div>
-            <div class="preview-divider" />
+            <div class="preview-divider" :style="previewStyles.divider" />
           </div>
           <div class="preview-group">
             <div class="preview-group-title">{{ t('editor.theme.previewTooltip') }}</div>
-            <div class="preview-tooltip">{{ t('editor.theme.previewTooltipText') }}</div>
+            <div class="preview-tooltip" :style="previewStyles.tooltip">{{ t('editor.theme.previewTooltipText') }}</div>
           </div>
           <div class="preview-group">
             <div class="preview-group-title">{{ t('editor.theme.previewDialog') }}</div>
-            <div class="preview-dialog">
-              <div class="preview-dialog-header">{{ t('editor.theme.previewDialogTitle') }}</div>
-              <div class="preview-dialog-body">{{ t('editor.theme.previewDialogBody') }}</div>
+            <div class="preview-dialog" :style="previewStyles.dialog">
+              <div class="preview-dialog-header" :style="previewStyles.dialogHeader">{{ t('editor.theme.previewDialogTitle') }}</div>
+              <div class="preview-dialog-body" :style="previewStyles.dialogBody">{{ t('editor.theme.previewDialogBody') }}</div>
               <div class="preview-dialog-actions">
-                <span>{{ t('gui$cancel') }}</span>
-                <span class="preview-dialog-confirm">{{ t('gui$confirm') }}</span>
+                <span :style="previewStyles.segment">{{ t('gui$cancel') }}</span>
+                <span class="preview-dialog-confirm" :style="previewStyles.dialogConfirm">{{ t('gui$confirm') }}</span>
               </div>
             </div>
           </div>
           <div class="preview-group">
             <div class="preview-group-title">{{ t('editor.theme.previewToast') }}</div>
-            <div class="preview-toast">{{ t('editor.theme.previewToastText') }}</div>
+            <div class="preview-toast" :style="previewStyles.toast">{{ t('editor.theme.previewToastText') }}</div>
           </div>
           <div class="preview-group">
             <div class="preview-group-title">{{ t('editor.theme.previewBadge') }}</div>
             <div class="preview-badge-row">
-              <div class="preview-badge">{{ t('editor.theme.previewBadgeText') }}</div>
-              <div class="preview-corner">
-                <div class="preview-corner-dot" />
+              <div class="preview-badge" :style="previewStyles.badge">{{ t('editor.theme.previewBadgeText') }}</div>
+              <div class="preview-corner" :style="previewStyles.corner">
+                <div class="preview-corner-dot" :style="previewStyles.cornerDot" />
               </div>
             </div>
           </div>
-        </div>
+          </div>
+          </div>
+        </transition>
       </div>
 
       <div class="list-container">
@@ -412,24 +421,216 @@ const expandedSection = ref(-1)
 const showCategoryDrawer = ref(false)
 const showResetDialog = ref(false)
 const showGlobalColor = ref(false)
+const showPreview = ref(false)
 const globalPrimaryColor = ref([0.325, 0.427, 0.996])
 const globalSecondaryColor = ref([0.549, 0.62, 1])
 const globalAlpha = ref(1)
-const showGlobalPicker = ref(false)
-const globalPickerTarget = ref('primary')
 
-const primaryColorStyle = computed(() => ({
-  background: `rgb(${Math.round(globalPrimaryColor.value[0] * 255)}, ${Math.round(globalPrimaryColor.value[1] * 255)}, ${Math.round(globalPrimaryColor.value[2] * 255)})`
-}))
-
-const secondaryColorStyle = computed(() => ({
-  background: `rgb(${Math.round(globalSecondaryColor.value[0] * 255)}, ${Math.round(globalSecondaryColor.value[1] * 255)}, ${Math.round(globalSecondaryColor.value[2] * 255)})`
-}))
-
-const openGlobalPicker = (target) => {
-  globalPickerTarget.value = target
-  showGlobalPicker.value = true
+const rgbToHex = (rgb) => {
+  if (!rgb || !Array.isArray(rgb)) return '#536dfe'
+  const r = Math.round((rgb[0] || 0) * 255)
+  const g = Math.round((rgb[1] || 0) * 255)
+  const b = Math.round((rgb[2] || 0) * 255)
+  return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('')
 }
+
+const hexToRgb = (hex) => {
+  const r = parseInt(hex.slice(1, 3), 16) / 255
+  const g = parseInt(hex.slice(3, 5), 16) / 255
+  const b = parseInt(hex.slice(5, 7), 16) / 255
+  return [r, g, b]
+}
+
+const primaryHex = computed(() => rgbToHex(globalPrimaryColor.value))
+const secondaryHex = computed(() => rgbToHex(globalSecondaryColor.value))
+
+const onPrimaryColorInput = (event) => {
+  globalPrimaryColor.value = hexToRgb(event.target.value)
+}
+const onSecondaryColorInput = (event) => {
+  globalSecondaryColor.value = hexToRgb(event.target.value)
+}
+
+// Read theme variable values from parsedConfig for live preview
+const themeVars = computed(() => {
+  const vars = {}
+  const defaults = {
+    '$cube_main_color': [0.325, 0.427, 0.996],
+    '$cube_button_main_default_color': [0.325, 0.427, 0.996],
+    '$cube_button_main_hover_color': [0.425, 0.527, 1],
+    '$cube_button_main_pressed_color': [0.225, 0.327, 0.896],
+    '$cube_button_destructive_default_color': [0.69, 0, 0.125],
+    '$cube_button_destructive_hover_color': [0.776, 0.157, 0.157],
+    '$cube_button_destructive_pressed_color': [0.498, 0, 0],
+    '$cube_button_light_default_color': [0.8, 0.8, 0.8],
+    '$cube_button_light_hover_color': [0.7, 0.7, 0.7],
+    '$cube_button_light_pressed_color': [0.7, 0.7, 0.7],
+    '$cube_button_transparent_default_color': [0.922, 0.922, 0.922],
+    '$cube_button_transparent_hover_color': [0.549, 0.62, 1],
+    '$cube_button_transparent_pressed_color': [0.549, 0.62, 1],
+    '$cube_button_text_color': [0.922, 0.922, 0.922],
+    '$cube_button_glyph_default_color': [0.922, 0.922, 0.922],
+    '$cube_toggle_indicator_checked_color': [0.325, 0.427, 0.996],
+    '$cube_toggle_indicator_unchecked_color': [0.325, 0.427, 0.996],
+    '$cube_slider_progress_default_color': [0.325, 0.427, 0.996],
+    '$cube_slider_progress_hover_color': [0.549, 0.62, 1],
+    '$cube_slider_button_default_color': [0.922, 0.922, 0.922],
+    '$cube_slider_background_color': [0.09, 0.09, 0.09],
+    '$cube_cell_color': [0.61, 0.61, 0.61],
+    '$cube_cell_selected_color': [0.549, 0.62, 1],
+    '$cube_cell_highlight_color': [0.549, 0.62, 1],
+    '$cube_container_components_color': [0.922, 0.922, 0.922],
+    '$cube_container_components_full_color': [0.325, 0.427, 0.996],
+    '$cube_scroll_track_color': [0.09, 0.09, 0.09],
+    '$cube_scroll_box_color': [0.85, 0.85, 0.9],
+    '$cube_progress_empty_color': [0.09, 0.09, 0.09],
+    '$cube_progress_full_color': [0.91, 0.918, 0.965],
+    '$cube_dropdown_background_color': [0.09, 0.09, 0.09],
+    '$cube_radio_filled_color': [0.922, 0.922, 0.922],
+    '$cube_sidebar_bg_color': [0, 0, 0],
+    '$cube_tooltip_background_color': [0, 0, 0],
+    '$cube_underline_color': [0.09, 0.09, 0.09],
+    '$cube_divider_color': [0.9, 0.9, 0.9],
+    '$cube_dialog_background_color': [0.09, 0.09, 0.09],
+    '$cube_dialog_overlay_color': [0, 0, 0],
+    '$cube_dialog_title_text_color': [0.922, 0.922, 0.922],
+    '$cube_dialog_message_text_color': [0.922, 0.922, 0.922],
+    '$cube_toast_background_color': [0, 0, 0],
+    '$cube_corner_master_color': [0, 0, 0],
+    '$cube_red_dot_color': [1, 0, 0],
+    '$cube_bar_color': [0.325, 0.427, 0.996],
+    '$cube_headbar_color': [0.09, 0.09, 0.09],
+    '$cube_headbar_title_color': [0.922, 0.922, 0.922],
+    '$cube_control_bg_color': [0, 0, 0],
+    '$cube_light_bg_color': [0.184, 0.184, 0.184],
+    '$cube_text_color': [0.922, 0.922, 0.922],
+    '$cube_icon_color': [0.922, 0.922, 0.922],
+    '$cube_bg_color': [0.09, 0.09, 0.09],
+    '$cube_control_bg_alpha': 0.45,
+    '$cube_light_bg_alpha': 0.35,
+    '$cube_slider_background_alpha': 0.3,
+    '$cube_cell_alpha': 0.3,
+    '$cube_cell_highlight_alpha': 0.3,
+    '$cube_container_components_alpha': 0.4,
+    '$cube_scroll_track_alpha': 0.3,
+    '$cube_scroll_box_alpha': 0.6,
+    '$cube_progress_empty_alpha': 0.3,
+    '$cube_progress_full_alpha': 0.6,
+    '$cube_dropdown_background_alpha': 0.3,
+    '$cube_radio_background_alpha': 0.3,
+    '$cube_sidebar_alpha': 0.3,
+    '$cube_tooltip_background_alpha': 0.6,
+    '$cube_underline_alpha': 0.3,
+    '$cube_divider_alpha': 0.3,
+    '$cube_dialog_overlay_alpha': 0.15,
+    '$cube_dialog_background_alpha': 0.6,
+    '$cube_dialog_headbar_alpha': 0.3,
+    '$cube_toast_background_alpha': 0.6,
+    '$cube_corner_master_alpha': 0.6,
+    '$cube_red_dot_alpha': 0.8,
+    '$cube_headbar_alpha': 0.4,
+    '$cube_bg_alpha': 0.15,
+  }
+
+  // Read from parsedConfig
+  parsedConfig.value.forEach(section => {
+    section.options.forEach(option => {
+      if (option.id && option.value !== undefined) {
+        vars[option.id] = option.value
+      }
+    })
+  })
+
+  // Merge with defaults
+  for (const [key, value] of Object.entries(defaults)) {
+    if (vars[key] === undefined) {
+      vars[key] = value
+    }
+  }
+
+  return vars
+})
+
+// Helper: convert [r,g,b] or [r,g,b,a] (0-1 range) to CSS rgba string
+const cssColor = (val) => {
+  if (!val || !Array.isArray(val)) return 'rgba(0,0,0,0.3)'
+  const r = Math.round((val[0] || 0) * 255)
+  const g = Math.round((val[1] || 0) * 255)
+  const b = Math.round((val[2] || 0) * 255)
+  const a = val[3] !== undefined ? val[3] : 1
+  return `rgba(${r},${g},${b},${a})`
+}
+
+// Helper: blend a base color (rgba) with the dynamic primary color
+// Used for dark controls that should be tinted by the primary color
+const blendColor = (baseRgb, primaryRgb, blendAlpha = 0.15) => {
+  if (!baseRgb || !Array.isArray(baseRgb)) return 'rgba(0,0,0,0.3)'
+  const r = Math.round(((baseRgb[0] || 0) * (1 - blendAlpha) + (primaryRgb[0] || 0) * blendAlpha) * 255)
+  const g = Math.round(((baseRgb[1] || 0) * (1 - blendAlpha) + (primaryRgb[1] || 0) * blendAlpha) * 255)
+  const b = Math.round(((baseRgb[2] || 0) * (1 - blendAlpha) + (primaryRgb[2] || 0) * blendAlpha) * 255)
+  const a = baseRgb[3] !== undefined ? baseRgb[3] : 1
+  return `rgba(${r},${g},${b},${a})`
+}
+
+// Computed styles for preview elements using themeVars
+const previewStyles = computed(() => {
+  const v = themeVars.value
+  const primary = v['$cube_main_color'] || [0.325, 0.427, 0.996]
+  return {
+    btnDefault: { background: blendColor(v['$cube_control_bg_color'], primary, 0.1), color: cssColor(v['$cube_button_text_color']), border: `1px solid ${cssColor(v['$cube_border_color'])}` },
+    btnHover: { background: blendColor(v['$cube_button_transparent_hover_color'], primary, 0.3), color: cssColor(v['$cube_button_text_color']) },
+    btnPressed: { background: blendColor(v['$cube_control_bg_color'], primary, 0.2), color: cssColor(v['$cube_button_text_color']) },
+    btnMainDefault: { background: cssColor(v['$cube_button_main_default_color']), color: cssColor(v['$cube_button_text_color']) },
+    btnMainHover: { background: cssColor(v['$cube_button_main_hover_color']), color: cssColor(v['$cube_button_text_color']) },
+    btnMainPressed: { background: cssColor(v['$cube_button_main_pressed_color']), color: cssColor(v['$cube_button_text_color']) },
+    btnDestructiveDefault: { background: cssColor(v['$cube_button_destructive_default_color']), color: cssColor(v['$cube_button_text_color']) },
+    btnDestructiveHover: { background: cssColor(v['$cube_button_destructive_hover_color']), color: cssColor(v['$cube_button_text_color']) },
+    btnDestructivePressed: { background: cssColor(v['$cube_button_destructive_pressed_color']), color: cssColor(v['$cube_button_text_color']) },
+    btnLightDefault: { background: cssColor(v['$cube_button_light_default_color']), color: '#222' },
+    btnLightHover: { background: cssColor(v['$cube_button_light_hover_color']), color: '#222' },
+    btnLightPressed: { background: cssColor(v['$cube_button_light_pressed_color']), color: '#222' },
+    switchOn: { background: cssColor(v['$cube_toggle_indicator_checked_color']) },
+    switchOff: { background: blendColor(v['$cube_control_bg_color'], primary, 0.1) },
+    switchKnob: { background: cssColor(v['$cube_slider_button_default_color']) },
+    sliderTrack: { background: blendColor(v['$cube_slider_background_color'], primary, 0.05, ) },
+    sliderFill: { background: cssColor(v['$cube_slider_progress_default_color']) },
+    sliderThumb: { background: cssColor(v['$cube_slider_button_default_color']) },
+    topbar: { background: blendColor(v['$cube_headbar_color'], primary, 0.1), color: cssColor(v['$cube_headbar_title_color']) },
+    segmented: { background: blendColor(v['$cube_control_bg_color'], primary, 0.05) },
+    segmentActive: { background: cssColor(v['$cube_button_main_default_color']), color: cssColor(v['$cube_button_text_color']) },
+    segment: { color: cssColor(v['$cube_text_color']) },
+    input: { background: blendColor(v['$cube_control_bg_color'], primary, 0.05), borderBottom: `2px solid ${cssColor(v['$cube_button_main_default_color'])}` },
+    inputPlaceholder: { color: cssColor(v['$cube_text_desc_color'] || v['$cube_text_color']) },
+    cell: { background: blendColor(v['$cube_cell_color'], primary, 0.05) },
+    cellSelected: { background: cssColor(v['$cube_cell_selected_color']) },
+    cellHighlight: { background: cssColor(v['$cube_cell_highlight_color']) },
+    containerItem: { background: cssColor(v['$cube_container_components_color']) },
+    containerItemFull: { background: cssColor(v['$cube_container_components_full_color']) },
+    scrollTrack: { background: blendColor(v['$cube_scroll_track_color'], primary, 0.05) },
+    scrollThumb: { background: cssColor(v['$cube_scroll_box_color']) },
+    progressTrack: { background: blendColor(v['$cube_progress_empty_color'], primary, 0.05) },
+    progressFill: { background: cssColor(v['$cube_progress_full_color']) },
+    dropdown: { background: blendColor(v['$cube_dropdown_background_color'], primary, 0.05), color: cssColor(v['$cube_text_color']) },
+    radioOn: { borderColor: cssColor(v['$cube_toggle_indicator_checked_color']) },
+    radioDot: { background: cssColor(v['$cube_toggle_indicator_checked_color']) },
+    radioOff: { borderColor: cssColor(v['$cube_toggle_indicator_unchecked_color']) },
+    sidebar: { background: blendColor(v['$cube_sidebar_bg_color'], primary, 0.1) },
+    sidebarItemActive: { background: blendColor(v['$cube_button_main_default_color'], primary, 0.2), color: cssColor(v['$cube_button_transparent_hover_color']) },
+    sidebarItem: { color: cssColor(v['$cube_text_color']) },
+    underline: { background: cssColor(v['$cube_underline_color']) },
+    divider: { background: cssColor(v['$cube_divider_color']) },
+    tooltip: { background: cssColor(v['$cube_tooltip_background_color']), color: cssColor(v['$cube_text_color']) },
+    dialog: { background: cssColor(v['$cube_dialog_background_color']) },
+    dialogHeader: { color: cssColor(v['$cube_dialog_title_text_color']) },
+    dialogBody: { color: cssColor(v['$cube_dialog_message_text_color']) },
+    dialogConfirm: { color: cssColor(v['$cube_button_transparent_hover_color']) },
+    toast: { background: cssColor(v['$cube_toast_background_color']), color: cssColor(v['$cube_text_color']) },
+    badge: { background: cssColor(v['$cube_corner_master_color']), color: cssColor(v['$cube_text_color']) },
+    corner: { background: cssColor(v['$cube_corner_master_color']) },
+    cornerDot: { background: cssColor(v['$cube_red_dot_color']) },
+    previewCard: { background: blendColor(v['$cube_bg_color'], primary, 0.15) },
+  }
+})
 
 const applyGlobalColor = async () => {
   const primary = globalPrimaryColor.value
@@ -1067,22 +1268,34 @@ onBeforeUnmount(() => {
       min-width: 80px;
     }
 
-    .color-swatch {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
+    .color-input {
+      width: 48px;
+      height: 36px;
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
-      border: 2px solid rgba(var(--mdui-color-outline-variant), 1);
-      flex-shrink: 0;
-      transition: transform 0.2s;
+      background: none;
+      padding: 0;
 
-      &:hover {
-        transform: scale(1.1);
+      &::-webkit-color-swatch-wrapper {
+        padding: 0;
+      }
+      &::-webkit-color-swatch {
+        border: 2px solid rgba(var(--mdui-color-outline-variant), 1);
+        border-radius: 8px;
       }
     }
 
-    mdui-slider {
+    .alpha-input {
       flex: 1;
+      accent-color: rgb(var(--mdui-color-primary));
+    }
+
+    .alpha-value {
+      font-size: 13px;
+      color: var(--mdui-color-on-surface-variant);
+      min-width: 40px;
+      text-align: right;
     }
   }
 }
@@ -1092,15 +1305,7 @@ onBeforeUnmount(() => {
   margin-bottom: 1rem;
 }
 
-.preview-section-title {
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--mdui-color-on-surface);
-  padding: 0.5rem 0;
-}
-
 .preview-card {
-  background-color: rgba(var(--mdui-color-surface-container), 0.6);
   border-radius: 16px;
   padding: 1rem;
   display: flex;
@@ -1127,13 +1332,6 @@ onBeforeUnmount(() => {
   padding: 6px 16px;
   border-radius: 8px;
   font-size: 13px;
-  background-color: rgba(0, 0, 0, 0.3);
-  color: rgb(0.922, 0.922, 0.922);
-  border: 1px solid rgba(0.922, 0.922, 0.922, 0.2);
-
-  &.preview-btn-default { background-color: rgba(0, 0, 0, 0.3); }
-  &.preview-btn-hover { background-color: rgba(0.5, 0.5, 0.5, 0.3); }
-  &.preview-btn-pressed { background-color: rgba(0, 0, 0, 0.5); }
 }
 
 .preview-btn-main {
@@ -1143,13 +1341,8 @@ onBeforeUnmount(() => {
   padding: 6px 16px;
   border-radius: 8px;
   font-size: 13px;
-  color: rgb(0.922, 0.922, 0.922);
 
   ion-icon { font-size: 16px; }
-
-  &.preview-btn-main-default { background-color: rgb(0.325, 0.427, 0.996); }
-  &.preview-btn-main-hover { background-color: rgb(0.425, 0.527, 1); }
-  &.preview-btn-main-pressed { background-color: rgb(0.225, 0.327, 0.896); }
 }
 
 .preview-btn-destructive {
@@ -1159,13 +1352,8 @@ onBeforeUnmount(() => {
   padding: 6px 16px;
   border-radius: 8px;
   font-size: 13px;
-  color: rgb(0.922, 0.922, 0.922);
 
   ion-icon { font-size: 16px; }
-
-  &.preview-btn-destructive-default { background-color: rgb(0.69, 0, 0.125); }
-  &.preview-btn-destructive-hover { background-color: rgb(0.776, 0.157, 0.157); }
-  &.preview-btn-destructive-pressed { background-color: rgb(0.498, 0, 0); }
 }
 
 .preview-btn-light {
@@ -1175,13 +1363,8 @@ onBeforeUnmount(() => {
   padding: 6px 16px;
   border-radius: 8px;
   font-size: 13px;
-  color: rgb(0.922, 0.922, 0.922);
 
   ion-icon { font-size: 16px; }
-
-  &.preview-btn-light-default { background-color: rgb(0.8, 0.8, 0.8); color: #222; }
-  &.preview-btn-light-hover { background-color: rgb(0.7, 0.7, 0.7); color: #222; }
-  &.preview-btn-light-pressed { background-color: rgb(0.7, 0.7, 0.7); color: #222; }
 }
 
 .preview-switch {
@@ -1191,16 +1374,12 @@ onBeforeUnmount(() => {
   position: relative;
   transition: background-color 0.2s;
 
-  &.preview-switch-on { background-color: rgb(0.325, 0.427, 0.996); }
-  &.preview-switch-off { background-color: rgba(0.922, 0.922, 0.922, 0.3); }
-
   .preview-switch-knob {
     position: absolute;
     top: 3px;
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background-color: rgb(0.922, 0.922, 0.922);
     transition: left 0.2s;
   }
 
@@ -1221,7 +1400,6 @@ onBeforeUnmount(() => {
     right: 0;
     height: 4px;
     border-radius: 2px;
-    background-color: rgba(0.09, 0.09, 0.09, 0.3);
   }
 
   .preview-slider-fill {
@@ -1231,7 +1409,6 @@ onBeforeUnmount(() => {
     width: 60%;
     height: 4px;
     border-radius: 2px;
-    background-color: rgb(0.325, 0.427, 0.996);
   }
 
   .preview-slider-thumb {
@@ -1241,7 +1418,6 @@ onBeforeUnmount(() => {
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background-color: rgb(0.922, 0.922, 0.922);
   }
 }
 
@@ -1250,9 +1426,7 @@ onBeforeUnmount(() => {
   align-items: center;
   gap: 8px;
   padding: 8px 12px;
-  background-color: rgba(0.09, 0.09, 0.09, 0.4);
   border-radius: 8px;
-  color: rgb(0.922, 0.922, 0.922);
   font-size: 14px;
 
   ion-icon { font-size: 20px; }
@@ -1260,7 +1434,6 @@ onBeforeUnmount(() => {
 
 .preview-segmented {
   display: flex;
-  background-color: rgba(0.09, 0.09, 0.09, 0.3);
   border-radius: 8px;
   overflow: hidden;
 
@@ -1269,23 +1442,15 @@ onBeforeUnmount(() => {
     padding: 6px 12px;
     text-align: center;
     font-size: 13px;
-    color: rgb(0.922, 0.922, 0.922);
     cursor: pointer;
-
-    &.preview-segment-active {
-      background-color: rgb(0.325, 0.427, 0.996);
-    }
   }
 }
 
 .preview-input {
   padding: 10px 12px;
-  background-color: rgba(0.09, 0.09, 0.09, 0.3);
   border-radius: 8px;
-  border-bottom: 2px solid rgb(0.325, 0.427, 0.996);
 
   .preview-input-placeholder {
-    color: rgba(0.922, 0.922, 0.922, 0.5);
     font-size: 14px;
   }
 }
@@ -1298,10 +1463,6 @@ onBeforeUnmount(() => {
     width: 40px;
     height: 40px;
     border-radius: 4px;
-    background-color: rgba(0.61, 0.61, 0.61, 0.3);
-
-    &.preview-cell-selected { background-color: rgb(0.549, 0.62, 1); }
-    &.preview-cell-highlight { background-color: rgba(0.549, 0.62, 1, 0.3); }
   }
 }
 
@@ -1313,9 +1474,6 @@ onBeforeUnmount(() => {
     width: 30px;
     height: 30px;
     border-radius: 4px;
-    background-color: rgba(0.922, 0.922, 0.922, 0.4);
-
-    &.preview-container-item-full { background-color: rgb(0.325, 0.427, 0.996); }
   }
 }
 
@@ -1323,7 +1481,6 @@ onBeforeUnmount(() => {
   width: 100%;
   max-width: 200px;
   height: 80px;
-  background-color: rgba(0.09, 0.09, 0.09, 0.3);
   border-radius: 8px;
   position: relative;
   overflow: hidden;
@@ -1335,7 +1492,6 @@ onBeforeUnmount(() => {
     bottom: 4px;
     width: 4px;
     border-radius: 2px;
-    background-color: rgba(0.09, 0.09, 0.09, 0.3);
   }
 
   .preview-scroll-thumb {
@@ -1345,7 +1501,6 @@ onBeforeUnmount(() => {
     width: 4px;
     height: 30px;
     border-radius: 2px;
-    background-color: rgba(0.85, 0.85, 0.9, 0.6);
   }
 }
 
@@ -1354,13 +1509,16 @@ onBeforeUnmount(() => {
   max-width: 200px;
   height: 8px;
   border-radius: 4px;
-  background-color: rgba(0.09, 0.09, 0.09, 0.3);
   overflow: hidden;
+
+  .preview-progress-track {
+    width: 100%;
+    height: 100%;
+  }
 
   .preview-progress-fill {
     width: 60%;
     height: 100%;
-    background-color: rgba(0.91, 0.918, 0.965, 0.6);
   }
 }
 
@@ -1369,9 +1527,7 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: space-between;
   padding: 8px 12px;
-  background-color: rgba(0.09, 0.09, 0.09, 0.3);
   border-radius: 8px;
-  color: rgb(0.922, 0.922, 0.922);
   font-size: 14px;
   max-width: 200px;
 
@@ -1382,7 +1538,7 @@ onBeforeUnmount(() => {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  border: 2px solid rgb(0.325, 0.427, 0.996);
+  border: 2px solid;
   position: relative;
   flex-shrink: 0;
 
@@ -1394,12 +1550,7 @@ onBeforeUnmount(() => {
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background-color: rgb(0.325, 0.427, 0.996);
     }
-  }
-
-  &.preview-radio-off {
-    border-color: rgba(0.922, 0.922, 0.922, 0.5);
   }
 }
 
@@ -1409,7 +1560,6 @@ onBeforeUnmount(() => {
   gap: 4px;
   width: 100%;
   max-width: 200px;
-  background-color: rgba(0, 0, 0, 0.3);
   border-radius: 8px;
   padding: 8px;
 
@@ -1417,12 +1567,6 @@ onBeforeUnmount(() => {
     padding: 6px 12px;
     border-radius: 6px;
     font-size: 13px;
-    color: rgb(0.922, 0.922, 0.922);
-
-    &.preview-sidebar-item-active {
-      background-color: rgba(0.325, 0.427, 0.996, 0.2);
-      color: rgb(0.549, 0.62, 1);
-    }
   }
 }
 
@@ -1430,29 +1574,24 @@ onBeforeUnmount(() => {
   width: 100%;
   max-width: 200px;
   height: 2px;
-  background-color: rgba(0.09, 0.09, 0.09, 0.3);
 }
 
 .preview-divider {
   width: 100%;
   max-width: 200px;
   height: 1px;
-  background-color: rgba(0.9, 0.9, 0.9, 0.3);
 }
 
 .preview-tooltip {
   display: inline-block;
   padding: 6px 12px;
-  background-color: rgba(0, 0, 0, 0.6);
   border-radius: 6px;
-  color: rgb(0.922, 0.922, 0.922);
   font-size: 13px;
 }
 
 .preview-dialog {
   width: 100%;
   max-width: 280px;
-  background-color: rgba(0.09, 0.09, 0.09, 0.6);
   border-radius: 16px;
   overflow: hidden;
 
@@ -1460,13 +1599,11 @@ onBeforeUnmount(() => {
     padding: 16px 16px 8px;
     font-size: 16px;
     font-weight: 500;
-    color: rgb(0.922, 0.922, 0.922);
   }
 
   .preview-dialog-body {
     padding: 0 16px 16px;
     font-size: 14px;
-    color: rgba(0.922, 0.922, 0.922, 0.7);
   }
 
   .preview-dialog-actions {
@@ -1477,7 +1614,6 @@ onBeforeUnmount(() => {
 
     span {
       font-size: 14px;
-      color: rgb(0.549, 0.62, 1);
       cursor: pointer;
     }
   }
@@ -1486,9 +1622,7 @@ onBeforeUnmount(() => {
 .preview-toast {
   display: inline-block;
   padding: 8px 16px;
-  background-color: rgba(0, 0, 0, 0.6);
   border-radius: 8px;
-  color: rgb(0.922, 0.922, 0.922);
   font-size: 14px;
 }
 
@@ -1500,9 +1634,7 @@ onBeforeUnmount(() => {
   .preview-badge {
     display: inline-block;
     padding: 2px 8px;
-    background-color: rgba(0.325, 0.427, 0.996, 0.6);
     border-radius: 8px;
-    color: rgb(0.922, 0.922, 0.922);
     font-size: 12px;
   }
 
@@ -1510,7 +1642,6 @@ onBeforeUnmount(() => {
     position: relative;
     width: 32px;
     height: 32px;
-    background-color: rgba(0.325, 0.427, 0.996, 0.6);
     border-radius: 50%;
 
     .preview-corner-dot {
@@ -1520,7 +1651,6 @@ onBeforeUnmount(() => {
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background-color: rgba(1, 0, 0, 0.8);
     }
   }
 }

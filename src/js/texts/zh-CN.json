@@ -121,7 +121,6 @@
   editor: {
     theme: {
       globalColor: "全局颜色",
-      globalColorDesc: "统一设置所有控件的色调，类似 MD3 动态配色",
       primaryColor: "主色",
       secondaryColor: "次要色",
       alpha: "不透明度",

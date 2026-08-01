@@ -121,7 +121,6 @@
   editor: {
     theme: {
       globalColor: "전역 색상",
-      globalColorDesc: "모든 컨트롤의 색조를 통일 설정, MD3 동적 색상과 유사",
       primaryColor: "주색",
       secondaryColor: "보조색",
       alpha: "불투명도",
