@@ -122,7 +122,6 @@
     theme: {
       globalColor: "全域顏色",
       primaryColor: "主色",
-      secondaryColor: "次要色",
       alpha: "不透明度",
       apply: "套用",
       preview: "預覽",

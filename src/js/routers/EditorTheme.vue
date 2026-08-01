@@ -41,18 +41,6 @@
                 @change="onPrimaryPaletteChange"
               />
             </Transition>
-            <div class="color-picker-row">
-              <span class="color-label">{{ t('editor.theme.secondaryColor') }}</span>
-              <div class="color-preview" :style="secondaryColorPreviewStyle" @click="expandedGlobalPicker = expandedGlobalPicker === 'secondary' ? '' : 'secondary'" />
-            </div>
-            <Transition name="expanded">
-              <Palette
-                v-if="expandedGlobalPicker === 'secondary'"
-                v-model="globalSecondaryPreview"
-                :use-alpha="true"
-                @change="onSecondaryPaletteChange"
-              />
-            </Transition>
             <mdui-button variant="filled" full-width @click="applyGlobalColor" style="margin-top: 12px">
               <ion-icon slot="icon" name="color-wand-outline" />
               {{ t('editor.theme.apply') }}
@@ -434,7 +422,6 @@ const showGlobalColor = ref(false)
 const showPreview = ref(false)
 const expandedGlobalPicker = ref('')
 const globalPrimaryPreview = ref([83, 109, 254, 1])
-const globalSecondaryPreview = ref([140, 158, 255, 1])
 
 const primaryColorPreviewStyle = computed(() => {
   const v = globalPrimaryPreview.value
@@ -449,25 +436,8 @@ const primaryColorPreviewStyle = computed(() => {
   }
 })
 
-const secondaryColorPreviewStyle = computed(() => {
-  const v = globalSecondaryPreview.value
-  const r = Math.round(v[0] || 0)
-  const g = Math.round(v[1] || 0)
-  const b = Math.round(v[2] || 0)
-  const a = v[3] !== undefined ? v[3] : 1
-  return {
-    background: `linear-gradient(rgba(${r},${g},${b},${a}), rgba(${r},${g},${b},${a})) 0 0 / cover,
-      linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 0 0 / 12px 12px,
-      linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 6px 6px / 12px 12px`
-  }
-})
-
 const onPrimaryPaletteChange = (rgba) => {
   globalPrimaryPreview.value = rgba
-}
-
-const onSecondaryPaletteChange = (rgba) => {
-  globalSecondaryPreview.value = rgba
 }
 
 // Read theme variable values from parsedConfig for live preview
@@ -549,6 +519,25 @@ const themeVars = computed(() => {
     '$cube_red_dot_alpha': 0.8,
     '$cube_headbar_alpha': 0.4,
     '$cube_bg_alpha': 0.15,
+    '$cube_border_alpha': 0.55,
+    '$cube_toggle_alpha': 0.3,
+    '$cube_toggle_unchecked_alpha': 0.3,
+    '$cube_toggle_checked_alpha': 0.5,
+    '$cube_toggle_switch_alpha': 0.65,
+    '$cube_button_transparent_hover_alpha': 0.25,
+    '$cube_button_transparent_pressed_alpha': 0.15,
+    '$cube_slider_progress_alpha': 0.6,
+    '$cube_slider_button_alpha': 0.95,
+    '$cube_header_alpha': 0.3,
+    '$cube_text_box_alpha': 0.3,
+    '$cube_container_components_full_alpha': 1,
+    '$cube_dialog_headbar_alpha': 0.3,
+    '$cube_headbar_gradient_alpha': 0.3,
+    '$cube_gloss_alpha': 0.3,
+    '$cube_gloss_inside_alpha': 0.1,
+    '$cube_cell_searched_alpha': 0.5,
+    '$cube_toggle_locked_alpha': 0.2,
+    '$cube_bar_alpha': 1,
   }
 
   // Read from parsedConfig
@@ -571,34 +560,34 @@ const themeVars = computed(() => {
 })
 
 // Helper: convert [r,g,b] or [r,g,b,a] (0-1 range) to CSS rgba string
-const cssColor = (val) => {
+// If alphaVar is provided, use that alpha value instead
+const cssColor = (val, alphaVar) => {
   if (!val || !Array.isArray(val)) return 'rgba(0,0,0,0.3)'
   const r = Math.round((val[0] || 0) * 255)
   const g = Math.round((val[1] || 0) * 255)
   const b = Math.round((val[2] || 0) * 255)
-  const a = val[3] !== undefined ? val[3] : 1
+  const a = alphaVar !== undefined ? alphaVar : (val[3] !== undefined ? val[3] : 1)
   return `rgba(${r},${g},${b},${a})`
 }
 
 // Helper: blend a base color (rgba) with the dynamic primary color
-// Used for dark controls that should be tinted by the primary color
-const blendColor = (baseRgb, primaryRgb, blendAlpha = 0.15) => {
+const blendColor = (baseRgb, primaryRgb, blendAlpha = 0.15, alphaVar) => {
   if (!baseRgb || !Array.isArray(baseRgb)) return 'rgba(0,0,0,0.3)'
   const r = Math.round(((baseRgb[0] || 0) * (1 - blendAlpha) + (primaryRgb[0] || 0) * blendAlpha) * 255)
   const g = Math.round(((baseRgb[1] || 0) * (1 - blendAlpha) + (primaryRgb[1] || 0) * blendAlpha) * 255)
   const b = Math.round(((baseRgb[2] || 0) * (1 - blendAlpha) + (primaryRgb[2] || 0) * blendAlpha) * 255)
-  const a = baseRgb[3] !== undefined ? baseRgb[3] : 1
+  const a = alphaVar !== undefined ? alphaVar : (baseRgb[3] !== undefined ? baseRgb[3] : 1)
   return `rgba(${r},${g},${b},${a})`
 }
 
-// Computed styles for preview elements using themeVars
+// Computed styles for preview elements using themeVars (with alpha)
 const previewStyles = computed(() => {
   const v = themeVars.value
   const primary = v['$cube_main_color'] || [0.325, 0.427, 0.996]
   return {
-    btnDefault: { background: blendColor(v['$cube_control_bg_color'], primary, 0.1), color: cssColor(v['$cube_button_text_color']), border: `1px solid ${cssColor(v['$cube_border_color'])}` },
-    btnHover: { background: blendColor(v['$cube_button_transparent_hover_color'], primary, 0.3), color: cssColor(v['$cube_button_text_color']) },
-    btnPressed: { background: blendColor(v['$cube_control_bg_color'], primary, 0.2), color: cssColor(v['$cube_button_text_color']) },
+    btnDefault: { background: blendColor(v['$cube_control_bg_color'], primary, 0.1, v['$cube_control_bg_alpha']), color: cssColor(v['$cube_button_text_color']), border: `1px solid ${cssColor(v['$cube_border_color'], v['$cube_border_alpha'])}` },
+    btnHover: { background: blendColor(v['$cube_button_transparent_hover_color'], primary, 0.3, v['$cube_button_transparent_hover_alpha']), color: cssColor(v['$cube_button_text_color']) },
+    btnPressed: { background: blendColor(v['$cube_control_bg_color'], primary, 0.2, v['$cube_button_transparent_pressed_alpha']), color: cssColor(v['$cube_button_text_color']) },
     btnMainDefault: { background: cssColor(v['$cube_button_main_default_color']), color: cssColor(v['$cube_button_text_color']) },
     btnMainHover: { background: cssColor(v['$cube_button_main_hover_color']), color: cssColor(v['$cube_button_text_color']) },
     btnMainPressed: { background: cssColor(v['$cube_button_main_pressed_color']), color: cssColor(v['$cube_button_text_color']) },
@@ -608,46 +597,46 @@ const previewStyles = computed(() => {
     btnLightDefault: { background: cssColor(v['$cube_button_light_default_color']), color: '#222' },
     btnLightHover: { background: cssColor(v['$cube_button_light_hover_color']), color: '#222' },
     btnLightPressed: { background: cssColor(v['$cube_button_light_pressed_color']), color: '#222' },
-    switchOn: { background: cssColor(v['$cube_toggle_indicator_checked_color']) },
-    switchOff: { background: blendColor(v['$cube_control_bg_color'], primary, 0.1) },
-    switchKnob: { background: cssColor(v['$cube_slider_button_default_color']) },
-    sliderTrack: { background: blendColor(v['$cube_slider_background_color'], primary, 0.05, ) },
-    sliderFill: { background: cssColor(v['$cube_slider_progress_default_color']) },
-    sliderThumb: { background: cssColor(v['$cube_slider_button_default_color']) },
-    topbar: { background: blendColor(v['$cube_headbar_color'], primary, 0.1), color: cssColor(v['$cube_headbar_title_color']) },
-    segmented: { background: blendColor(v['$cube_control_bg_color'], primary, 0.05) },
+    switchOn: { background: cssColor(v['$cube_toggle_indicator_checked_color'], v['$cube_toggle_checked_alpha']) },
+    switchOff: { background: blendColor(v['$cube_control_bg_color'], primary, 0.1, v['$cube_toggle_unchecked_alpha']) },
+    switchKnob: { background: cssColor(v['$cube_slider_button_default_color'], v['$cube_toggle_switch_alpha']) },
+    sliderTrack: { background: blendColor(v['$cube_slider_background_color'], primary, 0.05, v['$cube_slider_background_alpha']) },
+    sliderFill: { background: cssColor(v['$cube_slider_progress_default_color'], v['$cube_slider_progress_alpha']) },
+    sliderThumb: { background: cssColor(v['$cube_slider_button_default_color'], v['$cube_slider_button_alpha']) },
+    topbar: { background: blendColor(v['$cube_headbar_color'], primary, 0.1, v['$cube_headbar_alpha']), color: cssColor(v['$cube_headbar_title_color']) },
+    segmented: { background: blendColor(v['$cube_header_color'], primary, 0.05, v['$cube_header_alpha']) },
     segmentActive: { background: cssColor(v['$cube_button_main_default_color']), color: cssColor(v['$cube_button_text_color']) },
-    segment: { color: cssColor(v['$cube_text_color']) },
-    input: { background: blendColor(v['$cube_control_bg_color'], primary, 0.05), borderBottom: `2px solid ${cssColor(v['$cube_button_main_default_color'])}` },
-    inputPlaceholder: { color: cssColor(v['$cube_text_desc_color'] || v['$cube_text_color']) },
-    cell: { background: blendColor(v['$cube_cell_color'], primary, 0.05) },
+    segment: { color: cssColor(v['$cube_header_label_color']) },
+    input: { background: blendColor(v['$cube_text_box_default_color'], primary, 0.05, v['$cube_text_box_alpha']), borderBottom: `2px solid ${cssColor(v['$cube_button_main_default_color'])}` },
+    inputPlaceholder: { color: cssColor(v['$cube_text_box_place_holder_text_color']) },
+    cell: { background: blendColor(v['$cube_cell_color'], primary, 0.05, v['$cube_cell_alpha']) },
     cellSelected: { background: cssColor(v['$cube_cell_selected_color']) },
-    cellHighlight: { background: cssColor(v['$cube_cell_highlight_color']) },
-    containerItem: { background: cssColor(v['$cube_container_components_color']) },
-    containerItemFull: { background: cssColor(v['$cube_container_components_full_color']) },
-    scrollTrack: { background: blendColor(v['$cube_scroll_track_color'], primary, 0.05) },
-    scrollThumb: { background: cssColor(v['$cube_scroll_box_color']) },
-    progressTrack: { background: blendColor(v['$cube_progress_empty_color'], primary, 0.05) },
-    progressFill: { background: cssColor(v['$cube_progress_full_color']) },
-    dropdown: { background: blendColor(v['$cube_dropdown_background_color'], primary, 0.05), color: cssColor(v['$cube_text_color']) },
+    cellHighlight: { background: cssColor(v['$cube_cell_highlight_color'], v['$cube_cell_highlight_alpha']) },
+    containerItem: { background: cssColor(v['$cube_container_components_color'], v['$cube_container_components_alpha']) },
+    containerItemFull: { background: cssColor(v['$cube_container_components_full_color'], v['$cube_container_components_full_alpha']) },
+    scrollTrack: { background: blendColor(v['$cube_scroll_track_color'], primary, 0.05, v['$cube_scroll_track_alpha']) },
+    scrollThumb: { background: cssColor(v['$cube_scroll_box_color'], v['$cube_scroll_box_alpha']) },
+    progressTrack: { background: blendColor(v['$cube_progress_empty_color'], primary, 0.05, v['$cube_progress_empty_alpha']) },
+    progressFill: { background: cssColor(v['$cube_progress_full_color'], v['$cube_progress_full_alpha']) },
+    dropdown: { background: blendColor(v['$cube_dropdown_background_color'], primary, 0.05, v['$cube_dropdown_background_alpha']), color: cssColor(v['$cube_text_color']) },
     radioOn: { borderColor: cssColor(v['$cube_toggle_indicator_checked_color']) },
     radioDot: { background: cssColor(v['$cube_toggle_indicator_checked_color']) },
-    radioOff: { borderColor: cssColor(v['$cube_toggle_indicator_unchecked_color']) },
-    sidebar: { background: blendColor(v['$cube_sidebar_bg_color'], primary, 0.1) },
+    radioOff: { borderColor: cssColor(v['$cube_toggle_indicator_unchecked_color'], v['$cube_radio_background_alpha']) },
+    sidebar: { background: blendColor(v['$cube_sidebar_bg_color'], primary, 0.1, v['$cube_sidebar_alpha']) },
     sidebarItemActive: { background: blendColor(v['$cube_button_main_default_color'], primary, 0.2), color: cssColor(v['$cube_button_transparent_hover_color']) },
     sidebarItem: { color: cssColor(v['$cube_text_color']) },
-    underline: { background: cssColor(v['$cube_underline_color']) },
-    divider: { background: cssColor(v['$cube_divider_color']) },
-    tooltip: { background: cssColor(v['$cube_tooltip_background_color']), color: cssColor(v['$cube_text_color']) },
-    dialog: { background: cssColor(v['$cube_dialog_background_color']) },
+    underline: { background: cssColor(v['$cube_underline_color'], v['$cube_underline_alpha']) },
+    divider: { background: cssColor(v['$cube_divider_color'], v['$cube_divider_alpha']) },
+    tooltip: { background: cssColor(v['$cube_tooltip_background_color'], v['$cube_tooltip_background_alpha']), color: cssColor(v['$cube_text_color']) },
+    dialog: { background: cssColor(v['$cube_dialog_background_color'], v['$cube_dialog_background_alpha']) },
     dialogHeader: { color: cssColor(v['$cube_dialog_title_text_color']) },
     dialogBody: { color: cssColor(v['$cube_dialog_message_text_color']) },
     dialogConfirm: { color: cssColor(v['$cube_button_transparent_hover_color']) },
-    toast: { background: cssColor(v['$cube_toast_background_color']), color: cssColor(v['$cube_text_color']) },
-    badge: { background: cssColor(v['$cube_corner_master_color']), color: cssColor(v['$cube_text_color']) },
-    corner: { background: cssColor(v['$cube_corner_master_color']) },
-    cornerDot: { background: cssColor(v['$cube_red_dot_color']) },
-    previewCard: { background: blendColor(v['$cube_bg_color'], primary, 0.15) },
+    toast: { background: cssColor(v['$cube_toast_background_color'], v['$cube_toast_background_alpha']), color: cssColor(v['$cube_text_color']) },
+    badge: { background: cssColor(v['$cube_corner_master_color'], v['$cube_corner_master_alpha']), color: cssColor(v['$cube_text_color']) },
+    corner: { background: cssColor(v['$cube_corner_master_color'], v['$cube_corner_master_alpha']) },
+    cornerDot: { background: cssColor(v['$cube_red_dot_color'], v['$cube_red_dot_alpha']) },
+    previewCard: { background: blendColor(v['$cube_bg_color'], primary, 0.15, v['$cube_bg_alpha']) },
   }
 })
 
@@ -655,38 +644,50 @@ const applyGlobalColor = async () => {
   // Convert from 0-255 to 0-1 range
   const to01 = (arr) => arr.slice(0, 3).map(c => parseFloat((c / 255).toFixed(3)))
   const primary = to01(globalPrimaryPreview.value)
-  const secondary = to01(globalSecondaryPreview.value)
 
   // Derive hover (lighter) and pressed (darker) variants
   const hover = primary.map(c => Math.min(1, c + 0.1))
   const pressed = primary.map(c => Math.max(0, c - 0.1))
-  const secHover = secondary.map(c => Math.min(1, c + 0.1))
 
+  // All theme color variables that should be unified by the primary color
+  // This covers: main color, all button states, toggle, slider, cell, container,
+  // progress, bar, corner, text box hover, scoreboard score, etc.
   const updates = {
+    // Global
     '$cube_main_color': primary,
+    // Button - main
     '$cube_button_main_default_color': primary,
     '$cube_button_main_hover_color': hover,
     '$cube_button_main_pressed_color': pressed,
     '$cube_button_main_locked_color': [0.91, 0.918, 0.965],
-    '$cube_button_destructive_default_color': [0.69, 0, 0.125],
-    '$cube_button_destructive_hover_color': [0.776, 0.157, 0.157],
-    '$cube_button_destructive_pressed_color': [0.498, 0, 0],
-    '$cube_button_light_default_color': [0.8, 0.8, 0.8],
-    '$cube_button_light_hover_color': [0.7, 0.7, 0.7],
-    '$cube_button_light_pressed_color': [0.7, 0.7, 0.7],
+    // Button - transparent (hover/pressed use primary-derived)
     '$cube_button_transparent_default_color': [0.922, 0.922, 0.922],
-    '$cube_button_transparent_hover_color': secHover,
-    '$cube_button_transparent_pressed_color': secHover,
+    '$cube_button_transparent_hover_color': hover,
+    '$cube_button_transparent_pressed_color': pressed,
+    // Toggle
     '$cube_toggle_indicator_checked_color': primary,
     '$cube_toggle_indicator_unchecked_color': primary,
+    '$cube_toggle_checked_hover_color': primary,
+    // Slider
     '$cube_slider_progress_default_color': primary,
-    '$cube_slider_progress_hover_color': secHover,
-    '$cube_cell_selected_color': secHover,
-    '$cube_cell_highlight_color': secHover,
+    '$cube_slider_progress_hover_color': hover,
+    // Cell
+    '$cube_cell_selected_color': hover,
+    '$cube_cell_highlight_color': hover,
+    // Container
     '$cube_container_components_full_color': primary,
+    // Progress
     '$cube_progress_full_color': [0.91, 0.918, 0.965],
+    '$cube_progress_expected_color': [0.333, 0.65, 0.65],
+    // Text box
+    '$cube_text_box_hover_color': hover,
+    '$cube_text_box_pressed_color': pressed,
+    // Bar
     '$cube_bar_color': primary,
+    // Corner marker
     '$cube_corner_master_color': primary,
+    // Scoreboard
+    '$cube_scoreboard_player_score_color': primary,
   }
 
   let file = await fs.value.read("ui/_global_variables.json")
@@ -1689,15 +1690,19 @@ onBeforeUnmount(() => {
 .expanded-enter-active,
 .expanded-leave-active {
   transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+  overflow: hidden;
 }
 
 .expanded-enter-from,
 .expanded-leave-to {
   max-height: 0;
+  opacity: 0;
+  overflow: hidden;
 }
 
 .expanded-enter-to,
 .expanded-leave-from {
-  max-height: 1000px;
+  max-height: 2000px;
+  overflow: hidden;
 }
 </style>

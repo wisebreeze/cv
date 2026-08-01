@@ -122,7 +122,6 @@
     theme: {
       globalColor: "グローバルカラー",
       primaryColor: "メインカラー",
-      secondaryColor: "セカンダリカラー",
       alpha: "不透明度",
       apply: "適用",
       preview: "プレビュー",

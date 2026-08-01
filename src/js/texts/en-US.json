@@ -125,7 +125,6 @@
     theme: {
       globalColor: "Global Color",
       primaryColor: "Primary",
-      secondaryColor: "Secondary",
       alpha: "Opacity",
       apply: "Apply",
       preview: "Preview",

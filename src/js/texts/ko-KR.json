@@ -122,7 +122,6 @@
     theme: {
       globalColor: "전역 색상",
       primaryColor: "주색",
-      secondaryColor: "보조색",
       alpha: "불투명도",
       apply: "적용",
       preview: "미리보기",
