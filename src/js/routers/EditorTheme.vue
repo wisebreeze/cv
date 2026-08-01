@@ -697,6 +697,7 @@ const hslToRgb = (h, s, l) => {
 const tone = (h, s, l) => hslToRgb(h, s, Math.max(0, Math.min(1, l)))
 
 const applyGlobalColor = async () => {
+  try {
   // Convert from 0-255 to 0-1 range
   const to01 = (arr) => arr.slice(0, 3).map(c => parseFloat((c / 255).toFixed(3)))
   const primary = to01(globalPrimaryPreview.value)
@@ -871,27 +872,35 @@ const applyGlobalColor = async () => {
 
   fs.value.write("ui/_global_variables.json", file)
 
-  // Update parsedConfig option values to reflect changes
-  // option.id already includes the $ prefix (from key.slice(1, -1) which only strips quotes)
-  parsedConfig.value = parsedConfig.value.map(section => ({
-    ...section,
-    options: section.options.map(option => {
-      if (updates[option.id]) {
-        const newVal = [...updates[option.id]]
-        return {
-          ...option,
-          value: newVal,
-          previewValue: option.previewValue ? [...newVal.map((v, i) => i < 3 ? Math.round(v * 255) : v)] : option.previewValue
-        }
-      }
-      return option
-    })
-  }))
-
   // Store applied colors so preview reflects ALL changes (including vars not in parsedConfig)
   appliedColors.value = { ...updates }
 
+  // Update parsedConfig option values - direct mutation + force new array reference
+  const newConfig = []
+  for (const section of parsedConfig.value) {
+    const newSection = { ...section, options: [] }
+    for (const option of section.options) {
+      if (updates[option.id]) {
+        const newVal = [...updates[option.id]]
+        newSection.options.push({
+          ...option,
+          value: newVal,
+          previewValue: option.previewValue
+            ? [...newVal.map((v, i) => i < 3 ? Math.round(v * 255) : v)]
+            : option.previewValue
+        })
+      } else {
+        newSection.options.push({ ...option })
+      }
+    }
+    newConfig.push(newSection)
+  }
+  parsedConfig.value = newConfig
+
   showGlobalColor.value = false
+  } catch (e) {
+    console.error('applyGlobalColor error:', e)
+  }
 }
 
 const resetToDefaults = async () => {
