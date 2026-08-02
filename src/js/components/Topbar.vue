@@ -96,7 +96,7 @@ export default {
         'PanelEditor': 'editor.panel.title',
         'ThemeEditor': 'theme$title',
         'WordEditor': 'editor.word.screenTitle',
-        'FAQ': 'main.faqTitle',
+        'FAQ': 'download.faqTitle',
         'Group': 'main.groupChat',
         'Toolbox': 'toolbox.all',
         'CPS': 'toolbox.cps.cpsTest',
