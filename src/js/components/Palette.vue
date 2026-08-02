@@ -940,7 +940,7 @@ function processImageFile(file) {
 }
 </script>
 
-<style scoped type="scss">
+<style scoped lang="scss">
 $color-primary-dark: var(--mdui-color-primary-dark);
 $color-surface-container-highest: var(--mdui-color-surface-container-highest);
 $color-on-surface-variant: var(--mdui-color-on-surface-variant);
