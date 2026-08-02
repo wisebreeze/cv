@@ -211,13 +211,13 @@ onMounted(async () => {
   padding-top: 64px !important;
 }
 
-:deep(ion-icon) {
+:deep(.mdui-list-item ion-icon[slot="icon"]) {
   width: 1.2em !important;
   height: 1.2em !important;
   font-size: 1.2em !important;
 }
 
-:deep(ion-icon[slot="end-icon"]) {
+:deep(.mdui-list-item ion-icon[slot="end-icon"]) {
   width: 1.1em !important;
   height: 1.1em !important;
   font-size: 1.1em !important;
