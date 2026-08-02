@@ -10,16 +10,16 @@ By using CubeVisage, you agree to the terms of this Privacy Policy. If you do no
 ---
 
 ## Table of Contents
-1. [Information We Collect](#1.-information-we-collect)  
-2. [How We Use Your Data](#2.-how-we-use-your-data)  
-3. [Cookies & Local Storage](#3.-cookies--local-storage)  
-4. [Data Storage & Security](#4.-data-storage--security)  
-5. [Data Sharing & Disclosure](#5.-data-sharing--disclosure)  
-6. [Your Rights (GDPR & CCPA)](#6.-your-rights-gdpr--ccpa)  
-7. [Children’s Privacy](#7.-childrens-privacy)  
-8. [International Data Transfers](#8.-international-data-transfers)  
-9. [Policy Updates](#9.-policy-updates)  
-10. [Contact Us](#10. contact-us)  
+1. [Information We Collect](#1-information-we-collect)  
+2. [How We Use Your Data](#2-how-we-use-your-data)  
+3. [Cookies & Local Storage](#3-cookies-local-storage)  
+4. [Data Storage & Security](#4-data-storage-security)  
+5. [Data Sharing & Disclosure](#5-data-sharing-disclosure)  
+6. [Your Rights (GDPR & CCPA)](#6-your-rights-gdpr-ccpa)  
+7. [Children’s Privacy](#7-childrens-privacy)  
+8. [International Data Transfers](#8-international-data-transfers)  
+9. [Policy Updates](#9-policy-updates)  
+10. [Contact Us](#10-contact-us)  
 
 ---
 
