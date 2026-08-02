@@ -51,7 +51,7 @@ function generateSFC(source) {
     '  const links = doc.querySelectorAll(`a[href^="#"]`)',
     '  links.forEach(link => {',
     '    const href = link.getAttribute("href").substring(1)',
-    '    if (href) { link.href = "#" + generateGitHubHeadingId(href) }',
+    '    if (href) { link.setAttribute("href", "#" + generateGitHubHeadingId(href)) }',
     '  })',
     '  return doc.body.innerHTML',
     '}',
