@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 100%">
     <Topbar v-if="isDesktop" />
     <div class="editor-container" :id="isDesktop ? 'content' : ''">
       <div v-if="isDesktop" class="editor-sidebar">
