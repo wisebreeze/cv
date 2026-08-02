@@ -38,7 +38,7 @@ function generateSFC(source) {
     '    .replace(/\\s+/g, "-")',
     '    .replace(/-+/g, "-")',
     '    .replace(/^-+|-+$/g, "")',
-    '    .replace(/[\\u4e00-\\u9fa5]/g, (c) => encodeURIComponent(c).replace(/%/g, ""))',
+    '    .replace(/[\\u4e00-\\u9fa5]/g, (c) => encodeURIComponent(c).replace(/%/g, "").toLowerCase())',
     '}',
     '',
     'function processHtmlContent(html) {',
