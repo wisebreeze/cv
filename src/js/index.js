@@ -11,7 +11,8 @@ import { createApp } from 'vue'
 import App from './routers/App'
 import i18n from './i18n'
 import router from './routers/index'
-import 'mdui/mdui.global.js';
+import * as mdui from 'mdui'
+window.mdui = mdui
 
 const app = createApp(App);
 app.use(i18n).use(router).mount('#app');
