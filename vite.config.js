@@ -63,7 +63,12 @@ export default defineConfig({
     outDir: resolve(__dirname, 'dist'),
     emptyOutDir: true,
     assetsDir: 'assets',
+    target: 'esnext',
+    
     cssMinify: 'esbuild',
+    reportCompressedSize: false,
+    cssCodeSplit: false,
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       input: {
         index: resolve(__dirname, 'src/index.html')
