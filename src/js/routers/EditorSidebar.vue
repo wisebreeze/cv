@@ -47,9 +47,9 @@
               :key="index"
               @click="menuOnClick(item.path)"
             >
-              <ion-icon slot="icon" style="height: 1.8em;width: 1.8em" :name="item.icon"></ion-icon>
+              <ion-icon slot="icon" style="height: 1.2em;width: 1.2em" :name="item.icon"></ion-icon>
               {{ t(item.text) }}
-              <ion-icon slot="end-icon" style="height: 1.5em;width: 1.5em" name="chevron-forward-outline" />
+              <ion-icon slot="end-icon" style="height: 1.1em;width: 1.1em" name="chevron-forward-outline" />
             </mdui-list-item>
             <div v-if="isSidebar" style="padding: 0.5rem 0.5rem 0 0.5rem">
               <mdui-button
@@ -209,6 +209,18 @@ onMounted(async () => {
 <style lang="scss" scoped>
 #content {
   padding-top: 64px !important;
+}
+
+:deep(ion-icon) {
+  width: 1.2em !important;
+  height: 1.2em !important;
+  font-size: 1.2em !important;
+}
+
+:deep(ion-icon[slot="end-icon"]) {
+  width: 1.1em !important;
+  height: 1.1em !important;
+  font-size: 1.1em !important;
 }
 
 .desktop-home {
