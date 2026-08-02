@@ -309,6 +309,8 @@ $leave-easing: ease-in;
 #content {
   padding-top: 64px;
   overflow: hidden;
+  display: grid !important;
+  flex-direction: row !important;
 }
 
 .editor-container {
