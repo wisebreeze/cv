@@ -1,5 +1,8 @@
 import { marked } from 'marked'
 import frontmatter from 'front-matter'
+import { readFileSync } from 'fs'
+import { resolve, dirname } from 'path'
+import { fileURLToPath } from 'url'
 
 function generateSFC(source) {
   const { body } = frontmatter(source)
@@ -293,29 +296,27 @@ function generateSFC(source) {
 }
 
 export default function markdownPlugin() {
-  let vueTransformHandler = null
-
   return {
     name: 'cubevisage-markdown',
     enforce: 'pre',
-    configResolved(config) {
-      const vuePlugin = config.plugins.find(p => p.name === 'vite:vue')
-      const t = vuePlugin?.transform
-      if (t && typeof t === 'object' && typeof t.handler === 'function') {
-        vueTransformHandler = t.handler
-      } else if (typeof t === 'function') {
-        vueTransformHandler = t
+    resolveId(source, importer) {
+      if (process.env.DEBUG_MD) console.error('[md resolveId]', source)
+      if (source.endsWith('.md') && !source.includes('\0') && !source.includes('*')) {
+        const base = importer ? dirname(importer) : process.cwd()
+        const absPath = resolve(base, source)
+        const resolved = absPath + '.vue'
+        if (process.env.DEBUG_MD) console.error('[md resolveId ->]', resolved)
+        return resolved
       }
+      return null
     },
-    async transform(source, id) {
-      if (!id.endsWith('.md')) return null
+    load(id) {
+      if (!id.endsWith('.md.vue')) return null
+      const mdPath = id.slice(0, -'.vue'.length)
+      const source = readFileSync(mdPath, 'utf-8')
       const sfc = generateSFC(source)
-      if (process.env.DEBUG_MD) {
-        console.error('=== SFC for', id, '===')
-        console.error(sfc)
-      }
-      const result = await vueTransformHandler?.call(this, sfc, `${id}.vue`)
-      return result
+      if (process.env.DEBUG_MD) console.error('[md load SFC generated for]', mdPath)
+      return sfc
     }
   }
 }
