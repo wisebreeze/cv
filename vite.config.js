@@ -65,8 +65,8 @@ export default defineConfig({
     assetsDir: 'assets',
     target: 'esnext',
     
-    cssMinify: 'esbuild',
     reportCompressedSize: false,
+    cssMinify: 'esbuild',
     cssCodeSplit: false,
     chunkSizeWarningLimit: 1000,
     rollupOptions: {
