@@ -308,11 +308,13 @@ $leave-easing: ease-in;
 
 #content {
   padding-top: 64px;
+  overflow: hidden;
 }
 
 .editor-container {
   display: grid;
   grid-template-columns: 340px 1fr;
+  grid-template-rows: 1fr;
   width: 100%;
   height: 100%;
 }
@@ -320,13 +322,16 @@ $leave-easing: ease-in;
 .editor-sidebar {
   // border-right: 1px solid rgba(var(--mdui-color-outline-variant), 1);
   z-index: 2001;
+  overflow-y: auto;
 }
 
 .editor-content {
   overflow: hidden;
   position: relative;
   z-index: 2001;
-  & .desktop {
+  height: 100%;
+  min-height: 0;
+  &.desktop {
     background-color: rgba(255, 255, 255, 0.4);
     border-radius: 1.5rem 0 0 0;
   }
