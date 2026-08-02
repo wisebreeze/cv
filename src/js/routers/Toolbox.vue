@@ -279,6 +279,7 @@ const touchEndHandler = (e) => {
 }
 
 ion-icon {
+  font-size: 22px;
   margin-right: 16px;
   transition: transform 0.2s;
 }
@@ -292,6 +293,7 @@ ion-icon {
 }
 
 .tool-arrow {
+  font-size: 18px;
   margin-left: 16px;
   opacity: 0.6;
   transition: transform 0.2s;
