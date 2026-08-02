@@ -66,7 +66,6 @@ export default defineConfig({
     target: 'esnext',
     
     reportCompressedSize: false,
-    cssMinify: 'esbuild',
     cssCodeSplit: false,
     chunkSizeWarningLimit: 1000,
     rollupOptions: {
