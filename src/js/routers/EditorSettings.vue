@@ -194,9 +194,7 @@
 <script setup>
 import Topbar from '../components/Topbar.vue'
 import { inject, ref, onBeforeUnmount, onMounted, computed, watch, nextTick } from 'vue'
-import configRaw from '../data/_global_variables.json.txt?raw'
-import JSON5 from 'json5'
-const configData = JSON5.parse(configRaw)
+import configData from '../data/_global_variables.json.txt?raw'
 import { useI18n } from 'vue-i18n'
 
 import imgTextShadows from '../../image/text_shadows.jpg'
