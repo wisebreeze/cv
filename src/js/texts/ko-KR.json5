@@ -1,5 +1,5 @@
 {
-  gui$packName: "큐브비사지",
+  gui$packName: "큐브비지",
   gui$light: "밝게",
   gui$dark: "어둡게",
   gui$system: "시스템 설정",
@@ -24,7 +24,7 @@
   gui$multiple: "다중 선택",
   home$title: "사용자 정의, 간결하고 실용적인 UI",
   custom$title: "사용자 정의",
-  custom$desc: "큐브비사지를 쉽게 사용자 정의",
+  custom$desc: "큐브비지를 쉽게 사용자 정의",
   custom$new$title: "리소스 팩 정보",
   custom$new$name: "리소스 팩 이름",
   custom$new$desc: "리소스 팩 설명",
@@ -383,7 +383,7 @@
     help4: 'ZIP 파일 이동으로 가져오기',
     help4desc: '압축 파일을 Minecraft 리소스 팩 폴더로 직접 이동하세요. \n- Windows 경로는 %LOCALAPPDATA%\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang\\resource_packs\n- Android 외부 저장소 경로는 Android/data/com.mojang.minecraftpe/files/games/com.mojang/resource_packs\n- IOS 경로는 [device]/Minecraft/games/com.mojang/resource_packs',
     help5: '게임 설정에서 리소스 팩 활성화',
-    help5desc: '게임 설정에 들어가서 전역 리소스를 찾아 다운로드한 리소스 팩을 활성화하고, 활성화 후 큐브비사지보다 순서가 높은지 확인하세요.',
+    help5desc: '게임 설정에 들어가서 전역 리소스를 찾아 다운로드한 리소스 팩을 활성화하고, 활성화 후 큐브비지보다 순서가 높은지 확인하세요.',
     help6: '게임 설정에서 이전 사용자 정의 팩 삭제',
     help6desc: '게임 > 설정 > 저장 공간 > 리소스 팩으로 이동하여 이전 버전의 리소스 팩을 선택하고 삭제 버튼을 클릭하세요.\n삭제 버튼을 클릭하면 두 번째 확인 창이 나타납니다. 다시 삭제 버튼을 클릭하세요.'
   },
