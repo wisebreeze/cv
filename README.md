@@ -4,7 +4,7 @@
 [![简体中文版本](https://img.shields.io/badge/语言-简体中文-blue)](https://github.com/wisebreeze/cv/blob/web/README.zh.md)
 [![GitHub Stars](https://img.shields.io/github/stars/wisebreeze/cv)](https://github.com/wisebreeze/cv)
 [![Vue](https://img.shields.io/badge/Framework-Vue-42b883)](https://vuejs.org/)
-[![Webpack](https://img.shields.io/badge/Bundler-Webpack-8dd6f9)](https://webpack.js.org/)
+[![Vite](https://img.shields.io/badge/Bundler-Vite-646cff)](https://vite.dev/)
 
 </p>
 
@@ -19,12 +19,12 @@
 |---------------|-----------------|
 | **Core**      | Vue 3           |
 | **Styling**    | SCSS           |
-| **Build**      | Webpack 5     |
+| **Build**      | Vite 8 (Rolldown) |
 
 ## Quick Start
 
 ### Prerequisites
-- Node.js 18+
+- Node.js 20.19+ (or 22.12+)
 
 Clone with submodules
 
@@ -38,7 +38,7 @@ Install dependencies
 Start development  
 \* Local website: [localhost:8080](http://localhost:8080/)
 
-    npm start
+    npm run dev
 
 Building
 

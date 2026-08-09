@@ -4,7 +4,7 @@
 [![English Version](https://img.shields.io/badge/Language-English-blue)](https://github.com/wisebreeze/cv)
 [![GitHub Stars](https://img.shields.io/github/stars/wisebreeze/cv)](https://github.com/wisebreeze/cv)
 [![Vue](https://img.shields.io/badge/框架-Vue-42b883)](https://vuejs.org/)
-[![Webpack](https://img.shields.io/badge/打包工具-Webpack-8dd6f9)](https://webpack.js.org/)
+[![Vite](https://img.shields.io/badge/打包工具-Vite-646cff)](https://vite.dev/)
 
 </p>
 
@@ -19,12 +19,12 @@
 |--------------|----------------|
 | **核心**     | Vue 3          |
 | **样式**     | SCSS           |
-| **构建**     | Webpack 5      |
+| **构建**     | Vite 8 (Rolldown) |
 
 ## 快速开始
 
 ### 环境要求
-- Node.js 18+
+- Node.js 20.19+（或 22.12+）
 
 克隆仓库（包含子模块）
 
@@ -38,7 +38,7 @@
 启动开发服务器  
 \* 本地访问: [localhost:8080](http://localhost:8080/)
 
-    npm start
+    npm run dev
 
 构建项目
 
