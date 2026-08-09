@@ -1,10 +1,11 @@
 <h1 align="center">方窗网站</h1>
 <p align="center">
 
-[![English Version](https://img.shields.io/badge/Language-English-blue)](https://github.com/wisebreeze/cv)
-[![GitHub Stars](https://img.shields.io/github/stars/wisebreeze/cv)](https://github.com/wisebreeze/cv)
-[![Vue](https://img.shields.io/badge/框架-Vue-42b883)](https://vuejs.org/)
-[![Vite](https://img.shields.io/badge/打包工具-Vite-646cff)](https://vite.dev/)
+**简体中文** · [English](https://github.com/wisebreeze/cv)
+[![GitHub Stars](https://img.shields.io/github/stars/wisebreeze/cv?logo=github)](https://github.com/wisebreeze/cv)
+[![Vue](https://img.shields.io/badge/Vue-3-42b883?logo=vuedotjs&logoColor=fff)](https://vuejs.org/)
+[![Vite](https://img.shields.io/badge/Vite-8-646cff?logo=vite&logoColor=fff)](https://vite.dev/)
+[![Node.js](https://img.shields.io/badge/Node-20.19+-339933?logo=nodedotjs&logoColor=fff)](https://nodejs.org/)
 
 </p>
 
