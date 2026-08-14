@@ -190,15 +190,16 @@ onMounted(() => {
 <style lang="scss" scoped>
 .custom-route {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow-y: auto;
   padding: 2rem;
   padding-top: 64px !important;
+  padding-bottom: 96px;
   background: rgb(var(--mdui-color-surface));
 
   .content-container {
     width: 100%;
     max-width: 800px;
+    margin: auto;
 
     .header-section {
       margin-bottom: 2.5rem;
@@ -305,10 +306,30 @@ onMounted(() => {
 
 @media (max-width: 767px) {
   .content-container {
-    width: 70% !important;
+    width: 90% !important;
+
+    .header-section {
+      margin-bottom: 1.5rem;
+    }
 
     .card-container {
       grid-template-columns: 1fr !important;
+      gap: 0.75rem;
+
+      .action-card {
+        padding: 1rem;
+        height: 84px;
+
+        .card-content {
+          .card-icon {
+            font-size: 1.5rem;
+          }
+
+          .card-text {
+            font-size: 0.9rem;
+          }
+        }
+      }
     }
   }
 }
