@@ -339,10 +339,31 @@ export default class FileSystem {
   async exportToZip(filename = 'export.zip', progressCallback, completedCallback) {
     const zip = new JSZip();
     const files = await this._getAllFiles();
-    files.forEach(({ path, content }) => {
-      zip.file(path, content);
+
+    // Already-compressed file types: use STORE (no recompression) for speed.
+    // Re-deflating audio/images/video/archives is slow and yields no size gain,
+    // which is the main cause of progress stalling at a fixed percentage.
+    const storeExt = /\.(ogg|mp3|wav|m4a|aac|flac|opus|webm|mp4|mkv|mov|avi|png|jpg|jpeg|gif|webp|bmp|ico|zip|gz|rar|7z|tar|br|zst)$/i;
+
+    let skipped = 0;
+    files.forEach(({ path, content, metadata }) => {
+      // Skip directory markers and empty/invalid entries
+      if (metadata?.isDirectory || content === '[DIR]' || content == null) {
+        skipped++;
+        return;
+      }
+      const compression = storeExt.test(path) ? 'STORE' : 'DEFLATE';
+      zip.file(path, content, {
+        compression,
+        compressionOptions: compression === 'DEFLATE' ? { level: 6 } : undefined
+      });
     });
-    return zip.generateAsync({ type: 'blob' }, progressCallback)
+
+    return zip.generateAsync({
+      type: 'blob',
+      compression: 'DEFLATE',
+      compressionOptions: { level: 6 }
+    }, progressCallback)
       .then(blob => {
         const downloadBlob = (blob, fileName) => {
           if (typeof Blob === 'undefined') {
