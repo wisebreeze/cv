@@ -341,29 +341,83 @@ export default class FileSystem {
     const files = await this._getAllFiles();
 
     // Already-compressed file types: use STORE (no recompression) for speed.
-    // Re-deflating audio/images/video/archives is slow and yields no size gain,
-    // which is the main cause of progress stalling at a fixed percentage.
     const storeExt = /\.(ogg|mp3|wav|m4a|aac|flac|opus|webm|mp4|mkv|mov|avi|png|jpg|jpeg|gif|webp|bmp|ico|zip|gz|rar|7z|tar|br|zst)$/i;
 
-    let skipped = 0;
-    files.forEach(({ path, content, metadata }) => {
-      // Skip directory markers and empty/invalid entries
-      if (metadata?.isDirectory || content === '[DIR]' || content == null) {
-        skipped++;
-        return;
+    // Validate and normalize content before adding to zip.
+    // JSZip's generateAsync can hang indefinitely if a file's content is
+    // undefined/null, a detached ArrayBuffer (byteLength === 0, e.g. after
+    // being transferred to a Web Worker), or an unreadable Blob. The error
+    // happens inside an internal stream pipeline that doesn't propagate to
+    // the .catch() handler, so the promise never settles and progress
+    // freezes at whatever percentage that file was being processed at.
+    const skipped = [];
+    for (const { path, content, metadata } of files) {
+      // Skip directory markers
+      if (metadata?.isDirectory || content === '[DIR]') {
+        continue;
       }
+
+      let normalized;
+      try {
+        if (content == null) {
+          // undefined / null -> skip (would hang JSZip)
+          skipped.push(`${path} (null content)`);
+          continue;
+        } else if (typeof content === 'string') {
+          normalized = content;
+        } else if (content instanceof Blob) {
+          // Pre-read Blob to Uint8Array: materializes data and catches
+          // read errors (revoked/empty/corrupt) before zip generation.
+          const ab = await content.arrayBuffer();
+          normalized = new Uint8Array(ab);
+        } else if (content instanceof Uint8Array) {
+          // Check for detached buffer (transferred to worker -> byteLength 0)
+          if (content.buffer.byteLength === 0) {
+            skipped.push(`${path} (detached buffer)`);
+            continue;
+          }
+          normalized = content;
+        } else if (content instanceof ArrayBuffer) {
+          // Detached ArrayBuffer has byteLength === 0
+          if (content.byteLength === 0) {
+            skipped.push(`${path} (detached ArrayBuffer)`);
+            continue;
+          }
+          normalized = new Uint8Array(content);
+        } else {
+          // Unknown type (number, boolean, plain object that wasn't stringified)
+          // Fallback: stringify to avoid passing an invalid type to JSZip.
+          normalized = String(content);
+        }
+      } catch (e) {
+        skipped.push(`${path} (read error: ${e.message || e})`);
+        continue;
+      }
+
       const compression = storeExt.test(path) ? 'STORE' : 'DEFLATE';
-      zip.file(path, content, {
+      zip.file(path, normalized, {
         compression,
         compressionOptions: compression === 'DEFLATE' ? { level: 6 } : undefined
       });
-    });
+    }
 
-    return zip.generateAsync({
+    if (skipped.length > 0) {
+      console.warn(`[exportToZip] Skipped ${skipped.length} invalid file(s):`, skipped);
+    }
+
+    // Safety timeout: if generateAsync hasn't settled within 5 minutes,
+    // reject so the UI can recover instead of hanging forever.
+    const generatePromise = zip.generateAsync({
       type: 'blob',
       compression: 'DEFLATE',
       compressionOptions: { level: 6 }
-    }, progressCallback)
+    }, progressCallback);
+
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => reject(new Error('Zip generation timed out (possible corrupt file)')), 5 * 60 * 1000);
+    });
+
+    return Promise.race([generatePromise, timeoutPromise])
       .then(blob => {
         const downloadBlob = (blob, fileName) => {
           if (typeof Blob === 'undefined') {
