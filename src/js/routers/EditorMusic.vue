@@ -494,7 +494,8 @@ const addAlbum = async () => {
   try {
     if (newAlbumName.value && newAlbumArtist.value) {
       let settings = await fs.value.read('ui/_setting.json')
-      const sounds = await fs.value.read('sounds/sound_definitions.json')
+      let sounds = await fs.value.read('sounds/sound_definitions.json')
+      if (!sounds) sounds = {}
       settings = repairSettings(settings)
       if (currentEditAlbumIndex.value >= 0) {
         // 编辑专辑
@@ -507,18 +508,26 @@ const addAlbum = async () => {
             : newAlbumCover.value
         }
   
-        if (await fs.value.exist('ui/_setting.json')) {
-          const id = albumToUpdate.id
-          newAlbumCover.value && fs.value.write('textures/cube/cover/album/'+id+'.png', newAlbumCover.value)
-  
-          const albumData = settings.music_album.modifications[0].value.find(obj => Object.keys(obj)[0] === id + "_album@cn80b37451.album")
-          const albumSidebarData = settings.music_sidebar_content.modifications[0].value.find(obj => Object.keys(obj)[0] === id + "_navigation_tab@cube_sidebar.tab_panel")
-          // const albumContent = settings.music_content.modifications[0].value.find(obj => Object.keys(obj)[0] === id + "_content@cube_music.content")
-          albumData[Object.keys(albumData)[0]].$album_name = newAlbumName.value
-          albumSidebarData[Object.keys(albumSidebarData)[0]].$control_text = newAlbumName.value
+        const id = albumToUpdate.id
+        newAlbumCover.value && fs.value.write('textures/cube/cover/album/'+id+'.png', newAlbumCover.value)
+
+        const albumData = settings.music_album.modifications[0].value.find(obj => Object.keys(obj)[0] === id + "_album@cn80b37451.album")
+        const albumSidebarData = settings.music_sidebar_content.modifications[0].value.find(obj => Object.keys(obj)[0] === id + "_navigation_tab@cube_sidebar.tab_panel")
+        if (albumData) albumData[Object.keys(albumData)[0]].$album_name = newAlbumName.value
+        if (albumSidebarData) albumSidebarData[Object.keys(albumSidebarData)[0]].$control_text = newAlbumName.value
+        if (!settings[id + "Album@cn80b37451.f"]) {
+          settings[id + "Album@cn80b37451.f"] = {
+            "$album_cover": newAlbumCover.value ? '($cube_path_base+\'cover/album/' + id + '.png\')' : '($cube_path_icons+custom)',
+            "$album_describe": newAlbumArtist.value,
+            "$album_name": newAlbumName.value,
+            "$album_id": "cube.music." + id,
+            "$listContent": []
+          }
+        } else {
           settings[id + "Album@cn80b37451.f"].$album_describe = newAlbumArtist.value
           settings[id + "Album@cn80b37451.f"].$album_name = newAlbumName.value
         }
+        if (!sounds["cube.music." + id]) sounds["cube.music." + id] = { category: "ui", sounds: [] }
       } else {
         const id = randomString()
         // 添加专辑
@@ -529,47 +538,45 @@ const addAlbum = async () => {
           id,
           songs: []
         })
-        if (await fs.value.exist('ui/_setting.json')) {
-          newAlbumCover.value && fs.value.write('textures/cube/cover/album/'+id+'.png', newAlbumCover.value)
-  
-          const albumData = {}
-          const albumSidebarData = {}
-          const albumContent = {}
-          albumData[id + "_album@cn80b37451.album"] = {
-            "$album_id": id,
-            "$album_name": newAlbumName.value,
-            "$album_cover": newAlbumCover.value ? '($cube_path_base+\'cover/album/' + id + '.png\')' : '($cube_path_icons+custom)',
-            "$album_cover_size": ["100%y","85%"],
-            "$toggle_group_index": 5 + settings.music_album.modifications[0].value.length
-          }
-          albumSidebarData[id + "_navigation_tab@cube_sidebar.tab_panel"] = {
-            "$tab_name": id + "_tab",
-            "$sub_tab_name": id + "albumToggle",
-            "$toggle_group_index": 5 + settings.music_album.modifications[0].value.length,
-            "$control_text": newAlbumName.value,
-            "$control_icon_base": newAlbumCover.value ? '($cube_path_base+\'cover/album/' + id + '.png\')' : '($cube_path_icons+custom)',
-          }
-          albumContent[id + "_content@cube_music.content"] = {
-            "$content_panel": "cube_setting." + id + "Album",
-            "$visible_bind_source_control": id + "_tab"
-          }
-          settings.music_album.modifications[0].value.push(albumData)
-          settings.music_sidebar_content.modifications[0].value.push(albumSidebarData)
-          settings.music_content.modifications[0].value.push(albumContent)
-          settings[id + "Album@cn80b37451.f"] = {
-            "$album_cover": newAlbumCover.value ? '($cube_path_base+\'cover/album/' + id + '.png\')' : '($cube_path_icons+custom)',
-            "$album_describe": newAlbumArtist.value,
-            "$album_name": newAlbumName.value,
-            "$album_id": "cube.music." + id,
-            "$listContent": []
-          }
-          sounds["cube.music." + id] = {
-            category: "ui",
-            sounds: []
-          }
+        newAlbumCover.value && fs.value.write('textures/cube/cover/album/'+id+'.png', newAlbumCover.value)
+
+        const albumData = {}
+        const albumSidebarData = {}
+        const albumContent = {}
+        albumData[id + "_album@cn80b37451.album"] = {
+          "$album_id": id,
+          "$album_name": newAlbumName.value,
+          "$album_cover": newAlbumCover.value ? '($cube_path_base+\'cover/album/' + id + '.png\')' : '($cube_path_icons+custom)',
+          "$album_cover_size": ["100%y","85%"],
+          "$toggle_group_index": 5 + settings.music_album.modifications[0].value.length
+        }
+        albumSidebarData[id + "_navigation_tab@cube_sidebar.tab_panel"] = {
+          "$tab_name": id + "_tab",
+          "$sub_tab_name": id + "albumToggle",
+          "$toggle_group_index": 5 + settings.music_album.modifications[0].value.length,
+          "$control_text": newAlbumName.value,
+          "$control_icon_base": newAlbumCover.value ? '($cube_path_base+\'cover/album/' + id + '.png\')' : '($cube_path_icons+custom)',
+        }
+        albumContent[id + "_content@cube_music.content"] = {
+          "$content_panel": "cube_setting." + id + "Album",
+          "$visible_bind_source_control": id + "_tab"
+        }
+        settings.music_album.modifications[0].value.push(albumData)
+        settings.music_sidebar_content.modifications[0].value.push(albumSidebarData)
+        settings.music_content.modifications[0].value.push(albumContent)
+        settings[id + "Album@cn80b37451.f"] = {
+          "$album_cover": newAlbumCover.value ? '($cube_path_base+\'cover/album/' + id + '.png\')' : '($cube_path_icons+custom)',
+          "$album_describe": newAlbumArtist.value,
+          "$album_name": newAlbumName.value,
+          "$album_id": "cube.music." + id,
+          "$listContent": []
+        }
+        sounds["cube.music." + id] = {
+          category: "ui",
+          sounds: []
         }
       }
-  
+
       fs.value.write('ui/_setting.json', settings)
       fs.value.write('sounds/sound_definitions.json', sounds)
       resetAddAlbumFields()
@@ -582,15 +589,29 @@ const addAlbum = async () => {
 const addSong = async () => {
   try {
     if (newSongTitle.value && newSongDuration.value) {
-      const settings = await fs.value.read('ui/_setting.json')
+      let settings = await fs.value.read('ui/_setting.json')
       let sounds = await fs.value.read('sounds/sound_definitions.json')
       if (!sounds) sounds = {}
-  
+      settings = repairSettings(settings)
+
+      const albumKey = currentAlbum.value.id + "Album@cn80b37451.f"
+      if (!settings[albumKey]) {
+        settings[albumKey] = {
+          "$album_cover": '($cube_path_icons+custom)',
+          "$album_describe": currentAlbum.value.artist || '',
+          "$album_name": currentAlbum.value.name || '',
+          "$album_id": "cube.music." + currentAlbum.value.id,
+          "$listContent": []
+        }
+      }
+      if (!settings[albumKey].$listContent) settings[albumKey].$listContent = []
+      if (!sounds["cube.music." + currentAlbum.value.id]) sounds["cube.music." + currentAlbum.value.id] = { category: "ui", sounds: [] }
+
       if (currentEditSongIndex.value >= 0 && currentAlbum.value) {
         // 编辑音乐
         const songToUpdate = currentAlbum.value.songs[currentEditSongIndex.value]
         const id = songToUpdate.id
-        const dataControl = settings[currentAlbum.value.id + "Album@cn80b37451.f"].$listContent[currentEditSongIndex.value]
+        const dataControl = settings[albumKey].$listContent[currentEditSongIndex.value]
         const data = dataControl[Object.keys(dataControl)[0]]
         const [minutes, seconds] = parseTime(newSongDuration.value)
         songToUpdate.title = newSongTitle.value
@@ -655,7 +676,7 @@ const addSong = async () => {
           stream: true,
           volume: 0.5
         })
-        settings[currentAlbum.value.id + "Album@cn80b37451.f"].$listContent.push(songDetails)
+        settings[albumKey].$listContent.push(songDetails)
   
         if (audioFileNamePreview.value) batchConvertFile([{buffer: audioFile.value, fileName: audioFileNamePreview.value, id, index: currentAlbum.value.songs.length - 1}])
       }
@@ -1235,8 +1256,23 @@ const handleBatchAddFiles = () => {
   multiSelectFileInput.value.click()
 }
 const handleBatchAddFilesChange = async e => {
-  const settings = await fs.value.read('ui/_setting.json')
-  const sounds = await fs.value.read('sounds/sound_definitions.json')
+  let settings = await fs.value.read('ui/_setting.json')
+  let sounds = await fs.value.read('sounds/sound_definitions.json')
+  if (!sounds) sounds = {}
+  settings = repairSettings(settings)
+
+  const albumKey = currentAlbum.value.id + "Album@cn80b37451.f"
+  if (!settings[albumKey]) {
+    settings[albumKey] = {
+      "$album_cover": '($cube_path_icons+custom)',
+      "$album_describe": currentAlbum.value.artist || '',
+      "$album_name": currentAlbum.value.name || '',
+      "$album_id": "cube.music." + currentAlbum.value.id,
+      "$listContent": []
+    }
+  }
+  if (!settings[albumKey].$listContent) settings[albumKey].$listContent = []
+  if (!sounds["cube.music." + currentAlbum.value.id]) sounds["cube.music." + currentAlbum.value.id] = { category: "ui", sounds: [] }
 
   const files = e.target.files
   if (files.length > 0) {
@@ -1287,7 +1323,7 @@ const handleBatchAddFilesChange = async e => {
               stream: true,
               volume: 0.5
             })
-            settings[currentAlbum.value.id + "Album@cn80b37451.f"].$listContent.push(songDetails)
+            settings[albumKey].$listContent.push(songDetails)
 
             if (!isIOS) {
               const audio = new Audio()
