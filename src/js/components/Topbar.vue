@@ -156,6 +156,7 @@ export default {
       if (window.eruda && window.eruda._isInit) return
       const script = document.createElement('script')
       script.src = "https://cdn.jsdelivr.net/npm/eruda"
+      script.crossOrigin = "anonymous"
       document.body.appendChild(script)
       script.onload = () => {
         if (typeof eruda !== 'undefined' && !eruda._isInit) {
