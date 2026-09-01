@@ -2,6 +2,7 @@
 <p align="center">
 
 [简体中文](https://github.com/wisebreeze/cv/blob/web/README.zh.md) · **English**
+<br>
 [![GitHub Stars](https://img.shields.io/github/stars/wisebreeze/cv?logo=github)](https://github.com/wisebreeze/cv)
 [![Vue](https://img.shields.io/badge/Vue-3-42b883?logo=vuedotjs&logoColor=fff)](https://vuejs.org/)
 [![Vite](https://img.shields.io/badge/Vite-8-646cff?logo=vite&logoColor=fff)](https://vite.dev/)

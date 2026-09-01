@@ -222,7 +222,13 @@
         initCompleted: "初期化完了",
         details: "進捗：{0}/{1}",
         progressSingle: "{0}% (トランスコード時間: {1} s)",
-        progressAll: "{0}%"
+        progressAll: "{0}%",
+        unsupported: "現在のブラウザは音声変換に必要な SharedArrayBuffer に対応していません。別のブラウザに切り替えるか、高速モードを有効にしてください",
+        cancel: "キャンセル",
+        cancelConfirmTitle: "音楽の追加をキャンセル",
+        cancelConfirmMessage: "変換が必要なこれらの音楽の追加をキャンセルしますか？",
+        cancelConfirmOk: "キャンセルする",
+        cancelConfirmCancel: "続行"
       }
     },
     panel: {

@@ -222,7 +222,13 @@
         initCompleted: "초기화 완료",
         details: "진행률: {0}/{1}",
         progressSingle: "{0}% (변환 시간: {1}초)",
-        progressAll: "{0}%"
+        progressAll: "{0}%",
+        unsupported: "현재 브라우저는 오디오 변환에 필요한 SharedArrayBuffer를 지원하지 않습니다. 다른 브라우저로 전환하거나 고속 모드를 활성화하세요",
+        cancel: "취소",
+        cancelConfirmTitle: "음악 추가 취소",
+        cancelConfirmMessage: "변환이 필요한 이 음악 추가를 취소하시겠습니까?",
+        cancelConfirmOk: "취소 확인",
+        cancelConfirmCancel: "계속"
       }
     },
     panel: {

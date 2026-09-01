@@ -222,7 +222,13 @@
         initCompleted: "初始化完成",
         details: "進度：{0}/{1}",
         progressSingle: "{0}% (轉碼時間: {1} s)",
-        progressAll: "{0}%"
+        progressAll: "{0}%",
+        unsupported: "當前瀏覽器不支援音訊轉碼所需的 SharedArrayBuffer，請更換瀏覽器或切換至極速模式",
+        cancel: "取消",
+        cancelConfirmTitle: "取消新增音樂",
+        cancelConfirmMessage: "確定要取消新增這些需要轉換的音樂嗎？",
+        cancelConfirmOk: "確定取消",
+        cancelConfirmCancel: "繼續轉換"
       }
     },
     panel: {

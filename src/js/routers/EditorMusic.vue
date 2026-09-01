@@ -298,6 +298,21 @@
           <div class="conversion-details">{{ fileConversion.details }}</div>
           <mdui-linear-progress mode="determinate" :value="fileConversion.progressTotal" />
         </div>
+        <div class="dialog-actions" slot="action">
+          <mdui-button variant="text" @click="requestCancelConvert">{{ t('editor.music.fileConversion.cancel') }}</mdui-button>
+        </div>
+      </mdui-dialog>
+
+      <!-- 取消转换确认弹窗 -->
+      <mdui-dialog :open="showCancelConvertDialog" @close="showCancelConvertDialog = false">
+        <h2 class="dialog-title">{{ t('editor.music.fileConversion.cancelConfirmTitle') }}</h2>
+        <div class="dialog-content">
+          <p>{{ t('editor.music.fileConversion.cancelConfirmMessage') }}</p>
+        </div>
+        <div class="dialog-actions">
+          <mdui-button variant="text" @click="showCancelConvertDialog = false">{{ t('editor.music.fileConversion.cancelConfirmCancel') }}</mdui-button>
+          <mdui-button variant="filled" @click="confirmCancelConvert">{{ t('editor.music.fileConversion.cancelConfirmOk') }}</mdui-button>
+        </div>
       </mdui-dialog>
 
       <!-- 移除封面弹窗 -->
@@ -453,8 +468,10 @@ const fileConversion = ref({
   isReady: false,
   progressText: '',
   progressCurrent: 0,
-  progressTotal: 0
+  progressTotal: 0,
+  cancelled: false
 })
+const showCancelConvertDialog = ref(false)
 
 const repairSettings = obj => {
   if (!obj) obj = {}
@@ -1363,6 +1380,11 @@ const handleBatchAddFilesChange = async e => {
 // 格式转换
 const initFFmpeg = async () => {
   if (!fileConversion.value.isReady) {
+    if (typeof SharedArrayBuffer === 'undefined') {
+      fileConversion.value.dialog = true
+      fileConversion.value.progressText = t('editor.music.fileConversion.unsupported')
+      return false
+    }
     fileConversion.value.dialog = true
     fileConversion.value.progressText = t('editor.music.fileConversion.init')
     try {
@@ -1375,19 +1397,66 @@ const initFFmpeg = async () => {
       fileConversion.value.progressText = t('editor.music.fileConversion.initCompleted')
     } catch (e) {
       fileConversion.value.progressText = t('editor.music.fileConversion.error') + e
+      return false
     }
   }
+  return true
 }
+
+const requestCancelConvert = () => {
+  showCancelConvertDialog.value = true
+}
+
+const confirmCancelConvert = () => {
+  fileConversion.value.cancelled = true
+  showCancelConvertDialog.value = false
+}
+
+const removeConvertedSongs = async (files) => {
+  const idsToRemove = new Set(files.map(f => f.id).filter(Boolean))
+  if (idsToRemove.size === 0) return
+
+  // Remove from currentAlbum.songs
+  currentAlbum.value.songs = currentAlbum.value.songs.filter(s => !idsToRemove.has(s.id))
+
+  // Remove from settings and sounds
+  let settings = await fs.value.read('ui/_setting.json')
+  let sounds = await fs.value.read('sounds/sound_definitions.json')
+  if (!sounds) sounds = {}
+  const albumKey = currentAlbum.value.id + "Album@cn80b37451.f"
+  if (settings && settings[albumKey]?.$listContent) {
+    settings[albumKey].$listContent = settings[albumKey].$listContent.filter(songObj => {
+      const key = Object.keys(songObj)[0]
+      const songId = key.replace('@cn80b37451.m', '')
+      return !idsToRemove.has(songId)
+    })
+  }
+  idsToRemove.forEach(id => {
+    delete sounds['cube.song.' + id]
+    if (sounds['cube.music.' + currentAlbum.value.id]?.sounds) {
+      sounds['cube.music.' + currentAlbum.value.id].sounds = sounds['cube.music.' + currentAlbum.value.id].sounds.filter(s => !s.name.endsWith('/' + id))
+    }
+    try { fs.value.remove('sounds/album/' + currentAlbum.value.id + '/' + id + '.ogg') } catch {}
+  })
+  await fs.value.write('ui/_setting.json', settings)
+  await fs.value.write('sounds/sound_definitions.json', sounds)
+}
+
 const batchConvertFile = async files => {
   if (!files) return
-  await initFFmpeg()
+  if (!(await initFFmpeg())) return
 
+  fileConversion.value.cancelled = false
   fileConversion.value.dialog = true
   fileConversion.value.details = t('editor.music.fileConversion.details', [0, files.length])
   fileConversion.value.progressCurrent = 0
   fileConversion.value.progressTotal = 0
 
+  // Collect all non-ogg files upfront for potential cancellation cleanup
+  const nonOggFiles = Array.from(files).filter(f => f.fileName && !f.fileName.endsWith('.ogg'))
+
   for (const [index, file] of Array.from(files).entries()) {
+    if (fileConversion.value.cancelled) break
     if (file.fileName.endsWith('.ogg')) {
       fileConversion.value.details = t('editor.music.fileConversion.details', [index + 1, files.length])
       fileConversion.value.progressTotal = (index + 1) / files.length
@@ -1410,8 +1479,10 @@ const batchConvertFile = async files => {
       fileConversion.value.progressTotal = (index + 1) / files.length
 
       const details = currentAlbum.value.songs[file.index]
-      details.file = data
-      details.fileName = details.fileName.substring(0, details.fileName.lastIndexOf('.')) + '.ogg'
+      if (details) {
+        details.file = data
+        details.fileName = details.fileName.substring(0, details.fileName.lastIndexOf('.')) + '.ogg'
+      }
 
       await fs.value.write('sounds/album/'+currentAlbum.value.id+'/'+file.id+'.ogg', new Blob([data], { type: 'audio/ogg' }))
 
@@ -1422,19 +1493,26 @@ const batchConvertFile = async files => {
       console.error(t('editor.music.fileConversion.error') + e)
     }
   }
+
+  if (fileConversion.value.cancelled) {
+    await removeConvertedSongs(nonOggFiles)
+  }
+
   fileConversion.value.dialog = false
 }
 
 onMounted(async () => {
-  try {
-    await ffmpeg.load()
-    ffmpeg.on('progress', ({ progress, time }) => {
-      fileConversion.value.progressText = t('editor.music.fileConversion.progressSingle', [parseFloat((progress * 100).toFixed(2)), parseFloat((time / 1000000).toFixed(2))])
-      fileConversion.value.progressCurrent = parseFloat((progress * 100).toFixed(2)) / 100
-    })
-    fileConversion.value.isReady = true
-  } catch (e) {
-    console.log('Initialization failed:', e)
+  if (typeof SharedArrayBuffer !== 'undefined') {
+    try {
+      await ffmpeg.load()
+      ffmpeg.on('progress', ({ progress, time }) => {
+        fileConversion.value.progressText = t('editor.music.fileConversion.progressSingle', [parseFloat((progress * 100).toFixed(2)), parseFloat((time / 1000000).toFixed(2))])
+        fileConversion.value.progressCurrent = parseFloat((progress * 100).toFixed(2)) / 100
+      })
+      fileConversion.value.isReady = true
+    } catch (e) {
+      console.log('Initialization failed:', e)
+    }
   }
 
   try {

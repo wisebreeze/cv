@@ -225,7 +225,13 @@
         initCompleted: "Initialization complete",
         details: "Progress: {0}/{1}",
         progressSingle: "{0}% (Conversion time: {1} s)",
-        progressAll: "{0}%"
+        progressAll: "{0}%",
+        unsupported: "Your browser does not support SharedArrayBuffer, which is required for audio conversion. Please switch to another browser or enable speed mode.",
+        cancel: "Cancel",
+        cancelConfirmTitle: "Cancel adding music",
+        cancelConfirmMessage: "Are you sure you want to cancel adding these music files that need conversion?",
+        cancelConfirmOk: "Confirm cancel",
+        cancelConfirmCancel: "Continue"
       }
     },
     panel: {
