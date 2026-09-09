@@ -12,7 +12,11 @@ import App from './routers/App'
 import i18n from './i18n'
 import router from './routers/index'
 import * as mdui from 'mdui'
+import { defineCustomElements } from 'ionicons/loader'
+import './icons'
 window.mdui = mdui
+
+defineCustomElements(window)
 
 const app = createApp(App);
 app.use(i18n).use(router).mount('#app');

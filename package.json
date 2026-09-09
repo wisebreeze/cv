@@ -24,6 +24,7 @@
     "@ffmpeg/ffmpeg": "^0.12.15",
     "@ffmpeg/util": "^0.12.2",
     "front-matter": "^4.0.2",
+    "ionicons": "^8.1.0",
     "jszip": "^3.10.1",
     "marked": "^18.0.2",
     "mdui": "^2.1.4",
