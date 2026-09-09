@@ -10,6 +10,7 @@
       
       <mdui-card 
         class="faq-card"
+        clickable
         @click="router.push('/faq')"
       >
         <div class="faq-content">
