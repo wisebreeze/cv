@@ -16,3 +16,16 @@ window.mdui = mdui
 
 const app = createApp(App);
 app.use(i18n).use(router).mount('#app');
+
+// Prefetch all route chunks on idle so the first navigation to each route
+// is instant (chunks are already cached by the browser).
+// App.vue is excluded since it's already statically imported.
+const routeModules = import.meta.glob(['./routers/*.vue', '!./routers/App.vue'])
+const prefetchRoutes = () => {
+  Object.values(routeModules).forEach(load => load().catch(() => {}))
+}
+if ('requestIdleCallback' in window) {
+  requestIdleCallback(prefetchRoutes, { timeout: 4000 })
+} else {
+  setTimeout(prefetchRoutes, 2000)
+}
