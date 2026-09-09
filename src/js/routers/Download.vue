@@ -14,11 +14,13 @@
         @click="router.push('/faq')"
       >
         <div class="faq-content">
-          <div variant="title-large">{{ t('download.faqTitle') }}</div>
-          <div variant="body-medium" class="faq-desc">
-            {{ t('download.faqDesc') }}
-          </div>
           <ion-icon name="help-circle-outline" class="faq-icon"></ion-icon>
+          <div class="faq-text">
+            <div variant="title-large">{{ t('download.faqTitle') }}</div>
+            <div variant="body-medium" class="faq-desc">
+              {{ t('download.faqDesc') }}
+            </div>
+          </div>
         </div>
       </mdui-card>
       
@@ -203,22 +205,26 @@ const toggleExpand = (item) => {
   
   .faq-content {
     padding: 24px;
-    position: relative;
-    
-    .faq-desc {
-      color: var(--mdui-color-on-surface-variant);
-      margin-top: 8px;
-      opacity: 0.8;
-    }
-    
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
     .faq-icon {
-      position: absolute;
-      right: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 24px;
+      flex-shrink: 0;
+      font-size: 28px;
       color: rgb(var(--mdui-color-primary));
       opacity: 0.8;
+    }
+
+    .faq-text {
+      flex: 1;
+      min-width: 0;
+
+      .faq-desc {
+        color: var(--mdui-color-on-surface-variant);
+        margin-top: 8px;
+        opacity: 0.8;
+      }
     }
   }
 }
