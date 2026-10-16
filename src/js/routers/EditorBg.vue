@@ -835,7 +835,7 @@ onBeforeUnmount(() => {
 onMounted(async () => {
   if (await fs.value.exist("ui/_global_variables.json")) {
     const variables = await fs.value.read("ui/_global_variables.json")
-    bgData.live = variables.$cube_set_0a57c067 || false
+    bgData.live = variables.$cube_set_0a57c067 || variables.$cube_config_0a57c067 || false
   }
   if (await fs.value.exist("assets/cube/preview.txt")) {
     const video = await fs.value.read("assets/cube/preview.txt")

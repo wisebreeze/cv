@@ -487,10 +487,18 @@ const helpConfig = {
 const showHelpDialog = ref(false)
 const currentHelp = ref({ title: '', desc: '', images: [] })
 
-const getHelpConfig = (id) => helpConfig[id] || null
+const getHelpConfig = (id) => {
+  if (helpConfig[id]) return helpConfig[id]
+  // Support $cube_config_ prefix as an alias for $cube_set_
+  if (id && id.startsWith('$cube_config_')) {
+    const alias = id.replace('$cube_config_', '$cube_set_')
+    if (helpConfig[alias]) return helpConfig[alias]
+  }
+  return null
+}
 
 const openHelp = (id) => {
-  const config = helpConfig[id]
+  const config = getHelpConfig(id)
   if (!config) return
   currentHelp.value = config
   showHelpDialog.value = true
